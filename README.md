@@ -1,11 +1,14 @@
-## Privacy Friendly App Example
+## Privacy Friendly Training
 
-This application contains the basic design of a Privacy Friendly App without any other functionality. It includes a Navigation Drawer, examples for buttons, a help page and the about page. It further shows an example of the main menu for a Privacy Friendly Game App. This app belongs to the group of Privacy Friendly Apps developed by the Technische Universität Darmstadt. 
+This Android application supports the user during his/her circuit training session. It provides a choice of different routines, each containing different combinations of exercises. The app then guides the user through the  circuit training by showing which exercise to perform next and displaying a timer. Additionally, a history of completed training sessions and other statistics is provided.
+
+
+This app belongs to the group of Privacy Friendly Apps developed by the Technische Universität Darmstadt.
+
 
 ## Motivation
 
-This application has been developed to be used as a basis for a Privacy Friendly App. Privacy Friendly Apps are group of Android applications which are optimized regarding privacy. Further information can be found on secuso.org/pfa
-
+The Motivation of this project is to provide users with an application which supports their training sessions without advertisement or the demand of unnecessary permissions. Privacy Friendly Apps are a group of Android applications which are optimized regarding privacy. Further information can be found on secuso.org/pfa
 ## Download and more Information
 
 Further development requires Android Studio, we recommend to use at least version 2.1.2
@@ -41,8 +44,10 @@ App-Icon: <br />
 Markus Hau<br />
 
 Github-Users: <br />
-Yonjuni <br />
-Kamuno
+UdoWeberJR <br />
+Alexander Karakuz <br />
+Karola Marky <br />
+Peter Mayer
 
 
 
