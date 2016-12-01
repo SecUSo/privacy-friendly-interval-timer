@@ -77,8 +77,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="4dp"
-                android:layout_toEndOf="@+id/textFieldAuthorNames"
-                android:text="@string/about_author_contributors" />
+                android:text="@string/about_author_contributors"
+                android:layout_below="@+id/textFieldAuthorNames"
+                android:layout_centerHorizontal="true" />
 
         </RelativeLayout>
 
@@ -116,18 +117,18 @@
             android:text="@string/more_info" />
 
         <TextView
+            android:id="@+id/secusoURL"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:autoLink="web"
             android:text="@string/url"
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/githubURL"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:autoLink="web"
             android:gravity="center_horizontal"
             android:text="@string/github"
             android:textStyle="bold" />
