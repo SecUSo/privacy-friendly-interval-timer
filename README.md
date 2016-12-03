@@ -9,9 +9,10 @@ This app belongs to the group of Privacy Friendly Apps developed by the Technisc
 ## Motivation
 
 The Motivation of this project is to provide users with an application which supports their training sessions without advertisement or the demand of unnecessary permissions. Privacy Friendly Apps are a group of Android applications which are optimized regarding privacy. Further information can be found on secuso.org/pfa
+
 ## Download and more Information
 
-Further development requires Android Studio, we recommend to use at least version 2.1.2
+
  
 ### API Reference
 
@@ -20,8 +21,8 @@ Target SDK: 23
 
 ## License
 
-Privacy Friendly App Example is licensed under the GPLv3.
-Copyright (C) 2016  Karola Marky
+Privacy Friendly Training is licensed under the GPLv3.
+Copyright (C) 2016  Alexander Karakuz, Udo Weber
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -45,9 +46,9 @@ Markus Hau<br />
 
 Github-Users: <br />
 UdoWeberJR <br />
-Alexander Karakuz <br />
-Karola Marky <br />
-Peter Mayer
+alexkarakuz <br />
+Yonjuni <br />
+petermayer
 
 
 
