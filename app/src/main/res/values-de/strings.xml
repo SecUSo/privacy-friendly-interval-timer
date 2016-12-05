@@ -7,14 +7,16 @@
     <string name="action_about">Über</string>
     <string name="action_settings">Einstellungen</string>
     <string name="action_main">Hauptmenü</string>
-    <string name="action_game">Spiel</string>
+    <string name="action_exercises">Übungen</string>
+    <string name="action_statistics">Statistiken</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <!-- ###MAIN### -->
-    <string name="main_button_text">Button volle Breite</string>
-    <string name="main_button_disabled_text">Inaktiver Button</string>
+    <string name="workout_button_text">Training</string>
+    <string name="exercises_button_text">Übungen</string>
+    <string name="statistics_button_text">Statistiken</string>
     <string name="main_button_1">1</string>
     <string name="main_button_2">2</string>
     <string name="main_button_3">3</string>

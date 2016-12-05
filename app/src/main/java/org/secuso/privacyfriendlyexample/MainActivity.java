@@ -34,7 +34,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected int getNavigationDrawerID() {
-        return R.id.nav_example;
+        return R.id.nav_main;
     }
 
 
@@ -67,8 +67,14 @@ public class MainActivity extends BaseActivity {
 
     public void onClick(View view) {
         switch(view.getId()) {
-            // do something with all these buttons?
+            case R.id.workout_button:
+                break;
+            case R.id.exercises_button:
+                break;
+            case R.id.statistics_button:
+                break;
             default:
+                break;
         }
     }
 }

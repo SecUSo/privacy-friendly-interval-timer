@@ -133,7 +133,7 @@ public class BaseActivity extends AppCompatActivity implements OnNavigationItemS
         Intent intent;
 
         switch(itemId) {
-            case R.id.nav_example:
+            case R.id.nav_main:
                 intent = new Intent(this, MainActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
