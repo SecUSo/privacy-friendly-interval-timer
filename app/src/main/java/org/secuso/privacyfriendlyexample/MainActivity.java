@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.content.Intent;
 
 public class MainActivity extends BaseActivity {
 
@@ -66,15 +67,25 @@ public class MainActivity extends BaseActivity {
     }
 
     public void onClick(View view) {
+
+        Intent intent = null;
+
         switch(view.getId()) {
             case R.id.workout_button:
+                intent = new Intent(this, WorkoutActivity.class);
                 break;
             case R.id.exercises_button:
+                intent = new Intent(this, ExercisesActivity.class);
                 break;
             case R.id.statistics_button:
+                intent = new Intent(this, StatisticsActivity.class);
                 break;
             default:
                 break;
+        }
+
+        if (intent != null){
+            startActivity(intent);
         }
     }
 }

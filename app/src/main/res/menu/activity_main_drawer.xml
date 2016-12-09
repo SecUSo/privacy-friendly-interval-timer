@@ -8,7 +8,7 @@
             android:icon="@drawable/ic_menu_gallery"
             android:title="@string/action_main" />
         <item
-            android:id="@+id/nav_game"
+            android:id="@+id/nav_exercises"
             android:icon="@drawable/ic_menu_gallery"
             android:title="@string/action_exercises" />
         <item

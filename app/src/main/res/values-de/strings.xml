@@ -28,6 +28,17 @@
     <string name="main_text_normalbutton_desc">Es gibt verschiedene Möglichkeiten, um einfache Buttons darzustellen. Button 1 entspricht der Basisform. Wenn Buttons visual abgetrennt werden sollen, ist Button 2 zu verwenden. Die Buttons 3&#8211;5 sind Beispiels für hevorgehobene Buttons. Je nach App können auch andere Farben zum Highlighten verwendet werden.</string>
     <string name="main_button_welcomedialog_text">Der Button in der Ecke unten links öffnet einen Beispiel-Welcome Dialog.</string>
 
+    <!-- ###WORKOUT###-->
+    <string name="title_activity_workout">Trainingsarten</string>
+    <string name="workout_button_start">Starten</string>
+    <string name="workout_button_continue">Training fortsetzen</string>
+
+    <!--###Exercises###-->
+    <string name="title_activity_exercises">Übungen</string>
+
+    <!--###Statistics###-->
+    <string name="title_activity_statistics">Statistiken</string>
+
     <!-- ###GAME###-->
     <string name="title_activity_game">Spiel</string>
     <string name="game_button_start">Neues Spiel</string>

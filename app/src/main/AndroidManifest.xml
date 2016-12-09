@@ -58,6 +58,33 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.secuso.privacyfriendlyexample.MainActivity" />
         </activity>
+        <activity
+            android:name="org.secuso.privacyfriendlyexample.ExercisesActivity"
+            android:label="@string/title_activity_exercises"
+            android:parentActivityName="org.secuso.privacyfriendlyexample.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.secuso.privacyfriendlyexample.MainActivity" />
+        </activity>
+        <activity
+            android:name="org.secuso.privacyfriendlyexample.StatisticsActivity"
+            android:label="@string/title_activity_statistics"
+            android:parentActivityName="org.secuso.privacyfriendlyexample.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.secuso.privacyfriendlyexample.MainActivity" />
+        </activity>s
+        <activity
+            android:name="org.secuso.privacyfriendlyexample.WorkoutActivity"
+            android:label="@string/title_activity_workout"
+            android:parentActivityName="org.secuso.privacyfriendlyexample.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.secuso.privacyfriendlyexample.MainActivity" />
+        </activity>
     </application>
 
 </manifest>
