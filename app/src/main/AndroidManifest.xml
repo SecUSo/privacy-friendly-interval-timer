@@ -85,6 +85,24 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.secuso.privacyfriendlyexample.MainActivity" />
         </activity>
+        <activity
+            android:name=".ExerciseActivity"
+            android:label="@string/title_activity_exercise"
+            android:parentActivityName=".WorkoutActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.secuso.privacyfriendlyexample.WorkoutActivity" />
+        </activity>
+        <activity
+            android:name=".CircuitOverviewActivity"
+            android:label="@string/title_activity_circuit_overview"
+            android:parentActivityName=".WorkoutActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.secuso.privacyfriendlyexample.WorkoutActivity" />
+        </activity>
     </application>
 
 </manifest>

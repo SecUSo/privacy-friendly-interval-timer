@@ -28,15 +28,27 @@
     <string name="main_text_normalbutton_desc">There are multiple ways to display basic buttons. Button 1 is the basic button. If you wish to separate a button visually, use button 2. The buttons 3&#8211;5 are examples for highlighted buttons. Depending on the app other colors are possible.</string>
     <string name="main_button_welcomedialog_text">Use the button in the lower left corner to call the Welcome Dialog.</string>
 
+    <!-- ###CIRCUITS###-->
+    <string name="placeholder_circuit">Stamina Circuit</string>
+
     <!-- ###WORKOUT###-->
     <string name="title_activity_workout">Circuits</string>
-    <string name="workout_desc">Start</string>
-    <string name="workout_button_continue">Continue Workout</string>
+    <string name="circuit_start_button">Start</string>
 
-    <!--###Exercises###-->
+    <!--###EXERCISE###-->
     <string name="title_activity_exercises">Exercises</string>
+    <string name="exercise_pushups">Push Ups</string>
+    <string name="exercise_pushups_info">Some info for the exercise</string>
 
-    <!--###Statistics###-->
+    <!--###EXERCISES###-->
+    <string name="exercise_time">00:00</string>
+    <string name="pause_button_resume">Pause</string>
+    <string name="pause_button_pause">Continue</string>
+    <string name="exercise_timer_text_during">You can do it</string>
+    <string name="exercise_timer_text_after">Next Exercise</string>
+
+
+    <!--###STATISTICS###-->
     <string name="title_activity_statistics">Statistics</string>
 
     <!-- ###GAME###-->
@@ -83,5 +95,7 @@
     <string name="okay">Okay</string>
     <string name="viewhelp">View Help</string>
     <string name="main_button_welcomedialog">Show Welcome</string>
+    <string name="title_activity_exercise">ExerciseActivity</string>
+    <string name="title_activity_circuit_overview">CircuitOverviewActivity</string>
 
 </resources>

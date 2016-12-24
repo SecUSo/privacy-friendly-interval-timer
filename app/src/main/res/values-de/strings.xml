@@ -30,11 +30,20 @@
 
     <!-- ###WORKOUT###-->
     <string name="title_activity_workout">Trainingsarten</string>
-    <string name="workout_button_start">Starten</string>
-    <string name="workout_button_continue">Training fortsetzen</string>
+    <string name="circuit_start_button">Starten</string>
 
     <!--###Exercises###-->
     <string name="title_activity_exercises">Übungen</string>
+    <string name="exercise_pushups">Liegestütze</string>
+    <string name="exercise_pushups_info">Info Text zur Übung</string>
+
+
+    <!--###Exercise###-->
+    <string name="exercise_time">00:00</string>
+    <string name="pause_button_resume">Pause</string>
+    <string name="pause_button_pause">Fortsetzen</string>
+    <string name="exercise_timer_text_during">Du schaffst das</string>
+    <string name="exercise_timer_text_after">Nächste Übung</string>
 
     <!--###Statistics###-->
     <string name="title_activity_statistics">Statistiken</string>

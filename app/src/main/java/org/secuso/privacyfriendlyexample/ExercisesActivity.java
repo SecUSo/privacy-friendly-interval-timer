@@ -7,7 +7,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-
+/**
+ * This activity contains a list of all exercises which can be used to create a circuit
+ * training routine. The user can also add further new exercises.
+ */
 public class ExercisesActivity extends AppCompatActivity {
 
     @Override

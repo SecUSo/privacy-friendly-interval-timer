@@ -13,4 +13,18 @@
     tools:context="org.secuso.privacyfriendlyexample.WorkoutActivity"
     tools:showIn="@layout/activity_workout">
 
+    <Button
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:background="@drawable/button_normal"
+        android:textSize="25sp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:text="@string/placeholder_circuit"
+        android:textAllCaps="false"
+        android:id="@+id/placeholder_circuit"
+        android:onClick="onClick"/>
+
 </RelativeLayout>
