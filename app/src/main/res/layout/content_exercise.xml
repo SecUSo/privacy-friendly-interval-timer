@@ -41,7 +41,7 @@
         android:layout_centerHorizontal="true" />
 
     <TextView
-        android:text="@string/exercise_timer_text_during"
+        android:text="@string/pre_exercise_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/timerMessage"

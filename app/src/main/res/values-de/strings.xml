@@ -32,18 +32,18 @@
     <string name="title_activity_workout">Trainingsarten</string>
     <string name="circuit_start_button">Starten</string>
 
-    <!--###Exercises###-->
+    <!--###EXERCISES###-->
     <string name="title_activity_exercises">Übungen</string>
     <string name="exercise_pushups">Liegestütze</string>
     <string name="exercise_pushups_info">Info Text zur Übung</string>
+    <string name="exercise_timer_text_break">Ausruhen</string>
 
-
-    <!--###Exercise###-->
+    <!--###EXERCISE###-->
     <string name="exercise_time">00:00</string>
     <string name="pause_button_resume">Pause</string>
     <string name="pause_button_pause">Fortsetzen</string>
     <string name="exercise_timer_text_during">Du schaffst das</string>
-    <string name="exercise_timer_text_after">Nächste Übung</string>
+    <string name="pre_exercise_time">Übung beginnt in</string>
 
     <!--###Statistics###-->
     <string name="title_activity_statistics">Statistiken</string>

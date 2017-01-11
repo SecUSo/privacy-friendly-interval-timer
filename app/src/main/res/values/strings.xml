@@ -39,13 +39,14 @@
     <string name="title_activity_exercises">Exercises</string>
     <string name="exercise_pushups">Push Ups</string>
     <string name="exercise_pushups_info">Some info for the exercise</string>
+    <string name="pre_exercise_time">Exercise starts in</string>
 
     <!--###EXERCISES###-->
     <string name="exercise_time">00:00</string>
     <string name="pause_button_resume">Pause</string>
     <string name="pause_button_pause">Continue</string>
     <string name="exercise_timer_text_during">You can do it</string>
-    <string name="exercise_timer_text_after">Next Exercise</string>
+    <string name="exercise_timer_text_break">Rest</string>
 
 
     <!--###STATISTICS###-->
