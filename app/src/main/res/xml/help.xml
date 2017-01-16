@@ -6,22 +6,53 @@
         android:selectable="false"
         android:persistent="false"
         android:title=""
-        android:summary="@string/help_intro"/>
+        android:summary="@string/help_intro1"/>
+    <Preference
+            android:selectable="false"
+            android:persistent="false"
+            android:title=""
+            android:summary="@string/help_intro2"/>
+    <Preference
+            android:selectable="false"
+            android:persistent="false"
+            android:title=""
+            android:summary="@string/help_intro3"/>
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="@string/help_category_example">
-        <Preference android:title="@string/help_example"
+    <PreferenceCategory android:title="@string/help_category_function_header">
+        <Preference android:title="@string/help_function_sub1"
+            android:summary="@string/help_function_sub1_desc"
+            android:selectable="false"/>
+        <Preference android:title="@string/help_function_sub2"
+            android:summary="@string/pref_example_summary"
+            android:selectable="false"/>
+        <Preference android:title="@string/help_function_sub3"
+            android:summary="@string/pref_example_summary"
+            android:selectable="false"/>
+        <Preference android:title="@string/help_function_sub4"
+            android:summary="@string/pref_example_summary"
+            android:selectable="false"/>
+        <Preference android:title="@string/help_function_sub5"
+            android:summary="@string/pref_example_summary"
+            android:selectable="false"/>
+        <Preference android:title="@string/help_function_sub6"
             android:summary="@string/pref_example_summary"
             android:selectable="false"/>
     </PreferenceCategory>
 
+    <PreferenceCategory android:title="@string/help_settings_header">
+    <Preference
+        android:selectable="false"
+        android:persistent="false"
+        android:title=""
+        android:summary="@string/help_settings_text"/>
+    </PreferenceCategory>
     <PreferenceCategory android:title="@string/help_privacy_heading">
-        <Preference
-            android:summary="@string/help_permissionXY_description"
-            android:title="@string/help_permissionXY_heading" />
         <Preference
             android:summary="@string/help_permissions_description"
             android:title="@string/help_permissions_heading" />
+        <Preference
+            android:summary="@string/help_permissionXY_description"
+            android:title="@string/help_permissionXY_heading" />
     </PreferenceCategory>
-
 </PreferenceScreen>

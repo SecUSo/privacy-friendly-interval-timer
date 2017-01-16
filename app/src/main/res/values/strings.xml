@@ -58,18 +58,27 @@
     <string name="game_button_continue">Continue Game</string>
     <string name="game_desc">This is the default main menu for game apps. The viewpager above should be used to switch between game modes.</string>
 
-
     <!--###HELP###-->
     <string name="help">Help</string>
     <string name="help_overview_heading">Overview</string>
-    <string name="help_example">Example Help Entry</string>
-    <string name="help_category_example">Example Help Category</string>
+    <string name="help_category_function_header">How it works</string>
+    <string name="help_function_sub1">Circuit training</string>
+    <string name="help_function_sub1_desc">1. Inside the main menu, choose \'Workout\'.\n2. Choose a circuit exercise you would like to do.\n3. Read the description of this circuit exercise and press \'Start\' when ready.\n4. Follow the workout instructions of the app. You can pause the workout anytime by pressing the \'Pause\' button at the bottom of the screen.</string>
+    <string name="help_function_sub2">Add circuit</string>
+    <string name="help_function_sub3">Edit circuit</string>
+    <string name="help_function_sub4">Add exercise</string>
+    <string name="help_function_sub5">Edit exercise</string>
+    <string name="help_function_sub6">Activate/deactivate statistics</string>
+    <string name="help_settings_header">Settings</string>
+    <string name="help_settings_text">Description of the settings...</string>
     <string name="help_privacy_heading">Privacy Info</string>
     <string name="help_permissionXY_heading">Permission XY</string>
     <string name="help_permissionXY_description">is needed because &#8230; If XY is not granted feature YZ is not usable.</string>
     <string name="help_permissions_heading">Permissions</string>
     <string name="help_permissions_description">Privacy Friendly Example does not use any permissions.</string>
-    <string name="help_intro">This app shows the basic design of Privacy Friendly Apps. The functionality of the app should be introduced with 1 to 2 sentences in this section.</string>
+    <string name="help_intro1">This app guides you through a circuit training of your choice. An exercise \'circuit\' is one completion of multiple prescribed exercises. Different forms of exercise circuits target different workout goals such as strength, stamina, flexibility or agility.</string>
+    <string name="help_intro2">This app provides a choice of different exercise circuits, each containing different combinations of exercises. The app then guides you through the circuit workout by showing which exercise to perform next and by displaying a timer. You can also add additional exercises and circuits to this app.</string>
+    <string name="help_intro3">The category \'statistics\' shows the history of completed workout sessions and calories burned.</string>
 
     <!--###ABOUT###-->
     <string name="about">About</string>

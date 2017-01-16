@@ -57,14 +57,25 @@
     <!--###HELP###-->
     <string name="help">Hilfe</string>
     <string name="help_overview_heading">Übersicht</string>
-    <string name="help_example">Beispiel Hilfe-Eintrag</string>
-    <string name="help_category_example">Beispiel Hilfe-Kategorie</string>
+    <string name="help_category_function_header">Wie funktioniert es</string>
+    <string name="help_function_sub1">Zirkeltraining</string>
+    <string name="help_function_sub1_desc">1. Wählen Sie im Hauptmenü \'Training\' aus.\n2. Wählen Sie die gewünschte Zirkeltrainigsart.\n3. Lesen Sie die Beschreibung des Zirkeltrainigs und drücken sie \'Starten\'\n4. Folgen Sie den Trainingsanweisungen der App. Sie können das Training mit dem \'Pause\'-Knopf jederzeit pausieren.</string>
+    <string name="help_function_sub2">Zirkel hinzufügen</string>
+    <string name="help_function_sub3">Zirkel bearbeiten</string>
+    <string name="help_function_sub4">Übungen hinzufügen</string>
+    <string name="help_function_sub5">Übungen bearbeiten</string>
+    <string name="help_function_sub6">Statistiken aktivieren/deaktivieren</string>
+    <string name="help_settings_header">Einstellungen</string>
+    <string name="help_settings_text">Beschreibung der Einstellungen...</string>
     <string name="help_privacy_heading">Datenschutzinfo</string>
     <string name="help_permissionXY_heading">Berechtigung XY</string>
     <string name="help_permissionXY_description">wird benötigt um &#8230; Hier auch erklären, was passiert, wenn diese Berechtigung entzogen wird.</string>
     <string name="help_permissions_heading">Berechtigungen</string>
     <string name="help_permissions_description">Privacy Friendly Beispiel verwendet keine Berechtigungen. </string>
-    <string name="help_intro">Diese app demonstriert das Basis-Design einer Privacy Friendly App. Die Funktionalität der App sollte in 1 bis 2 Sätzen erklärt werden.</string>
+    <string name="help_intro1">Diese App soll Sie bei Ihrem Zirkeltraining unterstützten. Bei einem Zirkeltraining müssen verschiedene Übungen, in bestimmten Zeitintervalen, nacheinander absolviert werden. Je nach Art des Zirkeltrainings werden schwerpunktmäßig die Kraft, Ausdauer, Beweglichkeit oder Schnelligkeit trainiert.</string>
+    <string name="help_intro2">Diese App bietet eine Auswahl verschiedener solcher Zirkeltrainingsarten und begleitet Sie während des Trainings durch die Anzeige der jeweils auszuführenden Übung und einer Stoppuhr.\nSie können diese App jederzeit sowohl um weitere Zirkeltrainingsarten als auch um weitere Übungen erweitern.</string>
+    <string name="help_intro3">Unter der Kategorie Statistik können Sie Ihren bisherigen Trainingsverlauf samt verbrannter Kalorien einsehen.</string>
+
 
     <!--###ABOUT###-->
     <string name="about">Über</string>
