@@ -6,6 +6,8 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +19,15 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
 
         // Use the a button to display the welcome screen
         Button b = (Button) findViewById(R.id.button_welcomedialog);
@@ -71,14 +82,11 @@ public class MainActivity extends BaseActivity {
         Intent intent = null;
 
         switch(view.getId()) {
-            case R.id.workout_button:
-                intent = new Intent(this, WorkoutActivity.class);
+            case R.id.placeholder_circuit:
+                intent = new Intent(this, CircuitOverviewActivity.class);
                 break;
-            case R.id.exercises_button:
-                intent = new Intent(this, ExercisesActivity.class);
-                break;
-            case R.id.statistics_button:
-                intent = new Intent(this, StatisticsActivity.class);
+            case R.id.another_placeholder_circuit:
+                intent = new Intent(this, CircuitOverviewActivity.class);
                 break;
             default:
                 break;

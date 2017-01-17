@@ -59,7 +59,7 @@
     <string name="help_overview_heading">Übersicht</string>
     <string name="help_category_function_header">Wie funktioniert es</string>
     <string name="help_function_sub1">Zirkeltraining</string>
-    <string name="help_function_sub1_desc">1. Wählen Sie im Hauptmenü \'Training\' aus.\n2. Wählen Sie die gewünschte Zirkeltrainigsart.\n3. Lesen Sie die Beschreibung des Zirkeltrainigs und drücken sie \'Starten\'\n4. Folgen Sie den Trainingsanweisungen der App. Sie können das Training mit dem \'Pause\'-Knopf jederzeit pausieren.</string>
+    <string name="help_function_sub1_desc">1. Wählen Sie im Hauptmenü die gewünschte Zirkeltrainigsart.\n2. Lesen Sie die Beschreibung des Zirkeltrainigs und drücken sie \'Starten\'\n3. Folgen Sie den Trainingsanweisungen der App. Sie können das Training mit dem \'Pause\'-Knopf jederzeit pausieren.</string>
     <string name="help_function_sub2">Zirkel hinzufügen</string>
     <string name="help_function_sub3">Zirkel bearbeiten</string>
     <string name="help_function_sub4">Übungen hinzufügen</string>

@@ -63,7 +63,7 @@
     <string name="help_overview_heading">Overview</string>
     <string name="help_category_function_header">How it works</string>
     <string name="help_function_sub1">Circuit training</string>
-    <string name="help_function_sub1_desc">1. Inside the main menu, choose \'Workout\'.\n2. Choose a circuit exercise you would like to do.\n3. Read the description of this circuit exercise and press \'Start\' when ready.\n4. Follow the workout instructions of the app. You can pause the workout anytime by pressing the \'Pause\' button at the bottom of the screen.</string>
+    <string name="help_function_sub1_desc">1. Inside the main menu, choose a circuit exercise you would like to do.\n2. Read the description of this circuit exercise and press \'Start\' when ready.\n3. Follow the workout instructions of the app. You can pause the workout anytime by pressing the \'Pause\' button at the bottom of the screen.</string>
     <string name="help_function_sub2">Add circuit</string>
     <string name="help_function_sub3">Edit circuit</string>
     <string name="help_function_sub4">Add exercise</string>

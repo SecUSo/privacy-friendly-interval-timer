@@ -77,31 +77,22 @@
                 android:value="org.secuso.privacyfriendlyexample.MainActivity" />
         </activity>s
         <activity
-            android:name="org.secuso.privacyfriendlyexample.WorkoutActivity"
-            android:label="@string/title_activity_workout"
-            android:parentActivityName="org.secuso.privacyfriendlyexample.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.secuso.privacyfriendlyexample.MainActivity" />
-        </activity>
-        <activity
             android:name=".ExerciseActivity"
             android:label="@string/title_activity_exercise"
-            android:parentActivityName=".WorkoutActivity"
+            android:parentActivityName=".CircuitOverviewActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.secuso.privacyfriendlyexample.WorkoutActivity" />
+                android:value="org.secuso.privacyfriendlyexample.CircuitOverviewActivity" />
         </activity>
         <activity
             android:name=".CircuitOverviewActivity"
             android:label="@string/title_activity_circuit_overview"
-            android:parentActivityName=".WorkoutActivity"
+            android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.secuso.privacyfriendlyexample.WorkoutActivity" />
+                android:value="org.secuso.privacyfriendlyexample.MainActivity" />
         </activity>
     </application>
 
