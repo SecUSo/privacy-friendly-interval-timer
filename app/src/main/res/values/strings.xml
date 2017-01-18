@@ -9,7 +9,6 @@
     <string name="action_main">Main</string>
     <string name="action_exercises">Exercises</string>
     <string name="action_statistics">Statistics</string>
-
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
@@ -30,6 +29,8 @@
 
     <!-- ###CIRCUITS###-->
     <string name="placeholder_circuit">Stamina Circuit</string>
+    <string name="title_activity_exercise">ExerciseActivity</string>
+    <string name="title_activity_circuit_overview">CircuitOverviewActivity</string>
 
     <!-- ###WORKOUT###-->
     <string name="title_activity_workout">Circuits</string>
@@ -100,12 +101,17 @@
     <string name="pref_example_summary">Example Summary</string>
 
     <!-- ### WELCOME DIALOG ### -->
-    <string name="welcome_text">This App serves as a guideline to see the basic design of Privacy Friendly Apps. The sourcecode is available at GitHub. For further explanations have a look at the Privacy Friendly App Guide.\n\nThe welcome screen should introduce the app and the key elements of the start page.</string>
+    <string name="welcome_header">Welcome to Privacy Friendly Circuit Training</string>
+    <string name="welcome_sub_header1">Start the workout</string>
+    <string name="welcome_sub_text1">1. Choose a circuit exercise.\n2. Press \'Start\' to begin.\n3. Follow the workout instructions.\n4. You can pause the workout anytime by pressing the \'Pause\' button.</string>
+    <string name="welcome_sub_header2">Other functions</string>
+    <string name="welcome_sub_text2">Add Circuit or Exercise...</string>
+    <string name="welcome_sub_text3">Sort Circuits or Exercises...</string>
+    <string name="welcome_sub_text4">Delete Circuit or Exercise...</string>
+    <string name="welcome_note">Further in-depth explanation can be found under the menu item \'Help\'.</string>
     <string name="welcome">Welcome</string>
     <string name="okay">Okay</string>
     <string name="viewhelp">View Help</string>
     <string name="main_button_welcomedialog">Show Welcome</string>
-    <string name="title_activity_exercise">ExerciseActivity</string>
-    <string name="title_activity_circuit_overview">CircuitOverviewActivity</string>
 
 </resources>

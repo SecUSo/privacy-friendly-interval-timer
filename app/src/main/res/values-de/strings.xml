@@ -9,7 +9,6 @@
     <string name="action_main">Hauptmenü</string>
     <string name="action_exercises">Übungen</string>
     <string name="action_statistics">Statistiken</string>
-
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
@@ -94,8 +93,14 @@
     <string name="pref_example_summary">Beispiel Summary</string>
 
     <!-- ### WELCOME DIALOG ### -->
-    <string name="welcome_text">Diese App soll als Anleitung zum Design von Privacy Friendly Apps dienen. Ihr Quellcode ist auf GitHub verfügbar. Weitere Infos im Privacy Friendly App Guide. Im Welcome Dialog sollen Schlüsselfunktionalitäten der App vorgestellt werden.</string>
-    <string name="welcome">Willkommen</string>
+    <string name="welcome_header">Willkommen zum Privacy Friendly Zirkeltraining</string>
+    <string name="welcome_sub_header1">Training starten</string>
+    <string name="welcome_sub_text1">1. Wählen Sie die Zirkeltrainigsart.\n2. Drücken sie \'Starten\'.\n3. Folgen Sie den Trainingsanweisungen.\n4. Das Training kann mit dem \'Pause\'-Knopf jederzeit pausiert werden.</string>
+    <string name="welcome_sub_header2">Weitere Funktionen</string>
+    <string name="welcome_sub_text2">Zirkel oder Übungen hinzufügen...</string>
+    <string name="welcome_sub_text3">Zirkel oder Übungen sortieren...</string>
+    <string name="welcome_sub_text4">Zirkel oder Übungen Löschen...</string>
+    <string name="welcome_note">Weitere Erklärungen zur Nutzung der App finden Sie im Menüpunkt Hilfe.</string>    <string name="welcome">Willkommen</string>
     <string name="okay">Okay</string>
     <string name="viewhelp">Hilfe</string>
     <string name="main_button_welcomedialog">Willkommen</string>
