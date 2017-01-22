@@ -16,48 +16,29 @@
     <string name="workout_button_text">Workout</string>
     <string name="exercises_button_text">Exercises</string>
     <string name="statistics_button_text">Statistics</string>
-    <string name="main_button_1">1</string>
-    <string name="main_button_2">2</string>
-    <string name="main_button_3">3</string>
-    <string name="main_button_4">4</string>
-    <string name="main_button_5">5</string>
-    <string name="main_text_fullwithbutton_desc">A button that uses the full width of the screen looks like this:</string>
-    <string name="main_text_disabledbutton_desc">A disabled button looks like this (any size):</string>
-    <string name="main_text_title">This is an example app to demonstrate the design of a Privacy Friendly App. Further explanations can be found in the Privacy Friendly App Guide.</string>
-    <string name="main_text_normalbutton_desc">There are multiple ways to display basic buttons. Button 1 is the basic button. If you wish to separate a button visually, use button 2. The buttons 3&#8211;5 are examples for highlighted buttons. Depending on the app other colors are possible.</string>
-    <string name="main_button_welcomedialog_text">Use the button in the lower left corner to call the Welcome Dialog.</string>
-
-    <!-- ###CIRCUITS###-->
-    <string name="placeholder_circuit">Stamina Circuit</string>
-    <string name="title_activity_exercise">ExerciseActivity</string>
-    <string name="title_activity_circuit_overview">CircuitOverviewActivity</string>
 
     <!-- ###WORKOUT###-->
     <string name="title_activity_workout">Circuits</string>
     <string name="circuit_start_button">Start</string>
 
-    <!--###EXERCISE###-->
-    <string name="title_activity_exercises">Exercises</string>
-    <string name="exercise_pushups">Push Ups</string>
-    <string name="exercise_pushups_info">Some info for the exercise</string>
-    <string name="pre_exercise_time">Exercise starts in</string>
-
     <!--###EXERCISES###-->
     <string name="exercise_time">00:00</string>
+    <string name="title_activity_exercises">Exercises</string>
+    <string name="exercise_timer_text_break">Rest</string>
     <string name="pause_button_resume">Pause</string>
     <string name="pause_button_pause">Continue</string>
     <string name="exercise_timer_text_during">You can do it</string>
-    <string name="exercise_timer_text_break">Rest</string>
+    <string name="pre_exercise_time">Exercise starts in</string>
 
+    <!--###PLACEHOLDER UNTIL DESCRIPTIONS IS IMPLEMENTED###-->
+    <string name="exercise_pushups_info">Some info for the exercise</string>
+    <string name="exercise_pushups">Push Ups</string>
+    <string name="placeholder_circuit">Stamina Circuit</string>
+    <string name="title_activity_exercise">ExerciseActivity</string>
+    <string name="title_activity_circuit_overview">CircuitOverviewActivity</string>
 
     <!--###STATISTICS###-->
     <string name="title_activity_statistics">Statistics</string>
-
-    <!-- ###GAME###-->
-    <string name="title_activity_game">Game</string>
-    <string name="game_button_start">New Game</string>
-    <string name="game_button_continue">Continue Game</string>
-    <string name="game_desc">This is the default main menu for game apps. The viewpager above should be used to switch between game modes.</string>
 
     <!--###HELP###-->
     <string name="help">Help</string>

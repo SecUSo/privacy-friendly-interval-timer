@@ -50,7 +50,7 @@
         </activity>
         <activity
             android:name="org.secuso.privacyfriendlyexample.GameActivity"
-            android:label="@string/title_activity_game"
+            android:label=""
             android:parentActivityName="org.secuso.privacyfriendlyexample.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">

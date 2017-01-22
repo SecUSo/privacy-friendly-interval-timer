@@ -12,8 +12,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 public class MainActivity extends BaseActivity {
+    private SharedPreferences settings = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,16 +32,13 @@ public class MainActivity extends BaseActivity {
             }
         });
 
-        // Use the a button to display the welcome screen
-        Button b = (Button) findViewById(R.id.button_welcomedialog);
-        if(b != null) {
-            b.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    WelcomeDialog welcomeDialog = new WelcomeDialog();
-                    welcomeDialog.show(getFragmentManager(), "WelcomeDialog");
-                }
-            });
+        settings = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean isFirstAppStart = settings.getBoolean("firstAppStart", true);
+
+        if (isFirstAppStart) {
+            WelcomeDialog welcomeDialog = new WelcomeDialog();
+            welcomeDialog.show(getFragmentManager(), "WelcomeDialog");
+            settings.edit().putBoolean("firstAppStart", false).commit();
         }
 
         overridePendingTransition(0, 0);
