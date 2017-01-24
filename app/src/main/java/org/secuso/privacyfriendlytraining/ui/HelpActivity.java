@@ -1,8 +1,9 @@
-package org.secuso.privacyfriendlyexample;
+package org.secuso.privacyfriendlytraining.ui;
 
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
-import android.view.View;
+
+import org.secuso.privacyfriendlytraining.R;
 
 /**
  * Created by yonjuni on 17.06.16.

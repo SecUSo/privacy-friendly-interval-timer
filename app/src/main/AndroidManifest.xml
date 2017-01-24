@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.secuso.privacyfriendlyexample">
+    package="org.secuso.privacyfriendlytraining">
 
     <application
         android:allowBackup="true"
@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="org.secuso.privacyfriendlyexample.MainActivity"
+            android:name="org.secuso.privacyfriendlytraining.ui.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
@@ -20,79 +20,79 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="org.secuso.privacyfriendlyexample.AboutActivity"
+            android:name="org.secuso.privacyfriendlytraining.ui.AboutActivity"
             android:label="@string/about"
-            android:parentActivityName="org.secuso.privacyfriendlyexample.MainActivity"
+            android:parentActivityName="org.secuso.privacyfriendlytraining.ui.MainActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.secuso.privacyfriendlyexample.MainActivity" />
+                android:value="org.secuso.privacyfriendlytraining.ui.MainActivity" />
         </activity>
         <activity
-            android:name="org.secuso.privacyfriendlyexample.HelpActivity"
+            android:name="org.secuso.privacyfriendlytraining.ui.HelpActivity"
             android:label="@string/help"
-            android:parentActivityName="org.secuso.privacyfriendlyexample.MainActivity"
+            android:parentActivityName="org.secuso.privacyfriendlytraining.ui.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.secuso.privacyfriendlyexample.MainActivity" />
+                android:value="org.secuso.privacyfriendlytraining.ui.MainActivity" />
         </activity>
         <activity
-            android:name="org.secuso.privacyfriendlyexample.SettingsActivity"
+            android:name="org.secuso.privacyfriendlytraining.ui.SettingsActivity"
             android:label="@string/title_activity_settings"
-            android:parentActivityName="org.secuso.privacyfriendlyexample.MainActivity"
+            android:parentActivityName="org.secuso.privacyfriendlytraining.ui.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.secuso.privacyfriendlyexample.MainActivity" />
+                android:value="org.secuso.privacyfriendlytraining.ui.MainActivity" />
         </activity>
         <activity
-            android:name="org.secuso.privacyfriendlyexample.GameActivity"
+            android:name="org.secuso.privacyfriendlytraining.ui.GameActivity"
             android:label=""
-            android:parentActivityName="org.secuso.privacyfriendlyexample.MainActivity"
+            android:parentActivityName="org.secuso.privacyfriendlytraining.ui.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.secuso.privacyfriendlyexample.MainActivity" />
+                android:value="org.secuso.privacyfriendlytraining.ui.MainActivity" />
         </activity>
         <activity
-            android:name="org.secuso.privacyfriendlyexample.ExercisesActivity"
+            android:name="org.secuso.privacyfriendlytraining.ui.ExercisesActivity"
             android:label="@string/title_activity_exercises"
-            android:parentActivityName="org.secuso.privacyfriendlyexample.MainActivity"
+            android:parentActivityName="org.secuso.privacyfriendlytraining.ui.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.secuso.privacyfriendlyexample.MainActivity" />
+                android:value="org.secuso.privacyfriendlytraining.ui.MainActivity" />
         </activity>
         <activity
-            android:name="org.secuso.privacyfriendlyexample.StatisticsActivity"
+            android:name="org.secuso.privacyfriendlytraining.ui.StatisticsActivity"
             android:label="@string/title_activity_statistics"
-            android:parentActivityName="org.secuso.privacyfriendlyexample.MainActivity"
+            android:parentActivityName="org.secuso.privacyfriendlytraining.ui.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.secuso.privacyfriendlyexample.MainActivity" />
+                android:value="org.secuso.privacyfriendlytraining.ui.MainActivity" />
         </activity>s
         <activity
-            android:name=".ExerciseActivity"
+            android:name="org.secuso.privacyfriendlytraining.ui.ExerciseActivity"
             android:label="@string/title_activity_exercise"
-            android:parentActivityName=".CircuitOverviewActivity"
+            android:parentActivityName="org.secuso.privacyfriendlytraining.ui.CircuitOverviewActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.secuso.privacyfriendlyexample.CircuitOverviewActivity" />
+                android:value="org.secuso.privacyfriendlytraining.ui.CircuitOverviewActivity" />
         </activity>
         <activity
-            android:name=".CircuitOverviewActivity"
+            android:name="org.secuso.privacyfriendlytraining.ui.CircuitOverviewActivity"
             android:label="@string/title_activity_circuit_overview"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName="org.secuso.privacyfriendlytraining.ui.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.secuso.privacyfriendlyexample.MainActivity" />
+                android:value="org.secuso.privacyfriendlytraining.ui.MainActivity" />
         </activity>
     </application>
 

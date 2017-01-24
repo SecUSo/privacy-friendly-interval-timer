@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        tools:context="org.secuso.privacyfriendlyexample.HelpActivity">
+        tools:context="org.secuso.privacyfriendlytraining.ui.HelpActivity">
 
         <include layout="@layout/toolbar"/>
 
@@ -25,9 +25,9 @@
             android:fitsSystemWindows="true"
             android:layout_marginTop="?attr/actionBarSize"
             android:orientation="vertical"
-            tools:context=".HelpActivity"
+            tools:context="org.secuso.privacyfriendlytraining.ui.HelpActivity"
             android:weightSum="1">
-            <fragment android:name="org.secuso.privacyfriendlyexample.HelpActivity$HelpFragment"
+            <fragment android:name="org.secuso.privacyfriendlytraining.ui.HelpActivity$HelpFragment"
                 android:id="@+id/help_fragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>

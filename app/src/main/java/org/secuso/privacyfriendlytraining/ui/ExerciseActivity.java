@@ -1,15 +1,14 @@
-package org.secuso.privacyfriendlyexample;
+package org.secuso.privacyfriendlytraining.ui;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.widget.TextView;
 import android.os.CountDownTimer;
 import android.widget.ToggleButton;
 import android.widget.CompoundButton;
+
+import org.secuso.privacyfriendlytraining.R;
 
 /**
  * This activity represents an exercise during the circuit workout. A timer counts down
