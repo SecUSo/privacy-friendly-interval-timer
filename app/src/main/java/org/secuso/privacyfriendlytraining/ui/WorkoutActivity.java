@@ -7,6 +7,7 @@ import android.widget.TextView;
 import android.os.CountDownTimer;
 import android.widget.ToggleButton;
 import android.widget.CompoundButton;
+import android.view.WindowManager;
 
 import org.secuso.privacyfriendlytraining.R;
 
@@ -35,6 +36,10 @@ public class WorkoutActivity extends AppCompatActivity {
         setContentView(R.layout.activity_workout);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
+
+        //Update Information about the first exercise here
 
         CountDownTimer preTimer = new CircuitTimer(preExerciseTime, 1000, new PreExerciseFinish());
         preTimer.start();
@@ -129,9 +134,8 @@ public class WorkoutActivity extends AppCompatActivity {
 
         @Override
         public void performOnFinish() {
-            //1. Take first exercise from list
-            //2. Update description
-            //3. Start first exercise timer
+            //1. Update description
+            //2. Start first exercise timer
             textMessage.setText(R.string.exercise_timer_text_during);
             toggle.setEnabled(true);
             toggle.setBackgroundResource(R.drawable.button_fullwidth);
