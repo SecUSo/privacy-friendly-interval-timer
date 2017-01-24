@@ -10,8 +10,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="org.secuso.privacyfriendlytraining.ui.ExerciseActivity"
-    tools:showIn="@layout/activity_exercise">
+    tools:context="org.secuso.privacyfriendlytraining.ui.WorkoutActivity"
+    tools:showIn="@layout/activity_workout">
 
 
     <ToggleButton

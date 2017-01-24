@@ -17,7 +17,7 @@ import org.secuso.privacyfriendlytraining.R;
  *
  * TO DO: Remaining logic will be implemented once the exercises are finished
  */
-public class ExerciseActivity extends AppCompatActivity {
+public class WorkoutActivity extends AppCompatActivity {
 
     CircuitTimer timer = null;
     ToggleButton toggle = null;
@@ -32,7 +32,7 @@ public class ExerciseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_exercise);
+        setContentView(R.layout.activity_workout);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

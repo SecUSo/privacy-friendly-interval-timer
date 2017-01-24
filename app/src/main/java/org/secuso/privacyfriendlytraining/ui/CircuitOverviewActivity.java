@@ -31,7 +31,7 @@ public class CircuitOverviewActivity extends AppCompatActivity {
 
         switch(view.getId()) {
             case R.id.circuit_start_button:
-                intent = new Intent(this, ExerciseActivity.class);
+                intent = new Intent(this, WorkoutActivity.class);
                 break;
             default:
                 break;

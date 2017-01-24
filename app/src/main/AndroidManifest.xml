@@ -49,16 +49,6 @@
                 android:value="org.secuso.privacyfriendlytraining.ui.MainActivity" />
         </activity>
         <activity
-            android:name="org.secuso.privacyfriendlytraining.ui.GameActivity"
-            android:label=""
-            android:parentActivityName="org.secuso.privacyfriendlytraining.ui.MainActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.secuso.privacyfriendlytraining.ui.MainActivity" />
-        </activity>
-        <activity
             android:name="org.secuso.privacyfriendlytraining.ui.ExercisesActivity"
             android:label="@string/title_activity_exercises"
             android:parentActivityName="org.secuso.privacyfriendlytraining.ui.MainActivity"
@@ -77,7 +67,7 @@
                 android:value="org.secuso.privacyfriendlytraining.ui.MainActivity" />
         </activity>s
         <activity
-            android:name="org.secuso.privacyfriendlytraining.ui.ExerciseActivity"
+            android:name="org.secuso.privacyfriendlytraining.ui.WorkoutActivity"
             android:label="@string/title_activity_exercise"
             android:parentActivityName="org.secuso.privacyfriendlytraining.ui.CircuitOverviewActivity"
             android:theme="@style/AppTheme.NoActionBar">
