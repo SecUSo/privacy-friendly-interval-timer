@@ -20,6 +20,7 @@
     <!-- ###WORKOUT###-->
     <string name="title_activity_workout">Trainingsarten</string>
     <string name="circuit_start_button">Starten</string>
+    <string name="resume_your_workout">Setzen Sie Ihr Training fort!</string>
 
     <!--###EXERCISES###-->
     <string name="exercise_time">00:00</string>
@@ -51,10 +52,10 @@
     <string name="help_settings_header">Einstellungen</string>
     <string name="help_settings_text">Beschreibung der Einstellungen...</string>
     <string name="help_privacy_heading">Datenschutzinfo</string>
-    <string name="help_permissionXY_heading">Berechtigung XY</string>
-    <string name="help_permissionXY_description">wird benötigt um &#8230; Hier auch erklären, was passiert, wenn diese Berechtigung entzogen wird.</string>
+    <string name="help_permission_heading_vibration">Berechtigung Vibration</string>
+    <string name="help_permission_description_vibration">wird für einen Countdown während des Trainings benötigt. Wenn die Berechtigung nicht erteilt wird, erfolgt während der letzten Sekunden einer Trainingseinheit keine Benachrichtigung durch Vibrationen.</string>
     <string name="help_permissions_heading">Berechtigungen</string>
-    <string name="help_permissions_description">Privacy Friendly Beispiel verwendet keine Berechtigungen. </string>
+    <string name="help_permissions_description">Privacy Friendly Training verwendet die folgenden Berechtigungen. </string>
     <string name="help_intro1">Diese App soll Sie bei Ihrem Zirkeltraining unterstützten. Bei einem Zirkeltraining müssen verschiedene Übungen, in bestimmten Zeitintervalen, nacheinander absolviert werden. Je nach Art des Zirkeltrainings werden schwerpunktmäßig die Kraft, Ausdauer, Beweglichkeit oder Schnelligkeit trainiert.</string>
     <string name="help_intro2">Diese App bietet eine Auswahl verschiedener solcher Zirkeltrainingsarten und begleitet Sie während des Trainings durch die Anzeige der jeweils auszuführenden Übung und einer Stoppuhr.\nSie können diese App jederzeit sowohl um weitere Zirkeltrainingsarten als auch um weitere Übungen erweitern.</string>
     <string name="help_intro3">Unter der Kategorie Statistik können Sie Ihren bisherigen Trainingsverlauf samt verbrannter Kalorien einsehen.</string>

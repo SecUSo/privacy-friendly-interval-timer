@@ -20,6 +20,7 @@
     <!-- ###WORKOUT###-->
     <string name="title_activity_workout">Circuits</string>
     <string name="circuit_start_button">Start</string>
+    <string name="resume_your_workout">Resume your workout</string>
 
     <!--###EXERCISES###-->
     <string name="exercise_time">00:00</string>
@@ -54,10 +55,10 @@
     <string name="help_settings_header">Settings</string>
     <string name="help_settings_text">Description of the settings...</string>
     <string name="help_privacy_heading">Privacy Info</string>
-    <string name="help_permissionXY_heading">Permission XY</string>
-    <string name="help_permissionXY_description">is needed because &#8230; If XY is not granted feature YZ is not usable.</string>
+    <string name="help_permission_heading_vibration">Permission Vibration</string>
+    <string name="help_permission_description_vibration">is needed for countdowns during an workout. If the permission is not granted, no vibration feedback will be given during the last seconds of an exercise.</string>
     <string name="help_permissions_heading">Permissions</string>
-    <string name="help_permissions_description">Privacy Friendly Example does not use any permissions.</string>
+    <string name="help_permissions_description">Privacy Friendly Training uses the following permissions.</string>
     <string name="help_intro1">This app guides you through a circuit training of your choice. An exercise \'circuit\' is one completion of multiple prescribed exercises. Different forms of exercise circuits target different workout goals such as strength, stamina, flexibility or agility.</string>
     <string name="help_intro2">This app provides a choice of different exercise circuits, each containing different combinations of exercises. The app then guides you through the circuit workout by showing which exercise to perform next and by displaying a timer. You can also add additional exercises and circuits to this app.</string>
     <string name="help_intro3">The category \'statistics\' shows the history of completed workout sessions and calories burned.</string>
