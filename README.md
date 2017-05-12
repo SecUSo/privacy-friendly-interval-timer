@@ -1,6 +1,6 @@
 ## Privacy Friendly Training
 
-This Android application supports the user during his/her circuit training session. It provides a configurable set of timers for the exercises and the rest phases. The app can remind the user of planned training sessions and offers statistics such as the time spend training or calories burnt.
+This Android application supports the user during his/her circuit training session. It provides a configurable set of timers for the exercises and the rest phases. The app can remind the user about planned training sessions and offers statistics such as the time spend training or calories burnt.
 
 
 This app belongs to the group of Privacy Friendly Apps developed by the Technische Universität Darmstadt.
