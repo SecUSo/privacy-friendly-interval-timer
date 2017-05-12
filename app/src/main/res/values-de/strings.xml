@@ -1,68 +1,52 @@
 <resources>
-    <string name="app_name">Zirkeltraining</string>
-    <string name="app_name_long">Privacy Friendly Training</string>
+    <string name="app_name">Beispiel</string>
+    <string name="app_name_long">Privacy Friendly Beispiel</string>
 
     <!-- ###DRAWER###-->
     <string name="action_help">Hilfe</string>
     <string name="action_about">Über</string>
     <string name="action_settings">Einstellungen</string>
     <string name="action_main">Hauptmenü</string>
-    <string name="action_exercises">Übungen</string>
-    <string name="action_statistics">Statistiken</string>
+    <string name="action_game">Spiel</string>
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <!-- ###MAIN### -->
-    <string name="workout_button_text">Training</string>
-    <string name="exercises_button_text">Übungen</string>
-    <string name="statistics_button_text">Statistiken</string>
+    <string name="main_button_text">Button volle Breite</string>
+    <string name="main_button_disabled_text">Inaktiver Button</string>
+    <string name="main_button_1">1</string>
+    <string name="main_button_2">2</string>
+    <string name="main_button_3">3</string>
+    <string name="main_button_4">4</string>
+    <string name="main_button_5">5</string>
+    <string name="main_text_fullwithbutton_desc">Ein Button mit voller breite sieht folgendermaßen aus:</string>
+    <string name="main_text_disabledbutton_desc">Ein inaktiver Button sieht folgendermaßen aus (jede Größe):</string>
+    <string name="main_text_title">Das hier ist eine Beispiel-App zum das Design der Privacy Friendly Apps zu demonstrieren. Weitere Infos gibt es im Privacy Friendly App Guide.</string>
+    <string name="main_text_normalbutton_desc">Es gibt verschiedene Möglichkeiten, um einfache Buttons darzustellen. Button 1 entspricht der Basisform. Wenn Buttons visual abgetrennt werden sollen, ist Button 2 zu verwenden. Die Buttons 3&#8211;5 sind Beispiels für hevorgehobene Buttons. Je nach App können auch andere Farben zum Highlighten verwendet werden.</string>
+    <string name="main_button_welcomedialog_text">Der Button in der Ecke unten links öffnet einen Beispiel-Welcome Dialog.</string>
 
-    <!-- ###WORKOUT###-->
-    <string name="title_activity_workout">Trainingsarten</string>
-    <string name="circuit_start_button">Starten</string>
-    <string name="resume_your_workout">Setzen Sie Ihr Training fort!</string>
-
-    <!--###EXERCISES###-->
-    <string name="exercise_time">00:00</string>
-    <string name="title_activity_exercises">Übungen</string>
-    <string name="exercise_timer_text_break">Ausruhen</string>
-    <string name="pause_button_resume">Pause</string>
-    <string name="pause_button_pause">Fortsetzen</string>
-    <string name="exercise_timer_text_during">Du schaffst das</string>
-    <string name="pre_exercise_time">Übung beginnt in</string>
-
-    <!--###PLACEHOLDER UNTIL DESCRIPTION IS IMPLEMENTED###-->
-    <string name="exercise_pushups_info">Info Text zur Übung</string>
-    <string name="exercise_pushups">Liegestütze</string>
-
-    <!--###Statistics###-->
-    <string name="title_activity_statistics">Statistiken</string>
+    <!-- ###GAME###-->
+    <string name="title_activity_game">Spiel</string>
+    <string name="game_button_start">Neues Spiel</string>
+    <string name="game_button_continue">Spiel fortsetzen</string>
+    <string name="game_desc">Dies ist das Standard-Menü für Spiele-Apps. Der Viewpager oben sollte verwendet werden, um zwischen verschiedenen Spielmodi zu wechseln.</string>
 
     <!--###HELP###-->
-    <string name="help">Hilfe</string>
-    <string name="help_overview_heading">Übersicht</string>
-    <string name="help_category_function_header">Wie funktioniert es</string>
-    <string name="help_function_sub1">Zirkeltraining</string>
-    <string name="help_function_sub1_desc">1. Wählen Sie im Hauptmenü die gewünschte Zirkeltrainigsart.\n2. Lesen Sie die Beschreibung des Zirkeltrainigs und drücken sie \'Starten\'\n3. Folgen Sie den Trainingsanweisungen der App. Sie können das Training mit dem \'Pause\'-Knopf jederzeit pausieren.</string>
-    <string name="help_function_sub2">Zirkel hinzufügen</string>
-    <string name="help_function_sub3">Zirkel bearbeiten</string>
-    <string name="help_function_sub4">Übungen hinzufügen</string>
-    <string name="help_function_sub5">Übungen bearbeiten</string>
-    <string name="help_function_sub6">Statistiken aktivieren/deaktivieren</string>
-    <string name="help_settings_header">Einstellungen</string>
-    <string name="help_settings_text">Beschreibung der Einstellungen...</string>
-    <string name="help_privacy_heading">Datenschutzinfo</string>
-    <string name="help_permission_heading_vibration">Berechtigung Vibration</string>
-    <string name="help_permission_description_vibration">wird für einen Countdown während des Trainings benötigt. Wenn die Berechtigung nicht erteilt wird, erfolgt während der letzten Sekunden einer Trainingseinheit keine Benachrichtigung durch Vibrationen.</string>
-    <string name="help_permissions_heading">Berechtigungen</string>
-    <string name="help_permissions_description">Privacy Friendly Training verwendet die folgenden Berechtigungen. </string>
-    <string name="help_intro1">Diese App soll Sie bei Ihrem Zirkeltraining unterstützten. Bei einem Zirkeltraining müssen verschiedene Übungen, in bestimmten Zeitintervalen, nacheinander absolviert werden. Je nach Art des Zirkeltrainings werden schwerpunktmäßig die Kraft, Ausdauer, Beweglichkeit oder Schnelligkeit trainiert.</string>
-    <string name="help_intro2">Diese App bietet eine Auswahl verschiedener solcher Zirkeltrainingsarten und begleitet Sie während des Trainings durch die Anzeige der jeweils auszuführenden Übung und einer Stoppuhr.\nSie können diese App jederzeit sowohl um weitere Zirkeltrainingsarten als auch um weitere Übungen erweitern.</string>
-    <string name="help_intro3">Unter der Kategorie Statistik können Sie Ihren bisherigen Trainingsverlauf samt verbrannter Kalorien einsehen.</string>
+    <string name="help">Help</string>
+
+    <string name="help_whatis">Was ist Privacy Friendly Beispiel?</string>
+    <string name="help_whatis_answer">Privacy Friendly Beispiel zeigt das Standard-Design einer Privacy Friendly App.</string>
+    <string name="help_feature_one">Feature 1</string>
+    <string name="help_feature_one_answer">Beschreibung vom 1. Feature.</string>
+    <string name="help_privacy">Was macht die App privatsphäre-freundlich?</string>
+    <string name="help_privacy_answer">Erklären welche Mechanismen verwendet wurden.</string>
+    <string name="help_permission">Welche Berechtigungen braucht die App?</string>
+    <string name="help_permission_answer">Privacy Friendly Beispiel benötigt keine Berechtigungen.</string>
 
     <!--###ABOUT###-->
     <string name="about">Über</string>
-    <string name="version_number">Version 1.0</string>
+    <string name="version_number">Version</string>
     <string name="about_author">Autoren: </string>
     <string name="about_author_contributors">und Mitwirkende.</string>
     <string name="about_affiliation">In Zusammenarbeit mit</string>
@@ -77,16 +61,21 @@
     <string name="pref_example_summary">Beispiel Summary</string>
 
     <!-- ### WELCOME DIALOG ### -->
-    <string name="welcome_header">Willkommen zum Privacy Friendly Zirkeltraining</string>
-    <string name="welcome_sub_header1">Training starten</string>
-    <string name="welcome_sub_text1">1. Wählen Sie die Zirkeltrainigsart.\n2. Drücken sie \'Starten\'.\n3. Folgen Sie den Trainingsanweisungen.\n4. Das Training kann mit dem \'Pause\'-Knopf jederzeit pausiert werden.</string>
-    <string name="welcome_sub_header2">Weitere Funktionen</string>
-    <string name="welcome_sub_text2">Zirkel oder Übungen hinzufügen...</string>
-    <string name="welcome_sub_text3">Zirkel oder Übungen sortieren...</string>
-    <string name="welcome_sub_text4">Zirkel oder Übungen Löschen...</string>
-    <string name="welcome_note">Weitere Erklärungen zur Nutzung der App finden Sie im Menüpunkt Hilfe.</string>    <string name="welcome">Willkommen</string>
     <string name="okay">Okay</string>
     <string name="viewhelp">Hilfe</string>
     <string name="main_button_welcomedialog">Willkommen</string>
+
+    <!-- ### TUTORIAL DIALOG ### -->
+    <string name="slide1_heading">Willkommen!</string>
+    <string name="slide1_text">Diese App soll als Anleitung zum Design von Privacy Friendly Apps dienen. Hier wird die App in ein bis zwei Sätzen vorgestellt.</string>
+
+    <string name="slide2_heading">Schlüsselelements</string>
+    <string name="slide2_text">Hier können Schlüsselelemente vorgestellt werden. Achtung: Nicht zu detailliert werden.</string>
+
+    <string name="slide3_heading">Github und Guide</string>
+    <string name="slide3_text">Der Quellcode dieser App ist auf GitHub. Weitere Infos gibt es im Privacy Friendly App Guide.</string>
+
+    <string name="next">Weiter</string>
+    <string name="skip">Überspringen</string>
 
 </resources>

@@ -1,78 +1,65 @@
 <resources>
-    <string name="app_name">Circuit Training</string>
-    <string name="app_name_long">Privacy Friendly Training</string>
+    <string name="app_name">Example</string>
+    <string name="app_name_long">Privacy Friendly Example</string>
+    <string name="app_prefix" translatable="false">Privacy Friendly</string>
 
     <!-- ###DRAWER###-->
     <string name="action_help">Help</string>
     <string name="action_about">About</string>
     <string name="action_settings">Settings</string>
     <string name="action_main">Main</string>
-    <string name="action_exercises">Exercises</string>
-    <string name="action_statistics">Statistics</string>
+    <string name="action_game">Game</string>
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <!-- ###MAIN### -->
-    <string name="workout_button_text">Workout</string>
-    <string name="exercises_button_text">Exercises</string>
-    <string name="statistics_button_text">Statistics</string>
+    <string name="main_button_text">Full Width Button</string>
+    <string name="main_button_disabled_text">Inactive Button</string>
+    <string name="main_button_1">1</string>
+    <string name="main_button_2">2</string>
+    <string name="main_button_3">3</string>
+    <string name="main_button_4">4</string>
+    <string name="main_button_5">5</string>
+    <string name="main_text_fullwithbutton_desc">A button that uses the full width of the screen looks like this:</string>
+    <string name="main_text_disabledbutton_desc">A disabled button looks like this (any size):</string>
+    <string name="main_text_title">This is an example app to demonstrate the design of a Privacy Friendly App. Further explanations can be found in the Privacy Friendly App Guide.</string>
+    <string name="main_text_normalbutton_desc">There are multiple ways to display basic buttons. Button 1 is the basic button. If you wish to separate a button visually, use button 2. The buttons 3&#8211;5 are examples for highlighted buttons. Depending on the app other colors are possible.</string>
+    <string name="main_button_welcomedialog_text">Use the button in the lower left corner to call the Welcome Dialog.</string>
 
-    <!-- ###WORKOUT###-->
-    <string name="title_activity_workout">Circuits</string>
-    <string name="circuit_start_button">Start</string>
-    <string name="resume_your_workout">Resume your workout</string>
-
-    <!--###EXERCISES###-->
-    <string name="exercise_time">00:00</string>
-    <string name="title_activity_exercises">Exercises</string>
-    <string name="exercise_timer_text_break">Rest</string>
-    <string name="pause_button_resume">Pause</string>
-    <string name="pause_button_pause">Continue</string>
-    <string name="exercise_timer_text_during">You can do it</string>
-    <string name="pre_exercise_time">Exercise starts in</string>
-
-    <!--###PLACEHOLDER UNTIL DESCRIPTIONS IS IMPLEMENTED###-->
-    <string name="exercise_pushups_info">Some info for the exercise</string>
-    <string name="exercise_pushups">Push Ups</string>
-    <string name="placeholder_circuit">Stamina Circuit</string>
-    <string name="title_activity_exercise">ExerciseActivity</string>
-    <string name="title_activity_circuit_overview">CircuitOverviewActivity</string>
-
-    <!--###STATISTICS###-->
-    <string name="title_activity_statistics">Statistics</string>
+    <!-- ###GAME###-->
+    <string name="title_activity_game">Game</string>
+    <string name="game_button_start">New Game</string>
+    <string name="game_button_continue">Continue Game</string>
+    <string name="game_desc">This is the default main menu for game apps. The viewpager above should be used to switch between game modes.</string>
 
     <!--###HELP###-->
     <string name="help">Help</string>
-    <string name="help_overview_heading">Overview</string>
-    <string name="help_category_function_header">How it works</string>
-    <string name="help_function_sub1">Circuit training</string>
-    <string name="help_function_sub1_desc">1. Inside the main menu, choose a circuit exercise you would like to do.\n2. Read the description of this circuit exercise and press \'Start\' when ready.\n3. Follow the workout instructions of the app. You can pause the workout anytime by pressing the \'Pause\' button at the bottom of the screen.</string>
-    <string name="help_function_sub2">Add circuit</string>
-    <string name="help_function_sub3">Edit circuit</string>
-    <string name="help_function_sub4">Add exercise</string>
-    <string name="help_function_sub5">Edit exercise</string>
-    <string name="help_function_sub6">Activate/deactivate statistics</string>
-    <string name="help_settings_header">Settings</string>
-    <string name="help_settings_text">Description of the settings...</string>
-    <string name="help_privacy_heading">Privacy Info</string>
-    <string name="help_permission_heading_vibration">Permission Vibration</string>
-    <string name="help_permission_description_vibration">is needed for countdowns during an workout. If the permission is not granted, no vibration feedback will be given during the last seconds of an exercise.</string>
-    <string name="help_permissions_heading">Permissions</string>
-    <string name="help_permissions_description">Privacy Friendly Training uses the following permissions.</string>
-    <string name="help_intro1">This app guides you through a circuit training of your choice. An exercise \'circuit\' is one completion of multiple prescribed exercises. Different forms of exercise circuits target different workout goals such as strength, stamina, flexibility or agility.</string>
-    <string name="help_intro2">This app provides a choice of different exercise circuits, each containing different combinations of exercises. The app then guides you through the circuit workout by showing which exercise to perform next and by displaying a timer. You can also add additional exercises and circuits to this app.</string>
-    <string name="help_intro3">The category \'statistics\' shows the history of completed workout sessions and calories burned.</string>
+
+    <string name="help_whatis">What is Privacy Friendly App Example?</string>
+    <string name="help_whatis_answer">Privacy Friendly App Example is an app that demonstrates the design of a Privacy Friendly App.</string>
+    <string name="help_feature_one">Feature 1</string>
+    <string name="help_feature_one_answer">Description of first feature.
+Lorem ipsum dolor sit amet, eu ius alia fierent indoctum, ad pri sale tation. Elit dictas sit an, ad volumus urbanitas duo. Ei clita iracundia mel, eum et laoreet pertinax abhorreant. Nonumy suavitate dignissim quo id, ius audire prodesset adipiscing ei, altera saperet his et. Nostrud pertinax eu has, qui munere complectitur an.
+
+Ne albucius perfecto adolescens eum, id choro assueverit mea, sed viris constituto ex. Per soleat impedit delicatissimi cu. Inermis volumus his ea, id quo praesent eloquentiam conclusionemque. Dolores mediocrem ad sit, ex cibo evertitur cotidieque eos.
+
+    </string>
+    <string name="help_privacy">What makes the app privacy-friendly?</string>
+    <string name="help_privacy_answer">Privacy Friendly App Example does not require any permission. It further does not include any tracking mechanisms or advertisement.</string>
+    <string name="help_permission">Which permissions requires the app?</string>
+    <string name="help_permission_answer">Privacy Friendly App Example does not require any permission.</string>
 
     <!--###ABOUT###-->
     <string name="about">About</string>
-    <string name="version_number">Version 1.0</string>
+    <string name="version_number">Version</string>
     <string name="about_author">Authors: </string>
-    <string name="about_author_names" translatable="false">Udo Weber, Alexander Karakuz, Karola Marky</string>
+    <string name="about_author_names" translatable="false">Karola Marky</string>
     <string name="about_author_contributors">and contributors.</string>
     <string name="about_affiliation">In affiliation with</string>
     <string name="privacy_friendly">This application belongs to the group of Privacy Friendly Apps developed by Technische Universität Darmstadt. Sourcecode licensed under GPLv3. Images copyright TU Darmstadt and Google Inc.</string>
     <string name="more_info">More information can be found on:</string>
-    <string name="github" translatable="false"><a href="https://github.com/SecUSo/privacy-friendly-training">Github-Repo</a></string>
+    <string name="github" translatable="false"><a href="https://github.com/SecUSo/privacy-friendly-app-example">Github-Repo</a></string>
     <string name="url" translatable="false"><a href="https://www.secuso.org/pfa">SECUSO-Website</a></string>
 
     <!-- ###SETTINGS### -->
@@ -82,18 +69,20 @@
     <string name="pref_example_switch_summary">Example Switch Summary</string>
     <string name="pref_example_summary">Example Summary</string>
 
-    <!-- ### WELCOME DIALOG ### -->
-    <string name="welcome_header">Welcome to Privacy Friendly Circuit Training</string>
-    <string name="welcome_sub_header1">Start the workout</string>
-    <string name="welcome_sub_text1">1. Choose a circuit exercise.\n2. Press \'Start\' to begin.\n3. Follow the workout instructions.\n4. You can pause the workout anytime by pressing the \'Pause\' button.</string>
-    <string name="welcome_sub_header2">Other functions</string>
-    <string name="welcome_sub_text2">Add Circuit or Exercise...</string>
-    <string name="welcome_sub_text3">Sort Circuits or Exercises...</string>
-    <string name="welcome_sub_text4">Delete Circuit or Exercise...</string>
-    <string name="welcome_note">Further in-depth explanation can be found under the menu item \'Help\'.</string>
-    <string name="welcome">Welcome</string>
+    <!-- ### TUTORIAL DIALOG ### -->
+    <string name="slide1_heading">Welcome!</string>
+    <string name="slide1_text">This App serves as a guideline to see the basic design of Privacy Friendly Apps. Here introduce your app in one or two sentences.</string>
+
+    <string name="slide2_heading">Key Elements</string>
+    <string name="slide2_text">Introduce key elements of your app. Do not introduce too many details.</string>
+
+    <string name="slide3_heading">Github and Guide</string>
+    <string name="slide3_text">The sourcecode of this app is available at GitHub. For further explanations have a look at the Privacy Friendly App Guide.</string>
+
     <string name="okay">Okay</string>
     <string name="viewhelp">View Help</string>
     <string name="main_button_welcomedialog">Show Welcome</string>
+    <string name="next">Next</string>
+    <string name="skip">Skip</string>
 
 </resources>

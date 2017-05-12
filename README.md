@@ -1,14 +1,13 @@
 ## Privacy Friendly Training
 
-This Android application supports the user during his/her circuit training session. It provides a choice of different routines, each containing different combinations of exercises. The app then guides the user through the  circuit training by showing which exercise to perform next and displaying a timer. Additionally, a history of completed training sessions and other statistics is provided.
+This Android application supports the user during his/her circuit training session. It provides a configurable set of timers for the exercises and the rest phases. The app can remind the user of planned training sessions and offers statistics such as the time spend training or calories burnt.
 
 
 This app belongs to the group of Privacy Friendly Apps developed by the Technische Universität Darmstadt.
 
-
 ## Motivation
 
-The Motivation of this project is to provide users with an application which supports their training sessions without advertisement or the demand of unnecessary permissions. Privacy Friendly Apps are a group of Android applications which are optimized regarding privacy. Further information can be found on secuso.org/pfa
+The motivation of this project is to provide users with an application which supports their training sessions without advertisement or the demand of unnecessary permissions. Privacy Friendly Apps are a group of Android applications which are optimized regarding privacy. Further information can be found on secuso.org/pfa
 
 ## Download and more Information
 
@@ -17,12 +16,12 @@ The Motivation of this project is to provide users with an application which sup
 ### API Reference
 
 Mininum SDK: 17
-Target SDK: 23 
+Target SDK: 24 
 
 ## License
 
 Privacy Friendly Training is licensed under the GPLv3.
-Copyright (C) 2016  Alexander Karakuz, Udo Weber
+Copyright (C) 2017  Alexander Karakuz, Karola Marky
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -45,10 +44,9 @@ App-Icon: <br />
 Markus Hau<br />
 
 Github-Users: <br />
-UdoWeberJR <br />
-alexkarakuz <br />
-Yonjuni <br />
-petermayer
+alexkarakuz
+Yonjuni (Karola Marky)<br />
+Kamuno
 
 
 
