@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import org.secuso.privacyfriendlytraining.R;
 import org.secuso.privacyfriendlytraining.tutorial.PrefManager;
@@ -11,10 +12,34 @@ import org.secuso.privacyfriendlytraining.tutorial.TutorialActivity;
 
 public class MainActivity extends BaseActivity {
 
+    private int workoutTime;
+    private int restTime;
+    private int sets;
+
+    private TextView workoutIntervalText;
+    private TextView restIntervalText;
+    private TextView setsText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        //Default values for  the workout configuration
+        workoutTime = 80;
+        restTime = 20;
+        sets = 5;
+
+
+        this.workoutIntervalText = (TextView) this.findViewById(R.id.main_workout_interval_time);
+        this.restIntervalText = (TextView) this.findViewById(R.id.main_rest_interval_time);
+        this.setsText = (TextView) this.findViewById(R.id.main_sets_amount);
+
+        this.workoutIntervalText.setText(formatTime(workoutTime));
+        this.restIntervalText.setText(formatTime(restTime));
+        this.setsText.setText(Integer.toString(sets));
+
 
 //        PFASQLiteHelper database = new PFASQLiteHelper(getBaseContext());
 //        database.addSampleData(new PFASampleDataType(0, "eins.de", "hugo1", 11));
@@ -87,10 +112,52 @@ public class MainActivity extends BaseActivity {
 //        }
 //    }
 
+
+    //Intervals
+    //http://www.dtb-online.de/portal/verband/service-fuer-mitglieder/ratgeber-gesundheit/funktionelles-zirkeltraining.html
+    //http://www.sportunterricht.de/lksport/circuitkraft.html
+    //Added additional 15 seconds to rest and 30 seconds to exercise for user convenience
+    //Usual maximum of sets is 12 but I added additional 4 just in case
     public void onClick(View view) {
         switch(view.getId()) {
-            // do something with all these buttons?
+            case R.id.main_workout_interval_minus:
+                this.workoutTime = (workoutTime <= 10) ? 90 : this.workoutTime - 10;
+                this.workoutIntervalText.setText(formatTime(workoutTime));
+                break;
+            case R.id.main_workout_interval_plus:
+                this.workoutTime = (workoutTime >= 90) ? 10 : this.workoutTime + 10;
+                this.workoutIntervalText.setText(formatTime(workoutTime));
+                break;
+            case R.id.main_rest_interval_minus:
+                this.restTime = (restTime <= 0) ? 60 : this.restTime - 10;
+                this.restIntervalText.setText(formatTime(restTime));
+                break;
+            case R.id.main_rest_interval_plus:
+                this.restTime = (restTime >= 60) ? 0 : this.restTime + 10;
+                this.restIntervalText.setText(formatTime(restTime));
+                break;
+            case R.id.main_sets_minus:
+                this.sets = (sets <= 1) ? 1 : this.sets - 1;
+                this.setsText.setText(Integer.toString(sets));
+                break;
+            case R.id.main_sets_plus:
+                this.sets = (sets >= 16) ? 1 : this.sets + 1;
+                this.setsText.setText(Integer.toString(sets));
+                break;
             default:
         }
     }
+
+    //Helper methods
+    private String formatTime(int seconds){
+        int min = seconds/60;
+        int sec = seconds%60;
+
+        String time = String.format("%02d : %02d", min,sec);
+
+        return time;
+    }
+
+
+
 }
