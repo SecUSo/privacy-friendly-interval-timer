@@ -12,13 +12,15 @@ import org.secuso.privacyfriendlytraining.tutorial.TutorialActivity;
 
 public class MainActivity extends BaseActivity {
 
-    private int workoutTime;
-    private int restTime;
+    private long workoutTime;
+    private long restTime;
     private int sets;
 
     private TextView workoutIntervalText;
     private TextView restIntervalText;
     private TextView setsText;
+
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +29,7 @@ public class MainActivity extends BaseActivity {
 
 
         //Default values for  the workout configuration
-        workoutTime = 80;
+        workoutTime = 10;
         restTime = 20;
         sets = 5;
 
@@ -137,27 +139,31 @@ public class MainActivity extends BaseActivity {
                 this.restIntervalText.setText(formatTime(restTime));
                 break;
             case R.id.main_sets_minus:
-                this.sets = (sets <= 1) ? 1 : this.sets - 1;
+                this.sets = (sets <= 1) ? 16 : this.sets - 1;
                 this.setsText.setText(Integer.toString(sets));
                 break;
             case R.id.main_sets_plus:
                 this.sets = (sets >= 16) ? 1 : this.sets + 1;
                 this.setsText.setText(Integer.toString(sets));
                 break;
+            case R.id.start_workout:
+                intent = new Intent(this, WorkoutActivity.class);
+                intent.putExtra("workoutTime", this.workoutTime);
+                intent.putExtra("restTime", this.restTime);
+                intent.putExtra("sets", this.sets);
+                this.startActivity(intent);
+                break;
             default:
         }
     }
 
     //Helper methods
-    private String formatTime(int seconds){
-        int min = seconds/60;
-        int sec = seconds%60;
+    private String formatTime(long seconds){
+        long min = seconds/60;
+        long sec = seconds%60;
 
         String time = String.format("%02d : %02d", min,sec);
 
         return time;
     }
-
-
-
 }

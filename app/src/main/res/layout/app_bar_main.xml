@@ -43,12 +43,13 @@
             android:textStyle="bold|italic" />
 
         <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab"
+            android:id="@+id/start_workout"
             android:layout_width="69dp"
             android:layout_height="68dp"
             android:layout_gravity="bottom|end"
             android:layout_margin="@dimen/fab_margin"
             android:background="@drawable/button_fullwidth"
+            android:onClick="onClick"
             android:src="@drawable/ic_media_embed_play"
             app:backgroundTint="@color/colorPrimary" />
 

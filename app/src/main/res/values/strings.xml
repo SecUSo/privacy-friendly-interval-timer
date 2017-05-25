@@ -31,7 +31,12 @@
     <string name="main_text_normalbutton_desc">There are multiple ways to display basic buttons. Button 1 is the basic button. If you wish to separate a button visually, use button 2. The buttons 3&#8211;5 are examples for highlighted buttons. Depending on the app other colors are possible.</string>
     <string name="main_button_welcomedialog_text">Use the button in the lower left corner to call the Welcome Dialog.</string>
 
-    <!-- ###GAME###-->
+    <!-- ###WORKOUT###-->
+    <string name="workout_headline_workout">WORKOUT</string>
+    <string name="workout_headline_done">DONE</string>
+    <string name="workout_headline_rest">REST</string>
+    <string name="workout_info">Set</string>
+
     <string name="title_activity_game">Game</string>
     <string name="game_button_start">New Game</string>
     <string name="game_button_continue">Continue Game</string>
@@ -88,5 +93,6 @@ Ne albucius perfecto adolescens eum, id choro assueverit mea, sed viris constitu
     <string name="main_button_welcomedialog">Show Welcome</string>
     <string name="next">Next</string>
     <string name="skip">Skip</string>
+    <string name="title_activity_workout">WorkoutActivity</string>
 
 </resources>

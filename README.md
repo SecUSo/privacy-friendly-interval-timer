@@ -44,10 +44,7 @@ App-Icon: <br />
 Markus Hau<br />
 
 Github-Users: <br />
-alexkarakuz
+alexkarakuz <br />
 Yonjuni (Karola Marky)<br />
 Kamuno
-
-
-
 
