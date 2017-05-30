@@ -32,6 +32,7 @@
     <string name="main_button_welcomedialog_text">Use the button in the lower left corner to call the Welcome Dialog.</string>
 
     <!-- ###WORKOUT###-->
+    <string name="workout_headline_start_timer">START IN</string>
     <string name="workout_headline_workout">WORKOUT</string>
     <string name="workout_headline_done">DONE</string>
     <string name="workout_headline_rest">REST</string>
@@ -78,6 +79,9 @@ Ne albucius perfecto adolescens eum, id choro assueverit mea, sed viris constitu
     <string name="pref_example_switch_summary">Example Switch Summary</string>
     <string name="pref_keep_screen_on_switch">Keep Screen On</string>
     <string name="pref_keep_screen_on_switch_summary">The Screen remains turned on during the workout.</string>
+    <string name="pref_start_timer_switch">Start timer</string>
+    <string name="pref_start_timer_switch_summary">A start timer is shown before the workout begins.</string>
+
     <string name="pref_example_summary">Example Summary</string>
 
     <!-- ### TUTORIAL DIALOG ### -->

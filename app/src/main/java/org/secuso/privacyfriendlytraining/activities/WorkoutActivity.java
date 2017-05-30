@@ -30,6 +30,7 @@ public class WorkoutActivity extends AppCompatActivity {
     private TextView currentSetsInfo = null;
 
     // Time values
+    private final long startTime = 10;
     private long workoutTime = 0;
     private long restTime = 0;
     private int sets = 0;
@@ -61,6 +62,7 @@ public class WorkoutActivity extends AppCompatActivity {
         if(settings != null && settings.getBoolean("pref_keep_screen_on_switch",true)) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         }
+
 
         final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_pause_resume);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -94,7 +96,14 @@ public class WorkoutActivity extends AppCompatActivity {
             TimerService.LocalBinder binder = (TimerService.LocalBinder) service;
             timerService = binder.getService();
             serviceBound = true;
-            timerService.startWorkout(workoutTime*1000, restTime*1000, sets);
+
+            if (settings != null && settings.getBoolean("pref_start_timer_switch", true)) {
+                timerService.startWorkout(workoutTime, restTime, startTime, sets);
+
+            }
+            else {
+                timerService.startWorkout(workoutTime, restTime, 0, sets);
+            }
         }
 
         @Override
@@ -111,8 +120,8 @@ public class WorkoutActivity extends AppCompatActivity {
                 int seconds = intent.getIntExtra("countdown_seconds", 0);
                 workoutTimer.setText(Integer.toString(seconds));
             }
-            if (intent.getStringExtra("timer_finished") != null) {
-                String message = intent.getStringExtra("timer_finished");
+            if (intent.getStringExtra("new_timer_starts") != null) {
+                String message = intent.getStringExtra("new_timer_starts");
                 workoutTitle.setText(message);
             }
             if (intent.getIntExtra("current_set", 0) != 0) {

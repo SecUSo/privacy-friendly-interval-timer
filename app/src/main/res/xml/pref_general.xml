@@ -11,6 +11,13 @@
             android:defaultValue="true"/>
 
         <SwitchPreference
+            android:id="@+id/pref_start_timer_switch"
+            android:key="pref_start_timer_switch"
+            android:title="@string/pref_start_timer_switch"
+            android:summary="@string/pref_start_timer_switch"
+            android:defaultValue="true"/>
+
+        <SwitchPreference
             android:id="@+id/pref_example_switch"
             android:key="pref_example_switch"
             android:title="@string/pref_example_switch"

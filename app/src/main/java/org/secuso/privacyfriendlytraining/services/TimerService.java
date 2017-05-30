@@ -31,6 +31,7 @@ public class TimerService extends Service {
     /**
      * Values for workout and rest time and sets to perform
      */
+    private long startTime = 0;
     private long workoutTime = 0;
     private long restTime = 0;
     private int sets = 0;
@@ -90,7 +91,7 @@ public class TimerService extends Service {
                 currentSet += 1;
                 if(currentSet <= sets){
                     Intent broadcast = new Intent(COUNTDOWN_BROADCAST)
-                            .putExtra("timer_finished", getResources().getString(R.string.workout_headline_rest));
+                            .putExtra("new_timer_starts", getResources().getString(R.string.workout_headline_rest));
                     sendBroadcast(broadcast);
                     isWorkout = false;
                     restTimer = createRestTimer(restTime);
@@ -98,7 +99,7 @@ public class TimerService extends Service {
                 }
                 else {
                     Intent broadcast = new Intent(COUNTDOWN_BROADCAST)
-                            .putExtra("timer_finished", getResources().getString(R.string.workout_headline_done));
+                            .putExtra("new_timer_starts", getResources().getString(R.string.workout_headline_done));
                     sendBroadcast(broadcast);
                 }
 
@@ -122,7 +123,7 @@ public class TimerService extends Service {
             @Override
             public void onFinish() {
                 Intent broadcast = new Intent(COUNTDOWN_BROADCAST)
-                        .putExtra("timer_finished", getResources().getString(R.string.workout_headline_workout))
+                        .putExtra("new_timer_starts", getResources().getString(R.string.workout_headline_workout))
                         .putExtra("current_set", currentSet);
                 sendBroadcast(broadcast);
                 isWorkout = true;
@@ -133,15 +134,27 @@ public class TimerService extends Service {
     }
 
     /** method for clients */
-    public void startWorkout(long workoutTime, long restTime, int sets) {
-        this.workoutTime = workoutTime;
-        this.restTime = workoutTime;
+    public void startWorkout(long workoutTime, long restTime, long startTime, int sets) {
+        this.startTime = startTime*1000;
+        this.workoutTime = workoutTime * 1000;
+        this.restTime = restTime * 1000;
         this.sets = sets;
 
-        this.workoutTimer = createWorkoutTimer(workoutTime);
-        this.restTimer = createRestTimer(restTime);
-        isWorkout = true;
-        this.workoutTimer.start();
+        this.workoutTimer = createWorkoutTimer(this.workoutTime);
+        this.restTimer = createRestTimer(this.startTime);
+
+        //Use rest timer as a start timer before the workout begins
+        if(startTime != 0){
+            Intent broadcast = new Intent(COUNTDOWN_BROADCAST)
+                .putExtra("new_timer_starts", getResources().getString(R.string.workout_headline_start_timer));
+            sendBroadcast(broadcast);
+
+            isWorkout = false;
+            restTimer.start();
+        } else {
+            isWorkout = true;
+            this.workoutTimer.start();
+        }
     }
 
     public void pauseTimer() {
@@ -172,7 +185,7 @@ public class TimerService extends Service {
 
             if(currentSet <= sets){
                 Intent broadcast = new Intent(COUNTDOWN_BROADCAST)
-                        .putExtra("timer_finished", getResources().getString(R.string.workout_headline_rest));
+                        .putExtra("new_timer_starts", getResources().getString(R.string.workout_headline_rest));
                 sendBroadcast(broadcast);
                 isWorkout = false;
                 restTimer = createRestTimer(restTime);
@@ -180,7 +193,7 @@ public class TimerService extends Service {
             }
             else {
                 Intent broadcast = new Intent(COUNTDOWN_BROADCAST)
-                        .putExtra("timer_finished", getResources().getString(R.string.workout_headline_done));
+                        .putExtra("new_timer_starts", getResources().getString(R.string.workout_headline_done));
                 sendBroadcast(broadcast);
             }
         }
@@ -188,7 +201,7 @@ public class TimerService extends Service {
             this.restTimer.cancel();
 
             Intent broadcast = new Intent(COUNTDOWN_BROADCAST)
-                    .putExtra("timer_finished", getResources().getString(R.string.workout_headline_workout))
+                    .putExtra("new_timer_starts", getResources().getString(R.string.workout_headline_workout))
                     .putExtra("current_set", currentSet);
             sendBroadcast(broadcast);
             isWorkout = true;
@@ -204,14 +217,14 @@ public class TimerService extends Service {
 
             if (currentSet <= sets) {
                 Intent broadcast = new Intent(COUNTDOWN_BROADCAST)
-                        .putExtra("timer_finished", getResources().getString(R.string.workout_headline_rest));
+                        .putExtra("new_timer_starts", getResources().getString(R.string.workout_headline_rest));
                 sendBroadcast(broadcast);
                 isWorkout = false;
                 restTimer = createRestTimer(restTime);
                 restTimer.start();
             } else {
                 Intent broadcast = new Intent(COUNTDOWN_BROADCAST)
-                        .putExtra("timer_finished", getResources().getString(R.string.workout_headline_done));
+                        .putExtra("new_timer_starts", getResources().getString(R.string.workout_headline_done));
                 sendBroadcast(broadcast);
             }
         } else if (currentSet >= 2) {
@@ -219,14 +232,14 @@ public class TimerService extends Service {
             this.currentSet -= 1;
 
             Intent broadcast = new Intent(COUNTDOWN_BROADCAST)
-                    .putExtra("timer_finished", getResources().getString(R.string.workout_headline_workout))
+                    .putExtra("new_timer_starts", getResources().getString(R.string.workout_headline_workout))
                     .putExtra("current_set", currentSet);
             sendBroadcast(broadcast);
             isWorkout = true;
             workoutTimer = createWorkoutTimer(workoutTime);
             workoutTimer.start();
         }
-        else {
+        else if(isWorkout) {
             this.workoutTimer.cancel();
             workoutTimer = createWorkoutTimer(workoutTime);
             workoutTimer.start();

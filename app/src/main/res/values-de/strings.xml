@@ -31,8 +31,9 @@
     <string name="main_button_welcomedialog_text">Der Button in der Ecke unten links öffnet einen Beispiel-Welcome Dialog.</string>
 
     <!-- ###WORKOUT###-->
-    <string name="workout_headline_workout">WORKOUT</string>
-    <string name="workout_headline_rest">REST</string>
+    <string name="workout_headline_start_timer">START IN</string>
+    <string name="workout_headline_workout">TRAINING</string>
+    <string name="workout_headline_rest">RUHEPAUSE</string>
     <string name="workout_headline_done">FERTIG</string>
     <string name="workout_info">Satz</string>
 
@@ -70,6 +71,8 @@
     <string name="pref_example_switch_summary">Beispiel Switch Summary</string>
     <string name="pref_keep_screen_on_switch">Bildschirm bleibt an</string>
     <string name="pref_keep_screen_on_switch_summary">Der Bildschrim bleibt während des Trainings an.</string>
+    <string name="pref_start_timer_switch">Starttimer</string>
+    <string name="pref_start_timer_switch_summary">Vor dem Beginn des Trainings wird ein Starttimer angezeigt.</string>
     <string name="pref_example_summary">Beispiel Summary</string>
 
     <!-- ### WELCOME DIALOG ### -->
