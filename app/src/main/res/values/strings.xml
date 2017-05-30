@@ -76,6 +76,8 @@ Ne albucius perfecto adolescens eum, id choro assueverit mea, sed viris constitu
     <string name="pref_header_general">General</string>
     <string name="pref_example_switch">Example Switch</string>
     <string name="pref_example_switch_summary">Example Switch Summary</string>
+    <string name="pref_keep_screen_on_switch">Keep Screen On</string>
+    <string name="pref_keep_screen_on_switch_summary">The Screen remains turned on during the workout.</string>
     <string name="pref_example_summary">Example Summary</string>
 
     <!-- ### TUTORIAL DIALOG ### -->

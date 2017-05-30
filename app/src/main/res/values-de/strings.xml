@@ -68,6 +68,8 @@
     <string name="pref_header_general">Allgemein</string>
     <string name="pref_example_switch">Beispiel Switch</string>
     <string name="pref_example_switch_summary">Beispiel Switch Summary</string>
+    <string name="pref_keep_screen_on_switch">Bildschirm bleibt an</string>
+    <string name="pref_keep_screen_on_switch_summary">Der Bildschrim bleibt während des Trainings an.</string>
     <string name="pref_example_summary">Beispiel Summary</string>
 
     <!-- ### WELCOME DIALOG ### -->

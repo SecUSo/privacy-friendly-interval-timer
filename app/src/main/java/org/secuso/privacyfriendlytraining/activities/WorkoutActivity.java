@@ -5,12 +5,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import org.secuso.privacyfriendlytraining.R;
@@ -18,14 +21,20 @@ import org.secuso.privacyfriendlytraining.services.TimerService;
 
 public class WorkoutActivity extends AppCompatActivity {
 
+    // General
+    private SharedPreferences settings;
+
+    // Text
     private TextView workoutTimer = null;
     private TextView workoutTitle = null;
     private TextView currentSetsInfo = null;
 
+    // Time values
     private long workoutTime = 0;
     private long restTime = 0;
     private int sets = 0;
 
+    // Service variables
     private TimerService timerService = null;
     private boolean serviceBound = false;
     private final BroadcastReceiver timeReceiver = new BroadcastReceiver();
@@ -38,6 +47,8 @@ public class WorkoutActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        settings = PreferenceManager.getDefaultSharedPreferences(this);
+
         this.workoutTime =  getIntent().getExtras().getLong("workoutTime");
         this.restTime =  getIntent().getExtras().getLong("restTime");
         this.sets =  getIntent().getExtras().getInt("sets");
@@ -47,6 +58,9 @@ public class WorkoutActivity extends AppCompatActivity {
         this.currentSetsInfo = (TextView) this.findViewById(R.id.current_sets_info);
         this.currentSetsInfo.setText(getResources().getString(R.string.workout_info) + ": 1/"+sets);
 
+        if(settings != null && settings.getBoolean("pref_keep_screen_on_switch",true)) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        }
 
         final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_pause_resume);
         fab.setOnClickListener(new View.OnClickListener() {
