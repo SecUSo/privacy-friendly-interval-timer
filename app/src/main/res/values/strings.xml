@@ -37,11 +37,19 @@
     <string name="workout_headline_done">DONE</string>
     <string name="workout_headline_rest">REST</string>
     <string name="workout_info">Set</string>
+    <string name="workout_finished_info">You did it!</string>
 
     <string name="title_activity_game">Game</string>
     <string name="game_button_start">New Game</string>
     <string name="game_button_continue">Continue Game</string>
     <string name="game_desc">This is the default main menu for game apps. The viewpager above should be used to switch between game modes.</string>
+
+
+    <!-- ###NOTIFICATION###-->
+    <string name="notification_time">Time</string>
+    <string name="notification_pause">Pause</string>
+    <string name="notification_resume">Resume</string>
+
 
     <!--###HELP###-->
     <string name="help">Help</string>
@@ -99,6 +107,6 @@ Ne albucius perfecto adolescens eum, id choro assueverit mea, sed viris constitu
     <string name="main_button_welcomedialog">Show Welcome</string>
     <string name="next">Next</string>
     <string name="skip">Skip</string>
-    <string name="title_activity_workout">WorkoutActivity</string>
+    <string name="title_activity_workout">Workout</string>
 
 </resources>

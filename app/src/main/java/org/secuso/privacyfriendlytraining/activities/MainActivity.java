@@ -1,38 +1,56 @@
 package org.secuso.privacyfriendlytraining.activities;
 
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.IBinder;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import org.secuso.privacyfriendlytraining.R;
+import org.secuso.privacyfriendlytraining.services.TimerService;
 import org.secuso.privacyfriendlytraining.tutorial.PrefManager;
 import org.secuso.privacyfriendlytraining.tutorial.TutorialActivity;
 
+
 public class MainActivity extends BaseActivity {
 
-    private long workoutTime;
-    private long restTime;
-    private int sets;
+    // General
+    private SharedPreferences settings = null;
+    Intent intent = null;
 
-    private TextView workoutIntervalText;
-    private TextView restIntervalText;
-    private TextView setsText;
+    // Timer values
+    private final long startTime = 10;
+    private long workoutTime = 0;
+    private long restTime = 0;
+    private int sets = 0;
 
-    Intent intent;
+    // GUI text
+    private TextView workoutIntervalText = null;
+    private TextView restIntervalText = null;
+    private TextView setsText = null;
+
+    //Service variables
+    private TimerService timerService = null;
+    private boolean serviceBound = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        settings = PreferenceManager.getDefaultSharedPreferences(this);
 
         //Default values for  the workout configuration
         workoutTime = 10;
         restTime = 20;
         sets = 5;
-
 
         this.workoutIntervalText = (TextView) this.findViewById(R.id.main_workout_interval_time);
         this.restIntervalText = (TextView) this.findViewById(R.id.main_rest_interval_time);
@@ -75,6 +93,7 @@ public class MainActivity extends BaseActivity {
         }
 
         overridePendingTransition(0, 0);
+        startService(new Intent(this, TimerService.class));
     }
 
     /**
@@ -148,13 +167,59 @@ public class MainActivity extends BaseActivity {
                 break;
             case R.id.start_workout:
                 intent = new Intent(this, WorkoutActivity.class);
-                intent.putExtra("workoutTime", this.workoutTime);
-                intent.putExtra("restTime", this.restTime);
-                intent.putExtra("sets", this.sets);
+
+                if (settings != null && settings.getBoolean("pref_start_timer_switch", true)) {
+                    timerService.startWorkout(workoutTime, restTime, startTime, sets);
+                }
+                else {
+                    timerService.startWorkout(workoutTime, restTime, 0, sets);
+                }
+
                 this.startActivity(intent);
                 break;
             default:
         }
+    }
+
+    /** Defines callbacks for service binding, passed to bindService()*/
+    private ServiceConnection serviceConnection = new ServiceConnection() {
+
+        @Override
+        public void onServiceConnected(ComponentName className, IBinder service) {
+            TimerService.LocalBinder binder = (TimerService.LocalBinder) service;
+            timerService = binder.getService();
+            serviceBound = true;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName arg0) {
+            serviceBound = false;
+        }
+    };
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        // Bind to LocalService
+        Intent intent = new Intent(this, TimerService.class);
+        bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        // Unbind from the service
+        if (serviceBound) {
+            unbindService(serviceConnection);
+            serviceBound = false;
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        timerService.startNotifying(false);
+        stopService(new Intent(this, TimerService.class));
+        super.onDestroy();
     }
 
     //Helper methods

@@ -1,7 +1,9 @@
 package org.secuso.privacyfriendlytraining.activities;
 
+import android.app.AlertDialog;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
@@ -12,6 +14,7 @@ import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
@@ -21,19 +24,17 @@ import org.secuso.privacyfriendlytraining.services.TimerService;
 
 public class WorkoutActivity extends AppCompatActivity {
 
-    // General
+    //General
     private SharedPreferences settings;
+    private Context context;
 
     // Text
     private TextView workoutTimer = null;
     private TextView workoutTitle = null;
     private TextView currentSetsInfo = null;
 
-    // Time values
-    private final long startTime = 10;
-    private long workoutTime = 0;
-    private long restTime = 0;
-    private int sets = 0;
+    //Buttons
+    private FloatingActionButton fab = null;
 
     // Service variables
     private TimerService timerService = null;
@@ -49,22 +50,20 @@ public class WorkoutActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         settings = PreferenceManager.getDefaultSharedPreferences(this);
-
-        this.workoutTime =  getIntent().getExtras().getLong("workoutTime");
-        this.restTime =  getIntent().getExtras().getLong("restTime");
-        this.sets =  getIntent().getExtras().getInt("sets");
+        context = this;
+        // Bind to LocalService
+        Intent intent = new Intent(this, TimerService.class);
+        bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
 
         this.workoutTimer = (TextView) this.findViewById(R.id.workout_timer);
         this.workoutTitle = (TextView) this.findViewById(R.id.workout_title);
         this.currentSetsInfo = (TextView) this.findViewById(R.id.current_sets_info);
-        this.currentSetsInfo.setText(getResources().getString(R.string.workout_info) + ": 1/"+sets);
 
         if(settings != null && settings.getBoolean("pref_keep_screen_on_switch",true)) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         }
 
-
-        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_pause_resume);
+        fab = (FloatingActionButton) findViewById(R.id.fab_pause_resume);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -83,7 +82,6 @@ public class WorkoutActivity extends AppCompatActivity {
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        startService(new Intent(this, TimerService.class));
     }
 
 
@@ -97,13 +95,7 @@ public class WorkoutActivity extends AppCompatActivity {
             timerService = binder.getService();
             serviceBound = true;
 
-            if (settings != null && settings.getBoolean("pref_start_timer_switch", true)) {
-                timerService.startWorkout(workoutTime, restTime, startTime, sets);
-
-            }
-            else {
-                timerService.startWorkout(workoutTime, restTime, 0, sets);
-            }
+            updateGUI();
         }
 
         @Override
@@ -120,13 +112,19 @@ public class WorkoutActivity extends AppCompatActivity {
                 int seconds = intent.getIntExtra("countdown_seconds", 0);
                 workoutTimer.setText(Integer.toString(seconds));
             }
-            if (intent.getStringExtra("new_timer_starts") != null) {
-                String message = intent.getStringExtra("new_timer_starts");
+            if (intent.getStringExtra("timer_title") != null) {
+                String message = intent.getStringExtra("timer_title");
                 workoutTitle.setText(message);
             }
-            if (intent.getIntExtra("current_set", 0) != 0) {
+            if (intent.getIntExtra("current_set", 0) != 0 && intent.getIntExtra("sets", 0) != 0) {
                 int currentSet = intent.getIntExtra("current_set", 0);
+                int sets = intent.getIntExtra("sets", 0);
+
                 currentSetsInfo.setText(getResources().getString(R.string.workout_info) +": "+Integer.toString(currentSet)+"/"+Integer.toString(sets));
+            }
+            if (intent.getBooleanExtra("workout_finished", false) != false) {
+                AlertDialog finishedAlert = buildAlert();
+                finishedAlert.show();
             }
         }
     }
@@ -143,18 +141,61 @@ public class WorkoutActivity extends AppCompatActivity {
         }
     }
 
-    //TO DO: WHICH ARE NECESSARY
+    /* Update the GUI by getting the current timer values from the TimerService */
+    private void updateGUI(){
+        if(timerService != null){
+            int sets = timerService.getSets();
+            int currentSet = timerService.getCurrentSet();
+            String title = timerService.getCurrentTitle();
+            String time = Integer.toString(timerService.getSavedTime());
+            boolean isPaused = timerService.getIsPaused();
+
+            currentSetsInfo.setText(getResources().getString(R.string.workout_info) +": "+Integer.toString(currentSet)+"/"+Integer.toString(sets));
+            workoutTitle.setText(title);
+            workoutTimer.setText(time);
+
+            if (isPaused){
+                fab.setSelected(!fab.isSelected());
+                fab.setImageResource(R.drawable.ic_media_embed_play);
+            } else {
+                fab.setImageResource(R.drawable.ic_media_pause);
+            }
+        }
+    }
+
+    /*Build an AlertDialog for when the workout is finished*/
+    private AlertDialog buildAlert(){
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
+        alertBuilder.setMessage(getResources().getString(R.string.workout_finished_info));
+        alertBuilder.setCancelable(true);
+
+        alertBuilder.setPositiveButton(
+                "Ok",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        alertBuilder.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                finish();
+            }
+        });
+
+        return alertBuilder.create();
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
-        // Bind to LocalService
-        Intent intent = new Intent(this, TimerService.class);
-        bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
+        timerService.startNotifying(true);
         // Unbind from the service
         if (serviceBound) {
             unbindService(serviceConnection);
@@ -165,6 +206,10 @@ public class WorkoutActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
+        if(timerService != null){
+            timerService.startNotifying(false);
+        }
+
         registerReceiver(timeReceiver, new IntentFilter(TimerService.COUNTDOWN_BROADCAST));
     }
 
@@ -176,7 +221,26 @@ public class WorkoutActivity extends AppCompatActivity {
 
     @Override
     public void onDestroy() {
-        stopService(new Intent(this, TimerService.class));
         super.onDestroy();
+    }
+
+
+    /*Stop all timers and remove notification when navigating back to the main activity*/
+    @Override
+    public void onBackPressed() {
+        timerService.cleanTimerStop();
+        super.onBackPressed();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                timerService.cleanTimerStop();
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

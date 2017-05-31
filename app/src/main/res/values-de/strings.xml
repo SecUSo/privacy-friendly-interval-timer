@@ -32,10 +32,17 @@
 
     <!-- ###WORKOUT###-->
     <string name="workout_headline_start_timer">START IN</string>
-    <string name="workout_headline_workout">TRAINING</string>
-    <string name="workout_headline_rest">RUHEPAUSE</string>
+    <string name="workout_headline_workout">ÜBUNG</string>
+    <string name="workout_headline_rest">PAUSE</string>
     <string name="workout_headline_done">FERTIG</string>
     <string name="workout_info">Satz</string>
+    <string name="workout_finished_info">Du hast es geschafft!</string>
+
+
+    <!-- ###NOTIFICATION###-->
+    <string name="notification_time">Zeit</string>
+    <string name="notification_pause">Pausieren</string>
+    <string name="notification_resume">Fortsetzen</string>
 
 
     <string name="title_activity_game">Spiel</string>
@@ -92,5 +99,6 @@
 
     <string name="next">Weiter</string>
     <string name="skip">Überspringen</string>
+    <string name="title_activity_workout">Training</string>
 
 </resources>
