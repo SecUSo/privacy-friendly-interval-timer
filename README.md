@@ -15,7 +15,7 @@ The motivation of this project is to provide users with an application which sup
  
 ### API Reference
 
-Mininum SDK: 17
+Mininum SDK: 21
 Target SDK: 24 
 
 ## License

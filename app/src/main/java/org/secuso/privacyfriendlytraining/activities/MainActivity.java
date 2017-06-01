@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import org.secuso.privacyfriendlytraining.R;
@@ -47,6 +46,15 @@ public class MainActivity extends BaseActivity {
 
         settings = PreferenceManager.getDefaultSharedPreferences(this);
 
+        if (isFirstAppStart()) {
+            setFristAppStart();
+            PrefManager prefManager = new PrefManager(getBaseContext());
+            prefManager.setFirstTimeLaunch(true);
+            Intent intent = new Intent(MainActivity.this, TutorialActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        }
+
         //Default values for  the workout configuration
         workoutTime = 10;
         restTime = 20;
@@ -75,26 +83,29 @@ public class MainActivity extends BaseActivity {
 //            e.printStackTrace();
 //        }
 
+
+
         // Use the a button to display the welcome screen
-        Button b = (Button) findViewById(R.id.button_welcomedialog);
-        if(b != null) {
-            b.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
+//        Button b = (Button) findViewById(R.id.button_welcomedialog);
+//        if(b != null) {
+//            b.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
 //                    WelcomeDialog welcomeDialog = new WelcomeDialog();
 //                    welcomeDialog.show(getFragmentManager(), "WelcomeDialog");
-                    PrefManager prefManager = new PrefManager(getBaseContext());
-                    prefManager.setFirstTimeLaunch(true);
-                    Intent intent = new Intent(MainActivity.this, TutorialActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
-                }
-            });
-        }
-
-        overridePendingTransition(0, 0);
-        startService(new Intent(this, TimerService.class));
+//                    PrefManager prefManager = new PrefManager(getBaseContext());
+//                    prefManager.setFirstTimeLaunch(true);
+//                    Intent intent = new Intent(MainActivity.this, TutorialActivity.class);
+//                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                    startActivity(intent);
+//            });
+//        }
+//
+       overridePendingTransition(0, 0);
+       startService(new Intent(this, TimerService.class));
     }
+
+
 
     /**
      * This method connects the Activity to the menu item
@@ -133,6 +144,14 @@ public class MainActivity extends BaseActivity {
 //        }
 //    }
 
+
+    private boolean isFirstAppStart() {
+        return settings.getBoolean("FIRST_APP_START", true);
+    }
+
+    private void setFristAppStart() {
+        settings.edit().putBoolean("FIRST_APP_START", false).commit();
+    }
 
     //Intervals
     //http://www.dtb-online.de/portal/verband/service-fuer-mitglieder/ratgeber-gesundheit/funktionelles-zirkeltraining.html
