@@ -17,8 +17,6 @@ import android.widget.TextView;
 
 import org.secuso.privacyfriendlytraining.R;
 import org.secuso.privacyfriendlytraining.services.TimerService;
-import org.secuso.privacyfriendlytraining.tutorial.PrefManager;
-import org.secuso.privacyfriendlytraining.tutorial.TutorialActivity;
 
 import java.util.ArrayList;
 
@@ -56,14 +54,6 @@ public class MainActivity extends BaseActivity {
 
         settings = PreferenceManager.getDefaultSharedPreferences(this);
 
-        if (isFirstAppStart()) {
-            setFristAppStart();
-            PrefManager prefManager = new PrefManager(getBaseContext());
-            prefManager.setFirstTimeLaunch(true);
-            Intent intent = new Intent(MainActivity.this, TutorialActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-        }
 
         //Default values for  the workout configuration
         workoutTime = 10;
@@ -301,14 +291,6 @@ public class MainActivity extends BaseActivity {
         return alertBuilder.create();
     }
 
-
-    private boolean isFirstAppStart() {
-        return settings.getBoolean("FIRST_APP_START", true);
-    }
-
-    private void setFristAppStart() {
-        settings.edit().putBoolean("FIRST_APP_START", false).commit();
-    }
 
     @Override
     protected void onStart() {
