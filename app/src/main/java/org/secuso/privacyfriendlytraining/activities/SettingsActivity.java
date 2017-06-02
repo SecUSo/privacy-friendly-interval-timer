@@ -95,7 +95,6 @@ public class SettingsActivity extends BaseActivity {
 
         //setupActionBar();
 
-
         overridePendingTransition(0, 0);
     }
 
@@ -193,4 +192,6 @@ public class SettingsActivity extends BaseActivity {
             return super.onOptionsItemSelected(item);
         }
     }
+
+
 }

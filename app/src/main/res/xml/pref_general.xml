@@ -26,7 +26,10 @@
             android:title="@string/pref_motivation_alert_switch"
             android:defaultValue="false"/>
 
-        <Preference android:title="@string/pref_notification_motivation_alert_texts">
+
+        <Preference
+            android:title="@string/pref_notification_motivation_alert_texts">
+
             <intent
                 android:targetClass="org.secuso.privacyfriendlytraining.activities.MotivationAlertTextsActivity"
                 android:targetPackage="org.secuso.privacyfriendlytraining" />

@@ -3,6 +3,12 @@
     <string name="app_name_long">Privacy Friendly Training</string>
     <string name="app_prefix" translatable="false">Privacy Friendly</string>
 
+    <!-- ###GENERAL###-->
+    <string name="save">Save</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+
+
     <!-- ###DRAWER###-->
     <string name="action_help">Help</string>
     <string name="action_about">About</string>
@@ -25,7 +31,6 @@
     <string name="main_block_periodization_info">Block Periodization</string>
     <string name="main_block_periodization_sets">Set interval before break starts:</string>
     <string name="main_block_periodization_duration">Duration of break:</string>
-
 
 
     <string name="main_button_1">1</string>
@@ -102,6 +107,16 @@ Ne albucius perfecto adolescens eum, id choro assueverit mea, sed viris constitu
     <string name="pref_start_timer_switch_summary">A start timer is shown before the workout begins.</string>
     <string name="pref_motivation_alert_switch">Motivation alert</string>
     <string name="pref_notification_motivation_alert_texts">Motivation texts</string>
+    <string name="title_activity_motivation_alert_texts">Motivation alert texts</string>
+
+    <!-- Alert -->
+    <string name="motivation_alert_input_title">Motivation alert text</string>
+    <string name="motivation_alert_empty">Set custom alert messages to be displayed when you are reminded about workout sessions.\n\nThere will be no alert if no message exists.</string>
+    <string name="motivation_alert_input_msg">Set your own custom motivation alert. The app notifies you with one of your texts randomly.</string>
+    <string name="motivation_alert_input_empty">Please enter a custom motivation alert.</string>
+    <string-array name="pref_default_notification_motivation_alert_messages">
+        <item>Let\'s do it, it\'s time to work out!</item>
+    </string-array>
 
     <string name="pref_notification_motivation_alert_enabled" translatable="false">org.secuso.privacyfriendlytraining.pref.motivation_alert_enabled</string>
     <string name="pref_notification_motivation_alert_time" translatable="false">org.secuso.privacyfriendlytraining.pref.motivation_alert_time</string>
