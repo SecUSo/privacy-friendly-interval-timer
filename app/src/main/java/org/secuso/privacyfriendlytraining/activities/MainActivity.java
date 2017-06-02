@@ -1,20 +1,26 @@
 package org.secuso.privacyfriendlytraining.activities;
 
+import android.app.AlertDialog;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import org.secuso.privacyfriendlytraining.R;
 import org.secuso.privacyfriendlytraining.services.TimerService;
 import org.secuso.privacyfriendlytraining.tutorial.PrefManager;
 import org.secuso.privacyfriendlytraining.tutorial.TutorialActivity;
+
+import java.util.ArrayList;
 
 
 public class MainActivity extends BaseActivity {
@@ -24,6 +30,10 @@ public class MainActivity extends BaseActivity {
     Intent intent = null;
 
     // Timer values
+    private int blockPeriodizationSets = 1;
+    private long blockPeriodizationTime = 150; // 2:30 min
+    private long blockPeriodizationTimeMax = 300; // 5:00 min
+    private boolean isBlockPeriodization = false;
     private final long startTime = 10;
     private long workoutTime = 0;
     private long restTime = 0;
@@ -145,14 +155,6 @@ public class MainActivity extends BaseActivity {
 //    }
 
 
-    private boolean isFirstAppStart() {
-        return settings.getBoolean("FIRST_APP_START", true);
-    }
-
-    private void setFristAppStart() {
-        settings.edit().putBoolean("FIRST_APP_START", false).commit();
-    }
-
     //Intervals
     //http://www.dtb-online.de/portal/verband/service-fuer-mitglieder/ratgeber-gesundheit/funktionelles-zirkeltraining.html
     //http://www.sportunterricht.de/lksport/circuitkraft.html
@@ -184,14 +186,20 @@ public class MainActivity extends BaseActivity {
                 this.sets = (sets >= 16) ? 1 : this.sets + 1;
                 this.setsText.setText(Integer.toString(sets));
                 break;
+            case R.id.main_block_periodization:
+                AlertDialog finishedAlert = buildBlockAlert();
+                finishedAlert.show();
+                break;
             case R.id.start_workout:
                 intent = new Intent(this, WorkoutActivity.class);
 
                 if (settings != null && settings.getBoolean("pref_start_timer_switch", true)) {
-                    timerService.startWorkout(workoutTime, restTime, startTime, sets);
+                    timerService.startWorkout(workoutTime, restTime, startTime, sets,
+                            isBlockPeriodization, blockPeriodizationTime, blockPeriodizationSets);
                 }
                 else {
-                    timerService.startWorkout(workoutTime, restTime, 0, sets);
+                    timerService.startWorkout(workoutTime, restTime, 0, sets,
+                            isBlockPeriodization, blockPeriodizationTime, blockPeriodizationSets);
                 }
 
                 this.startActivity(intent);
@@ -215,6 +223,92 @@ public class MainActivity extends BaseActivity {
             serviceBound = false;
         }
     };
+
+
+
+    /*Build an AlertDialog for the block periodization*/
+    private AlertDialog buildBlockAlert(){
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogLayout = inflater.inflate(R.layout.block_periodization, null);
+
+        Button timeButtonPlus = (Button)dialogLayout.findViewById(R.id.main_block_periodization_time_plus);
+        Button timeButtonMinus = (Button)dialogLayout.findViewById(R.id.main_block_periodization_time_minus);
+        Button setButtonPlus = (Button)dialogLayout.findViewById(R.id.main_block_periodization_sets_plus);
+        Button setButtonMinus = (Button)dialogLayout.findViewById(R.id.main_block_periodization_sets_minus);
+
+        final TextView setsText = (TextView)dialogLayout.findViewById(R.id.main_block_periodization_sets_amount);
+        final TextView timeText = (TextView)dialogLayout.findViewById(R.id.main_block_periodization_time);
+
+        setsText.setText(Integer.toString(blockPeriodizationSets));
+        timeText.setText(formatTime(blockPeriodizationTime));
+
+        setButtonPlus.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if(blockPeriodizationSets <= sets){ blockPeriodizationSets += 1; }
+                setsText.setText(Integer.toString(blockPeriodizationSets));
+            }
+        });
+
+        setButtonMinus.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if(blockPeriodizationSets > 1){ blockPeriodizationSets -= 1; }
+                setsText.setText(Integer.toString(blockPeriodizationSets));
+            }
+        });
+
+
+        timeButtonPlus.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if(blockPeriodizationTime < blockPeriodizationTimeMax){ blockPeriodizationTime += 10; }
+                timeText.setText(formatTime(blockPeriodizationTime));
+            }
+        });
+
+        timeButtonMinus.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if(blockPeriodizationTime > 10){ blockPeriodizationTime -= 10; }
+                timeText.setText(formatTime(blockPeriodizationTime));
+            }
+        });
+
+
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
+        alertBuilder.setView(dialogLayout);
+
+        final CharSequence[] item = { getResources().getString(R.string.main_block_periodization) };
+        final boolean[] selection = { isBlockPeriodization };
+        final ArrayList selectedItem = new ArrayList();
+
+        alertBuilder.setTitle(getResources().getString(R.string.main_block_periodization_headline))
+                .setMultiChoiceItems(item, selection, new DialogInterface.OnMultiChoiceClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int indexSelected, boolean isChecked) {
+                        isBlockPeriodization = isChecked;
+                        if (isChecked) {
+                            selectedItem.add(indexSelected);
+                        } else if (selectedItem.contains(indexSelected)) {
+                            selectedItem.remove(Integer.valueOf(indexSelected));
+                        }
+                    }
+                }).setPositiveButton(
+                    "Ok",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                });
+
+        return alertBuilder.create();
+    }
+
+
+    private boolean isFirstAppStart() {
+        return settings.getBoolean("FIRST_APP_START", true);
+    }
+
+    private void setFristAppStart() {
+        settings.edit().putBoolean("FIRST_APP_START", false).commit();
+    }
 
     @Override
     protected void onStart() {

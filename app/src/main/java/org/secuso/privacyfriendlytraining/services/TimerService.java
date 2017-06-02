@@ -24,12 +24,15 @@ public class TimerService extends Service {
     private final IBinder mBinder = new LocalBinder();
 
     //Timer for the workout countdown
-    CountDownTimer workoutTimer = null;
-    CountDownTimer restTimer = null;
+    private CountDownTimer workoutTimer = null;
+    private CountDownTimer restTimer = null;
 
 
     //Values for workout and rest time and sets to perform
     private String currentTitle = "";
+    private boolean isBlockPeriodization = false;
+    private long blockPeriodizationTime = 0;
+    private int blockPeriodizationSets = 0;
     private long startTime = 0;
     private long workoutTime = 0;
     private long restTime = 0;
@@ -85,7 +88,7 @@ public class TimerService extends Service {
         return super.onStartCommand(intent, flags, startId);
     }
 
-
+    //Maybe Strategy Pattern for the onFinish() if another Timer would be introduced
     private CountDownTimer createWorkoutTimer(final long duration) {
 
         //The interval is half a second, because otherwise the last tick from 1 to 0 does not get send
@@ -102,23 +105,29 @@ public class TimerService extends Service {
 
             @Override
             public void onFinish() {
-                if(currentSet < sets){
-                    currentTitle = getResources().getString(R.string.workout_headline_rest);
+                Intent broadcast = new Intent(COUNTDOWN_BROADCAST).putExtra("timer_title", currentTitle);
+                if(currentSet < sets) {
+                    if (isBlockPeriodization && currentSet % blockPeriodizationSets == 0) {
+                        currentTitle = getResources().getString(R.string.workout_block_periodization_headline);
+                        broadcast = new Intent(COUNTDOWN_BROADCAST).putExtra("timer_title", currentTitle);
 
-                    Intent broadcast = new Intent(COUNTDOWN_BROADCAST).putExtra("timer_title", currentTitle);
-                    sendBroadcast(broadcast);
+                        restTimer = createRestTimer(blockPeriodizationTime);
+                    } else {
+                        currentTitle = getResources().getString(R.string.workout_headline_rest);
+                        broadcast = new Intent(COUNTDOWN_BROADCAST).putExtra("timer_title", currentTitle);
 
-                    isWorkout = false;
-                    restTimer = createRestTimer(restTime);
+                        restTimer = createRestTimer(restTime);
+                    }
                     restTimer.start();
                 }
                 else {
-                    isWorkout = false;
-                    Intent broadcast = new Intent(COUNTDOWN_BROADCAST)
-                            .putExtra("timer_title", getResources().getString(R.string.workout_headline_done))
+                    currentTitle = getResources().getString(R.string.workout_headline_done);
+                    broadcast = new Intent(COUNTDOWN_BROADCAST)
+                            .putExtra("timer_title", currentTitle)
                             .putExtra("workout_finished", true);
-                    sendBroadcast(broadcast);
                 }
+                sendBroadcast(broadcast);
+                isWorkout = false;
             }
         };
     }
@@ -160,12 +169,16 @@ public class TimerService extends Service {
     }
 
     /** Initialize all timer and set values and start the workout routine */
-    public void startWorkout(long workoutTime, long restTime, long startTime, int sets) {
-        this.startTime = startTime*1000;
+    public void startWorkout(long workoutTime, long restTime, long startTime, int sets,
+                             boolean isBlockPeriodization, long blockPeriodizationTime, int blockPeriodizationSets) {
+        this.blockPeriodizationTime = blockPeriodizationTime*1000;
+        this.blockPeriodizationSets = blockPeriodizationSets;
+        this.isBlockPeriodization = isBlockPeriodization;
         this.workoutTime = workoutTime * 1000;
+        this.startTime = startTime * 1000;
         this.restTime = restTime * 1000;
-        this.sets = sets;
         this.currentSet = 1;
+        this.sets = sets;
 
         this.workoutTimer = createWorkoutTimer(this.workoutTime);
         this.restTimer = createRestTimer(this.startTime);
@@ -216,14 +229,18 @@ public class TimerService extends Service {
             this.workoutTimer.cancel();
             isWorkout = false;
 
-            Intent broadcast = new Intent(COUNTDOWN_BROADCAST).putExtra("timer_title", getResources().getString(R.string.workout_headline_rest));
+            long time = (isBlockPeriodization && currentSet % blockPeriodizationSets == 0) ? this.blockPeriodizationTime : this.restTime;
+            String title = (isBlockPeriodization && currentSet % blockPeriodizationSets == 0) ?
+                    getResources().getString(R.string.workout_block_periodization_headline) : getResources().getString(R.string.workout_headline_rest);
+
+            Intent broadcast = new Intent(COUNTDOWN_BROADCAST).putExtra("timer_title", title);
 
             if(isPaused){
-                broadcast.putExtra("countdown_seconds", (int) restTime/1000);
-                this.savedTime = restTime;
+                broadcast.putExtra("countdown_seconds", (int) time/1000);
+                this.savedTime = time;
             }
             else {
-                restTimer = createRestTimer(restTime);
+                restTimer = createRestTimer(time);
                 restTimer.start();
             }
             sendBroadcast(broadcast);
@@ -265,17 +282,23 @@ public class TimerService extends Service {
             isWorkout = false;
             this.currentSet -= 1;
 
+
+            long time = (isBlockPeriodization && currentSet % blockPeriodizationSets == 0) ? this.blockPeriodizationTime : this.restTime;
+            String title = (isBlockPeriodization && currentSet % blockPeriodizationSets == 0) ?
+                    getResources().getString(R.string.workout_block_periodization_headline) : getResources().getString(R.string.workout_headline_rest);
+
+
             Intent broadcast = new Intent(COUNTDOWN_BROADCAST)
-                    .putExtra("timer_title", getResources().getString(R.string.workout_headline_rest))
+                    .putExtra("timer_title", title)
                     .putExtra("sets", sets)
                     .putExtra("current_set", currentSet);
 
             if(isPaused){
-                broadcast.putExtra("countdown_seconds", (int) restTime/1000);
-                this.savedTime = restTime;
+                broadcast.putExtra("countdown_seconds", (int) time/1000);
+                this.savedTime = time;
             }
             else {
-                restTimer = createRestTimer(restTime);
+                restTimer = createRestTimer(time);
                 restTimer.start();
             }
             sendBroadcast(broadcast);

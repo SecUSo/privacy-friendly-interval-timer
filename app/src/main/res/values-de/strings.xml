@@ -19,6 +19,13 @@
     <string name="main_text_rest_interval">Pause Intervall</string>
     <string name="main_text_sets">Sätze</string>
     <string name="main_text_start">START  ></string>
+    <string name="main_text_title">Bitte wählen:</string>
+    <string name="main_block_periodization_headline">Konfiguration des Blocktrainings:</string>
+    <string name="main_block_periodization">Blocktraining</string>
+    <string name="main_block_periodization_sets">Sätzeintervall nach denen die Pause startet:</string>
+    <string name="main_block_periodization_duration">Dauer der Pause:</string>
+
+
     <string name="main_button_1">1</string>
     <string name="main_button_2">2</string>
     <string name="main_button_3">3</string>
@@ -26,7 +33,6 @@
     <string name="main_button_5">5</string>
     <string name="main_text_fullwithbutton_desc">Ein Button mit voller breite sieht folgendermaßen aus:</string>
     <string name="main_text_disabledbutton_desc">Ein inaktiver Button sieht folgendermaßen aus (jede Größe):</string>
-    <string name="main_text_title">Bitte wählen:</string>
     <string name="main_text_normalbutton_desc">Es gibt verschiedene Möglichkeiten, um einfache Buttons darzustellen. Button 1 entspricht der Basisform. Wenn Buttons visual abgetrennt werden sollen, ist Button 2 zu verwenden. Die Buttons 3&#8211;5 sind Beispiels für hevorgehobene Buttons. Je nach App können auch andere Farben zum Highlighten verwendet werden.</string>
     <string name="main_button_welcomedialog_text">Der Button in der Ecke unten links öffnet einen Beispiel-Welcome Dialog.</string>
 
@@ -37,6 +43,7 @@
     <string name="workout_headline_done">FERTIG</string>
     <string name="workout_info">Satz</string>
     <string name="workout_finished_info">Du hast es geschafft!</string>
+    <string name="workout_block_periodization_headline">Block Pause</string>
 
 
     <!-- ###NOTIFICATION###-->
@@ -74,13 +81,17 @@
     <!-- ###SETTINGS### -->
     <string name="title_activity_settings">Einstellungen</string>
     <string name="pref_header_general">Allgemein</string>
-    <string name="pref_example_switch">Beispiel Switch</string>
+    <string name="pref_header_workout">Training</string>
+    <string name="pref_header_notification">Benachrichtigungen</string>
+    <string name="pref_notification_motivation_alert_time">Benachrichtigungszeitpunkt</string>
     <string name="pref_example_switch_summary">Beispiel Switch Summary</string>
     <string name="pref_keep_screen_on_switch">Bildschirm bleibt an</string>
     <string name="pref_keep_screen_on_switch_summary">Der Bildschrim bleibt während des Trainings an.</string>
     <string name="pref_start_timer_switch">Starttimer</string>
     <string name="pref_start_timer_switch_summary">Vor dem Beginn des Trainings wird ein Starttimer angezeigt.</string>
-    <string name="pref_example_summary">Beispiel Summary</string>
+    <string name="pref_motivation_alert_switch">Motivationsbenachrichtigung</string>
+    <string name="pref_notification_motivation_alert_texts">Motivationstexte</string>
+
 
     <!-- ### WELCOME DIALOG ### -->
     <string name="okay">Okay</string>

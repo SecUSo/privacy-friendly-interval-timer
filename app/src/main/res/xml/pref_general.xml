@@ -2,7 +2,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory
-        android:title="Example Category">
+        android:title="@string/pref_header_workout">
         <SwitchPreference
             android:id="@+id/pref_keep_screen_on_switch"
             android:key="pref_keep_screen_on_switch"
@@ -14,20 +14,25 @@
             android:id="@+id/pref_start_timer_switch"
             android:key="pref_start_timer_switch"
             android:title="@string/pref_start_timer_switch"
-            android:summary="@string/pref_start_timer_switch"
+            android:summary="@string/pref_start_timer_switch_summary"
             android:defaultValue="true"/>
-
-        <SwitchPreference
-            android:id="@+id/pref_example_switch"
-            android:key="pref_example_switch"
-            android:title="@string/pref_example_switch"
-            android:summary="@string/pref_example_switch_summary"
-            android:defaultValue="false"/>
-
-        <Preference android:title="Test Setting"
-            android:summary="Text Summary"/>
     </PreferenceCategory>
 
+    <PreferenceCategory
+        android:title="@string/pref_header_notification">
+        <SwitchPreference
+            android:id="@+id/pref_motivation_alert_switch"
+            android:key="pref_motivation_alert_switch"
+            android:title="@string/pref_motivation_alert_switch"
+            android:defaultValue="false"/>
+
+        <Preference android:title="@string/pref_notification_motivation_alert_texts">
+            <intent
+                android:targetClass="org.secuso.privacyfriendlytraining.activities.MotivationAlertTextsActivity"
+                android:targetPackage="org.secuso.privacyfriendlytraining" />
+        </Preference>
+
+    </PreferenceCategory>
 
 
     <!-- NOTE: EditTextPreference accepts EditText attributes. -->
