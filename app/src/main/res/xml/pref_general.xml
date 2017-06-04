@@ -5,14 +5,14 @@
         android:title="@string/pref_header_workout">
         <SwitchPreference
             android:id="@+id/pref_keep_screen_on_switch"
-            android:key="pref_keep_screen_on_switch"
+            android:key="@string/pref_keep_screen_on_switch_enabled"
             android:title="@string/pref_keep_screen_on_switch"
             android:summary="@string/pref_keep_screen_on_switch_summary"
             android:defaultValue="true"/>
 
         <SwitchPreference
             android:id="@+id/pref_start_timer_switch"
-            android:key="pref_start_timer_switch"
+            android:key="@string/pref_start_timer_switch_enabled"
             android:title="@string/pref_start_timer_switch"
             android:summary="@string/pref_start_timer_switch_summary"
             android:defaultValue="true"/>
@@ -21,18 +21,24 @@
     <PreferenceCategory
         android:title="@string/pref_header_notification">
         <SwitchPreference
-            android:id="@+id/pref_motivation_alert_switch"
-            android:key="pref_motivation_alert_switch"
-            android:title="@string/pref_motivation_alert_switch"
+            android:key="@string/pref_notification_motivation_alert_enabled"
+            android:title="@string/pref_title_motivation_alert_switch"
             android:defaultValue="false"/>
 
+        <!-- default is 18:00 -->
+        <org.secuso.privacyfriendlytraining.preferences.TimePreference
+            android:defaultValue="64800000"
+            android:key="@string/pref_notification_motivation_alert_time"
+            android:title="@string/pref_title_notification_motivation_alert_time" />
 
         <Preference
-            android:title="@string/pref_notification_motivation_alert_texts">
-
+            android:title="@string/pref_notification_motivation_alert_texts"
+            android:key="@string/pref_notification_motivation_texts">
+<!--
             <intent
                 android:targetClass="org.secuso.privacyfriendlytraining.activities.MotivationAlertTextsActivity"
                 android:targetPackage="org.secuso.privacyfriendlytraining" />
+                -->
         </Preference>
 
     </PreferenceCategory>

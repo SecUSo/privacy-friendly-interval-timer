@@ -6,6 +6,8 @@
     <string name="save">Speichern</string>
     <string name="delete">Löschen</string>
     <string name="edit">Bearbeiten</string>
+    <string name="set">Übernehmen</string>
+
 
     <!-- ###DRAWER###-->
     <string name="action_help">Hilfe</string>
@@ -52,9 +54,10 @@
 
 
     <!-- ###NOTIFICATION###-->
-    <string name="notification_time">Zeit</string>
-    <string name="notification_pause">Pausieren</string>
-    <string name="notification_resume">Fortsetzen</string>
+    <string name="workout_notification_time">Zeit</string>
+    <string name="workout_notification_pause">Pausieren</string>
+    <string name="workout_notification_resume">Fortsetzen</string>
+    <string name="reminder_notification_title">Zirkeltraining</string>
 
 
     <string name="title_activity_game">Spiel</string>
@@ -94,7 +97,7 @@
     <string name="pref_keep_screen_on_switch_summary">Der Bildschrim bleibt während des Trainings an.</string>
     <string name="pref_start_timer_switch">Starttimer</string>
     <string name="pref_start_timer_switch_summary">Vor dem Beginn des Trainings wird ein Starttimer angezeigt.</string>
-    <string name="pref_motivation_alert_switch">Motivationsbenachrichtigung</string>
+    <string name="pref_title_motivation_alert_switch">Motivationsbenachrichtigung</string>
     <string name="pref_notification_motivation_alert_texts">Motivationstexte</string>
 
     <!-- Alert -->

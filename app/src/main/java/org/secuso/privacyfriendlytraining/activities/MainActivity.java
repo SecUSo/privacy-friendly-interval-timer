@@ -25,7 +25,7 @@ public class MainActivity extends BaseActivity {
 
     // General
     private SharedPreferences settings = null;
-    Intent intent = null;
+    private Intent intent = null;
 
     // Timer values
     private int blockPeriodizationSets = 1;
@@ -52,8 +52,7 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        settings = PreferenceManager.getDefaultSharedPreferences(this);
-
+        this.settings = PreferenceManager.getDefaultSharedPreferences(this);
 
         //Default values for  the workout configuration
         workoutTime = 10;
@@ -183,7 +182,7 @@ public class MainActivity extends BaseActivity {
             case R.id.start_workout:
                 intent = new Intent(this, WorkoutActivity.class);
 
-                if (settings != null && settings.getBoolean("pref_start_timer_switch", true)) {
+                if (isStartTimerEnabled(this)) {
                     timerService.startWorkout(workoutTime, restTime, startTime, sets,
                             isBlockPeriodization, blockPeriodizationTime, blockPeriodizationSets);
                 }
@@ -325,5 +324,13 @@ public class MainActivity extends BaseActivity {
         String time = String.format("%02d : %02d", min,sec);
 
         return time;
+    }
+
+
+    public boolean isStartTimerEnabled(Context context) {
+        if (this.settings != null) {
+            return settings.getBoolean(context.getString(R.string.pref_start_timer_switch_enabled), false);
+        }
+        return false;
     }
 }

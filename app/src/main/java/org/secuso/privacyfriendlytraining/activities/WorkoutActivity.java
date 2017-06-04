@@ -26,7 +26,6 @@ public class WorkoutActivity extends AppCompatActivity {
 
     //General
     private SharedPreferences settings;
-    private Context context;
 
     // Text
     private TextView workoutTimer = null;
@@ -50,7 +49,7 @@ public class WorkoutActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         settings = PreferenceManager.getDefaultSharedPreferences(this);
-        context = this;
+
         // Bind to LocalService
         Intent intent = new Intent(this, TimerService.class);
         bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
@@ -59,7 +58,7 @@ public class WorkoutActivity extends AppCompatActivity {
         this.workoutTitle = (TextView) this.findViewById(R.id.workout_title);
         this.currentSetsInfo = (TextView) this.findViewById(R.id.current_sets_info);
 
-        if(settings != null && settings.getBoolean("pref_keep_screen_on_switch",true)) {
+        if(isKeepScreenOnEnabled(this)) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         }
 
@@ -242,5 +241,12 @@ public class WorkoutActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public boolean isKeepScreenOnEnabled(Context context){
+        if(this.settings != null){
+            return settings.getBoolean(context.getString(R.string.pref_keep_screen_on_switch_enabled), true);
+        }
+        return false;
     }
 }

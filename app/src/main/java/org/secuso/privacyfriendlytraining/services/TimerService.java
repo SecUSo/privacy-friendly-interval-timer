@@ -9,6 +9,7 @@ import android.os.Binder;
 import android.os.CountDownTimer;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.ContextCompat;
 
 import org.secuso.privacyfriendlytraining.R;
 import org.secuso.privacyfriendlytraining.activities.WorkoutActivity;
@@ -98,6 +99,9 @@ public class TimerService extends Service {
             public void onTick(long millisUntilFinished) {
                 savedTime = millisUntilFinished;
                 Intent broadcast = new Intent(COUNTDOWN_BROADCAST)
+                        .putExtra("timer_title", currentTitle)
+                        .putExtra("current_set", currentSet)
+                        .putExtra("sets", sets)
                         .putExtra("countdown_seconds", (int) millisUntilFinished / 1000);
                 sendBroadcast(broadcast);
                 updateNotification(millisUntilFinished/1000);
@@ -141,6 +145,9 @@ public class TimerService extends Service {
             public void onTick(long millisUntilFinished) {
                 savedTime = millisUntilFinished;
                 Intent broadcast = new Intent(COUNTDOWN_BROADCAST)
+                        .putExtra("timer_title", currentTitle)
+                        .putExtra("current_set", currentSet)
+                        .putExtra("sets", sets)
                         .putExtra("countdown_seconds", (int) millisUntilFinished / 1000);
                 sendBroadcast(broadcast);
                 updateNotification(millisUntilFinished/1000);
@@ -230,10 +237,10 @@ public class TimerService extends Service {
             isWorkout = false;
 
             long time = (isBlockPeriodization && currentSet % blockPeriodizationSets == 0) ? this.blockPeriodizationTime : this.restTime;
-            String title = (isBlockPeriodization && currentSet % blockPeriodizationSets == 0) ?
+            this.currentTitle = (isBlockPeriodization && currentSet % blockPeriodizationSets == 0) ?
                     getResources().getString(R.string.workout_block_periodization_headline) : getResources().getString(R.string.workout_headline_rest);
 
-            Intent broadcast = new Intent(COUNTDOWN_BROADCAST).putExtra("timer_title", title);
+            Intent broadcast = new Intent(COUNTDOWN_BROADCAST).putExtra("timer_title", currentTitle);
 
             if(isPaused){
                 broadcast.putExtra("countdown_seconds", (int) time/1000);
@@ -251,12 +258,14 @@ public class TimerService extends Service {
             this.restTimer.cancel();
             isWorkout = true;
 
+            this.currentTitle = getResources().getString(R.string.workout_headline_workout);
+
             //If rest timer was used as a start timer, ignore the first set increase
             if(isStarttimer){ this.isStarttimer = false; }
             else { this.currentSet += 1; }
 
             Intent broadcast = new Intent(COUNTDOWN_BROADCAST)
-                    .putExtra("timer_title", getResources().getString(R.string.workout_headline_workout))
+                    .putExtra("timer_title", currentTitle)
                     .putExtra("current_set", currentSet)
                     .putExtra("sets", sets);
 
@@ -284,12 +293,12 @@ public class TimerService extends Service {
 
 
             long time = (isBlockPeriodization && currentSet % blockPeriodizationSets == 0) ? this.blockPeriodizationTime : this.restTime;
-            String title = (isBlockPeriodization && currentSet % blockPeriodizationSets == 0) ?
+            this.currentTitle = (isBlockPeriodization && currentSet % blockPeriodizationSets == 0) ?
                     getResources().getString(R.string.workout_block_periodization_headline) : getResources().getString(R.string.workout_headline_rest);
 
 
             Intent broadcast = new Intent(COUNTDOWN_BROADCAST)
-                    .putExtra("timer_title", title)
+                    .putExtra("timer_title", currentTitle)
                     .putExtra("sets", sets)
                     .putExtra("current_set", currentSet);
 
@@ -322,9 +331,11 @@ public class TimerService extends Service {
         else if (!isStarttimer) {
             this.restTimer.cancel();
             isWorkout = true;
+            this.currentTitle = getResources().getString(R.string.workout_headline_workout);
+
 
             Intent broadcast = new Intent(COUNTDOWN_BROADCAST)
-                    .putExtra("timer_title", getResources().getString(R.string.workout_headline_workout))
+                    .putExtra("timer_title", currentTitle)
                     .putExtra("current_set", currentSet)
                     .putExtra("sets", sets);
 
@@ -361,10 +372,10 @@ public class TimerService extends Service {
 
         if(isStarttimer) {message = "START IN";}
         else { message = isWorkout ? this.getResources().getString(R.string.workout_headline_workout) : this.getResources().getString(R.string.workout_headline_rest);}
-        message += " | "+ this.getResources().getString(R.string.notification_time)+ ": " + time;
+        message += " | "+ this.getResources().getString(R.string.workout_notification_time)+ ": " + time;
         message += " | "+ this.getResources().getString(R.string.workout_info)+ ": " + currentSet + "/" + sets;
 
-        String buttonText = isPaused ? this.getResources().getString(R.string.notification_resume) : this.getResources().getString(R.string.notification_pause);
+        String buttonText = isPaused ? this.getResources().getString(R.string.workout_notification_resume) : this.getResources().getString(R.string.workout_notification_pause);
 
         NotificationCompat.Action action = new NotificationCompat.Action.Builder(buttonID, buttonText, pendingIntent).build();
 
@@ -373,6 +384,7 @@ public class TimerService extends Service {
         notiBuilder.setContentText(message);
         notiBuilder.addAction(action);
         notiBuilder.setSmallIcon(R.drawable.ic_menu_info);
+        notiBuilder.setLights(ContextCompat.getColor(this, R.color.colorPrimary), 1000, 1000);
 
 
         return notiBuilder.build();

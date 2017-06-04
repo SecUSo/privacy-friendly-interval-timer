@@ -7,6 +7,8 @@
     <string name="save">Save</string>
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
+    <string name="set">Set</string>
+
 
 
     <!-- ###DRAWER###-->
@@ -59,10 +61,11 @@
     <string name="game_desc">This is the default main menu for game apps. The viewpager above should be used to switch between game modes.</string>
 
 
-    <!-- ###NOTIFICATION###-->
-    <string name="notification_time">Time</string>
-    <string name="notification_pause">Pause</string>
-    <string name="notification_resume">Resume</string>
+    <!-- ###NOTIFICATIONS###-->
+    <string name="workout_notification_time">Time</string>
+    <string name="workout_notification_pause">Pause</string>
+    <string name="workout_notification_resume">Resume</string>
+    <string name="reminder_notification_title">Circuit Training</string>
 
 
     <!--###HELP###-->
@@ -105,7 +108,7 @@ Ne albucius perfecto adolescens eum, id choro assueverit mea, sed viris constitu
     <string name="pref_keep_screen_on_switch_summary">The Screen remains turned on during the workout.</string>
     <string name="pref_start_timer_switch">Start timer</string>
     <string name="pref_start_timer_switch_summary">A start timer is shown before the workout begins.</string>
-    <string name="pref_motivation_alert_switch">Motivation alert</string>
+    <string name="pref_title_motivation_alert_switch">Motivation alert</string>
     <string name="pref_notification_motivation_alert_texts">Motivation texts</string>
     <string name="title_activity_motivation_alert_texts">Motivation alert texts</string>
 
@@ -118,11 +121,12 @@ Ne albucius perfecto adolescens eum, id choro assueverit mea, sed viris constitu
         <item>Let\'s do it, it\'s time to work out!</item>
     </string-array>
 
+    <!-- ###PREFERENCE SWTICH KEYS### -->
+    <string name="pref_keep_screen_on_switch_enabled" translatable="false">org.secuso.privacyfriendlytraining.pref_keep_screen_on_switch_enabled</string>
+    <string name="pref_start_timer_switch_enabled" translatable="false">org.secuso.privacyfriendlytraining.pref_start_timer_switch_enabled</string>
     <string name="pref_notification_motivation_alert_enabled" translatable="false">org.secuso.privacyfriendlytraining.pref.motivation_alert_enabled</string>
     <string name="pref_notification_motivation_alert_time" translatable="false">org.secuso.privacyfriendlytraining.pref.motivation_alert_time</string>
-
-
-    <string name="pref_example_summary">Example Summary</string>
+    <string name="pref_notification_motivation_texts" translatable="false">org.secuso.privacyfriendlytraining.pref.motivation_texts</string>
 
     <!-- ### TUTORIAL DIALOG ### -->
     <string name="slide1_heading">Welcome!</string>

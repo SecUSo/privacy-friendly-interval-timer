@@ -9,12 +9,15 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
+import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
+import android.preference.SwitchPreference;
 import android.view.MenuItem;
 
 import org.secuso.privacyfriendlytraining.R;
+import org.secuso.privacyfriendlytraining.helpers.NotificationHelper;
 
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On
@@ -179,6 +182,39 @@ public class SettingsActivity extends BaseActivity {
             // guidelines.
             //bindPreferenceSummaryToValue(findPreference("example_text"));
             //bindPreferenceSummaryToValue(findPreference("example_list"));
+
+
+
+            //Activate and deactivate motivation notification depending on the switch setting
+            final SwitchPreference motivationNotificationSwitch = (SwitchPreference) findPreference(getString(R.string.pref_notification_motivation_alert_enabled));
+
+            if (motivationNotificationSwitch != null) {
+                motivationNotificationSwitch.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                    @Override
+                    public boolean onPreferenceChange(Preference preference, Object newValue) {
+                        if((Boolean) newValue){
+                            NotificationHelper.setMotivationAlert(preference.getContext());
+                        }
+                        else{
+                            NotificationHelper.cancelMotivationAlert(preference.getContext());
+                        }
+                        return true;
+                    }
+                });
+            }
+
+            //Hotfix since I could not get the intent to launch from XML file
+            final Preference motivationText = (Preference) findPreference(getString(R.string.pref_notification_motivation_texts));
+
+            if (motivationText != null) {
+                motivationText.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+                    public boolean onPreferenceClick(Preference preference) {
+                        Intent intent = new Intent(preference.getContext(), MotivationAlertTextsActivity.class);
+                        preference.getContext().startActivity(intent);
+                        return true;
+                    }
+                });
+            }
         }
 
         @Override
