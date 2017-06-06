@@ -92,16 +92,15 @@ public class TimerService extends Service {
     //Maybe Strategy Pattern for the onFinish() if another Timer would be introduced
     private CountDownTimer createWorkoutTimer(final long duration) {
 
-        //The interval is half a second, because otherwise the last tick from 1 to 0 does not get send
-        return new CountDownTimer(duration, 500) {
+        return new CountDownTimer(duration, 1000) {
 
             @Override
             public void onTick(long millisUntilFinished) {
                 savedTime = millisUntilFinished;
                 Intent broadcast = new Intent(COUNTDOWN_BROADCAST)
-                        .putExtra("timer_title", currentTitle)
-                        .putExtra("current_set", currentSet)
-                        .putExtra("sets", sets)
+                        //.putExtra("timer_title", currentTitle)
+                        //.putExtra("current_set", currentSet)
+                        //.putExtra("sets", sets)
                         .putExtra("countdown_seconds", (int) millisUntilFinished / 1000);
                 sendBroadcast(broadcast);
                 updateNotification(millisUntilFinished/1000);
@@ -109,16 +108,18 @@ public class TimerService extends Service {
 
             @Override
             public void onFinish() {
-                Intent broadcast = new Intent(COUNTDOWN_BROADCAST).putExtra("timer_title", currentTitle);
+                Intent broadcast = new Intent(COUNTDOWN_BROADCAST);
                 if(currentSet < sets) {
                     if (isBlockPeriodization && currentSet % blockPeriodizationSets == 0) {
                         currentTitle = getResources().getString(R.string.workout_block_periodization_headline);
-                        broadcast = new Intent(COUNTDOWN_BROADCAST).putExtra("timer_title", currentTitle);
+                        broadcast.putExtra("timer_title", currentTitle)
+                                 .putExtra("new_timer_started", blockPeriodizationTime);
 
                         restTimer = createRestTimer(blockPeriodizationTime);
                     } else {
                         currentTitle = getResources().getString(R.string.workout_headline_rest);
-                        broadcast = new Intent(COUNTDOWN_BROADCAST).putExtra("timer_title", currentTitle);
+                        broadcast.putExtra("timer_title", currentTitle)
+                                  .putExtra("new_timer_started", restTime);
 
                         restTimer = createRestTimer(restTime);
                     }
@@ -138,16 +139,15 @@ public class TimerService extends Service {
 
     private CountDownTimer createRestTimer(final long duration) {
 
-        //The interval is half a second, because otherwise the last tick from 1 to 0 does not get send
-        return new CountDownTimer(duration, 500) {
+        return new CountDownTimer(duration, 1000) {
 
             @Override
             public void onTick(long millisUntilFinished) {
                 savedTime = millisUntilFinished;
                 Intent broadcast = new Intent(COUNTDOWN_BROADCAST)
-                        .putExtra("timer_title", currentTitle)
-                        .putExtra("current_set", currentSet)
-                        .putExtra("sets", sets)
+                        //.putExtra("timer_title", currentTitle)
+                        //.putExtra("current_set", currentSet)
+                        //.putExtra("sets", sets)
                         .putExtra("countdown_seconds", (int) millisUntilFinished / 1000);
                 sendBroadcast(broadcast);
                 updateNotification(millisUntilFinished/1000);
@@ -166,10 +166,12 @@ public class TimerService extends Service {
                 Intent broadcast = new Intent(COUNTDOWN_BROADCAST)
                         .putExtra("timer_title", currentTitle)
                         .putExtra("current_set", currentSet)
-                        .putExtra("sets", sets);
+                        .putExtra("sets", sets)
+                        .putExtra("new_timer_started", workoutTime);
                 sendBroadcast(broadcast);
                 isWorkout = true;
                 workoutTimer = createWorkoutTimer(workoutTime);
+
                 workoutTimer.start();
             }
         };
@@ -187,18 +189,24 @@ public class TimerService extends Service {
         this.currentSet = 1;
         this.sets = sets;
 
+        Intent broadcast = new Intent(COUNTDOWN_BROADCAST);
+
         this.workoutTimer = createWorkoutTimer(this.workoutTime);
         this.restTimer = createRestTimer(this.startTime);
 
         //Use rest timer as a start timer before the workout begins
         if(startTime != 0){
+            this.savedTime = this.restTime;
             this.currentTitle = getResources().getString(R.string.workout_headline_start_timer);
             isWorkout = false;
             isStarttimer = true;
+
             restTimer.start();
         } else {
+            this.savedTime = this.workoutTime;
             this.currentTitle = getResources().getString(R.string.workout_headline_workout);
             isWorkout = true;
+
             this.workoutTimer.start();
         }
     }
@@ -240,7 +248,9 @@ public class TimerService extends Service {
             this.currentTitle = (isBlockPeriodization && currentSet % blockPeriodizationSets == 0) ?
                     getResources().getString(R.string.workout_block_periodization_headline) : getResources().getString(R.string.workout_headline_rest);
 
-            Intent broadcast = new Intent(COUNTDOWN_BROADCAST).putExtra("timer_title", currentTitle);
+            Intent broadcast = new Intent(COUNTDOWN_BROADCAST)
+                    .putExtra("timer_title", currentTitle)
+                    .putExtra("new_timer_started", time);
 
             if(isPaused){
                 broadcast.putExtra("countdown_seconds", (int) time/1000);
@@ -266,6 +276,7 @@ public class TimerService extends Service {
 
             Intent broadcast = new Intent(COUNTDOWN_BROADCAST)
                     .putExtra("timer_title", currentTitle)
+                    .putExtra("new_timer_started", workoutTime)
                     .putExtra("current_set", currentSet)
                     .putExtra("sets", sets);
 
@@ -300,6 +311,7 @@ public class TimerService extends Service {
             Intent broadcast = new Intent(COUNTDOWN_BROADCAST)
                     .putExtra("timer_title", currentTitle)
                     .putExtra("sets", sets)
+                    .putExtra("new_timer_started", time)
                     .putExtra("current_set", currentSet);
 
             if(isPaused){
@@ -315,16 +327,22 @@ public class TimerService extends Service {
 
         //If user is in the first workout phase, just reset the timer
         else if(isWorkout) {
+            Intent broadcast = new Intent(COUNTDOWN_BROADCAST);
+
             if(isPaused){
-                Intent broadcast = new Intent(COUNTDOWN_BROADCAST).putExtra("countdown_seconds", (int) workoutTime/1000);
+                broadcast.putExtra("countdown_seconds", (int) workoutTime/1000)
+                         .putExtra("new_timer_started", workoutTime);
                 this.savedTime = workoutTime;
-                sendBroadcast(broadcast);
+
             }
             else {
                 this.workoutTimer.cancel();
                 workoutTimer = createWorkoutTimer(workoutTime);
+                broadcast.putExtra("countdown_seconds", (int) workoutTime/1000)
+                        .putExtra("new_timer_started", workoutTime);
                 workoutTimer.start();
             }
+            sendBroadcast(broadcast);
         }
 
         //If user is in the rest phase go back to the workout phase
@@ -337,7 +355,8 @@ public class TimerService extends Service {
             Intent broadcast = new Intent(COUNTDOWN_BROADCAST)
                     .putExtra("timer_title", currentTitle)
                     .putExtra("current_set", currentSet)
-                    .putExtra("sets", sets);
+                    .putExtra("sets", sets)
+                    .putExtra("new_timer_started", workoutTime);
 
             if(isPaused){
                 broadcast.putExtra("countdown_seconds", (int) workoutTime/1000);
@@ -415,6 +434,8 @@ public class TimerService extends Service {
         if (notiManager != null){
             notiManager.cancel(NOTIFICATION_ID);
         }
+        this.savedTime = 0;
+        this.isPaused = false;
     }
 
     /*Getter and Setter*/
@@ -442,8 +463,8 @@ public class TimerService extends Service {
         return this.currentTitle;
     }
 
-    public int getSavedTime(){
-        return (int)this.savedTime/1000;
+    public long getSavedTime(){
+        return this.savedTime;
     }
 
     public boolean getIsPaused(){

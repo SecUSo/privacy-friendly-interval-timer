@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/workout_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -24,64 +25,38 @@
             android:text="@string/workout_headline_workout"
             android:textAllCaps="false"
             android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="50sp"
             android:textStyle="bold"
             tools:layout_editor_absoluteX="0dp"
             tools:layout_editor_absoluteY="0dp" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:weightSum="1"
-            android:layout_below="@+id/textView"
-            android:layout_centerHorizontal="true">
 
-            <ImageView
-                android:id="@+id/workout_previous"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:layout_gravity="bottom"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:layout_marginStart="@dimen/activity_horizontal_margin"
-                android:onClick="onClick"
-                android:padding="@dimen/activity_horizontal_margin"
-                android:src="@drawable/ic_media_previous"
-                android:tint="@color/darkblue" />
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="260dp"
+            android:layout_height="260dp"
+            android:layout_below="@+id/workout_title"
+            android:layout_centerHorizontal="true"
+            android:max="500"
+            android:progress="350"
+            android:progressDrawable="@drawable/circular"
+            android:rotation="270" />
 
+        <TextView
+            android:id="@+id/workout_timer"
+            android:layout_width="200dp"
+            android:layout_height="160dp"
+            android:layout_above="@+id/workout_next"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="00"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="80dp"
+            android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/workout_timer"
-                android:layout_width="201dp"
-                android:layout_height="142dp"
-                android:layout_below="@+id/textView"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="80dp"
-                android:gravity="top|center"
-                android:text="00"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:textSize="80dp" />
-
-            <ImageView
-                android:id="@+id/workout_next"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_gravity="bottom"
-                android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                android:layout_marginRight="@dimen/activity_horizontal_margin"
-                android:backgroundTint="@drawable/button_fullwidth"
-                android:foregroundTint="@drawable/button_fullwidth"
-                android:onClick="onClick"
-                android:padding="@dimen/activity_horizontal_margin"
-                android:src="@drawable/ic_media_next"
-                android:tint="@color/darkblue" />
-
-        </LinearLayout>
 
         <TextView
             android:id="@+id/current_sets_info"
@@ -95,9 +70,39 @@
             android:text="@string/workout_info"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="30sp"
+            android:textStyle="bold"
             tools:layout_editor_absoluteX="0dp"
             tools:layout_editor_absoluteY="0dp" />
+
+        <ImageView
+            android:id="@+id/workout_previous"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:onClick="onClick"
+            android:padding="@dimen/activity_horizontal_margin"
+            android:src="@drawable/ic_media_previous"
+            android:tint="@color/darkblue"
+            android:layout_alignBottom="@+id/progressBar"
+            android:layout_alignParentStart="true" />
+
+        <ImageView
+            android:id="@+id/workout_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:backgroundTint="@drawable/button_fullwidth"
+            android:foregroundTint="@drawable/button_fullwidth"
+            android:onClick="onClick"
+            android:padding="@dimen/activity_horizontal_margin"
+            android:src="@drawable/ic_media_next"
+            android:tint="@color/darkblue"
+            android:layout_alignBottom="@+id/progressBar"
+            android:layout_alignParentEnd="true" />
     </RelativeLayout>
 
 </LinearLayout>

@@ -1,5 +1,6 @@
 package org.secuso.privacyfriendlytraining.activities;
 
+import android.animation.ObjectAnimator;
 import android.app.AlertDialog;
 import android.content.ComponentName;
 import android.content.Context;
@@ -17,6 +18,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.DecelerateInterpolator;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import org.secuso.privacyfriendlytraining.R;
@@ -31,14 +35,19 @@ public class WorkoutActivity extends AppCompatActivity {
     private TextView workoutTimer = null;
     private TextView workoutTitle = null;
     private TextView currentSetsInfo = null;
+    private ImageView prevTimer = null;
+    private ImageView nextTimer = null;
 
-    //Buttons
+    //GUI
     private FloatingActionButton fab = null;
+    private ProgressBar progressBar = null;
+    private ObjectAnimator animator = null;
 
     // Service variables
     private TimerService timerService = null;
     private boolean serviceBound = false;
     private final BroadcastReceiver timeReceiver = new BroadcastReceiver();
+
 
 
     @Override
@@ -50,6 +59,9 @@ public class WorkoutActivity extends AppCompatActivity {
 
         settings = PreferenceManager.getDefaultSharedPreferences(this);
 
+        this.progressBar = (ProgressBar) this.findViewById(R.id.progressBar);
+        this.animator = ObjectAnimator.ofInt (progressBar, "progress", 0, 500);
+
         // Bind to LocalService
         Intent intent = new Intent(this, TimerService.class);
         bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
@@ -57,6 +69,9 @@ public class WorkoutActivity extends AppCompatActivity {
         this.workoutTimer = (TextView) this.findViewById(R.id.workout_timer);
         this.workoutTitle = (TextView) this.findViewById(R.id.workout_title);
         this.currentSetsInfo = (TextView) this.findViewById(R.id.current_sets_info);
+        this.prevTimer = (ImageView) this.findViewById(R.id.workout_previous);
+        this.nextTimer = (ImageView) this.findViewById(R.id.workout_next);
+
 
         if(isKeepScreenOnEnabled(this)) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -70,9 +85,11 @@ public class WorkoutActivity extends AppCompatActivity {
                 if (fab.isSelected()){
                     fab.setImageResource(R.drawable.ic_media_embed_play);
                     timerService.pauseTimer();
+                    pauseProgressbar(true);
                 } else {
                     fab.setImageResource(R.drawable.ic_media_pause);
                     timerService.resumeTimer();
+                    pauseProgressbar(false);
                 }
                 //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                  //       .setAction("Action", null).show();
@@ -80,9 +97,7 @@ public class WorkoutActivity extends AppCompatActivity {
             }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
     }
-
 
 
     /** Defines callbacks for service binding, passed to bindService()*/
@@ -93,6 +108,7 @@ public class WorkoutActivity extends AppCompatActivity {
             TimerService.LocalBinder binder = (TimerService.LocalBinder) service;
             timerService = binder.getService();
             serviceBound = true;
+            timerService.startNotifying(false);
 
             updateGUI();
         }
@@ -104,6 +120,7 @@ public class WorkoutActivity extends AppCompatActivity {
     };
 
     public class BroadcastReceiver extends android.content.BroadcastReceiver {
+        boolean guiFlip = false;
 
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -113,6 +130,9 @@ public class WorkoutActivity extends AppCompatActivity {
             }
             if (intent.getStringExtra("timer_title") != null) {
                 String message = intent.getStringExtra("timer_title");
+
+                guiFlip = message.equals(getResources().getString(R.string.workout_headline_workout));
+                setGuiColors(guiFlip);
                 workoutTitle.setText(message);
             }
             if (intent.getIntExtra("current_set", 0) != 0 && intent.getIntExtra("sets", 0) != 0) {
@@ -125,7 +145,32 @@ public class WorkoutActivity extends AppCompatActivity {
                 AlertDialog finishedAlert = buildAlert();
                 finishedAlert.show();
             }
+            if (intent.getLongExtra("new_timer_started", 0) != 0) {
+                long time = intent.getLongExtra("new_timer_started", 0);
+                updateProgressbar(!timerService.getIsPaused(), time);
+            }
         }
+    }
+
+    private void setGuiColors(boolean guiFlip) {
+
+        int textColor = guiFlip ? R.color.white : R.color.black;
+        int backgroundColor = guiFlip ? R.color.lightblue : R.color.white;
+
+        currentSetsInfo.setTextColor(getResources().getColor(textColor));
+        workoutTitle.setTextColor(getResources().getColor(textColor));
+        workoutTimer.setTextColor(getResources().getColor(textColor));
+        prevTimer.setColorFilter(getResources().getColor(textColor));
+        nextTimer.setColorFilter(getResources().getColor(textColor));
+
+        View view = findViewById(R.id.workout_content);
+        view.setBackgroundColor(getResources().getColor(backgroundColor));
+
+        /*
+        LayerDrawable layerDrawable = (LayerDrawable) ContextCompat.getDrawable(this, R.drawable.circular);
+        GradientDrawable gradientDrawable = (GradientDrawable) layerDrawable.findDrawableByLayerId(R.id.progressbar_background);
+        gradientDrawable.setColor(Color.RED);
+*/
     }
 
     public void onClick(View view) {
@@ -145,8 +190,9 @@ public class WorkoutActivity extends AppCompatActivity {
         if(timerService != null){
             int sets = timerService.getSets();
             int currentSet = timerService.getCurrentSet();
+            long savedTime = timerService.getSavedTime();
             String title = timerService.getCurrentTitle();
-            String time = Integer.toString(timerService.getSavedTime());
+            String time = Long.toString(savedTime/1000);
             boolean isPaused = timerService.getIsPaused();
 
             currentSetsInfo.setText(getResources().getString(R.string.workout_info) +": "+Integer.toString(currentSet)+"/"+Integer.toString(sets));
@@ -156,10 +202,24 @@ public class WorkoutActivity extends AppCompatActivity {
             if (isPaused){
                 fab.setSelected(!fab.isSelected());
                 fab.setImageResource(R.drawable.ic_media_embed_play);
+                updateProgressbar(false, savedTime);
             } else {
                 fab.setImageResource(R.drawable.ic_media_pause);
+                updateProgressbar(true, savedTime);
             }
         }
+    }
+
+    private void updateProgressbar(boolean start, long duration){
+        progressBar.setProgress(0);
+        animator.setDuration (duration);
+        animator.setInterpolator (new DecelerateInterpolator());
+        if(start){ animator.start();}
+    }
+
+    private void pauseProgressbar(boolean pause){
+        if(pause){ animator.pause(); }
+        else {animator.resume();};
     }
 
     /*Build an AlertDialog for when the workout is finished*/
@@ -168,9 +228,7 @@ public class WorkoutActivity extends AppCompatActivity {
         alertBuilder.setMessage(getResources().getString(R.string.workout_finished_info));
         alertBuilder.setCancelable(true);
 
-        alertBuilder.setPositiveButton(
-                "Ok",
-                new DialogInterface.OnClickListener() {
+        alertBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
                     }
@@ -206,7 +264,7 @@ public class WorkoutActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         if(timerService != null){
-            timerService.startNotifying(false);
+            updateGUI();
         }
 
         registerReceiver(timeReceiver, new IntentFilter(TimerService.COUNTDOWN_BROADCAST));
