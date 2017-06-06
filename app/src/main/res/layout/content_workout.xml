@@ -39,8 +39,8 @@
             android:layout_height="260dp"
             android:layout_below="@+id/workout_title"
             android:layout_centerHorizontal="true"
-            android:max="500"
-            android:progress="350"
+            android:max="1000"
+            android:progress="0"
             android:progressDrawable="@drawable/circular"
             android:rotation="270" />
 

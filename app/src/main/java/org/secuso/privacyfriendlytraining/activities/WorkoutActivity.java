@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
@@ -60,7 +61,7 @@ public class WorkoutActivity extends AppCompatActivity {
         settings = PreferenceManager.getDefaultSharedPreferences(this);
 
         this.progressBar = (ProgressBar) this.findViewById(R.id.progressBar);
-        this.animator = ObjectAnimator.ofInt (progressBar, "progress", 0, 500);
+        this.animator = ObjectAnimator.ofInt (progressBar, "progress", 0, 1000);
 
         // Bind to LocalService
         Intent intent = new Intent(this, TimerService.class);
@@ -156,6 +157,7 @@ public class WorkoutActivity extends AppCompatActivity {
 
         int textColor = guiFlip ? R.color.white : R.color.black;
         int backgroundColor = guiFlip ? R.color.lightblue : R.color.white;
+        int progressBackgroundColor = guiFlip ? R.color.white : R.color.lightblue;
 
         currentSetsInfo.setTextColor(getResources().getColor(textColor));
         workoutTitle.setTextColor(getResources().getColor(textColor));
@@ -166,11 +168,7 @@ public class WorkoutActivity extends AppCompatActivity {
         View view = findViewById(R.id.workout_content);
         view.setBackgroundColor(getResources().getColor(backgroundColor));
 
-        /*
-        LayerDrawable layerDrawable = (LayerDrawable) ContextCompat.getDrawable(this, R.drawable.circular);
-        GradientDrawable gradientDrawable = (GradientDrawable) layerDrawable.findDrawableByLayerId(R.id.progressbar_background);
-        gradientDrawable.setColor(Color.RED);
-*/
+        progressBar.setProgressBackgroundTintList(ColorStateList.valueOf(getResources().getColor(progressBackgroundColor)));
     }
 
     public void onClick(View view) {
@@ -211,7 +209,6 @@ public class WorkoutActivity extends AppCompatActivity {
     }
 
     private void updateProgressbar(boolean start, long duration){
-        progressBar.setProgress(0);
         animator.setDuration (duration);
         animator.setInterpolator (new DecelerateInterpolator());
         if(start){ animator.start();}
