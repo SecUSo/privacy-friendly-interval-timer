@@ -49,6 +49,8 @@ public class WorkoutActivity extends AppCompatActivity {
     private boolean serviceBound = false;
     private final BroadcastReceiver timeReceiver = new BroadcastReceiver();
 
+    //Flag for prorgressBar checks if it should resume or start anew
+    private boolean jumpedOverTimer = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,10 +69,10 @@ public class WorkoutActivity extends AppCompatActivity {
         Intent intent = new Intent(this, TimerService.class);
         bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
 
-        this.workoutTimer = (TextView) this.findViewById(R.id.workout_timer);
-        this.workoutTitle = (TextView) this.findViewById(R.id.workout_title);
         this.currentSetsInfo = (TextView) this.findViewById(R.id.current_sets_info);
         this.prevTimer = (ImageView) this.findViewById(R.id.workout_previous);
+        this.workoutTimer = (TextView) this.findViewById(R.id.workout_timer);
+        this.workoutTitle = (TextView) this.findViewById(R.id.workout_title);
         this.nextTimer = (ImageView) this.findViewById(R.id.workout_next);
 
 
@@ -86,11 +88,11 @@ public class WorkoutActivity extends AppCompatActivity {
                 if (fab.isSelected()){
                     fab.setImageResource(R.drawable.ic_media_embed_play);
                     timerService.pauseTimer();
-                    pauseProgressbar(true);
+                    pauseProgressbar();
                 } else {
                     fab.setImageResource(R.drawable.ic_media_pause);
                     timerService.resumeTimer();
-                    pauseProgressbar(false);
+                    resumeProgressbar();
                 }
                 //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                  //       .setAction("Action", null).show();
@@ -175,9 +177,13 @@ public class WorkoutActivity extends AppCompatActivity {
     public void onClick(View view) {
         switch(view.getId()) {
             case R.id.workout_previous:
+                this.jumpedOverTimer = true;
+                this.progressBar.setProgress(0);
                 timerService.prevTimer();
                 break;
             case R.id.workout_next:
+                this.jumpedOverTimer = true;
+                this.progressBar.setProgress(0);
                 timerService.nextTimer();
                 break;
             default:
@@ -206,9 +212,18 @@ public class WorkoutActivity extends AppCompatActivity {
         if(start){ animator.start();}
     }
 
-    private void pauseProgressbar(boolean pause){
-        if(pause){ animator.pause(); }
-        else {animator.resume();};
+    private void pauseProgressbar(){
+        this.animator.pause();
+    }
+
+    private void resumeProgressbar(){
+        if(jumpedOverTimer){
+            animator.start();
+            jumpedOverTimer = false;
+        }
+        else {
+            animator.resume();
+        }
     }
 
     /*Build an AlertDialog for when the workout is finished*/
