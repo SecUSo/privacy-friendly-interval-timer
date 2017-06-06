@@ -41,9 +41,12 @@ public class TimerService extends Service {
 
     private long savedTime = 0;
     private int currentSet = 1;
-    private boolean isWorkout = false;
+
+    //Timer Flags
     private boolean isStarttimer = false;
+    private boolean isWorkout = false;
     private boolean isPaused = false;
+    private boolean isRunning = false;
 
 
     //Notification variables
@@ -183,6 +186,7 @@ public class TimerService extends Service {
         this.blockPeriodizationTime = blockPeriodizationTime*1000;
         this.blockPeriodizationSets = blockPeriodizationSets;
         this.isBlockPeriodization = isBlockPeriodization;
+        this.isRunning = true;
         this.workoutTime = workoutTime * 1000;
         this.startTime = startTime * 1000;
         this.restTime = restTime * 1000;
@@ -399,11 +403,12 @@ public class TimerService extends Service {
         NotificationCompat.Action action = new NotificationCompat.Action.Builder(buttonID, buttonText, pendingIntent).build();
 
 
-        notiBuilder.setContentTitle(this.getResources().getString(R.string.app_name));
-        notiBuilder.setContentText(message);
-        notiBuilder.addAction(action);
-        notiBuilder.setSmallIcon(R.drawable.ic_menu_info);
-        notiBuilder.setLights(ContextCompat.getColor(this, R.color.colorPrimary), 1000, 1000);
+        notiBuilder.setContentTitle(this.getResources().getString(R.string.app_name))
+                .setContentText(message)
+                .addAction(action)
+                .setAutoCancel(true)
+                .setSmallIcon(R.drawable.ic_menu_info)
+                .setLights(ContextCompat.getColor(this, R.color.colorPrimary), 1000, 1000);
 
 
         return notiBuilder.build();
@@ -421,7 +426,12 @@ public class TimerService extends Service {
     }
 
     public void startNotifying(boolean isInBackground){
-       this.appInBackground = isInBackground;
+       this.appInBackground = isInBackground && isRunning;
+
+       //Update just once in case of a pause
+       if(isRunning){
+           updateNotification(savedTime/1000);
+       }
     }
 
     public void cleanTimerStop() {
@@ -436,6 +446,7 @@ public class TimerService extends Service {
         }
         this.savedTime = 0;
         this.isPaused = false;
+        this.isRunning = false;
     }
 
     /*Getter and Setter*/

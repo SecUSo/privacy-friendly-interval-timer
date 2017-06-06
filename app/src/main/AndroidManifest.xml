@@ -60,16 +60,6 @@
                 android:value="org.secuso.privacyfriendlytraining.activities.MainActivity" />
         </activity>
         <activity
-            android:name=".activities.GameActivity"
-            android:label="@string/title_activity_game"
-            android:parentActivityName=".activities.MainActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.secuso.privacyfriendlytraining.activities.MainActivity" />
-        </activity>
-        <activity
             android:name=".activities.WorkoutActivity"
             android:label="@string/title_activity_workout"
             android:launchMode="singleTask"

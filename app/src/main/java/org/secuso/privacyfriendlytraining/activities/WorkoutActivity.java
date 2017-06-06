@@ -50,10 +50,10 @@ public class WorkoutActivity extends AppCompatActivity {
     private final BroadcastReceiver timeReceiver = new BroadcastReceiver();
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_workout);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -109,8 +109,9 @@ public class WorkoutActivity extends AppCompatActivity {
             TimerService.LocalBinder binder = (TimerService.LocalBinder) service;
             timerService = binder.getService();
             serviceBound = true;
-            timerService.startNotifying(false);
 
+            timerService.startNotifying(false);
+            updateProgressbar(true, timerService.getSavedTime());
             updateGUI();
         }
 
@@ -196,15 +197,6 @@ public class WorkoutActivity extends AppCompatActivity {
             currentSetsInfo.setText(getResources().getString(R.string.workout_info) +": "+Integer.toString(currentSet)+"/"+Integer.toString(sets));
             workoutTitle.setText(title);
             workoutTimer.setText(time);
-
-            if (isPaused){
-                fab.setSelected(!fab.isSelected());
-                fab.setImageResource(R.drawable.ic_media_embed_play);
-                updateProgressbar(false, savedTime);
-            } else {
-                fab.setImageResource(R.drawable.ic_media_pause);
-                updateProgressbar(true, savedTime);
-            }
         }
     }
 
@@ -249,7 +241,7 @@ public class WorkoutActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        timerService.startNotifying(true);
+
         // Unbind from the service
         if (serviceBound) {
             unbindService(serviceConnection);
@@ -260,9 +252,11 @@ public class WorkoutActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
+
         if(timerService != null){
-            updateGUI();
+            timerService.startNotifying(false);
         }
+
 
         registerReceiver(timeReceiver, new IntentFilter(TimerService.COUNTDOWN_BROADCAST));
     }
@@ -270,6 +264,12 @@ public class WorkoutActivity extends AppCompatActivity {
     @Override
     public void onPause() {
         super.onPause();
+
+
+        if(timerService != null){
+            timerService.startNotifying(true);
+        }
+
         unregisterReceiver(timeReceiver);
     }
 

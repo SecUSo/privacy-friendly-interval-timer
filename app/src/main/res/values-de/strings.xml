@@ -14,7 +14,6 @@
     <string name="action_about">Über</string>
     <string name="action_settings">Einstellungen</string>
     <string name="action_main">Hauptmenü</string>
-    <string name="action_game">Spiel</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -59,11 +58,6 @@
     <string name="workout_notification_resume">Fortsetzen</string>
     <string name="reminder_notification_title">Zirkeltraining</string>
 
-
-    <string name="title_activity_game">Spiel</string>
-    <string name="game_button_start">Neues Spiel</string>
-    <string name="game_button_continue">Spiel fortsetzen</string>
-    <string name="game_desc">Dies ist das Standard-Menü für Spiele-Apps. Der Viewpager oben sollte verwendet werden, um zwischen verschiedenen Spielmodi zu wechseln.</string>
 
     <!--###HELP###-->
     <string name="help">Help</string>
