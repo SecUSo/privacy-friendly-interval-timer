@@ -14,7 +14,6 @@ import android.support.v4.content.ContextCompat;
 import org.secuso.privacyfriendlytraining.R;
 import org.secuso.privacyfriendlytraining.activities.WorkoutActivity;
 
-//TO DO: OnStop gives false positves for the notification
 //TO DO: Button on Notification
 public class TimerService extends Service {
 
@@ -39,6 +38,7 @@ public class TimerService extends Service {
     private long restTime = 0;
     private int sets = 0;
 
+    //Values during the workout
     private long savedTime = 0;
     private int currentSet = 1;
 
@@ -95,7 +95,7 @@ public class TimerService extends Service {
     //Maybe Strategy Pattern for the onFinish() if another Timer would be introduced
     private CountDownTimer createWorkoutTimer(final long duration) {
 
-        return new CountDownTimer(duration, 1000) {
+        return new CountDownTimer(duration, 500) {
 
             @Override
             public void onTick(long millisUntilFinished) {
@@ -142,7 +142,7 @@ public class TimerService extends Service {
 
     private CountDownTimer createRestTimer(final long duration) {
 
-        return new CountDownTimer(duration, 1000) {
+        return new CountDownTimer(duration, 500) {
 
             @Override
             public void onTick(long millisUntilFinished) {
@@ -192,8 +192,6 @@ public class TimerService extends Service {
         this.restTime = restTime * 1000;
         this.currentSet = 1;
         this.sets = sets;
-
-        Intent broadcast = new Intent(COUNTDOWN_BROADCAST);
 
         this.workoutTimer = createWorkoutTimer(this.workoutTime);
         this.restTimer = createRestTimer(this.startTime);

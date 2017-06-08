@@ -91,6 +91,8 @@
     <string name="pref_keep_screen_on_switch_summary">Der Bildschrim bleibt während des Trainings an.</string>
     <string name="pref_start_timer_switch">Starttimer</string>
     <string name="pref_start_timer_switch_summary">Vor dem Beginn des Trainings wird ein Starttimer angezeigt.</string>
+    <string name="pref_blinking_progress_bar">Blinkender Fortschrittsbalken</string>
+    <string name="pref_blinking_progress_bar_summary">Der Fortschrittsbalken der Zeitanzeige im Training blinkt während den letzten Sekunden.</string>
     <string name="pref_title_motivation_alert_switch">Motivationsbenachrichtigung</string>
     <string name="pref_notification_motivation_alert_texts">Motivationstexte</string>
 

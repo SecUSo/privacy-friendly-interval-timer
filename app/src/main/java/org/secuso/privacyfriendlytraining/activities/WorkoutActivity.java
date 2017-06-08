@@ -49,7 +49,7 @@ public class WorkoutActivity extends AppCompatActivity {
     private boolean serviceBound = false;
     private final BroadcastReceiver timeReceiver = new BroadcastReceiver();
 
-    //Flag for prorgressBar checks if it should resume or start anew
+    //Flag for prorgressbar checks if the progressbar should resume or start anew
     private boolean jumpedOverTimer = false;
 
     @Override
@@ -75,9 +75,14 @@ public class WorkoutActivity extends AppCompatActivity {
         this.workoutTitle = (TextView) this.findViewById(R.id.workout_title);
         this.nextTimer = (ImageView) this.findViewById(R.id.workout_next);
 
-
+        //Set the workout screen to remain on if so enabled in settings
         if(isKeepScreenOnEnabled(this)) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        }
+
+        //Set the gui to workout gui colors if start timer wasn't enabled
+        if(!isStartTimerEnabled(this)) {
+            setGuiColors(true);
         }
 
         fab = (FloatingActionButton) findViewById(R.id.fab_pause_resume);
@@ -124,19 +129,27 @@ public class WorkoutActivity extends AppCompatActivity {
     };
 
     public class BroadcastReceiver extends android.content.BroadcastReceiver {
-        boolean guiFlip = false;
+        boolean workoutColors = false;
+        boolean progressBarFlip = false;
 
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getExtras() != null) {
                 int seconds = intent.getIntExtra("countdown_seconds", 0);
                 workoutTimer.setText(Integer.toString(seconds));
+
+                if(seconds <= 10 && workoutColors){
+                    this.progressBarFlip = progressBarColorFlip(workoutColors, progressBarFlip);
+                }
+                else if(seconds <= 5 && !workoutColors){
+                    this.progressBarFlip = progressBarColorFlip(workoutColors, progressBarFlip);
+                }
             }
             if (intent.getStringExtra("timer_title") != null) {
                 String message = intent.getStringExtra("timer_title");
 
-                guiFlip = message.equals(getResources().getString(R.string.workout_headline_workout));
-                setGuiColors(guiFlip);
+                workoutColors = message.equals(getResources().getString(R.string.workout_headline_workout));
+                setGuiColors(workoutColors);
                 workoutTitle.setText(message);
             }
             if (intent.getIntExtra("current_set", 0) != 0 && intent.getIntExtra("sets", 0) != 0) {
@@ -157,7 +170,6 @@ public class WorkoutActivity extends AppCompatActivity {
     }
 
     private void setGuiColors(boolean guiFlip) {
-
         int textColor = guiFlip ? R.color.white : R.color.black;
         int backgroundColor = guiFlip ? R.color.lightblue : R.color.white;
         int progressBackgroundColor = guiFlip ? R.color.white : R.color.lightblue;
@@ -172,6 +184,24 @@ public class WorkoutActivity extends AppCompatActivity {
         view.setBackgroundColor(getResources().getColor(backgroundColor));
 
         progressBar.setProgressBackgroundTintList(ColorStateList.valueOf(getResources().getColor(progressBackgroundColor)));
+        progressBar.setProgressTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorPrimary)));
+    }
+
+    /*
+     * Changes the color of the progress bar, so that it blinks during the final seconds
+     */
+    private boolean progressBarColorFlip(boolean currentGUI, boolean colorFlip) {
+        if(isBlinkingProgressBarEnabled(this)){
+            if(this.progressBar != null && currentGUI){
+                int barColor = colorFlip ? getResources().getColor(R.color.white) : getResources().getColor(R.color.colorPrimary);
+                progressBar.setProgressTintList(ColorStateList.valueOf(barColor));
+            }
+            else if(this.progressBar != null){
+                int color = colorFlip ? getResources().getColor(R.color.lightblue) : getResources().getColor(R.color.colorPrimary);
+                progressBar.setProgressTintList(ColorStateList.valueOf(color));
+            }
+        }
+        return !colorFlip;
     }
 
     public void onClick(View view) {
@@ -203,6 +233,11 @@ public class WorkoutActivity extends AppCompatActivity {
             currentSetsInfo.setText(getResources().getString(R.string.workout_info) +": "+Integer.toString(currentSet)+"/"+Integer.toString(sets));
             workoutTitle.setText(title);
             workoutTimer.setText(time);
+
+            if(title.equals(getResources().getString(R.string.workout_headline_done))){
+                AlertDialog finishedAlert = buildAlert();
+                finishedAlert.show();
+            }
         }
     }
 
@@ -213,6 +248,7 @@ public class WorkoutActivity extends AppCompatActivity {
     }
 
     private void pauseProgressbar(){
+        jumpedOverTimer = false;
         this.animator.pause();
     }
 
@@ -241,6 +277,7 @@ public class WorkoutActivity extends AppCompatActivity {
         alertBuilder.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
+                timerService.cleanTimerStop();
                 finish();
             }
         });
@@ -271,7 +308,7 @@ public class WorkoutActivity extends AppCompatActivity {
         if(timerService != null){
             timerService.startNotifying(false);
         }
-
+        updateGUI();
 
         registerReceiver(timeReceiver, new IntentFilter(TimerService.COUNTDOWN_BROADCAST));
     }
@@ -279,7 +316,6 @@ public class WorkoutActivity extends AppCompatActivity {
     @Override
     public void onPause() {
         super.onPause();
-
 
         if(timerService != null){
             timerService.startNotifying(true);
@@ -316,6 +352,20 @@ public class WorkoutActivity extends AppCompatActivity {
     public boolean isKeepScreenOnEnabled(Context context){
         if(this.settings != null){
             return settings.getBoolean(context.getString(R.string.pref_keep_screen_on_switch_enabled), true);
+        }
+        return false;
+    }
+
+    public boolean isStartTimerEnabled(Context context) {
+        if (this.settings != null) {
+            return settings.getBoolean(context.getString(R.string.pref_start_timer_switch_enabled), false);
+        }
+        return false;
+    }
+
+    public boolean isBlinkingProgressBarEnabled(Context context) {
+        if (this.settings != null) {
+            return settings.getBoolean(context.getString(R.string.pref_blinking_progress_bar), false);
         }
         return false;
     }

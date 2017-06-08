@@ -28,14 +28,14 @@ public class MainActivity extends BaseActivity {
     private Intent intent = null;
 
     // Timer values
-    private int blockPeriodizationSets = 1;
-    private long blockPeriodizationTime = 150; // 2:30 min
-    private long blockPeriodizationTimeMax = 300; // 5:00 min
-    private boolean isBlockPeriodization = false;
+    private final long blockPeriodizationTimeMax = 300; // 5:00 min
     private final long startTime = 10;
+    private long blockPeriodizationTime = 0;
     private long workoutTime = 0;
     private long restTime = 0;
+    private int blockPeriodizationSets = 0;
     private int sets = 0;
+    private boolean isBlockPeriodization = false;
 
     // GUI text
     private TextView workoutIntervalText = null;
@@ -52,12 +52,13 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Init preferences
+        PreferenceManager.setDefaultValues(this, R.xml.pref_general, false);
+
         this.settings = PreferenceManager.getDefaultSharedPreferences(this);
 
-        //Default values for  the workout configuration
-        workoutTime = 10;
-        restTime = 20;
-        sets = 5;
+        //Set default values for  the workout configuration
+        getDefaultTimerValues();
 
         this.workoutIntervalText = (TextView) this.findViewById(R.id.main_workout_interval_time);
         this.restIntervalText = (TextView) this.findViewById(R.id.main_rest_interval_time);
@@ -181,6 +182,7 @@ public class MainActivity extends BaseActivity {
                 break;
             case R.id.start_workout:
                 intent = new Intent(this, WorkoutActivity.class);
+                storeDefaultTimerValues();
 
                 if (isStartTimerEnabled(this)) {
                     timerService.startWorkout(workoutTime, restTime, startTime, sets,
@@ -326,7 +328,45 @@ public class MainActivity extends BaseActivity {
         return time;
     }
 
+    /*
+     * Initializes the timer values for the GUI. Previously chosen setup is retrieved if one exists.
+     */
+    private void getDefaultTimerValues(){
+        if(settings != null ) {
+            this.workoutTime = settings.getInt("WORKOUT_TIME", 10);
+            this.restTime = settings.getInt("REST_TIME", 20);
+            this.sets = settings.getInt("SETS", 5);
+            this.blockPeriodizationTime = settings.getInt("PERIODIZATION_TIME", 150);
+            this.blockPeriodizationSets = settings.getInt("PERIODIZATION_SETS", 1);
+        }
+        else {
+            this.workoutTime = 10;
+            this.restTime = 20;
+            this.sets = 5;
+            this.blockPeriodizationTime = 150;
+            this.blockPeriodizationSets = 1;
+        }
+    }
 
+    /*
+     * Stores the chosen timer values for next GUI initialization
+     */
+    private void storeDefaultTimerValues(){
+        if(settings != null ) {
+            SharedPreferences.Editor editor = this.settings.edit();
+            editor.putInt("WORKOUT_TIME",(int) this.workoutTime);
+            editor.putInt("REST_TIME",(int) this.restTime);
+            editor.putInt("SETS", (int) this.sets);
+            editor.putInt("PERIODIZATION_TIME", (int) this.blockPeriodizationTime);
+            editor.putInt("PERIODIZATION_SETS", this.blockPeriodizationSets);
+            editor.commit();
+        }
+    }
+
+
+    /*
+     * Check if the setting for a start timer (before the workout beginns) is enabled
+     */
     public boolean isStartTimerEnabled(Context context) {
         if (this.settings != null) {
             return settings.getBoolean(context.getString(R.string.pref_start_timer_switch_enabled), false);
