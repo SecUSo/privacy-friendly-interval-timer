@@ -103,6 +103,8 @@ Ne albucius perfecto adolescens eum, id choro assueverit mea, sed viris constitu
     <string name="pref_start_timer_switch_summary">A start timer is shown before the workout begins.</string>
     <string name="pref_blinking_progress_bar">Blinking progress bar</string>
     <string name="pref_blinking_progress_bar_summary">The progress bar of the workout timer blinks during the final seconds.</string>
+    <string name="pref_voice_output">Voice Output</string>
+    <string name="pref_voice_output_summary">A voice counts down the final seconds of each workout and rest phase.</string>
     <string name="pref_title_motivation_alert_switch">Motivation alert</string>
     <string name="pref_notification_motivation_alert_texts">Motivation texts</string>
     <string name="title_activity_motivation_alert_texts">Motivation alert texts</string>

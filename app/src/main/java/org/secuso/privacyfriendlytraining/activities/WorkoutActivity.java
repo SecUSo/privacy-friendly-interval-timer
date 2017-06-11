@@ -10,6 +10,7 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
@@ -43,6 +44,9 @@ public class WorkoutActivity extends AppCompatActivity {
     private FloatingActionButton fab = null;
     private ProgressBar progressBar = null;
     private ObjectAnimator animator = null;
+
+    //Sound
+    MediaPlayer mediaPlayer = null;
 
     // Service variables
     private TimerService timerService = null;
@@ -139,10 +143,17 @@ public class WorkoutActivity extends AppCompatActivity {
                 workoutTimer.setText(Integer.toString(seconds));
 
                 if(seconds <= 10 && workoutColors){
+                    playTimeSound("num_"+Integer.toString(seconds));
                     this.progressBarFlip = progressBarColorFlip(workoutColors, progressBarFlip);
                 }
                 else if(seconds <= 5 && !workoutColors){
+                    playTimeSound("num_"+Integer.toString(seconds));
                     this.progressBarFlip = progressBarColorFlip(workoutColors, progressBarFlip);
+                }
+                else if(timerService != null){
+                    if(seconds == (int)timerService.getWorkoutTime()/2000 && workoutColors){
+                        playTimeSound("half_time");
+                    }
                 }
             }
             if (intent.getStringExtra("timer_title") != null) {
@@ -330,7 +341,9 @@ public class WorkoutActivity extends AppCompatActivity {
     }
 
 
-    /*Stop all timers and remove notification when navigating back to the main activity*/
+    /*
+     * Stop all timers and remove notification when navigating back to the main activity
+     */
     @Override
     public void onBackPressed() {
         timerService.cleanTimerStop();
@@ -347,6 +360,37 @@ public class WorkoutActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    /*
+     * Plays a sound for the countdown timer. MediaPlayer is checked for a necessary release beforehand.
+     */
+    private void playTimeSound(String message){
+        int soundId = getResources().getIdentifier(message, "raw", getPackageName());
+
+        if(soundId != 0 && isVoiceOutputEnabled(this)){
+
+            if (mediaPlayer != null){
+                if (mediaPlayer.isPlaying()) {
+                    mediaPlayer.stop();
+                }
+                mediaPlayer.release();
+                mediaPlayer = null;
+            }
+
+            this.mediaPlayer = MediaPlayer.create(this, soundId);
+            mediaPlayer.start();
+        }
+    }
+
+    /*
+    * Multiple checks for what was enabled inside the settings
+    */
+    public boolean isVoiceOutputEnabled(Context context){
+        if(this.settings != null){
+            return settings.getBoolean(context.getString(R.string.pref_voice_output), true);
+        }
+        return false;
     }
 
     public boolean isKeepScreenOnEnabled(Context context){

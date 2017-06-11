@@ -23,16 +23,24 @@
             android:title="@string/pref_blinking_progress_bar"
             android:summary="@string/pref_blinking_progress_bar"
             android:defaultValue="true"/>
+
+        <SwitchPreference
+            android:id="@+id/pref_voice_output"
+            android:key="@string/pref_voice_output"
+            android:title="@string/pref_voice_output"
+            android:summary="@string/pref_voice_output"
+            android:defaultValue="true"/>
     </PreferenceCategory>
 
-    <PreferenceCategory
-        android:title="@string/pref_header_notification">
-        <SwitchPreference
-            android:key="@string/pref_notification_motivation_alert_enabled"
-            android:title="@string/pref_title_motivation_alert_switch"
-            android:defaultValue="false"/>
+    <!--
 
-        <!-- default is 18:00 -->
+       <PreferenceCategory
+           android:title="@string/pref_header_notification">
+           <SwitchPreference
+               android:key="@string/pref_notification_motivation_alert_enabled"
+               android:title="@string/pref_title_motivation_alert_switch"
+               android:defaultValue="false"/>
+
         <org.secuso.privacyfriendlytraining.preferences.TimePreference
             android:defaultValue="64800000"
             android:key="@string/pref_notification_motivation_alert_time"
@@ -41,16 +49,13 @@
         <Preference
             android:title="@string/pref_notification_motivation_alert_texts"
             android:key="@string/pref_notification_motivation_texts">
-<!--
             <intent
                 android:targetClass="org.secuso.privacyfriendlytraining.activities.MotivationAlertTextsActivity"
                 android:targetPackage="org.secuso.privacyfriendlytraining" />
-                -->
         </Preference>
 
     </PreferenceCategory>
-
-
+-->
     <!-- NOTE: EditTextPreference accepts EditText attributes. -->
     <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->
     <!-- <EditTextPreference

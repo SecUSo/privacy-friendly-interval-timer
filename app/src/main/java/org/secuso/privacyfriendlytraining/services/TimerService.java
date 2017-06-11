@@ -95,7 +95,7 @@ public class TimerService extends Service {
     //Maybe Strategy Pattern for the onFinish() if another Timer would be introduced
     private CountDownTimer createWorkoutTimer(final long duration) {
 
-        return new CountDownTimer(duration, 500) {
+        return new CountDownTimer(duration, 1000) {
 
             @Override
             public void onTick(long millisUntilFinished) {
@@ -142,7 +142,7 @@ public class TimerService extends Service {
 
     private CountDownTimer createRestTimer(final long duration) {
 
-        return new CountDownTimer(duration, 500) {
+        return new CountDownTimer(duration, 1000) {
 
             @Override
             public void onTick(long millisUntilFinished) {
