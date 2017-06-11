@@ -25,22 +25,43 @@
             android:defaultValue="true"/>
 
         <SwitchPreference
-            android:id="@+id/pref_voice_output"
-            android:key="@string/pref_voice_output"
-            android:title="@string/pref_voice_output"
-            android:summary="@string/pref_voice_output"
+            android:id="@+id/pref_voice_countdown_workout"
+            android:key="@string/pref_voice_countdown_workout"
+            android:title="@string/pref_voice_countdown_workout"
+            android:summary="@string/pref_voice_countdown_workout"
             android:defaultValue="true"/>
+
+        <SwitchPreference
+            android:id="@+id/pref_voice_countdown_rest"
+            android:key="@string/pref_voice_countdown_rest"
+            android:title="@string/pref_voice_countdown_rest"
+            android:summary="@string/pref_voice_countdown_rest"
+            android:defaultValue="true"/>
+
+        <SwitchPreference
+            android:id="@+id/pref_sound_rythm"
+            android:key="@string/pref_sound_rythm"
+            android:title="@string/pref_sound_rythm"
+            android:summary="@string/pref_sound_rythm"
+            android:defaultValue="true"/>
+
+        <SwitchPreference
+            android:id="@+id/pref_voice_halftime"
+            android:key="@string/pref_voice_halftime"
+            android:title="@string/pref_voice_halftime"
+            android:summary="@string/pref_voice_halftime"
+            android:defaultValue="true"/>
+
     </PreferenceCategory>
 
-    <!--
+    <PreferenceCategory
+        android:title="@string/pref_header_notification">
+        <SwitchPreference
+            android:key="@string/pref_notification_motivation_alert_enabled"
+            android:title="@string/pref_title_motivation_alert_switch"
+            android:defaultValue="false"/>
 
-       <PreferenceCategory
-           android:title="@string/pref_header_notification">
-           <SwitchPreference
-               android:key="@string/pref_notification_motivation_alert_enabled"
-               android:title="@string/pref_title_motivation_alert_switch"
-               android:defaultValue="false"/>
-
+        <!-- default is 18:00 -->
         <org.secuso.privacyfriendlytraining.preferences.TimePreference
             android:defaultValue="64800000"
             android:key="@string/pref_notification_motivation_alert_time"
@@ -49,13 +70,16 @@
         <Preference
             android:title="@string/pref_notification_motivation_alert_texts"
             android:key="@string/pref_notification_motivation_texts">
+<!--
             <intent
                 android:targetClass="org.secuso.privacyfriendlytraining.activities.MotivationAlertTextsActivity"
                 android:targetPackage="org.secuso.privacyfriendlytraining" />
+                -->
         </Preference>
 
     </PreferenceCategory>
--->
+
+
     <!-- NOTE: EditTextPreference accepts EditText attributes. -->
     <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->
     <!-- <EditTextPreference

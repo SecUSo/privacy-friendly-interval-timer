@@ -4,10 +4,14 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.os.Binder;
 import android.os.CountDownTimer;
 import android.os.IBinder;
+import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 
@@ -16,6 +20,9 @@ import org.secuso.privacyfriendlytraining.activities.WorkoutActivity;
 
 //TO DO: Button on Notification
 public class TimerService extends Service {
+
+    //General
+    private SharedPreferences settings;
 
     //Broadcast action identifier for the broadcasted timerService messages
     public static final String COUNTDOWN_BROADCAST = "org.secuso.privacyfriendlytraining.COUNTDOWN";
@@ -27,6 +34,8 @@ public class TimerService extends Service {
     private CountDownTimer workoutTimer = null;
     private CountDownTimer restTimer = null;
 
+    //Sound
+    MediaPlayer mediaPlayer = null;
 
     //Values for workout and rest time and sets to perform
     private String currentTitle = "";
@@ -61,6 +70,8 @@ public class TimerService extends Service {
         super.onCreate();
         this.restTimer = createRestTimer(this.startTime);
         this.workoutTimer = createWorkoutTimer(this.workoutTime);
+
+        settings = PreferenceManager.getDefaultSharedPreferences(this);
     }
 
 
@@ -106,6 +117,7 @@ public class TimerService extends Service {
                         //.putExtra("sets", sets)
                         .putExtra("countdown_seconds", (int) millisUntilFinished / 1000);
                 sendBroadcast(broadcast);
+                playSound((int)millisUntilFinished/1000, true);
                 updateNotification(millisUntilFinished/1000);
             }
 
@@ -153,6 +165,7 @@ public class TimerService extends Service {
                         //.putExtra("sets", sets)
                         .putExtra("countdown_seconds", (int) millisUntilFinished / 1000);
                 sendBroadcast(broadcast);
+                playSound((int)millisUntilFinished/1000, false);
                 updateNotification(millisUntilFinished/1000);
             }
 
@@ -372,6 +385,48 @@ public class TimerService extends Service {
         }
     }
 
+    /*
+    * Plays a sound for the countdown timer. MediaPlayer is checked for a necessary release beforehand.
+    */
+    private void playSound(int seconds, boolean workout){
+
+        int soundId = 0;
+        boolean progressBarFlip = false;
+        boolean isHalfTime = seconds == (int)workoutTime/2000;
+
+
+        if(seconds <= 10 && workout && isVoiceCountdownWorkoutEnabled(this)){
+            soundId = getResources().getIdentifier("num_"+seconds, "raw", getPackageName());
+            //progressBarFlip = progressBarColorFlip(workout, progressBarFlip);
+        }
+        else if(seconds <= 5 && !workout && isVoiceCountdownRestEnabled(this)){
+            soundId = getResources().getIdentifier("num_"+seconds, "raw", getPackageName());
+            //progressBarFlip = progressBarColorFlip(workout, progressBarFlip);
+        }
+        else if(isVoiceHalfTimeEnabled(this) && workout && isHalfTime){
+            soundId = getResources().getIdentifier("half_time", "raw", getPackageName());
+        }
+        else if(isWorkoutRythmEnabled(this) && workout && seconds != 0){
+            soundId = seconds != 1 ? getResources().getIdentifier("beep", "raw", getPackageName()) : getResources().getIdentifier("beep_long", "raw", getPackageName());
+            //progressBarFlip = progressBarColorFlip(workout, progressBarFlip);
+        }
+
+        if(soundId != 0){
+
+            if (mediaPlayer != null){
+                if (mediaPlayer.isPlaying()) {
+                    mediaPlayer.stop();
+                }
+                mediaPlayer.release();
+                mediaPlayer = null;
+            }
+
+            this.mediaPlayer = MediaPlayer.create(this, soundId);
+            mediaPlayer.start();
+        }
+    }
+
+
     //TO DO: Button not working
     /*Build a notification showing the current progress of the workout*/
     public Notification buildNotification(long time) {
@@ -446,6 +501,38 @@ public class TimerService extends Service {
         this.isPaused = false;
         this.isRunning = false;
     }
+
+    /*
+    * Multiple checks for what was enabled inside the settings
+    */
+    public boolean isVoiceCountdownWorkoutEnabled(Context context){
+        if(this.settings != null){
+            return settings.getBoolean(context.getString(R.string.pref_voice_countdown_workout), false);
+        }
+        return false;
+    }
+
+    public boolean isVoiceCountdownRestEnabled(Context context){
+        if(this.settings != null){
+            return settings.getBoolean(context.getString(R.string.pref_voice_countdown_rest), false);
+        }
+        return false;
+    }
+
+    public boolean isWorkoutRythmEnabled(Context context){
+        if(this.settings != null){
+            return settings.getBoolean(context.getString(R.string.pref_sound_rythm), false);
+        }
+        return false;
+    }
+
+    public boolean isVoiceHalfTimeEnabled(Context context){
+        if(this.settings != null){
+            return settings.getBoolean(context.getString(R.string.pref_voice_halftime), false);
+        }
+        return false;
+    }
+
 
     /*Getter and Setter*/
     public long getWorkoutTime(){

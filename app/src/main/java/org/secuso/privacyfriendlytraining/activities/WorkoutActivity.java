@@ -20,7 +20,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -134,27 +133,12 @@ public class WorkoutActivity extends AppCompatActivity {
 
     public class BroadcastReceiver extends android.content.BroadcastReceiver {
         boolean workoutColors = false;
-        boolean progressBarFlip = false;
 
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getExtras() != null) {
                 int seconds = intent.getIntExtra("countdown_seconds", 0);
                 workoutTimer.setText(Integer.toString(seconds));
-
-                if(seconds <= 10 && workoutColors){
-                    playTimeSound("num_"+Integer.toString(seconds));
-                    this.progressBarFlip = progressBarColorFlip(workoutColors, progressBarFlip);
-                }
-                else if(seconds <= 5 && !workoutColors){
-                    playTimeSound("num_"+Integer.toString(seconds));
-                    this.progressBarFlip = progressBarColorFlip(workoutColors, progressBarFlip);
-                }
-                else if(timerService != null){
-                    if(seconds == (int)timerService.getWorkoutTime()/2000 && workoutColors){
-                        playTimeSound("half_time");
-                    }
-                }
             }
             if (intent.getStringExtra("timer_title") != null) {
                 String message = intent.getStringExtra("timer_title");
@@ -254,7 +238,6 @@ public class WorkoutActivity extends AppCompatActivity {
 
     private void updateProgressbar(boolean start, long duration){
         animator.setDuration (duration);
-        animator.setInterpolator (new DecelerateInterpolator());
         if(start){ animator.start();}
     }
 
@@ -362,47 +345,20 @@ public class WorkoutActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    /*
-     * Plays a sound for the countdown timer. MediaPlayer is checked for a necessary release beforehand.
-     */
-    private void playTimeSound(String message){
-        int soundId = getResources().getIdentifier(message, "raw", getPackageName());
-
-        if(soundId != 0 && isVoiceOutputEnabled(this)){
-
-            if (mediaPlayer != null){
-                if (mediaPlayer.isPlaying()) {
-                    mediaPlayer.stop();
-                }
-                mediaPlayer.release();
-                mediaPlayer = null;
-            }
-
-            this.mediaPlayer = MediaPlayer.create(this, soundId);
-            mediaPlayer.start();
-        }
-    }
 
     /*
     * Multiple checks for what was enabled inside the settings
     */
-    public boolean isVoiceOutputEnabled(Context context){
-        if(this.settings != null){
-            return settings.getBoolean(context.getString(R.string.pref_voice_output), true);
-        }
-        return false;
-    }
-
     public boolean isKeepScreenOnEnabled(Context context){
         if(this.settings != null){
-            return settings.getBoolean(context.getString(R.string.pref_keep_screen_on_switch_enabled), true);
+            return settings.getBoolean(context.getString(R.string.pref_keep_screen_on_switch_enabled), false);
         }
         return false;
     }
 
     public boolean isStartTimerEnabled(Context context) {
         if (this.settings != null) {
-            return settings.getBoolean(context.getString(R.string.pref_start_timer_switch_enabled), false);
+            return settings.getBoolean(context.getString(R.string.pref_start_timer_switch_enabled), true);
         }
         return false;
     }

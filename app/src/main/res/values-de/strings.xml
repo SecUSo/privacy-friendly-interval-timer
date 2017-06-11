@@ -84,6 +84,16 @@
     <string name="title_activity_settings">Einstellungen</string>
     <string name="pref_header_general">Allgemein</string>
     <string name="pref_header_workout">Training</string>
+
+    <string name="pref_voice_countdown_workout">Ansage Countdown Training</string>
+    <string name="pref_voice_countdown_workout_summary">Eine Stimme zählt die letzten Sekunden des Trainings herunter.</string>
+    <string name="pref_voice_countdown_rest">Ansage Countdown Pause</string>
+    <string name="pref_voice_countdown_rest_summary">Eine Stimme zählt die letzten Sekunden der Pause herunter.</string>
+    <string name="pref_sound_rythm">Rythmussignal</string>
+    <string name="pref_sound_rythm_summary">Ein sekündlicher Signalton während des Trainings.</string>
+    <string name="pref_voice_halftime">Ansage Halbzeit</string>
+    <string name="pref_voice_halftime_summary">Eine Stimme sagt die Halbzeit des Trainings an.</string>
+
     <string name="pref_header_notification">Benachrichtigungen</string>
     <string name="pref_notification_motivation_alert_time">Benachrichtigungszeitpunkt</string>
     <string name="pref_example_switch_summary">Beispiel Switch Summary</string>

@@ -94,6 +94,16 @@ Ne albucius perfecto adolescens eum, id choro assueverit mea, sed viris constitu
     <string name="title_activity_settings">Settings</string>
     <string name="pref_header_general">General</string>
     <string name="pref_header_workout">Workout</string>
+
+    <string name="pref_voice_countdown_workout">Voice Countdown Workout</string>
+    <string name="pref_voice_countdown_workout_summary">A voice counts down the final seconds of a workout.</string>
+    <string name="pref_voice_countdown_rest">Voice Countdown Rest</string>
+    <string name="pref_voice_countdown_rest_summary">A voice counts down the final seconds of the rest phase.</string>
+    <string name="pref_sound_rythm">Timer signal</string>
+    <string name="pref_sound_rythm_summary">A signal tone on for each countdown during the workout.</string>
+    <string name="pref_voice_halftime">Voice Halftime</string>
+    <string name="pref_voice_halftime_summary">A voice says when half the time of the workout passed.</string>
+
     <string name="pref_header_notification">Notifications</string>
     <string name="pref_title_notification_motivation_alert_time">Motivation alert time</string>
     <string name="pref_example_switch_summary">Example Switch Summary</string>
