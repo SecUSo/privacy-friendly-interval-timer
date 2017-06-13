@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/workout_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="org.secuso.privacyfriendlytraining.activities.WorkoutActivity"
+    tools:showIn="@layout/activity_workout">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="8dp">
+
+        <TextView
+            android:id="@+id/workout_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:text="@string/workout_headline_workout"
+            android:textAllCaps="false"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="46sp"
+            android:textStyle="bold"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="0dp" />
+
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="220dp"
+            android:layout_height="220dp"
+            android:layout_below="@+id/workout_title"
+            android:layout_centerHorizontal="true"
+            android:max="1000"
+            android:progress="0"
+            android:progressDrawable="@drawable/circular"
+            android:rotation="270" />
+
+        <TextView
+            android:id="@+id/workout_timer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="00"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="70sp"
+            android:textStyle="bold"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true" />
+
+
+        <TextView
+            android:id="@+id/current_sets_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:gravity="center"
+            android:text="@string/workout_info"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="0dp"
+            android:layout_below="@+id/progressBar"
+            android:layout_centerHorizontal="true" />
+
+        <ImageView
+            android:id="@+id/workout_previous"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:onClick="onClick"
+            android:padding="@dimen/activity_horizontal_margin"
+            android:src="@drawable/ic_media_previous"
+            android:tint="@color/darkblue"
+            android:layout_alignParentTop="true"
+            android:layout_toStartOf="@+id/progressBar" />
+
+        <ImageView
+            android:id="@+id/workout_next"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:onClick="onClick"
+            android:padding="@dimen/activity_horizontal_margin"
+            android:src="@drawable/ic_media_next"
+            android:tint="@color/darkblue"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/progressBar" />
+    </RelativeLayout>
+
+</LinearLayout>

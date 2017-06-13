@@ -391,24 +391,20 @@ public class TimerService extends Service {
     private void playSound(int seconds, boolean workout){
 
         int soundId = 0;
-        boolean progressBarFlip = false;
         boolean isHalfTime = seconds == (int)workoutTime/2000;
 
 
         if(seconds <= 10 && workout && isVoiceCountdownWorkoutEnabled(this)){
             soundId = getResources().getIdentifier("num_"+seconds, "raw", getPackageName());
-            //progressBarFlip = progressBarColorFlip(workout, progressBarFlip);
         }
         else if(seconds <= 5 && !workout && isVoiceCountdownRestEnabled(this)){
             soundId = getResources().getIdentifier("num_"+seconds, "raw", getPackageName());
-            //progressBarFlip = progressBarColorFlip(workout, progressBarFlip);
         }
         else if(isVoiceHalfTimeEnabled(this) && workout && isHalfTime){
             soundId = getResources().getIdentifier("half_time", "raw", getPackageName());
         }
         else if(isWorkoutRythmEnabled(this) && workout && seconds != 0){
             soundId = seconds != 1 ? getResources().getIdentifier("beep", "raw", getPackageName()) : getResources().getIdentifier("beep_long", "raw", getPackageName());
-            //progressBarFlip = progressBarColorFlip(workout, progressBarFlip);
         }
 
         if(soundId != 0){

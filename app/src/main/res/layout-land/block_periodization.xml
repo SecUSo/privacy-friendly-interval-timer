@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/main_block_periodization_sets"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="25dp"
+        android:text="@string/main_block_periodization_sets"
+        android:textColor="@color/black"
+        android:textSize="18sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="fill_vertical"
+        android:orientation="horizontal"
+        android:paddingRight="35dp">
+
+        <TextView
+            android:id="@+id/main_block_periodization_sets_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_alignBaseline="@+id/main_workout_interval_minus"
+            android:layout_alignBottom="@+id/main_workout_interval_minus"
+            android:layout_marginLeft="0dp"
+            android:layout_toStartOf="@+id/main_workout_interval_plus"
+            android:layout_weight="0.10"
+            android:paddingLeft="30dp"
+            android:text="0"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/main_block_periodization_sets_minus"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignEnd="@+id/textView1"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="0dp"
+            android:layout_marginRight="0dp"
+            android:background="@drawable/button_normal"
+            android:onClick="onClick"
+            android:text="-"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="20dp"
+            android:layout_height="match_parent" />
+
+        <Button
+            android:id="@+id/main_block_periodization_sets_plus"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignEnd="@+id/main_text_work_interval"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="0dp"
+            android:layout_marginLeft="0dp"
+            android:background="@drawable/button_normal"
+            android:onClick="onClick"
+            android:text="+"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/main_block_periodization_duration"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="15dp"
+        android:text="@string/main_block_periodization_duration"
+        android:textColor="@color/black"
+        android:textSize="18sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="fill_vertical"
+        android:orientation="horizontal"
+        android:paddingRight="35dp">
+
+        <TextView
+            android:id="@+id/main_block_periodization_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/main_workout_interval_minus"
+            android:layout_alignBottom="@+id/main_workout_interval_minus"
+            android:layout_toStartOf="@+id/main_workout_interval_plus"
+            android:layout_weight="0.11"
+            android:paddingLeft="30dp"
+            android:text="00 : 00"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/main_block_periodization_time_minus"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignEnd="@+id/textView1"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="0dp"
+            android:background="@drawable/button_normal"
+            android:onClick="onClick"
+            android:text="-"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="20dp"
+            android:layout_height="match_parent" />
+
+        <Button
+            android:id="@+id/main_block_periodization_time_plus"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignEnd="@+id/main_text_work_interval"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="0dp"
+            android:background="@drawable/button_normal"
+            android:onClick="onClick"
+            android:text="+"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+</LinearLayout>

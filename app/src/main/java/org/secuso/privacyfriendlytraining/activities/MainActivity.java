@@ -14,8 +14,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import org.json.JSONException;
 import org.secuso.privacyfriendlytraining.R;
+import org.secuso.privacyfriendlytraining.database.DatabaseExporter;
+import org.secuso.privacyfriendlytraining.database.PFASQLiteHelper;
+import org.secuso.privacyfriendlytraining.database.PFASampleDataType;
 import org.secuso.privacyfriendlytraining.services.TimerService;
 
 import java.util.ArrayList;
@@ -69,6 +74,28 @@ public class MainActivity extends BaseActivity {
         this.setsText.setText(Integer.toString(sets));
 
 
+        PFASQLiteHelper database = new PFASQLiteHelper(getBaseContext());
+        database.addSampleData(new PFASampleDataType(0, "eins.de", "hugo1", 11));
+        database.addSampleData(new PFASampleDataType(0, "zwei.de", "hugo2", 12));
+        database.addSampleData(new PFASampleDataType(0, "drei.de", "hugo3", 13));
+        database.addSampleData(new PFASampleDataType(0, "vier.de", "hugo4", 14));
+
+        DatabaseExporter porter = new DatabaseExporter(getBaseContext().getDatabasePath(PFASQLiteHelper.DATABASE_NAME).toString(), "PF_EXAMPLE_DB");
+        try {
+            porter.dbToJSON();
+
+
+
+            Toast.makeText(this, porter.dbToJSON().get("eins.de").toString(),
+                    Toast.LENGTH_LONG).show();
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+
+
 //        PFASQLiteHelper database = new PFASQLiteHelper(getBaseContext());
 //        database.addSampleData(new PFASampleDataType(0, "eins.de", "hugo1", 11));
 //        database.addSampleData(new PFASampleDataType(0, "zwei.de", "hugo2", 12));
@@ -113,7 +140,7 @@ public class MainActivity extends BaseActivity {
      */
     @Override
     protected int getNavigationDrawerID() {
-        return R.id.nav_example;
+        return R.id.nav_main;
     }
 
 

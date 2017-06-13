@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="org.secuso.privacyfriendlytraining.activities.MainActivity">
+
+    <include layout="@layout/toolbar"/>
+
+    <include layout="@layout/content_main"
+        android:id="@+id/include2" />
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|right"
+        android:weightSum="1"
+        app:layout_anchor="@+id/include2"
+        app:layout_anchorGravity="bottom|right">
+
+        <TextView
+            android:id="@+id/main_text_rest_interval"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/main_text_start"
+            android:textColor="@color/colorAccent"
+            android:textSize="18sp"
+            android:textStyle="bold|italic"
+            app:layout_anchor="@+id/include2"
+            app:layout_anchorGravity="bottom|left" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/start_workout"
+            android:layout_width="69dp"
+            android:layout_height="68dp"
+            android:layout_gravity="bottom"
+            android:layout_margin="@dimen/fab_margin"
+            android:background="@drawable/button_fullwidth"
+            android:onClick="onClick"
+            android:src="@drawable/ic_media_embed_play"
+            app:backgroundTint="@color/colorPrimary" />
+
+    </LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>

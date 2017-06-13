@@ -14,6 +14,7 @@
     <string name="action_about">Über</string>
     <string name="action_settings">Einstellungen</string>
     <string name="action_main">Hauptmenü</string>
+    <string name="action_statistics">Statistiken</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -139,5 +140,7 @@
     <string name="next">Weiter</string>
     <string name="skip">Überspringen</string>
     <string name="title_activity_workout">Training</string>
+    <string name="title_activity_statistics">Statistiken</string>
+
 
 </resources>

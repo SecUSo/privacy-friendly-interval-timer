@@ -133,12 +133,20 @@ public class WorkoutActivity extends AppCompatActivity {
 
     public class BroadcastReceiver extends android.content.BroadcastReceiver {
         boolean workoutColors = false;
+        boolean progressBarFlip = false;
 
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getExtras() != null) {
                 int seconds = intent.getIntExtra("countdown_seconds", 0);
                 workoutTimer.setText(Integer.toString(seconds));
+
+                if(seconds <= 10 && workoutColors && isBlinkingProgressBarEnabled(context)){
+                    progressBarFlip = progressBarColorFlip(workoutColors, progressBarFlip);
+                }
+                else if(seconds <= 5 && isBlinkingProgressBarEnabled(context)){
+                    progressBarFlip = progressBarColorFlip(workoutColors, progressBarFlip);
+                }
             }
             if (intent.getStringExtra("timer_title") != null) {
                 String message = intent.getStringExtra("timer_title");
