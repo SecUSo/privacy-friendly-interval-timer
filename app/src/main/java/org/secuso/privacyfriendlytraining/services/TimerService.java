@@ -17,6 +17,11 @@ import android.support.v4.content.ContextCompat;
 
 import org.secuso.privacyfriendlytraining.R;
 import org.secuso.privacyfriendlytraining.activities.WorkoutActivity;
+import org.secuso.privacyfriendlytraining.database.PFASQLiteHelper;
+import org.secuso.privacyfriendlytraining.models.WorkoutSessionData;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 //TO DO: Button on Notification
 public class TimerService extends Service {
@@ -65,6 +70,11 @@ public class TimerService extends Service {
     private boolean appInBackground = false;
 
 
+    //Database for the statistics
+    private PFASQLiteHelper database = null;
+    private WorkoutSessionData statistics = null;
+    private long workoutDuration = 0;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -95,6 +105,7 @@ public class TimerService extends Service {
         if(restTimer != null){
             restTimer.cancel();
         }
+        saveStatistics();
         super.onDestroy();
     }
 
@@ -148,6 +159,7 @@ public class TimerService extends Service {
                 }
                 sendBroadcast(broadcast);
                 isWorkout = false;
+                workoutDuration += duration;
             }
         };
     }
@@ -186,8 +198,9 @@ public class TimerService extends Service {
                         .putExtra("new_timer_started", workoutTime);
                 sendBroadcast(broadcast);
                 isWorkout = true;
-                workoutTimer = createWorkoutTimer(workoutTime);
+                workoutDuration += duration;
 
+                workoutTimer = createWorkoutTimer(workoutTime);
                 workoutTimer.start();
             }
         };
@@ -205,9 +218,11 @@ public class TimerService extends Service {
         this.restTime = restTime * 1000;
         this.currentSet = 1;
         this.sets = sets;
+        this.workoutDuration = 0;
 
         this.workoutTimer = createWorkoutTimer(this.workoutTime);
         this.restTimer = createRestTimer(this.startTime);
+
 
         //Use rest timer as a start timer before the workout begins
         if(startTime != 0){
@@ -230,9 +245,11 @@ public class TimerService extends Service {
     public void pauseTimer() {
         if(isWorkout && workoutTimer != null) {
             this.workoutTimer.cancel();
+            workoutDuration += workoutTime - savedTime;
         }
         else if (restTimer !=null) {
             this.restTimer.cancel();
+            workoutDuration += restTime - savedTime;
         }
         isPaused = true;
         updateNotification(savedTime/1000);
@@ -272,6 +289,7 @@ public class TimerService extends Service {
                 this.savedTime = time;
             }
             else {
+                workoutDuration += savedTime;
                 restTimer = createRestTimer(time);
                 restTimer.start();
             }
@@ -300,6 +318,7 @@ public class TimerService extends Service {
                 this.savedTime = workoutTime;
             }
             else {
+                workoutDuration += savedTime;
                 workoutTimer = createWorkoutTimer(workoutTime);
                 workoutTimer.start();
             }
@@ -334,6 +353,7 @@ public class TimerService extends Service {
                 this.savedTime = time;
             }
             else {
+                workoutDuration += savedTime;
                 restTimer = createRestTimer(time);
                 restTimer.start();
             }
@@ -378,6 +398,7 @@ public class TimerService extends Service {
                 this.savedTime = workoutTime;
             }
             else {
+                workoutDuration += savedTime;
                 workoutTimer = createWorkoutTimer(workoutTime);
                 workoutTimer.start();
             }
@@ -493,9 +514,34 @@ public class TimerService extends Service {
         if (notiManager != null){
             notiManager.cancel(NOTIFICATION_ID);
         }
+
+        saveStatistics();
         this.savedTime = 0;
         this.isPaused = false;
         this.isRunning = false;
+    }
+
+    private int getTodayAsID() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+        String concatDate = dateFormat.format(new Date());
+
+        return Integer.parseInt(concatDate);
+    }
+
+    private void saveStatistics(){
+        database = new PFASQLiteHelper(getBaseContext());
+        int id = getTodayAsID();
+        statistics = database.getWorkoutData(id);
+
+        if(statistics.getID() == 0){
+            database.addWorkoutDataWithID(new WorkoutSessionData(id, 0, 0));
+            statistics = database.getWorkoutData(id);
+        }
+
+        int timeSpentTraining = statistics.getWORKOUTTIME() + (int)this.workoutDuration/1000;
+
+        database.updateWorkoutData(new WorkoutSessionData(id, timeSpentTraining, 10));
+        this.workoutDuration = 0;
     }
 
     /*

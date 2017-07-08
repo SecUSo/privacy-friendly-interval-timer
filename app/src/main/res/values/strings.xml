@@ -107,6 +107,7 @@ Ne albucius perfecto adolescens eum, id choro assueverit mea, sed viris constitu
 
     <string name="pref_header_notification">Notifications</string>
     <string name="pref_title_notification_motivation_alert_time">Motivation alert time</string>
+    <string name="pref_title_notification_delete_statistics_alert">Delete Statistics</string>
     <string name="pref_example_switch_summary">Example Switch Summary</string>
     <string name="pref_keep_screen_on_switch">Keep Screen On</string>
     <string name="pref_keep_screen_on_switch_summary">The Screen remains turned on during the workout.</string>
@@ -119,6 +120,18 @@ Ne albucius perfecto adolescens eum, id choro assueverit mea, sed viris constitu
     <string name="pref_title_motivation_alert_switch">Motivation alert</string>
     <string name="pref_notification_motivation_alert_texts">Motivation texts</string>
     <string name="title_activity_motivation_alert_texts">Motivation alert texts</string>
+    <string name="pref_delete_statistics_dialog_title">Delete statistics</string>
+    <string name="pref_delete_statistics_dialog_info">Do you want to delete all saved statistics?</string>
+    <string name="pref_delete_statistics_dialog_toast">Statistics have been reset!</string>
+
+    <!-- ###PREFERENCE NOT TRANSLATEABLES### -->
+    <string name="pref_keep_screen_on_switch_enabled" translatable="false">org.secuso.privacyfriendlytraining.pref_keep_screen_on_switch_enabled</string>
+    <string name="pref_start_timer_switch_enabled" translatable="false">org.secuso.privacyfriendlytraining.pref_start_timer_switch_enabled</string>
+    <string name="pref_notification_motivation_alert_enabled" translatable="false">org.secuso.privacyfriendlytraining.pref.motivation_alert_enabled</string>
+    <string name="pref_notification_motivation_alert_time" translatable="false">org.secuso.privacyfriendlytraining.pref.motivation_alert_time</string>
+    <string name="pref_notification_delete_statistics_alert" translatable="false">org.secuso.privacyfriendlytraining.pref.motivation_alert_time</string>
+    <string name="pref_notification_motivation_texts" translatable="false">org.secuso.privacyfriendlytraining.pref.motivation_texts</string>
+    <string name="pref_delete_statistics_dialog" translatable="false">org.secuso.privacyfriendlytraining.pref.delete_dialog</string>
 
     <!-- Alert -->
     <string name="motivation_alert_input_title">Motivation alert text</string>
@@ -128,13 +141,21 @@ Ne albucius perfecto adolescens eum, id choro assueverit mea, sed viris constitu
     <string-array name="pref_default_notification_motivation_alert_messages">
         <item>Let\'s do it, it\'s time to work out!</item>
     </string-array>
+    <string name="alert_confirm_dialog_positive">Yes</string>
+    <string name="alert_confirm_dialog_negative">No</string>
 
-    <!-- ###PREFERENCE SWTICH KEYS### -->
-    <string name="pref_keep_screen_on_switch_enabled" translatable="false">org.secuso.privacyfriendlytraining.pref_keep_screen_on_switch_enabled</string>
-    <string name="pref_start_timer_switch_enabled" translatable="false">org.secuso.privacyfriendlytraining.pref_start_timer_switch_enabled</string>
-    <string name="pref_notification_motivation_alert_enabled" translatable="false">org.secuso.privacyfriendlytraining.pref.motivation_alert_enabled</string>
-    <string name="pref_notification_motivation_alert_time" translatable="false">org.secuso.privacyfriendlytraining.pref.motivation_alert_time</string>
-    <string name="pref_notification_motivation_texts" translatable="false">org.secuso.privacyfriendlytraining.pref.motivation_texts</string>
+    <!-- ReportFragment -->
+    <string name="month">Month</string>
+    <string name="week">Week</string>
+    <string name="day">Day</string>
+    <string name="report_workout_time">Workout time in minutes</string>
+    <string name="report_calories">Calories</string>
+    <string name="activity_summary_subtitle">Summary of activities</string>
+    <string name="activity_chart_summary_subtitle">Detailed summary of your activities</string>
+    <string name="summary_card_calories">kcal</string>
+    <string name="action_calories">Calories</string>
+    <string name="action_time">Workout time</string>
+
 
     <!-- ### TUTORIAL DIALOG ### -->
     <string name="slide1_heading">Welcome!</string>
@@ -154,5 +175,8 @@ Ne albucius perfecto adolescens eum, id choro assueverit mea, sed viris constitu
     <string name="skip">Skip</string>
     <string name="title_activity_workout">Workout</string>
     <string name="title_activity_statistics">Statistics</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

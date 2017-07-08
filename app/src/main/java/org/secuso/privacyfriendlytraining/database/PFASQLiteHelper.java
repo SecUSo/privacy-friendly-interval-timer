@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import org.secuso.privacyfriendlytraining.models.WorkoutSessionData;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,16 +30,16 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
      * Use the following pattern for the name of the database
      * PF_[Name of the app]_DB
      */
-    public static final String DATABASE_NAME = "PF_EXAMPLE_DB";
+    public static final String DATABASE_NAME = "PF_TRAINING_DB";
 
-    //Names of table in the database
-    private static final String TABLE_SAMPLEDATA = "SAMPLE_DATA";
+    //Name of the table in the database
+    private static final String TABLE_DATA = "WORKOUT_SESSION";
 
     //Names of columns in the databases in this example we only use one table
     private static final String KEY_ID = "id";
-    private static final String KEY_DOMAIN = "domain";
-    private static final String KEY_USERNAME = "username";
-    private static final String KEY_LENGTH = "length";
+    private static final String KEY_WORKOUT_TIME = "workoutTime";
+    private static final String KEY_CALORIES = "calories";
+    private static final String KEY_TIMESTAMP = "time";
 
     public PFASQLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -47,22 +49,21 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
 
         /**
-         * Create the table sample data on the first start
-         * Be careful with the final line of the query and the SQL syntax that is used in the String.
-         */
-        String CREATE_SAMPLEDATA_TABLE = "CREATE TABLE " + TABLE_SAMPLEDATA +
+         * Create the table data on the first start
+         * */
+        String WORKOUT_SESSION_TABLE = "CREATE TABLE " + TABLE_DATA +
                 "(" +
                 KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                KEY_DOMAIN + " TEXT NOT NULL," +
-                KEY_USERNAME + " TEXT NOT NULL," +
-                KEY_LENGTH + " INTEGER);";
+                KEY_WORKOUT_TIME + " LONG," +
+                KEY_CALORIES + " INTEGER," +
+                KEY_TIMESTAMP + " INTEGER);";
 
-        sqLiteDatabase.execSQL(CREATE_SAMPLEDATA_TABLE);
+        sqLiteDatabase.execSQL(WORKOUT_SESSION_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_SAMPLEDATA);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_DATA);
 
         onCreate(sqLiteDatabase);
     }
@@ -74,16 +75,15 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
      * the last available key of the table is taken and incremented by 1
      * @param sampleData data that will be added
      */
-    public void addSampleData(PFASampleDataType sampleData) {
+    public void addWorkoutData(WorkoutSessionData sampleData) {
         SQLiteDatabase database = this.getWritableDatabase();
 
         //To adjust this class for your own data, please add your values here.
         ContentValues values = new ContentValues();
-        values.put(KEY_DOMAIN, sampleData.getDOMAIN());
-        values.put(KEY_USERNAME, sampleData.getUSERNAME());
-        values.put(KEY_LENGTH, sampleData.getLENGTH());
+        values.put(KEY_WORKOUT_TIME, sampleData.getWORKOUTTIME());
+        values.put(KEY_CALORIES, sampleData.getCALORIES());
 
-        database.insert(TABLE_SAMPLEDATA, null, values);
+        database.insert(TABLE_DATA, null, values);
         database.close();
     }
 
@@ -94,17 +94,16 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
      * @param sampleData data that will be added
      * Only use this for undo options and re-insertions
      */
-    public void addSampleDataWithID(PFASampleDataType sampleData) {
+    public void addWorkoutDataWithID(WorkoutSessionData sampleData) {
         SQLiteDatabase database = this.getWritableDatabase();
 
         //To adjust this class for your own data, please add your values here.
         ContentValues values = new ContentValues();
         values.put(KEY_ID, sampleData.getID());
-        values.put(KEY_DOMAIN, sampleData.getDOMAIN());
-        values.put(KEY_USERNAME, sampleData.getUSERNAME());
-        values.put(KEY_LENGTH, sampleData.getLENGTH());
+        values.put(KEY_WORKOUT_TIME, sampleData.getWORKOUTTIME());
+        values.put(KEY_CALORIES, sampleData.getCALORIES());
 
-        database.insert(TABLE_SAMPLEDATA, null, values);
+        database.insert(TABLE_DATA, null, values);
 
         //always close the database after insertion
         database.close();
@@ -116,29 +115,28 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
      * @param id of the sampleData that is requested, could be get by the get-method
      * @return the sampleData that is requested.
      */
-    public PFASampleDataType getSampleData(int id) {
+    public WorkoutSessionData getWorkoutData(int id) {
         SQLiteDatabase database = this.getWritableDatabase();
 
         Log.d("DATABASE", Integer.toString(id));
 
-        Cursor cursor = database.query(TABLE_SAMPLEDATA, new String[]{KEY_ID,
-                        KEY_DOMAIN, KEY_USERNAME, KEY_LENGTH}, KEY_ID + "=?",
+        Cursor cursor = database.query(TABLE_DATA, new String[]{KEY_ID,
+                        KEY_WORKOUT_TIME, KEY_CALORIES, KEY_TIMESTAMP}, KEY_ID + "=?",
                 new String[]{String.valueOf(id)}, null, null, null, null);
 
-        PFASampleDataType sampleData = new PFASampleDataType();
+        WorkoutSessionData data = new WorkoutSessionData();
 
         if( cursor != null && cursor.moveToFirst() ){
-            sampleData.setID(Integer.parseInt(cursor.getString(0)));
-            sampleData.setDOMAIN(cursor.getString(1));
-            sampleData.setUSERNAME(cursor.getString(2));
-            sampleData.setLENGTH(Integer.parseInt(cursor.getString(3)));
+            data.setID(Integer.parseInt(cursor.getString(0)));
+            data.setWORKOUTTIME(Integer.parseInt(cursor.getString(1)));
+            data.setCALORIES(Integer.parseInt(cursor.getString(2)));
 
             Log.d("DATABASE", "Read " + cursor.getString(1) + " from DB");
 
             cursor.close();
         }
 
-        return sampleData;
+        return data;
 
     }
 
@@ -147,25 +145,24 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
      * This could be used for instance to fill a recyclerView
      * @return A list of all available sampleData in the Database
      */
-    public List<PFASampleDataType> getAllSampleData() {
-        List<PFASampleDataType> sampleDataList = new ArrayList<PFASampleDataType>();
+    public List<WorkoutSessionData> getAllWorkoutData() {
+        List<WorkoutSessionData> sampleDataList = new ArrayList<WorkoutSessionData>();
 
-        String selectQuery = "SELECT  * FROM " + TABLE_SAMPLEDATA;
+        String selectQuery = "SELECT  * FROM " + TABLE_DATA;
 
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery(selectQuery, null);
 
-        PFASampleDataType sampleData = null;
+        WorkoutSessionData sampleData = null;
 
         if (cursor.moveToFirst()) {
             do {
                 //To adjust this class for your own data, please add your values here.
                 //be careful to use the right get-method to get the data from the cursor
-                sampleData = new PFASampleDataType();
+                sampleData = new WorkoutSessionData();
                 sampleData.setID(Integer.parseInt(cursor.getString(0)));
-                sampleData.setDOMAIN(cursor.getString(1));
-                sampleData.setUSERNAME(cursor.getString(2));
-                sampleData.setLENGTH(Integer.parseInt(cursor.getString(3)));
+                sampleData.setWORKOUTTIME(Integer.parseInt(cursor.getString(1)));
+                sampleData.setCALORIES(Integer.parseInt(cursor.getString(2)));
 
                 sampleDataList.add(sampleData);
             } while (cursor.moveToNext());
@@ -176,20 +173,19 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
 
     /**
      * Updates a database entry.
-     * @param sampleData
+     * @param workoutData
      * @return actually makes the update
      */
-    public int updateSampleData(PFASampleDataType sampleData) {
+    public int updateWorkoutData(WorkoutSessionData workoutData) {
         SQLiteDatabase database = this.getWritableDatabase();
 
         //To adjust this class for your own data, please add your values here.
         ContentValues values = new ContentValues();
-        values.put(KEY_DOMAIN, sampleData.getDOMAIN());
-        values.put(KEY_USERNAME, sampleData.getUSERNAME());
-        values.put(KEY_LENGTH, sampleData.getLENGTH());
+        values.put(KEY_WORKOUT_TIME, workoutData.getWORKOUTTIME());
+        values.put(KEY_CALORIES, workoutData.getCALORIES());
 
-        return database.update(TABLE_SAMPLEDATA, values, KEY_ID + " = ?",
-                new String[] { String.valueOf(sampleData.getID()) });
+        return database.update(TABLE_DATA, values, KEY_ID + " = ?",
+                new String[] { String.valueOf(workoutData.getID()) });
     }
 
     /**
@@ -197,9 +193,9 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
      * This method takes the sampleData and extracts its key to build the delete-query
      * @param sampleData that will be deleted
      */
-    public void deleteSampleData(PFASampleDataType sampleData) {
+    public void deleteWorkoutData(WorkoutSessionData sampleData) {
         SQLiteDatabase database = this.getWritableDatabase();
-        database.delete(TABLE_SAMPLEDATA, KEY_ID + " = ?",
+        database.delete(TABLE_DATA, KEY_ID + " = ?",
                 new String[] { Integer.toString(sampleData.getID()) });
         //always close the DB after deletion of single entries
         database.close();
@@ -209,9 +205,9 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
      * deletes all sampleData from the table.
      * This could be used in case of a reset of the app.
      */
-    public void deleteAllSampleData() {
+    public void deleteAllWorkokutData() {
         SQLiteDatabase database = this.getWritableDatabase();
-        database.execSQL("delete from "+ TABLE_SAMPLEDATA);
+        database.execSQL("delete from "+ TABLE_DATA);
     }
 
 }

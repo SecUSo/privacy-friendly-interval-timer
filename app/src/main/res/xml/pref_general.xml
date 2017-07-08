@@ -54,6 +54,14 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory android:title="Statistics">
+        <org.secuso.privacyfriendlytraining.preferences.DeletePreference
+            android:key="@string/pref_delete_statistics_dialog"
+            android:title="@string/pref_delete_statistics_dialog_title"/>
+
+    </PreferenceCategory>
+
+
     <PreferenceCategory
         android:title="@string/pref_header_notification">
         <SwitchPreference

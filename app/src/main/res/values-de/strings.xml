@@ -107,7 +107,11 @@
     <string name="pref_voice_output">Sprachausgabe</string>
     <string name="pref_voice_output_summary">Eine Stimme zählt die letzten Sekunden jeder Trainingseinheit und Pause herunter.</string>
     <string name="pref_title_motivation_alert_switch">Motivationsbenachrichtigung</string>
+    <string name="pref_title_notification_delete_statistics_alert">Statistiken löschen</string>
     <string name="pref_notification_motivation_alert_texts">Motivationstexte</string>
+    <string name="pref_delete_statistics_dialog_title">Statistiken löschen</string>
+    <string name="pref_delete_statistics_dialog_info">Wollen Sie alle gespeicherten Statistiken löschen?</string>
+    <string name="pref_delete_statistics_dialog_toast">Die Statistiken wurden zurückgesetzt!</string>
 
     <!-- Alert -->
     <string name="motivation_alert_input_title">Motivationstext</string>
@@ -115,10 +119,23 @@
     <string name="motivation_alert_empty">Erstellen Sie persönliche Motivationsbenachrichtigungen, die erscheinen, wenn Sie an Trainingseinheiten erinnert werden.\n\nEs erscheint keine Benachrichtigung, wenn keine Texte angelegt sind.</string>
     <string name="motivation_alert_input_msg">Speichern Sie eine persönliche Motivationsbenachrichtigung. Die Auswahl der Nachricht erfolgt zufällig.</string>
     <string name="motivation_alert_input_empty">Bitte geben Sie eine Motivationsbenachrichtigung ein.</string>
-
     <string-array name="pref_default_notification_motivation_alert_messages">
         <item>Mach dich bereit\'s! Es ist an der Zeit zu trainieren!</item>
     </string-array>
+    <string name="alert_confirm_dialog_positive">Ja</string>
+    <string name="alert_confirm_dialog_negative">Nein</string>
+
+    <!-- ReportFragment -->
+    <string name="month">Monat</string>
+    <string name="week">Woche</string>
+    <string name="day">Tag</string>
+    <string name="report_workout_time">Trainingszeit in Minuten</string>
+    <string name="report_calories">Kalorien</string>
+    <string name="activity_chart_summary_subtitle">Detaillierte Übersicht aller Aktivitäten</string>
+    <string name="activity_summary_subtitle">Aktivitätenübersicht</string>
+    <string name="summary_card_calories">kcal</string>
+    <string name="action_calories">Kalorien</string>
+    <string name="action_time">Trainingszeit</string>
 
 
     <!-- ### WELCOME DIALOG ### -->

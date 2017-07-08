@@ -1,32 +1,45 @@
 package org.secuso.privacyfriendlytraining.activities;
 
+
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
+import android.preference.PreferenceManager;
 
 import org.secuso.privacyfriendlytraining.R;
+import org.secuso.privacyfriendlytraining.fragments.DailyReportFragment;
+import org.secuso.privacyfriendlytraining.fragments.MonthlyReportFragment;
+import org.secuso.privacyfriendlytraining.fragments.StatisticsFragment;
+import org.secuso.privacyfriendlytraining.fragments.WeeklyReportFragment;
 
-public class StatisticsActivity extends AppCompatActivity {
+/**
+ * Statistics view incl. navigation drawer and fragments
+ *
+ * @author Tobias Neidig, Karola Marky, Alexander Karakuz
+ * @version 20170612
+ */
+public class StatisticsActivity extends BaseActivity implements DailyReportFragment.OnFragmentInteractionListener, WeeklyReportFragment.OnFragmentInteractionListener, MonthlyReportFragment.OnFragmentInteractionListener {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistics);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        // init preferences
+        PreferenceManager.setDefaultValues(this, R.xml.pref_general, false);
+
+        // Load first view
+        final android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.content_frame, new StatisticsFragment(), "StatisticsFragment");
+        fragmentTransaction.commit();
+    }
+
+    @Override
+    protected int getNavigationDrawerID() {
+        return R.id.nav_main;
     }
 
 }
+
+
+
+
