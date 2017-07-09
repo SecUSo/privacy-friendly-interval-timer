@@ -74,6 +74,8 @@ public class TimerService extends Service {
     private PFASQLiteHelper database = null;
     private WorkoutSessionData statistics = null;
     private long workoutDuration = 0;
+    private int caloriesBurnt = 0;
+    private int caloriesPerExercise = 0;
 
     @Override
     public void onCreate() {
@@ -134,6 +136,9 @@ public class TimerService extends Service {
 
             @Override
             public void onFinish() {
+                workoutDuration += duration;
+                caloriesBurnt += caloriesPerExercise;
+
                 Intent broadcast = new Intent(COUNTDOWN_BROADCAST);
                 if(currentSet < sets) {
                     if (isBlockPeriodization && currentSet % blockPeriodizationSets == 0) {
@@ -154,12 +159,12 @@ public class TimerService extends Service {
                 else {
                     currentTitle = getResources().getString(R.string.workout_headline_done);
                     broadcast = new Intent(COUNTDOWN_BROADCAST)
-                            .putExtra("timer_title", currentTitle)
-                            .putExtra("workout_finished", true);
+                        .putExtra("timer_title", currentTitle)
+                        .putExtra("workout_finished", true)
+                        .putExtra("calories_burned", caloriesBurnt);
                 }
                 sendBroadcast(broadcast);
                 isWorkout = false;
-                workoutDuration += duration;
             }
         };
     }
@@ -219,6 +224,8 @@ public class TimerService extends Service {
         this.currentSet = 1;
         this.sets = sets;
         this.workoutDuration = 0;
+        this.caloriesBurnt = 0;
+        this.caloriesPerExercise = calculateUserCalories((float) workoutTime);
 
         this.workoutTimer = createWorkoutTimer(this.workoutTime);
         this.restTimer = createRestTimer(this.startTime);
@@ -443,8 +450,25 @@ public class TimerService extends Service {
         }
     }
 
+    //https://www.fitness-gesundheit.uni-wuppertal.de/fileadmin/fitness-gesundheit/pdf-Dokumente/Publikationen/2015/Prof.Stemper_F_G_4-15.pdf
+    private int calculateUserCalories(float workoutDurationSeconds){
+        int age = 0;
+        int height = 0;
+        int weight = 0;
+        int circleTrainingMET = 8;
 
-    //TO DO: Button not working
+        if(this.settings != null) {
+            age = Integer.parseInt(settings.getString(this.getString(R.string.pref_age), "0"));
+            height = Integer.parseInt(settings.getString(this.getString(R.string.pref_heigh), "0"));
+            weight = (int)Double.parseDouble(settings.getString(this.getString(R.string.pref_weight), "0"));
+        }
+
+        float caloriesPerExercise = circleTrainingMET * (weight * workoutDurationSeconds/3600);
+
+        return (int) caloriesPerExercise;
+    }
+
+
     /*Build a notification showing the current progress of the workout*/
     public Notification buildNotification(long time) {
         notiBuilder = new NotificationCompat.Builder(this);
@@ -538,10 +562,12 @@ public class TimerService extends Service {
             statistics = database.getWorkoutData(id);
         }
 
-        int timeSpentTraining = statistics.getWORKOUTTIME() + (int)this.workoutDuration/1000;
+        int totalTimeSpentTraining = statistics.getWORKOUTTIME() + (int)this.workoutDuration/1000;
+        int totalCaloriesBurnt = statistics.getCALORIES() + this.caloriesBurnt;
 
-        database.updateWorkoutData(new WorkoutSessionData(id, timeSpentTraining, 10));
+        database.updateWorkoutData(new WorkoutSessionData(id, totalTimeSpentTraining, totalCaloriesBurnt));
         this.workoutDuration = 0;
+        this.caloriesBurnt = 0;
     }
 
     /*
@@ -591,6 +617,10 @@ public class TimerService extends Service {
 
     public int getSets(){
         return this.sets;
+    }
+
+    public int getCaloriesBurnt(){
+        return this.caloriesBurnt;
     }
 
     public int getCurrentSet(){

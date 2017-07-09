@@ -55,10 +55,56 @@
     </PreferenceCategory>
 
     <PreferenceCategory android:title="Statistics">
+
+        <SwitchPreference
+            android:id="@+id/pref_calories_counter"
+            android:key="@string/pref_calories_counter_title"
+            android:title="@string/pref_calories_counter_title"
+            android:summary="@string/pref_calories_counter_summary"
+            android:defaultValue="true"/>
+
         <org.secuso.privacyfriendlytraining.preferences.DeletePreference
             android:key="@string/pref_delete_statistics_dialog"
             android:title="@string/pref_delete_statistics_dialog_title"/>
 
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/pref_group_title_personal_settings">
+        <EditTextPreference
+            android:defaultValue="@string/pref_default_age"
+            android:inputType="number"
+            android:key="@string/pref_age"
+            android:maxLines="1"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:title="@string/pref_title_age"
+            android:maxLength="2"/>
+        <EditTextPreference
+            android:defaultValue="@string/pref_default_height"
+            android:inputType="number"
+            android:key="@string/pref_heigh"
+            android:maxLines="1"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:title="@string/pref_title_height"
+            android:maxLength="3"/>
+        <EditTextPreference
+            android:defaultValue="@string/pref_default_weight"
+            android:inputType="numberDecimal"
+            android:key="@string/pref_weight"
+            android:maxLines="1"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:title="@string/pref_title_weight"
+            android:maxLength="6"/>
+        <ListPreference
+            android:defaultValue=""
+            android:entries="@array/pref_keys_gender"
+            android:entryValues="@array/pref_values_gender"
+            android:key="@string/pref_gender"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            android:title="@string/pref_title_gender"/>
     </PreferenceCategory>
 
 

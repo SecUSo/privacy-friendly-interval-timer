@@ -102,9 +102,6 @@ public class WorkoutActivity extends AppCompatActivity {
                     timerService.resumeTimer();
                     resumeProgressbar();
                 }
-                //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                 //       .setAction("Action", null).show();
-
             }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -162,7 +159,8 @@ public class WorkoutActivity extends AppCompatActivity {
                 currentSetsInfo.setText(getResources().getString(R.string.workout_info) +": "+Integer.toString(currentSet)+"/"+Integer.toString(sets));
             }
             if (intent.getBooleanExtra("workout_finished", false) != false) {
-                AlertDialog finishedAlert = buildAlert();
+                int caloriesBurned = intent.getIntExtra("calories_burned", 0);
+                AlertDialog finishedAlert = buildAlert(caloriesBurned);
                 finishedAlert.show();
             }
             if (intent.getLongExtra("new_timer_started", 0) != 0) {
@@ -229,6 +227,7 @@ public class WorkoutActivity extends AppCompatActivity {
             int sets = timerService.getSets();
             int currentSet = timerService.getCurrentSet();
             long savedTime = timerService.getSavedTime();
+            int caloriesBurned = timerService.getCaloriesBurnt();
             String title = timerService.getCurrentTitle();
             String time = Long.toString(savedTime/1000);
             boolean isPaused = timerService.getIsPaused();
@@ -238,7 +237,7 @@ public class WorkoutActivity extends AppCompatActivity {
             workoutTimer.setText(time);
 
             if(title.equals(getResources().getString(R.string.workout_headline_done))){
-                AlertDialog finishedAlert = buildAlert();
+                AlertDialog finishedAlert = buildAlert(caloriesBurned);
                 finishedAlert.show();
             }
         }
@@ -265,9 +264,11 @@ public class WorkoutActivity extends AppCompatActivity {
     }
 
     /*Build an AlertDialog for when the workout is finished*/
-    private AlertDialog buildAlert(){
+    private AlertDialog buildAlert(int caloriesBurned){
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
-        alertBuilder.setMessage(getResources().getString(R.string.workout_finished_info));
+        alertBuilder.setMessage(getResources().getString(R.string.workout_finished_info)+"\n"+
+                getResources().getString(R.string.workout_finished_calories_info)+ " " +
+                    String.valueOf(caloriesBurned) + " kcal.");
         alertBuilder.setCancelable(true);
 
         alertBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {

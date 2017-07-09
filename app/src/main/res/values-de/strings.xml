@@ -50,6 +50,7 @@
     <string name="workout_headline_done">FERTIG</string>
     <string name="workout_info">Satz</string>
     <string name="workout_finished_info">Du hast es geschafft!</string>
+    <string name="workout_finished_calories_info">Anzahl verbrannter Kalorien:</string>
     <string name="workout_block_periodization_headline">Block Pause</string>
 
 
@@ -112,6 +113,18 @@
     <string name="pref_delete_statistics_dialog_title">Statistiken löschen</string>
     <string name="pref_delete_statistics_dialog_info">Wollen Sie alle gespeicherten Statistiken löschen?</string>
     <string name="pref_delete_statistics_dialog_toast">Die Statistiken wurden zurückgesetzt!</string>
+    <string name="pref_calories_counter_title">Kalorienzähler</string>
+    <string name="pref_calories_counter_summary">Zähle während des Trainings verbrannte Kalorien.</string>
+
+    <string name="pref_group_title_personal_settings">Personalisierung</string>
+    <string name="pref_title_weight">Gewicht (kg)</string>
+    <string name="pref_title_age">Alter</string>
+    <string name="pref_title_height">Größe (cm)</string>
+    <string name="pref_title_gender">Geschlecht</string>
+    <string-array name="pref_keys_gender">
+        <item>weiblich</item>
+        <item>männlich</item>
+    </string-array>
 
     <!-- Alert -->
     <string name="motivation_alert_input_title">Motivationstext</string>

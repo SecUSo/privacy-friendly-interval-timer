@@ -93,11 +93,11 @@ public class MainActivity extends BaseActivity {
     public void onClick(View view) {
         switch(view.getId()) {
             case R.id.main_workout_interval_minus:
-                this.workoutTime = (workoutTime <= 10) ? 90 : this.workoutTime - 10;
+                this.workoutTime = (workoutTime <= 10) ? 120 : this.workoutTime - 10;
                 this.workoutIntervalText.setText(formatTime(workoutTime));
                 break;
             case R.id.main_workout_interval_plus:
-                this.workoutTime = (workoutTime >= 90) ? 10 : this.workoutTime + 10;
+                this.workoutTime = (workoutTime >= 120) ? 10 : this.workoutTime + 10;
                 this.workoutIntervalText.setText(formatTime(workoutTime));
                 break;
             case R.id.main_rest_interval_minus:
@@ -109,11 +109,11 @@ public class MainActivity extends BaseActivity {
                 this.restIntervalText.setText(formatTime(restTime));
                 break;
             case R.id.main_sets_minus:
-                this.sets = (sets <= 1) ? 16 : this.sets - 1;
+                this.sets = (sets <= 1) ? 15 : this.sets - 1;
                 this.setsText.setText(Integer.toString(sets));
                 break;
             case R.id.main_sets_plus:
-                this.sets = (sets >= 16) ? 1 : this.sets + 1;
+                this.sets = (sets >= 15) ? 1 : this.sets + 1;
                 this.setsText.setText(Integer.toString(sets));
                 break;
             case R.id.main_block_periodization:

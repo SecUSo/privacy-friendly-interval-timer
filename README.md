@@ -11,7 +11,9 @@ The motivation of this project is to provide users with an application which sup
 
 ## Download and more Information
 
-
+The calories calculation is based on the Metabolic Equivalent of Task (MET) formula. The MET
+value was taken from:
+https://www.fitness-gesundheit.uni-wuppertal.de/fileadmin/fitness-gesundheit/pdf-Dokumente/Publikationen/2015/Prof.Stemper_F_G_4-15.pdf
  
 ### API Reference
 
