@@ -82,7 +82,7 @@
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:onClick="onClick"
             android:padding="@dimen/activity_horizontal_margin"
-            android:src="@drawable/ic_media_previous"
+            android:src="@drawable/ic_skip_previous_24dp"
             android:tint="@color/darkblue"
             android:layout_alignParentTop="true"
             android:layout_toStartOf="@+id/progressBar" />
@@ -95,7 +95,7 @@
             android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:onClick="onClick"
             android:padding="@dimen/activity_horizontal_margin"
-            android:src="@drawable/ic_media_next"
+            android:src="@drawable/ic_skip_next_24dp"
             android:tint="@color/darkblue"
             android:layout_centerVertical="true"
             android:layout_toEndOf="@+id/progressBar" />

@@ -32,7 +32,7 @@
         android:layout_margin="@dimen/fab_margin"
         android:background="@drawable/button_fullwidth"
         android:onClick="onClick"
-        android:src="@drawable/ic_media_pause"
+        android:src="@drawable/ic_pause_24dp"
         app:backgroundTint="@color/colorPrimary" />
 
 </android.support.design.widget.CoordinatorLayout>

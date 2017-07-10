@@ -483,7 +483,7 @@ public class TimerService extends Service {
         notiBuilder.setContentIntent(pendingIntent);
 
 
-        int buttonID = isPaused ? R.drawable.ic_media_embed_play : R.drawable.ic_media_pause ;
+        int buttonID = isPaused ? R.drawable.ic_play_24dp : R.drawable.ic_pause_24dp;
 
         String message = "";
 

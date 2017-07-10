@@ -94,11 +94,11 @@ public class WorkoutActivity extends AppCompatActivity {
             public void onClick(View view) {
                 fab.setSelected(!fab.isSelected());
                 if (fab.isSelected()){
-                    fab.setImageResource(R.drawable.ic_media_embed_play);
+                    fab.setImageResource(R.drawable.ic_play_24dp);
                     timerService.pauseTimer();
                     pauseProgressbar();
                 } else {
-                    fab.setImageResource(R.drawable.ic_media_pause);
+                    fab.setImageResource(R.drawable.ic_pause_24dp);
                     timerService.resumeTimer();
                     resumeProgressbar();
                 }
@@ -174,12 +174,14 @@ public class WorkoutActivity extends AppCompatActivity {
         int textColor = guiFlip ? R.color.white : R.color.black;
         int backgroundColor = guiFlip ? R.color.lightblue : R.color.white;
         int progressBackgroundColor = guiFlip ? R.color.white : R.color.lightblue;
+        int buttonColor = guiFlip ? R.color.white : R.color.darkblue;
+
 
         currentSetsInfo.setTextColor(getResources().getColor(textColor));
         workoutTitle.setTextColor(getResources().getColor(textColor));
         workoutTimer.setTextColor(getResources().getColor(textColor));
-        prevTimer.setColorFilter(getResources().getColor(textColor));
-        nextTimer.setColorFilter(getResources().getColor(textColor));
+        prevTimer.setColorFilter(getResources().getColor(buttonColor));
+        nextTimer.setColorFilter(getResources().getColor(buttonColor));
 
         View view = findViewById(R.id.workout_content);
         view.setBackgroundColor(getResources().getColor(backgroundColor));

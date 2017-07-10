@@ -95,7 +95,7 @@
                             android:layout_toEndOf="@+id/timeCount"
                             android:layout_toRightOf="@+id/timeCount"
                             android:layout_weight="1"
-                            android:src="@drawable/ic_clock_grey600_24dp" />
+                            android:src="@drawable/ic_clock_24dp" />
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -112,7 +112,7 @@
                             android:layout_centerHorizontal="true"
                             android:layout_marginEnd="58dp"
                             android:layout_marginRight="58dp"
-                            android:src="@drawable/ic_fire_65black_40dp" />
+                            android:src="@drawable/ic_fire_24dp" />
 
                     </RelativeLayout>
                 </LinearLayout>
@@ -179,7 +179,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentTop="false"
                             android:layout_centerHorizontal="true"
-                            android:text="@string/report_workout_time"
+                            android:text="@string/action_time"
                             android:textColor="@color/black" />
                     </RelativeLayout>
 

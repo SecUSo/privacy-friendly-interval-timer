@@ -38,7 +38,7 @@
             android:layout_margin="@dimen/fab_margin"
             android:background="@drawable/button_fullwidth"
             android:onClick="onClick"
-            android:src="@drawable/ic_media_embed_play"
+            android:src="@drawable/ic_play_24dp"
             app:backgroundTint="@color/colorPrimary" />
 
     </LinearLayout>
