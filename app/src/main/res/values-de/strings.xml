@@ -167,6 +167,10 @@
     <string name="slide3_heading">Benachrichtigungen</string>
     <string name="slide3_text">Die App kann Sie über anstehende Trainingseinheiten benachrichtigen. Mehr dazu finden Sie unter den Einstellungen.</string>
 
+    <string name="slide4_heading">Blocktraining</string>dd
+    <string name="slide4_text_1">Neben den Trainings- und Pausezeiten kann auch ein Blocktraining konfiguriert werden.</string>
+    <string name="slide4_text_2">Mit diesem Feature können Sie separate, längere Pausen zwischen den Übungen festlegen. Dadurch lässt sich das Training in mehrere feste Zyklen intensiven Trainings unterteilen.</string>
+
     <string name="next">Weiter</string>
     <string name="skip">Überspringen</string>
     <string name="title_activity_workout">Training</string>

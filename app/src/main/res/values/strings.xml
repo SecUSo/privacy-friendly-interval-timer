@@ -194,6 +194,10 @@ Ne albucius perfecto adolescens eum, id choro assueverit mea, sed viris constitu
     <string name="slide3_heading">Notifications</string>
     <string name="slide3_text">The app can remind you about upcoming workout sessions. This can be configured inside the settings.</string>
 
+    <string name="slide4_heading">Block Periodization</string>
+    <string name="slide4_text_1">When scheduling the timers you may also choose the block periodization feature.</string>
+    <string name="slide4_text_2">This feature allows you to configure longer, separate breaks in between the exercises. This way the workout can be split into multiple high intensity cycles.</string>
+
     <string name="okay">Okay</string>
     <string name="viewhelp">View Help</string>
     <string name="main_button_welcomedialog">Show Welcome</string>
