@@ -19,6 +19,8 @@ import android.view.MenuItem;
 import android.view.View;
 
 import org.secuso.privacyfriendlytraining.R;
+import org.secuso.privacyfriendlytraining.tutorial.PrefManager;
+import org.secuso.privacyfriendlytraining.tutorial.TutorialActivity;
 
 /**
  * @author Chris
@@ -146,6 +148,13 @@ public abstract class BaseActivity extends AppCompatActivity implements OnNaviga
             case R.id.nav_about:
                 intent = new Intent(this, AboutActivity.class);
                 createBackStack(intent);
+                break;
+            case R.id.nav_tutorial:
+                PrefManager prefManager = new PrefManager(getBaseContext());
+                prefManager.setFirstTimeLaunch(true);
+                intent = new Intent(this, TutorialActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
                 break;
             case R.id.nav_help:
                 intent = new Intent(this, HelpActivity.class);

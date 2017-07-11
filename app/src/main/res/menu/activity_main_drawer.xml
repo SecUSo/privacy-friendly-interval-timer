@@ -20,6 +20,10 @@
             android:icon="@drawable/ic_menu_manage"
             android:title="@string/action_settings" />
         <item
+            android:id="@+id/nav_tutorial"
+            android:icon="@drawable/ic_tutorial_24dp"
+            android:title="@string/action_tutorial" />
+        <item
             android:id="@+id/nav_help"
             android:icon="@drawable/ic_menu_help"
             android:title="@string/action_help" />
