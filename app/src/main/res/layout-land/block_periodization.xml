@@ -7,17 +7,18 @@
     <TextView
         android:id="@+id/main_block_periodization_sets"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
+        android:layout_height="0dp"
         android:layout_marginLeft="25dp"
+        android:layout_weight="0.2"
         android:text="@string/main_block_periodization_sets"
         android:textColor="@color/black"
         android:textSize="18sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_gravity="center"
+        android:layout_weight="0.2"
         android:gravity="fill_vertical"
         android:orientation="horizontal"
         android:paddingRight="35dp">
@@ -30,7 +31,7 @@
             android:layout_alignBottom="@+id/main_workout_interval_minus"
             android:layout_marginLeft="0dp"
             android:layout_toStartOf="@+id/main_workout_interval_plus"
-            android:layout_weight="0.10"
+            android:layout_weight="1"
             android:paddingLeft="30dp"
             android:text="0"
             android:textColor="@color/black"
@@ -40,11 +41,9 @@
         <Button
             android:id="@+id/main_block_periodization_sets_minus"
             android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_height="match_parent"
             android:layout_alignEnd="@+id/textView1"
             android:layout_alignParentBottom="true"
-            android:layout_marginEnd="0dp"
-            android:layout_marginRight="0dp"
             android:background="@drawable/button_normal"
             android:onClick="onClick"
             android:text="-"
@@ -59,7 +58,7 @@
         <Button
             android:id="@+id/main_block_periodization_sets_plus"
             android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_height="match_parent"
             android:layout_alignEnd="@+id/main_text_work_interval"
             android:layout_alignParentBottom="true"
             android:layout_marginEnd="0dp"
@@ -72,21 +71,26 @@
             android:textStyle="bold" />
     </LinearLayout>
 
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.13" />
+
     <TextView
         android:id="@+id/main_block_periodization_duration"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
+        android:layout_height="0dp"
         android:layout_marginLeft="25dp"
-        android:layout_marginTop="15dp"
+        android:layout_weight="0.2"
         android:text="@string/main_block_periodization_duration"
         android:textColor="@color/black"
         android:textSize="18sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_gravity="center"
+        android:layout_weight="0.2"
         android:gravity="fill_vertical"
         android:orientation="horizontal"
         android:paddingRight="35dp">
@@ -94,11 +98,11 @@
         <TextView
             android:id="@+id/main_block_periodization_time"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:layout_alignBaseline="@+id/main_workout_interval_minus"
             android:layout_alignBottom="@+id/main_workout_interval_minus"
             android:layout_toStartOf="@+id/main_workout_interval_plus"
-            android:layout_weight="0.11"
+            android:layout_weight="1"
             android:paddingLeft="30dp"
             android:text="00 : 00"
             android:textColor="@color/black"
@@ -108,7 +112,7 @@
         <Button
             android:id="@+id/main_block_periodization_time_minus"
             android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_height="match_parent"
             android:layout_alignEnd="@+id/textView1"
             android:layout_alignParentBottom="true"
             android:layout_marginEnd="0dp"
@@ -127,7 +131,7 @@
         <Button
             android:id="@+id/main_block_periodization_time_plus"
             android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_height="match_parent"
             android:layout_alignEnd="@+id/main_text_work_interval"
             android:layout_alignParentBottom="true"
             android:layout_marginEnd="0dp"

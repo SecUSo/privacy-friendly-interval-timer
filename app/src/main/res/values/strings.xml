@@ -29,7 +29,7 @@
     <string name="main_text_sets">Sets</string>
     <string name="main_text_start">START  ></string>
     <string name="main_text_title">Please choose:</string>
-    <string name="main_block_periodization_headline">Configure the Block Periodization:</string>
+    <string name="main_block_periodization_headline">Configuration:</string>
     <string name="main_block_periodization">Block Periodization</string>
     <string name="main_block_periodization_info">Block Periodization</string>
     <string name="main_block_periodization_sets">Set interval before break starts:</string>
@@ -150,6 +150,7 @@ Ne albucius perfecto adolescens eum, id choro assueverit mea, sed viris constitu
     <string name="pref_heigh" translatable="false">org.secuso.privacyfriendlytraining.pref.heigh</string>
     <string name="pref_age" translatable="false">org.secuso.privacyfriendlytraining.pref.age</string>
     <string name="pref_gender" translatable="false">org.secuso.privacyfriendlytraining.pref.gender</string>
+    <string name="pref_calories_counter" translatable="false">org.secuso.privacyfriendlytraining.pref.calories</string>
 
     <string name="pref_default_weight" translatable="false">70.0</string>
     <string name="pref_default_age" translatable="false">25</string>

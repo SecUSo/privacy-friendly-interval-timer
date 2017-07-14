@@ -563,7 +563,7 @@ public class TimerService extends Service {
         }
 
         int totalTimeSpentTraining = statistics.getWORKOUTTIME() + (int)this.workoutDuration/1000;
-        int totalCaloriesBurnt = statistics.getCALORIES() + this.caloriesBurnt;
+        int totalCaloriesBurnt = isCaloriesEnabled(this) ? statistics.getCALORIES() + this.caloriesBurnt : statistics.getCALORIES();
 
         database.updateWorkoutData(new WorkoutSessionData(id, totalTimeSpentTraining, totalCaloriesBurnt));
         this.workoutDuration = 0;
@@ -597,6 +597,13 @@ public class TimerService extends Service {
     public boolean isVoiceHalfTimeEnabled(Context context){
         if(this.settings != null){
             return settings.getBoolean(context.getString(R.string.pref_voice_halftime), false);
+        }
+        return false;
+    }
+
+    public boolean isCaloriesEnabled(Context context) {
+        if (this.settings != null) {
+            return settings.getBoolean(context.getString(R.string.pref_calories_counter), false);
         }
         return false;
     }

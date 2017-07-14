@@ -29,7 +29,7 @@
     <string name="main_text_sets">Sätze</string>
     <string name="main_text_start">START  ></string>
     <string name="main_text_title">Bitte wählen:</string>
-    <string name="main_block_periodization_headline">Konfiguration des Blocktrainings:</string>
+    <string name="main_block_periodization_headline">Konfiguration:</string>
     <string name="main_block_periodization">Blocktraining</string>
     <string name="main_block_periodization_sets">Sätzeintervall nach denen die Pause startet:</string>
     <string name="main_block_periodization_duration">Dauer der Pause:</string>

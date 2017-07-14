@@ -268,9 +268,10 @@ public class WorkoutActivity extends AppCompatActivity {
     /*Build an AlertDialog for when the workout is finished*/
     private AlertDialog buildAlert(int caloriesBurned){
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
-        alertBuilder.setMessage(getResources().getString(R.string.workout_finished_info)+"\n"+
-                getResources().getString(R.string.workout_finished_calories_info)+ " " +
-                    String.valueOf(caloriesBurned) + " kcal.");
+        String caloriesMessage = isCaloriesEnabled(this) ? "\n" + getResources().getString(R.string.workout_finished_calories_info)+ " " +
+                String.valueOf(caloriesBurned) + " kcal." : "";
+
+        alertBuilder.setMessage(getResources().getString(R.string.workout_finished_info)+ caloriesMessage);
         alertBuilder.setCancelable(true);
 
         alertBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
@@ -377,6 +378,13 @@ public class WorkoutActivity extends AppCompatActivity {
     public boolean isBlinkingProgressBarEnabled(Context context) {
         if (this.settings != null) {
             return settings.getBoolean(context.getString(R.string.pref_blinking_progress_bar), false);
+        }
+        return false;
+    }
+
+    public boolean isCaloriesEnabled(Context context) {
+        if (this.settings != null) {
+            return settings.getBoolean(context.getString(R.string.pref_calories_counter), false);
         }
         return false;
     }
