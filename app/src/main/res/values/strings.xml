@@ -67,19 +67,20 @@
     <!--###HELP###-->
     <string name="help">Help</string>
 
-    <string name="help_whatis">What is Privacy Friendly App Example?</string>
-    <string name="help_whatis_answer">Privacy Friendly App Example is an app that demonstrates the design of a Privacy Friendly App.</string>
-    <string name="help_feature_one">Feature 1</string>
-    <string name="help_feature_one_answer">Description of first feature.
-Lorem ipsum dolor sit amet, eu ius alia fierent indoctum, ad pri sale tation. Elit dictas sit an, ad volumus urbanitas duo. Ei clita iracundia mel, eum et laoreet pertinax abhorreant. Nonumy suavitate dignissim quo id, ius audire prodesset adipiscing ei, altera saperet his et. Nostrud pertinax eu has, qui munere complectitur an.
-
-Ne albucius perfecto adolescens eum, id choro assueverit mea, sed viris constituto ex. Per soleat impedit delicatissimi cu. Inermis volumus his ea, id quo praesent eloquentiam conclusionemque. Dolores mediocrem ad sit, ex cibo evertitur cotidieque eos.
-
-    </string>
+    <string name="help_whatis">What is Privacy Friendly Training?</string>
+    <string name="help_whatis_answer">Privacy Friendly Training supports the user during his/her circuit training session. It provides a configurable set of timers for the exercises and the rest phases as well as multiple other features.</string>
+    <string name="help_feature_workout_timer">Feature: Workokut timer</string>
+    <string name="help_feature_workout_timer_answer">After configuring the set of timers in the main menu you can start the workout routine by pressing the start button. The workout view has animations and sound output features which can be turned on and off inside the settings menu.</string>
+    <string name="help_feature_motivation_alert">Feature: Motivation alert</string>
+    <string name="help_feature_motivation_alert_answer">The app can show you motivation alerts to remind you of planned workout sessions. You can define the time of day and the notification texts inside the settings menu.</string>
+    <string name="help_feature_block_periodization">Feature: Block Periodization</string>
+    <string name="help_feature_block_periodization_answer">When scheduling the timers you may also choose the block periodization feature. This feature allows you to configure longer, separate breaks in between the exercises. This way the workout can be split into multiple high intensity workout cycles.</string>
+    <string name="help_feature_workout_history">Feature: Workout history</string>
+    <string name="help_feature_workout_history_answer">The app can collect statistics about your performed workout sessions. The collected data comprises of the time spend working out and the calories burnt while exercising. The accuracy of the calories calculation can be improved by configuring the necessary user data in the settings menu. The collection of this data can be deleted as well as turned on and off inside the settings menu.</string>
     <string name="help_privacy">What makes the app privacy-friendly?</string>
-    <string name="help_privacy_answer">Privacy Friendly App Example does not require any permission. It further does not include any tracking mechanisms or advertisement.</string>
-    <string name="help_permission">Which permissions requires the app?</string>
-    <string name="help_permission_answer">Privacy Friendly App Example does not require any permission.</string>
+    <string name="help_privacy_answer">This app does not include any tracking mechanisms or advertisement. It further does not share any user information which may be collected during the usage of this app.</string>
+    <string name="help_permission">Which permissions are required by the app?</string>
+    <string name="help_permission_answer">Privacy Friendly Training does not require any permission.</string>
 
     <!--###ABOUT###-->
     <string name="about">About</string>
@@ -198,7 +199,7 @@ Ne albucius perfecto adolescens eum, id choro assueverit mea, sed viris constitu
 
     <string name="slide4_heading">Block Periodization</string>
     <string name="slide4_text_1">When scheduling the timers you may also choose the block periodization feature.</string>
-    <string name="slide4_text_2">This feature allows you to configure longer, separate breaks in between the exercises. This way the workout can be split into multiple high intensity cycles.</string>
+    <string name="slide4_text_2">This feature allows you to configure longer, separate breaks in between the exercises. This way the workout can be split into multiple high intensity workout cycles.</string>
 
     <string name="okay">Okay</string>
     <string name="viewhelp">View Help</string>

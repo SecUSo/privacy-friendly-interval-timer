@@ -29,10 +29,26 @@ public class HelpDataDump {
 
         expandableListDetail.put(context.getResources().getString(R.string.help_whatis), general);
 
-        List<String> features = new ArrayList<String>();
-        features.add(context.getResources().getString(R.string.help_feature_one_answer));
+        List<String> feature1 = new ArrayList<String>();
 
-        expandableListDetail.put(context.getResources().getString(R.string.help_feature_one), features);
+        feature1.add(context.getResources().getString(R.string.help_feature_workout_timer_answer));
+        expandableListDetail.put(context.getResources().getString(R.string.help_feature_workout_timer), feature1);
+
+        List<String> feature2 = new ArrayList<String>();
+
+        feature2.add(context.getResources().getString(R.string.help_feature_motivation_alert_answer));
+        expandableListDetail.put(context.getResources().getString(R.string.help_feature_motivation_alert), feature2);
+
+        List<String> feature3 = new ArrayList<String>();
+
+        feature3.add(context.getResources().getString(R.string.help_feature_block_periodization_answer));
+        expandableListDetail.put(context.getResources().getString(R.string.help_feature_block_periodization), feature3);
+
+        List<String> feature4 = new ArrayList<String>();
+
+        feature4.add(context.getResources().getString(R.string.help_feature_workout_history_answer));
+        expandableListDetail.put(context.getResources().getString(R.string.help_feature_workout_history), feature4);
+
 
         List<String> privacy = new ArrayList<String>();
         privacy.add(context.getResources().getString(R.string.help_privacy_answer));
@@ -46,5 +62,4 @@ public class HelpDataDump {
 
         return expandableListDetail;
     }
-
 }
