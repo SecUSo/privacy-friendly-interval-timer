@@ -54,6 +54,7 @@
     <string name="workout_finished_info">Du hast es geschafft!</string>
     <string name="workout_finished_calories_info">Anzahl verbrannter Kalorien:</string>
     <string name="workout_block_periodization_headline">Block Pause</string>
+    <string name="workout_finish_button">BEENDEN</string>
 
 
     <!-- ###NOTIFICATION###-->
@@ -82,8 +83,6 @@
     <string name="help_permission_answer">Privacy Friendly Beispiel benötigt keine Berechtigungen.</string>
 
 
-
-
     <!--###ABOUT###-->
     <string name="about">Über</string>
     <string name="version_number">Version</string>
@@ -98,13 +97,13 @@
     <string name="pref_header_general">Allgemein</string>
     <string name="pref_header_workout">Training</string>
 
-    <string name="pref_voice_countdown_workout">Ansage Countdown Training</string>
+    <string name="pref_voice_countdown_workout_title">Ansage Countdown Training</string>
     <string name="pref_voice_countdown_workout_summary">Eine Stimme zählt die letzten Sekunden des Trainings herunter.</string>
-    <string name="pref_voice_countdown_rest">Ansage Countdown Pause</string>
+    <string name="pref_voice_countdown_rest_title">Ansage Countdown Pause</string>
     <string name="pref_voice_countdown_rest_summary">Eine Stimme zählt die letzten Sekunden der Pause herunter.</string>
-    <string name="pref_sound_rythm">Rythmussignal</string>
+    <string name="pref_sound_rythm_title">Rythmussignal</string>
     <string name="pref_sound_rythm_summary">Ein sekündlicher Signalton während des Trainings.</string>
-    <string name="pref_voice_halftime">Ansage Halbzeit</string>
+    <string name="pref_voice_halftime_title">Ansage Halbzeit</string>
     <string name="pref_voice_halftime_summary">Eine Stimme sagt die Halbzeit des Trainings an.</string>
 
     <string name="pref_header_notification">Benachrichtigungen</string>

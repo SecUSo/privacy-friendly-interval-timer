@@ -13,7 +13,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.07"
+        android:layout_weight="0.05"
         android:orientation="horizontal">
 
         <TextView
@@ -37,7 +37,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.3">
+        android:layout_weight="0.27">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -46,15 +46,26 @@
             android:gravity="bottom|right"
             android:orientation="vertical">
 
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.8" />
+
             <ImageView
                 android:id="@+id/workout_previous"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentStart="true"
+                android:layout_height="0dp"
+                android:layout_alignParentBottom="false"
+                android:layout_alignParentStart="false"
+                android:layout_weight="0.3"
                 android:onClick="onClick"
                 android:src="@drawable/ic_skip_previous_24dp"
                 android:tint="@color/darkblue" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.1" />
         </LinearLayout>
 
         <RelativeLayout
@@ -100,17 +111,29 @@
             android:gravity="bottom|left"
             android:orientation="vertical">
 
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.8" />
+
             <ImageView
                 android:id="@+id/workout_next"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignTop="@+id/workout_previous"
+                android:layout_weight="0.3"
                 android:backgroundTint="@drawable/button_fullwidth"
                 android:foregroundTint="@drawable/button_fullwidth"
                 android:onClick="onClick"
                 android:src="@drawable/ic_skip_next_24dp"
                 android:tint="@color/darkblue" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.1" />
+
         </LinearLayout>
     </LinearLayout>
 

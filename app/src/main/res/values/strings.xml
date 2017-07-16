@@ -55,6 +55,7 @@
     <string name="workout_finished_info">You did it!</string>
     <string name="workout_finished_calories_info">Amount of calories burned:</string>
     <string name="workout_block_periodization_headline">Block Break</string>
+    <string name="workout_finish_button">FINISH</string>
 
 
     <!-- ###NOTIFICATIONS###-->
@@ -99,13 +100,13 @@
     <string name="pref_header_general">General</string>
     <string name="pref_header_workout">Workout</string>
 
-    <string name="pref_voice_countdown_workout">Voice Countdown Workout</string>
+    <string name="pref_voice_countdown_workout_title">Voice Countdown Workout</string>
     <string name="pref_voice_countdown_workout_summary">A voice counts down the final seconds of a workout.</string>
-    <string name="pref_voice_countdown_rest">Voice Countdown Rest</string>
+    <string name="pref_voice_countdown_rest_title">Voice Countdown Rest</string>
     <string name="pref_voice_countdown_rest_summary">A voice counts down the final seconds of the rest phase.</string>
-    <string name="pref_sound_rythm">Timer signal</string>
+    <string name="pref_sound_rythm_title">Timer signal</string>
     <string name="pref_sound_rythm_summary">A signal tone on for each countdown during the workout.</string>
-    <string name="pref_voice_halftime">Voice Halftime</string>
+    <string name="pref_voice_halftime_title">Voice Halftime</string>
     <string name="pref_voice_halftime_summary">A voice says when half the time of the workout passed.</string>
 
     <string name="pref_header_notification">Notifications</string>
@@ -152,6 +153,10 @@
     <string name="pref_age" translatable="false">org.secuso.privacyfriendlytraining.pref.age</string>
     <string name="pref_gender" translatable="false">org.secuso.privacyfriendlytraining.pref.gender</string>
     <string name="pref_calories_counter" translatable="false">org.secuso.privacyfriendlytraining.pref.calories</string>
+    <string name="pref_voice_countdown_workout" translatable="false">org.secuso.privacyfriendlytraining.pref.voicecountdownworkout</string>
+    <string name="pref_voice_countdown_rest" translatable="false">org.secuso.privacyfriendlytraining.pref.voicecountdownrest</string>
+    <string name="pref_sound_rythm" translatable="false">org.secuso.privacyfriendlytraining.pref.soundrythm</string>
+    <string name="pref_voice_halftime" translatable="false">org.secuso.privacyfriendlytraining.pref.voicehalftime</string>
 
     <string name="pref_default_weight" translatable="false">70.0</string>
     <string name="pref_default_age" translatable="false">25</string>

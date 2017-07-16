@@ -609,6 +609,8 @@ public class TimerService extends Service {
     }
 
 
+
+
     /*Getter and Setter*/
     public long getWorkoutTime(){
         return  this.workoutTime;

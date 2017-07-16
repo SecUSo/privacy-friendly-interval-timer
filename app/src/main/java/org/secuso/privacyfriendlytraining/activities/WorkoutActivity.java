@@ -20,6 +20,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -41,6 +42,8 @@ public class WorkoutActivity extends AppCompatActivity {
 
     //GUI
     private FloatingActionButton fab = null;
+    private TextView finishButton = null;
+    private ImageButton volumeButton = null;
     private ProgressBar progressBar = null;
     private ObjectAnimator animator = null;
 
@@ -104,7 +107,25 @@ public class WorkoutActivity extends AppCompatActivity {
                 }
             }
         });
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        volumeButton = (ImageButton) findViewById(R.id.volume_button);
+        volumeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                volumeButton.setSelected(!volumeButton.isSelected());
+                if (volumeButton.isSelected()){
+                    volumeButton.setImageResource(R.drawable.ic_volume_mute_24dp);
+                    muteAllSounds(true);
+                } else {
+                    volumeButton.setImageResource(R.drawable.ic_volume_loud_24dp);
+                    muteAllSounds(false);
+                }
+            }
+        });
+
+
+
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
 
@@ -219,6 +240,19 @@ public class WorkoutActivity extends AppCompatActivity {
                 this.progressBar.setProgress(0);
                 timerService.nextTimer();
                 break;
+            case R.id.finish_workout:
+                AlertDialog finishedAlert;
+                if(timerService != null) {
+                    int caloriesBurned = timerService.getCaloriesBurnt();
+                    finishedAlert = buildAlert(caloriesBurned);
+                    finishedAlert.show();
+                }
+                else {
+                    finishedAlert = buildAlert(0);
+                    finishedAlert.show();
+                }
+                stopTimerInService();
+                break;
             default:
         }
     }
@@ -232,7 +266,6 @@ public class WorkoutActivity extends AppCompatActivity {
             int caloriesBurned = timerService.getCaloriesBurnt();
             String title = timerService.getCurrentTitle();
             String time = Long.toString(savedTime/1000);
-            boolean isPaused = timerService.getIsPaused();
 
             currentSetsInfo.setText(getResources().getString(R.string.workout_info) +": "+Integer.toString(currentSet)+"/"+Integer.toString(sets));
             workoutTitle.setText(title);
@@ -283,7 +316,7 @@ public class WorkoutActivity extends AppCompatActivity {
         alertBuilder.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
-                timerService.cleanTimerStop();
+                stopTimerInService();
                 finish();
             }
         });
@@ -341,7 +374,7 @@ public class WorkoutActivity extends AppCompatActivity {
      */
     @Override
     public void onBackPressed() {
-        timerService.cleanTimerStop();
+        stopTimerInService();
         super.onBackPressed();
     }
 
@@ -350,11 +383,26 @@ public class WorkoutActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             // Respond to the action bar's Up/Home button
             case android.R.id.home:
-                timerService.cleanTimerStop();
+                stopTimerInService();
                 finish();
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void stopTimerInService(){
+        if(timerService != null) {
+            timerService.cleanTimerStop();
+        }
+    }
+
+    private void muteAllSounds(boolean mute){
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putBoolean(getResources().getString(R.string.pref_voice_countdown_workout), !mute);
+        editor.putBoolean(getResources().getString(R.string.pref_voice_countdown_rest), !mute);
+        editor.putBoolean(getResources().getString(R.string.pref_sound_rythm), !mute);
+        editor.putBoolean(getResources().getString(R.string.pref_voice_halftime), !mute);
+        editor.apply();
     }
 
 
