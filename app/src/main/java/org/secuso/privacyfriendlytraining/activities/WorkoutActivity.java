@@ -17,7 +17,7 @@ import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageButton;
@@ -27,6 +27,8 @@ import android.widget.TextView;
 
 import org.secuso.privacyfriendlytraining.R;
 import org.secuso.privacyfriendlytraining.services.TimerService;
+
+import static org.secuso.privacyfriendlytraining.R.drawable.ic_volume_loud_24dp;
 
 public class WorkoutActivity extends AppCompatActivity {
 
@@ -109,6 +111,12 @@ public class WorkoutActivity extends AppCompatActivity {
         });
 
         volumeButton = (ImageButton) findViewById(R.id.volume_button);
+
+        //Set the image according to the current sound settings
+        int volumeImageId = isSoundsMuted(this) ? R.drawable.ic_volume_mute_24dp : R.drawable.ic_volume_loud_24dp;
+        volumeButton.setImageResource(volumeImageId);
+        volumeButton.setSelected(isSoundsMuted(this));
+
         volumeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -117,13 +125,11 @@ public class WorkoutActivity extends AppCompatActivity {
                     volumeButton.setImageResource(R.drawable.ic_volume_mute_24dp);
                     muteAllSounds(true);
                 } else {
-                    volumeButton.setImageResource(R.drawable.ic_volume_loud_24dp);
+                    volumeButton.setImageResource(ic_volume_loud_24dp);
                     muteAllSounds(false);
                 }
             }
         });
-
-
 
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
@@ -156,37 +162,38 @@ public class WorkoutActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getExtras() != null) {
-                int seconds = intent.getIntExtra("countdown_seconds", 0);
-                workoutTimer.setText(Integer.toString(seconds));
+                if (intent.getStringExtra("timer_title") != null) {
+                    String message = intent.getStringExtra("timer_title");
 
-                if(seconds <= 10 && workoutColors && isBlinkingProgressBarEnabled(context)){
-                    progressBarFlip = progressBarColorFlip(workoutColors, progressBarFlip);
+                    workoutColors = message.equals(getResources().getString(R.string.workout_headline_workout));
+                    setGuiColors(workoutColors);
+                    workoutTitle.setText(message);
                 }
-                else if(seconds <= 5 && isBlinkingProgressBarEnabled(context)){
-                    progressBarFlip = progressBarColorFlip(workoutColors, progressBarFlip);
+                if (intent.getIntExtra("countdown_seconds", -1) != -1) {
+                    int seconds = intent.getIntExtra("countdown_seconds", 0);
+                    workoutTimer.setText(Integer.toString(seconds));
+
+                    if (seconds <= 10 && workoutColors && isBlinkingProgressBarEnabled(context)) {
+                        progressBarFlip = progressBarColorFlip(workoutColors, progressBarFlip);
+                    } else if (seconds <= 5 && isBlinkingProgressBarEnabled(context)) {
+                        progressBarFlip = progressBarColorFlip(workoutColors, progressBarFlip);
+                    }
                 }
-            }
-            if (intent.getStringExtra("timer_title") != null) {
-                String message = intent.getStringExtra("timer_title");
+                if (intent.getIntExtra("current_set", 0) != 0 && intent.getIntExtra("sets", 0) != 0) {
+                    int currentSet = intent.getIntExtra("current_set", 0);
+                    int sets = intent.getIntExtra("sets", 0);
 
-                workoutColors = message.equals(getResources().getString(R.string.workout_headline_workout));
-                setGuiColors(workoutColors);
-                workoutTitle.setText(message);
-            }
-            if (intent.getIntExtra("current_set", 0) != 0 && intent.getIntExtra("sets", 0) != 0) {
-                int currentSet = intent.getIntExtra("current_set", 0);
-                int sets = intent.getIntExtra("sets", 0);
-
-                currentSetsInfo.setText(getResources().getString(R.string.workout_info) +": "+Integer.toString(currentSet)+"/"+Integer.toString(sets));
-            }
-            if (intent.getBooleanExtra("workout_finished", false) != false) {
-                int caloriesBurned = intent.getIntExtra("calories_burned", 0);
-                AlertDialog finishedAlert = buildAlert(caloriesBurned);
-                finishedAlert.show();
-            }
-            if (intent.getLongExtra("new_timer_started", 0) != 0) {
-                long time = intent.getLongExtra("new_timer_started", 0);
-                updateProgressbar(!timerService.getIsPaused(), time);
+                    currentSetsInfo.setText(getResources().getString(R.string.workout_info) + ": " + Integer.toString(currentSet) + "/" + Integer.toString(sets));
+                }
+                if (intent.getBooleanExtra("workout_finished", false) != false) {
+                    int caloriesBurned = intent.getIntExtra("calories_burned", 0);
+                    AlertDialog finishedAlert = buildAlert(caloriesBurned);
+                    finishedAlert.show();
+                }
+                if (intent.getLongExtra("new_timer_started", 0) != 0) {
+                    long time = intent.getLongExtra("new_timer_started", 0);
+                    updateProgressbar(!timerService.getIsPaused(), time);
+                }
             }
         }
     }
@@ -259,13 +266,15 @@ public class WorkoutActivity extends AppCompatActivity {
 
     /* Update the GUI by getting the current timer values from the TimerService */
     private void updateGUI(){
+        Log.d("update called", "ffs");
+
         if(timerService != null){
             int sets = timerService.getSets();
             int currentSet = timerService.getCurrentSet();
             long savedTime = timerService.getSavedTime();
             int caloriesBurned = timerService.getCaloriesBurnt();
             String title = timerService.getCurrentTitle();
-            String time = Long.toString(savedTime/1000);
+            String time = Long.toString((int) Math.ceil(savedTime / 1000.0));
 
             currentSetsInfo.setText(getResources().getString(R.string.workout_info) +": "+Integer.toString(currentSet)+"/"+Integer.toString(sets));
             workoutTitle.setText(title);
@@ -378,6 +387,7 @@ public class WorkoutActivity extends AppCompatActivity {
         super.onBackPressed();
     }
 
+/*
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -389,6 +399,7 @@ public class WorkoutActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+ */
 
     private void stopTimerInService(){
         if(timerService != null) {
@@ -397,12 +408,11 @@ public class WorkoutActivity extends AppCompatActivity {
     }
 
     private void muteAllSounds(boolean mute){
-        SharedPreferences.Editor editor = settings.edit();
-        editor.putBoolean(getResources().getString(R.string.pref_voice_countdown_workout), !mute);
-        editor.putBoolean(getResources().getString(R.string.pref_voice_countdown_rest), !mute);
-        editor.putBoolean(getResources().getString(R.string.pref_sound_rythm), !mute);
-        editor.putBoolean(getResources().getString(R.string.pref_voice_halftime), !mute);
-        editor.apply();
+        if(this.settings != null) {
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putBoolean(getResources().getString(R.string.pref_sounds_muted), mute);
+            editor.apply();
+        }
     }
 
 
@@ -435,5 +445,12 @@ public class WorkoutActivity extends AppCompatActivity {
             return settings.getBoolean(context.getString(R.string.pref_calories_counter), false);
         }
         return false;
+    }
+
+    public boolean isSoundsMuted(Context context) {
+        if (this.settings != null) {
+            return settings.getBoolean(context.getString(R.string.pref_sounds_muted), true);
+        }
+        return true;
     }
 }

@@ -26,9 +26,9 @@
 
         <SwitchPreference
             android:id="@+id/pref_voice_countdown_workout"
-            android:key="@string/pref_voice_countdown_workout_title"
-            android:title="@string/pref_voice_countdown_workout_summary"
-            android:summary="@string/pref_voice_countdown_workout"
+            android:key="@string/pref_voice_countdown_workout"
+            android:title="@string/pref_voice_countdown_workout_title"
+            android:summary="@string/pref_voice_countdown_workout_summary"
             android:defaultValue="true"/>
 
         <SwitchPreference

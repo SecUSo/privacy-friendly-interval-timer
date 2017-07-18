@@ -157,6 +157,7 @@
     <string name="pref_voice_countdown_rest" translatable="false">org.secuso.privacyfriendlytraining.pref.voicecountdownrest</string>
     <string name="pref_sound_rythm" translatable="false">org.secuso.privacyfriendlytraining.pref.soundrythm</string>
     <string name="pref_voice_halftime" translatable="false">org.secuso.privacyfriendlytraining.pref.voicehalftime</string>
+    <string name="pref_sounds_muted" translatable="false">org.secuso.privacyfriendlytraining.pref.sounds_muted</string>
 
     <string name="pref_default_weight" translatable="false">70.0</string>
     <string name="pref_default_age" translatable="false">25</string>

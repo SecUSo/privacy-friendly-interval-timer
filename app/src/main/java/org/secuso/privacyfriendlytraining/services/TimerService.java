@@ -117,43 +117,65 @@ public class TimerService extends Service {
     }
 
     //Maybe Strategy Pattern for the onFinish() if another Timer would be introduced
+    //Tick has to be 500ms since we have to round up the millisUntilFinished
+    //Otherwise the last tick (between 1000ms 0 ms) is not performed and we would end up with 2 seconds as final tick
     private CountDownTimer createWorkoutTimer(final long duration) {
 
-        return new CountDownTimer(duration, 1000) {
+        return new CountDownTimer(duration, 500) {
+            int lastBroadcastSecond = (int) duration/1000;
 
             @Override
             public void onTick(long millisUntilFinished) {
+
+                int secondsUntilFinished = (int) Math.ceil(millisUntilFinished / 1000.0);
+
                 savedTime = millisUntilFinished;
+
                 Intent broadcast = new Intent(COUNTDOWN_BROADCAST)
-                        //.putExtra("timer_title", currentTitle)
+                        .putExtra("timer_title", currentTitle)
                         //.putExtra("current_set", currentSet)
                         //.putExtra("sets", sets)
-                        .putExtra("countdown_seconds", (int) millisUntilFinished / 1000);
+                        .putExtra("countdown_seconds", secondsUntilFinished);
                 sendBroadcast(broadcast);
-                playSound((int)millisUntilFinished/1000, true);
-                updateNotification(millisUntilFinished/1000);
+
+                if(lastBroadcastSecond > secondsUntilFinished) // play sound only every second
+                {
+                    lastBroadcastSecond = secondsUntilFinished;
+
+                    playSound(secondsUntilFinished, true);
+                    updateNotification(secondsUntilFinished);
+                }
             }
 
             @Override
             public void onFinish() {
+                Intent broadcast = new Intent(COUNTDOWN_BROADCAST);
+                broadcast.putExtra("countdown_seconds", 0);
+                sendBroadcast(broadcast);
+
                 workoutDuration += duration;
                 caloriesBurnt += caloriesPerExercise;
 
-                Intent broadcast = new Intent(COUNTDOWN_BROADCAST);
+
                 if(currentSet < sets) {
                     if (isBlockPeriodization && currentSet % blockPeriodizationSets == 0) {
                         currentTitle = getResources().getString(R.string.workout_block_periodization_headline);
                         broadcast.putExtra("timer_title", currentTitle)
-                                 .putExtra("new_timer_started", blockPeriodizationTime);
+                                 .putExtra("new_timer_started", blockPeriodizationTime)
+                                 .putExtra("countdown_seconds", (int) blockPeriodizationTime/1000);
+
 
                         restTimer = createRestTimer(blockPeriodizationTime);
                     } else {
                         currentTitle = getResources().getString(R.string.workout_headline_rest);
                         broadcast.putExtra("timer_title", currentTitle)
-                                  .putExtra("new_timer_started", restTime);
+                                  .putExtra("new_timer_started", restTime)
+                                  .putExtra("countdown_seconds", (int) restTime/1000);
+
 
                         restTimer = createRestTimer(restTime);
                     }
+                    sendBroadcast(broadcast);
                     restTimer.start();
                 }
                 else {
@@ -162,8 +184,8 @@ public class TimerService extends Service {
                         .putExtra("timer_title", currentTitle)
                         .putExtra("workout_finished", true)
                         .putExtra("calories_burned", caloriesBurnt);
+                    sendBroadcast(broadcast);
                 }
-                sendBroadcast(broadcast);
                 isWorkout = false;
             }
         };
@@ -171,23 +193,39 @@ public class TimerService extends Service {
 
     private CountDownTimer createRestTimer(final long duration) {
 
-        return new CountDownTimer(duration, 1000) {
+        return new CountDownTimer(duration, 500) {
+
+            int lastBroadcastSecond = (int) duration/1000;
 
             @Override
             public void onTick(long millisUntilFinished) {
+                int secondsUntilFinished = (int) Math.ceil(millisUntilFinished / 1000.0);
+
                 savedTime = millisUntilFinished;
+
                 Intent broadcast = new Intent(COUNTDOWN_BROADCAST)
-                        //.putExtra("timer_title", currentTitle)
+                        .putExtra("timer_title", currentTitle)
                         //.putExtra("current_set", currentSet)
                         //.putExtra("sets", sets)
-                        .putExtra("countdown_seconds", (int) millisUntilFinished / 1000);
+                        .putExtra("countdown_seconds", secondsUntilFinished);
                 sendBroadcast(broadcast);
-                playSound((int)millisUntilFinished/1000, false);
-                updateNotification(millisUntilFinished/1000);
+
+
+                if(lastBroadcastSecond > secondsUntilFinished) // play sound only every second
+                {
+                    lastBroadcastSecond = secondsUntilFinished;
+
+                    playSound(secondsUntilFinished, true);
+                    updateNotification(secondsUntilFinished);
+                }
             }
 
             @Override
             public void onFinish() {
+                Intent broadcast = new Intent(COUNTDOWN_BROADCAST);
+                broadcast.putExtra("countdown_seconds", 0);
+                sendBroadcast(broadcast);
+
                 if(isStarttimer){
                     isStarttimer = false;
                 }
@@ -196,16 +234,18 @@ public class TimerService extends Service {
                 }
                 currentTitle = getResources().getString(R.string.workout_headline_workout);
 
-                Intent broadcast = new Intent(COUNTDOWN_BROADCAST)
-                        .putExtra("timer_title", currentTitle)
+                broadcast.putExtra("timer_title", currentTitle)
                         .putExtra("current_set", currentSet)
                         .putExtra("sets", sets)
-                        .putExtra("new_timer_started", workoutTime);
+                        .putExtra("new_timer_started", workoutTime)
+                        .putExtra("countdown_seconds", (int) workoutTime/1000);
+
                 sendBroadcast(broadcast);
                 isWorkout = true;
                 workoutDuration += duration;
 
                 workoutTimer = createWorkoutTimer(workoutTime);
+
                 workoutTimer.start();
             }
         };
@@ -421,18 +461,19 @@ public class TimerService extends Service {
         int soundId = 0;
         boolean isHalfTime = seconds == (int)workoutTime/2000;
 
-
-        if(seconds <= 10 && workout && isVoiceCountdownWorkoutEnabled(this)){
-            soundId = getResources().getIdentifier("num_"+seconds, "raw", getPackageName());
-        }
-        else if(seconds <= 5 && !workout && isVoiceCountdownRestEnabled(this)){
-            soundId = getResources().getIdentifier("num_"+seconds, "raw", getPackageName());
-        }
-        else if(isVoiceHalfTimeEnabled(this) && workout && isHalfTime){
-            soundId = getResources().getIdentifier("half_time", "raw", getPackageName());
-        }
-        else if(isWorkoutRythmEnabled(this) && workout && seconds != 0){
-            soundId = seconds != 1 ? getResources().getIdentifier("beep", "raw", getPackageName()) : getResources().getIdentifier("beep_long", "raw", getPackageName());
+        if(!isSoundsMuted(this)){
+            if(seconds <= 10 && workout && isVoiceCountdownWorkoutEnabled(this)){
+                soundId = getResources().getIdentifier("num_"+seconds, "raw", getPackageName());
+            }
+            else if(seconds <= 5 && !workout && isVoiceCountdownRestEnabled(this)){
+                soundId = getResources().getIdentifier("num_"+seconds, "raw", getPackageName());
+            }
+            else if(isVoiceHalfTimeEnabled(this) && workout && isHalfTime){
+                soundId = getResources().getIdentifier("half_time", "raw", getPackageName());
+            }
+            else if(isWorkoutRythmEnabled(this) && workout && seconds != 0){
+                soundId = seconds != 1 ? getResources().getIdentifier("beep", "raw", getPackageName()) : getResources().getIdentifier("beep_long", "raw", getPackageName());
+            }
         }
 
         if(soundId != 0){
@@ -606,6 +647,13 @@ public class TimerService extends Service {
             return settings.getBoolean(context.getString(R.string.pref_calories_counter), false);
         }
         return false;
+    }
+
+    public boolean isSoundsMuted(Context context) {
+        if (this.settings != null) {
+            return settings.getBoolean(context.getString(R.string.pref_sounds_muted), true);
+        }
+        return true;
     }
 
 
