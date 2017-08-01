@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/workout_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/workout_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_weight="1"
+    android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="org.secuso.privacyfriendlytraining.activities.WorkoutActivity"
-    tools:showIn="@layout/activity_workout"
-    android:orientation="vertical">
+    tools:showIn="@layout/activity_workout">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.05"
+        android:layout_weight="0.15"
         android:orientation="horizontal">
 
         <TextView
@@ -37,7 +38,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.27">
+        android:layout_weight="0.55"
+        android:elevation="1dp">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -55,10 +57,11 @@
                 android:id="@+id/workout_previous"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                android:layout_alignParentBottom="false"
-                android:layout_alignParentStart="false"
+                android:layout_alignParentEnd="true"
+                android:layout_alignTop="@+id/workout_previous"
                 android:layout_weight="0.3"
                 android:onClick="onClick"
+                android:rotation="180"
                 android:src="@drawable/ic_skip_previous_24dp"
                 android:tint="@color/darkblue" />
 
@@ -75,16 +78,12 @@
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="8dp">
 
-
             <ProgressBar
                 android:id="@+id/progressBar"
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/workout_title"
                 android:layout_centerHorizontal="true"
-                android:max="1000"
-                android:progress="0"
                 android:progressDrawable="@drawable/circular"
                 android:rotation="270" />
 
@@ -92,7 +91,6 @@
                 android:id="@+id/workout_timer"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/workout_title"
                 android:layout_centerHorizontal="true"
                 android:gravity="center"
                 android:text="00"
@@ -123,8 +121,6 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignTop="@+id/workout_previous"
                 android:layout_weight="0.3"
-                android:backgroundTint="@drawable/button_fullwidth"
-                android:foregroundTint="@drawable/button_fullwidth"
                 android:onClick="onClick"
                 android:src="@drawable/ic_skip_next_24dp"
                 android:tint="@color/darkblue" />
@@ -140,7 +136,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.15"
+        android:layout_weight="0.30"
         android:orientation="vertical">
 
         <TextView

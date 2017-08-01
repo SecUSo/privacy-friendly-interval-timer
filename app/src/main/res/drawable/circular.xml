@@ -12,6 +12,7 @@
     <item android:id="@android:id/progress">
         <shape
             android:innerRadiusRatio="3"
+            android:useLevel="true"
             android:shape="ring"
             android:thicknessRatio="10.0">
             <solid android:color="@color/colorPrimary"/>

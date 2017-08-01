@@ -1,6 +1,5 @@
 package org.secuso.privacyfriendlytraining.activities;
 
-import android.animation.ObjectAnimator;
 import android.app.AlertDialog;
 import android.content.ComponentName;
 import android.content.Context;
@@ -9,15 +8,16 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
-import android.content.res.ColorStateList;
-import android.media.MediaPlayer;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageButton;
@@ -27,8 +27,6 @@ import android.widget.TextView;
 
 import org.secuso.privacyfriendlytraining.R;
 import org.secuso.privacyfriendlytraining.services.TimerService;
-
-import static org.secuso.privacyfriendlytraining.R.drawable.ic_volume_loud_24dp;
 
 public class WorkoutActivity extends AppCompatActivity {
 
@@ -47,21 +45,16 @@ public class WorkoutActivity extends AppCompatActivity {
     private TextView finishButton = null;
     private ImageButton volumeButton = null;
     private ProgressBar progressBar = null;
-    private ObjectAnimator animator = null;
-
-    //Sound
-    MediaPlayer mediaPlayer = null;
 
     // Service variables
     private TimerService timerService = null;
     private boolean serviceBound = false;
     private final BroadcastReceiver timeReceiver = new BroadcastReceiver();
 
-    //Flag for prorgressbar checks if the progressbar should resume or start anew
-    private boolean jumpedOverTimer = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_workout);
@@ -71,7 +64,6 @@ public class WorkoutActivity extends AppCompatActivity {
         settings = PreferenceManager.getDefaultSharedPreferences(this);
 
         this.progressBar = (ProgressBar) this.findViewById(R.id.progressBar);
-        this.animator = ObjectAnimator.ofInt (progressBar, "progress", 0, 1000);
 
         // Bind to LocalService
         Intent intent = new Intent(this, TimerService.class);
@@ -101,11 +93,9 @@ public class WorkoutActivity extends AppCompatActivity {
                 if (fab.isSelected()){
                     fab.setImageResource(R.drawable.ic_play_24dp);
                     timerService.pauseTimer();
-                    pauseProgressbar();
                 } else {
                     fab.setImageResource(R.drawable.ic_pause_24dp);
                     timerService.resumeTimer();
-                    resumeProgressbar();
                 }
             }
         });
@@ -125,7 +115,7 @@ public class WorkoutActivity extends AppCompatActivity {
                     volumeButton.setImageResource(R.drawable.ic_volume_mute_24dp);
                     muteAllSounds(true);
                 } else {
-                    volumeButton.setImageResource(ic_volume_loud_24dp);
+                    volumeButton.setImageResource(R.drawable.ic_volume_loud_24dp);
                     muteAllSounds(false);
                 }
             }
@@ -145,7 +135,6 @@ public class WorkoutActivity extends AppCompatActivity {
             serviceBound = true;
 
             timerService.startNotifying(false);
-            updateProgressbar(true, timerService.getSavedTime());
             updateGUI();
         }
 
@@ -156,12 +145,29 @@ public class WorkoutActivity extends AppCompatActivity {
     };
 
     public class BroadcastReceiver extends android.content.BroadcastReceiver {
+        final int workoutBlinkingTime = 10000;
+        final int restBlinkingTime = 5000;
+
         boolean workoutColors = false;
         boolean progressBarFlip = false;
+        int pBarBlinkInterval = 500;
+        long oldTimeStamp = workoutBlinkingTime + pBarBlinkInterval;
+
 
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getExtras() != null) {
+                if (intent.getLongExtra("onTickMillis", 0) != 0) {
+
+                    long millis = intent.getLongExtra("onTickMillis", 0);
+                    progressBar.setProgress((int)millis);
+
+                    if (isProgressBarBlinking(millis, context)) {
+                        progressBarFlip = progressBarColorFlip(workoutColors, progressBarFlip);
+                    } else if (isProgressBarBlinking(millis, context)) {
+                        progressBarFlip = progressBarColorFlip(workoutColors, progressBarFlip);
+                    }
+                }
                 if (intent.getStringExtra("timer_title") != null) {
                     String message = intent.getStringExtra("timer_title");
 
@@ -172,12 +178,6 @@ public class WorkoutActivity extends AppCompatActivity {
                 if (intent.getIntExtra("countdown_seconds", -1) != -1) {
                     int seconds = intent.getIntExtra("countdown_seconds", 0);
                     workoutTimer.setText(Integer.toString(seconds));
-
-                    if (seconds <= 10 && workoutColors && isBlinkingProgressBarEnabled(context)) {
-                        progressBarFlip = progressBarColorFlip(workoutColors, progressBarFlip);
-                    } else if (seconds <= 5 && isBlinkingProgressBarEnabled(context)) {
-                        progressBarFlip = progressBarColorFlip(workoutColors, progressBarFlip);
-                    }
                 }
                 if (intent.getIntExtra("current_set", 0) != 0 && intent.getIntExtra("sets", 0) != 0) {
                     int currentSet = intent.getIntExtra("current_set", 0);
@@ -190,11 +190,33 @@ public class WorkoutActivity extends AppCompatActivity {
                     AlertDialog finishedAlert = buildAlert(caloriesBurned);
                     finishedAlert.show();
                 }
-                if (intent.getLongExtra("new_timer_started", 0) != 0) {
-                    long time = intent.getLongExtra("new_timer_started", 0);
-                    updateProgressbar(!timerService.getIsPaused(), time);
+                if (intent.getStringExtra("timer_title") != null) {
+                    String message = intent.getStringExtra("timer_title");
+
+                    workoutColors = message.equals(getResources().getString(R.string.workout_headline_workout));
+                    setGuiColors(workoutColors);
+                    workoutTitle.setText(message);
+                }
+                if (intent.getLongExtra("new_timer", 0) != 0) {
+                    long timerDuration = intent.getLongExtra("new_timer", 0);
+                    int seconds = (int) Math.ceil(timerDuration / 1000.0);
+                    workoutTimer.setText(Integer.toString(seconds));
+                    progressBar.setMax((int) timerDuration);
+                    progressBar.setProgress((int) timerDuration);
+                    this.oldTimeStamp = workoutBlinkingTime + workoutBlinkingTime;
                 }
             }
+        }
+
+        private boolean isProgressBarBlinking(long millis, Context context){
+            if (millis <= workoutBlinkingTime && workoutColors && isBlinkingProgressBarEnabled(context) && oldTimeStamp - pBarBlinkInterval >= millis) {
+                oldTimeStamp = millis;
+                return true;
+            } else if (millis <= restBlinkingTime && isBlinkingProgressBarEnabled(context) && oldTimeStamp - pBarBlinkInterval >= millis) {
+                oldTimeStamp = millis;
+                return true;
+            }
+            return  false;
         }
     }
 
@@ -214,8 +236,13 @@ public class WorkoutActivity extends AppCompatActivity {
         View view = findViewById(R.id.workout_content);
         view.setBackgroundColor(getResources().getColor(backgroundColor));
 
-        progressBar.setProgressBackgroundTintList(ColorStateList.valueOf(getResources().getColor(progressBackgroundColor)));
-        progressBar.setProgressTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorPrimary)));
+        LayerDrawable progressBarDrawable = (LayerDrawable) progressBar.getProgressDrawable();
+        Drawable backgroundDrawable = progressBarDrawable.getDrawable(0);
+        Drawable progressDrawable = progressBarDrawable.getDrawable(1);
+        progressDrawable.setColorFilter(ContextCompat.getColor(this, R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
+        backgroundDrawable.setColorFilter(ContextCompat.getColor(this, progressBackgroundColor), PorterDuff.Mode.SRC_IN);
+
+        //progressBar.setProgressBackgroundTintList(ColorStateList.valueOf(getResources().getColor(progressBackgroundColor)));
     }
 
     /*
@@ -223,13 +250,20 @@ public class WorkoutActivity extends AppCompatActivity {
      */
     private boolean progressBarColorFlip(boolean currentGUI, boolean colorFlip) {
         if(isBlinkingProgressBarEnabled(this)){
+            LayerDrawable progressBarDrawable = (LayerDrawable) progressBar.getProgressDrawable();
+            Drawable progressDrawable = progressBarDrawable.getDrawable(1);
+
             if(this.progressBar != null && currentGUI){
-                int barColor = colorFlip ? getResources().getColor(R.color.white) : getResources().getColor(R.color.colorPrimary);
-                progressBar.setProgressTintList(ColorStateList.valueOf(barColor));
+                int barColor = colorFlip ? R.color.white : R.color.colorPrimary;
+                progressDrawable.setColorFilter(ContextCompat.getColor(this, barColor), PorterDuff.Mode.SRC_IN);
+
+                //progressBar.setProgressTintList(ColorStateList.valueOf(barColor));
             }
             else if(this.progressBar != null){
-                int color = colorFlip ? getResources().getColor(R.color.lightblue) : getResources().getColor(R.color.colorPrimary);
-                progressBar.setProgressTintList(ColorStateList.valueOf(color));
+                int barColor = colorFlip ? R.color.lightblue : R.color.colorPrimary;
+                progressDrawable.setColorFilter(ContextCompat.getColor(this, barColor), PorterDuff.Mode.SRC_IN);
+
+                //progressBar.setProgressTintList(ColorStateList.valueOf(barColor));
             }
         }
         return !colorFlip;
@@ -238,13 +272,9 @@ public class WorkoutActivity extends AppCompatActivity {
     public void onClick(View view) {
         switch(view.getId()) {
             case R.id.workout_previous:
-                this.jumpedOverTimer = true;
-                this.progressBar.setProgress(0);
                 timerService.prevTimer();
                 break;
             case R.id.workout_next:
-                this.jumpedOverTimer = true;
-                this.progressBar.setProgress(0);
                 timerService.nextTimer();
                 break;
             case R.id.finish_workout:
@@ -266,19 +296,30 @@ public class WorkoutActivity extends AppCompatActivity {
 
     /* Update the GUI by getting the current timer values from the TimerService */
     private void updateGUI(){
-        Log.d("update called", "ffs");
-
         if(timerService != null){
             int sets = timerService.getSets();
             int currentSet = timerService.getCurrentSet();
             long savedTime = timerService.getSavedTime();
             int caloriesBurned = timerService.getCaloriesBurnt();
             String title = timerService.getCurrentTitle();
+            long timerDuration = 0;
+
+            if(title.equals(getResources().getString(R.string.workout_headline_workout))){
+                timerDuration = timerService.getWorkoutTime();
+            }
+            else if(title.equals(getResources().getString(R.string.workout_headline_start_timer))){
+                timerDuration = timerService.getStartTime();
+            }
+            else if(title.equals(getResources().getString(R.string.workout_headline_rest))){
+                timerDuration = timerService.getRestTime();
+            }
+
             String time = Long.toString((int) Math.ceil(savedTime / 1000.0));
 
             currentSetsInfo.setText(getResources().getString(R.string.workout_info) +": "+Integer.toString(currentSet)+"/"+Integer.toString(sets));
             workoutTitle.setText(title);
             workoutTimer.setText(time);
+            progressBar.setMax((int) timerDuration);
 
             if(title.equals(getResources().getString(R.string.workout_headline_done))){
                 AlertDialog finishedAlert = buildAlert(caloriesBurned);
@@ -287,25 +328,6 @@ public class WorkoutActivity extends AppCompatActivity {
         }
     }
 
-    private void updateProgressbar(boolean start, long duration){
-        animator.setDuration (duration);
-        if(start){ animator.start();}
-    }
-
-    private void pauseProgressbar(){
-        jumpedOverTimer = false;
-        this.animator.pause();
-    }
-
-    private void resumeProgressbar(){
-        if(jumpedOverTimer){
-            animator.start();
-            jumpedOverTimer = false;
-        }
-        else {
-            animator.resume();
-        }
-    }
 
     /*Build an AlertDialog for when the workout is finished*/
     private AlertDialog buildAlert(int caloriesBurned){

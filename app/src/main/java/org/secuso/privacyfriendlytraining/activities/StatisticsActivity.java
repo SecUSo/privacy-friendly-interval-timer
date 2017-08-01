@@ -2,7 +2,6 @@ package org.secuso.privacyfriendlytraining.activities;
 
 
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 
 import org.secuso.privacyfriendlytraining.R;
 import org.secuso.privacyfriendlytraining.fragments.DailyReportFragment;
@@ -24,8 +23,6 @@ public class StatisticsActivity extends BaseActivity implements DailyReportFragm
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistics);
 
-        // init preferences
-        PreferenceManager.setDefaultValues(this, R.xml.pref_general, false);
 
         // Load first view
         final android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -35,11 +32,9 @@ public class StatisticsActivity extends BaseActivity implements DailyReportFragm
 
     @Override
     protected int getNavigationDrawerID() {
-        return R.id.nav_main;
+        return R.id.nav_statistics;
     }
 
 }
-
-
 
 
