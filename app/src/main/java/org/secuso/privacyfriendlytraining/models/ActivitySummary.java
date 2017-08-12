@@ -5,6 +5,7 @@ package org.secuso.privacyfriendlytraining.models;
  *
  * @author Tobias Neidig, Alexander Karakuz
  * @version 20170707
+ * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
 public class ActivitySummary {
     private int time;

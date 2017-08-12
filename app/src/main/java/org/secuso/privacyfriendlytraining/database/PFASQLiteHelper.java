@@ -14,8 +14,9 @@ import java.util.List;
 
 /**
  *
- * @author Karola Marky
+ * @author Karola Marky, Alexander Karakuz
  * @version 20161223
+ * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  * Structure based on http://www.androidhive.info/2011/11/android-sqlite-database-tutorial/
  * accessed at 16th June 2016
  *

@@ -1,18 +1,20 @@
 package org.secuso.privacyfriendlytraining.activities;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
 import android.os.Bundle;
 import android.widget.ExpandableListView;
 
+import org.secuso.privacyfriendlytraining.R;
 import org.secuso.privacyfriendlytraining.helpers.ExpandableListAdapter;
 import org.secuso.privacyfriendlytraining.helpers.HelpDataDump;
-import org.secuso.privacyfriendlytraining.R;
+
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 /**
  * Class structure taken from tutorial at http://www.journaldev.com/9942/android-expandablelistview-example-tutorial
  * last access 27th October 2016
+ * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
 
 public class HelpActivity extends BaseActivity {

@@ -16,8 +16,6 @@
     <string name="action_settings">Einstellungen</string>
     <string name="action_main">Hauptmenü</string>
     <string name="action_statistics">Statistiken</string>
-
-
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
@@ -33,8 +31,6 @@
     <string name="main_block_periodization">Blocktraining</string>
     <string name="main_block_periodization_sets">Sätzeintervall nach denen die Pause startet:</string>
     <string name="main_block_periodization_duration">Dauer der Pause:</string>
-
-
     <string name="main_button_1">1</string>
     <string name="main_button_2">2</string>
     <string name="main_button_3">3</string>
@@ -80,7 +76,7 @@
     <string name="help_privacy">Was macht die App privatsphäre-freundlich?</string>
     <string name="help_privacy_answer">Diese App beinhaltet keinerlei Werbung oder Tracking-Mechanismen. Außerdem werden keine Nutzerinformationen, die in der App konfiguriert oder gesammelt wurden, weitergegeben.</string>
     <string name="help_permission">Welche Berechtigungen braucht die App?</string>
-    <string name="help_permission_answer">Privacy Friendly Beispiel benötigt keine Berechtigungen.</string>
+    <string name="help_permission_answer">Privacy Friendly Training benötigt die Berechtigung "Startvorgang abgeschlossen". Diese wird verwendet um die täglichen Motivationsbenachrichtigungen, nach einem Neustart, wieder einzuplannen. Wird die Berechtigung nicht gewährt so muss die App, nach einem Neustart, erst wieder einmal gestartet werden. </string>
 
 
     <!--###ABOUT###-->

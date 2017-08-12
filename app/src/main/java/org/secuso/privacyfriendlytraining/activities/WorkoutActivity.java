@@ -28,28 +28,38 @@ import android.widget.TextView;
 import org.secuso.privacyfriendlytraining.R;
 import org.secuso.privacyfriendlytraining.services.TimerService;
 
+/**
+ * Workout view with a workout and rest timer.
+ * Timers can be paused and skipped. Once the workout is finished a message is shown and
+ * the view navigates back to the main view.
+ *
+ * @author Alexander Karakuz
+ * @version 20170809
+ * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
+ */
 public class WorkoutActivity extends AppCompatActivity {
 
     //General
     private SharedPreferences settings;
 
-    // Text
+    // GUI Text
+    private TextView currentSetsInfo = null;
     private TextView workoutTimer = null;
     private TextView workoutTitle = null;
-    private TextView currentSetsInfo = null;
+
+    // GUI Buttons
+    private FloatingActionButton fab = null;
+    private ImageButton volumeButton = null;
     private ImageView prevTimer = null;
     private ImageView nextTimer = null;
 
-    //GUI
-    private FloatingActionButton fab = null;
-    private TextView finishButton = null;
-    private ImageButton volumeButton = null;
+    //GUI Elements
     private ProgressBar progressBar = null;
 
     // Service variables
+    private final BroadcastReceiver timeReceiver = new BroadcastReceiver();
     private TimerService timerService = null;
     private boolean serviceBound = false;
-    private final BroadcastReceiver timeReceiver = new BroadcastReceiver();
 
 
     @Override
@@ -61,52 +71,52 @@ public class WorkoutActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        settings = PreferenceManager.getDefaultSharedPreferences(this);
-
-        this.progressBar = (ProgressBar) this.findViewById(R.id.progressBar);
-
         // Bind to LocalService
         Intent intent = new Intent(this, TimerService.class);
         bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
 
+        // Initialize all variables
         this.currentSetsInfo = (TextView) this.findViewById(R.id.current_sets_info);
         this.prevTimer = (ImageView) this.findViewById(R.id.workout_previous);
+        this.progressBar = (ProgressBar) this.findViewById(R.id.progressBar);
         this.workoutTimer = (TextView) this.findViewById(R.id.workout_timer);
         this.workoutTitle = (TextView) this.findViewById(R.id.workout_title);
+        this.settings = PreferenceManager.getDefaultSharedPreferences(this);
         this.nextTimer = (ImageView) this.findViewById(R.id.workout_next);
+        this.volumeButton = (ImageButton) findViewById(R.id.volume_button);
 
-        //Set the workout screen to remain on if so enabled in settings
+        // Set the workout screen to remain on if so enabled in the settings
         if(isKeepScreenOnEnabled(this)) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         }
 
-        //Set the gui to workout gui colors if start timer wasn't enabled
+        // Set the gui to workout gui colors if start timer wasn't enabled
         if(!isStartTimerEnabled(this)) {
-            setGuiColors(true);
+            setWorkoutGuiColors(true);
         }
 
+        // Register the function of the pause button
         fab = (FloatingActionButton) findViewById(R.id.fab_pause_resume);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 fab.setSelected(!fab.isSelected());
-                if (fab.isSelected()){
+                if (fab.isSelected() && timerService != null){
                     fab.setImageResource(R.drawable.ic_play_24dp);
                     timerService.pauseTimer();
-                } else {
+                } else if (timerService != null) {
                     fab.setImageResource(R.drawable.ic_pause_24dp);
                     timerService.resumeTimer();
                 }
             }
         });
 
-        volumeButton = (ImageButton) findViewById(R.id.volume_button);
-
-        //Set the image according to the current sound settings
+        // Set image and flag of the volume button according to the current sound settings
         int volumeImageId = isSoundsMuted(this) ? R.drawable.ic_volume_mute_24dp : R.drawable.ic_volume_loud_24dp;
         volumeButton.setImageResource(volumeImageId);
         volumeButton.setSelected(isSoundsMuted(this));
 
+        // Register the function of the volume button
         volumeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -121,11 +131,18 @@ public class WorkoutActivity extends AppCompatActivity {
             }
         });
 
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        // Secure against Screenshot
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE,
+                WindowManager.LayoutParams.FLAG_SECURE);
+
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
 
-    /** Defines callbacks for service binding, passed to bindService()*/
+    /**
+     * Defines callbacks for service binding, passed to bindService()
+     * Performs an initial GUI update when connection is established.
+     **/
     private ServiceConnection serviceConnection = new ServiceConnection() {
 
         @Override
@@ -144,16 +161,36 @@ public class WorkoutActivity extends AppCompatActivity {
         }
     };
 
-    public class BroadcastReceiver extends android.content.BroadcastReceiver {
-        final int workoutBlinkingTime = 10000;
-        final int restBlinkingTime = 5000;
 
-        boolean workoutColors = false;
-        boolean progressBarFlip = false;
-        int pBarBlinkInterval = 500;
+    /**
+     * Receives the timer ticks from the service and updates the GUI accordingly
+     **/
+    public class BroadcastReceiver extends android.content.BroadcastReceiver {
+
+        // Threshold when progressbar starts blinking in milliseconds and the blinking speed
+        final int workoutBlinkingTime = 10000; //10 sec
+        final int restBlinkingTime = 5000; // 5 sec
+        int pBarBlinkInterval = 500; // every 0.5 seconds
+
+        // Timestamp to calculate when next progressBar color change should occur
         long oldTimeStamp = workoutBlinkingTime + pBarBlinkInterval;
 
+        // Flags for the color switches of the GUI
+        boolean progressBarFlip = false;
+        boolean workoutColors = false;
 
+
+
+        /**
+         * Updates the GUI depending on the message recived
+         *
+         * onTickMillis - Updates the progressBar progress according to current timer millis and makes it blink
+         * timer_title - Updates the GUI title and switches the GUI colors accordingly
+         * countdown_seconds - Updates the current seconds in the GUI
+         * current_set - Updates the current sets in the GUI
+         * workout_finished - Shows the final message and navigates back to the main view
+         * new_timer - Resets the progressBar
+         **/
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getExtras() != null) {
@@ -172,7 +209,7 @@ public class WorkoutActivity extends AppCompatActivity {
                     String message = intent.getStringExtra("timer_title");
 
                     workoutColors = message.equals(getResources().getString(R.string.workout_headline_workout));
-                    setGuiColors(workoutColors);
+                    setWorkoutGuiColors(workoutColors);
                     workoutTitle.setText(message);
                 }
                 if (intent.getIntExtra("countdown_seconds", -1) != -1) {
@@ -190,13 +227,6 @@ public class WorkoutActivity extends AppCompatActivity {
                     AlertDialog finishedAlert = buildAlert(caloriesBurned);
                     finishedAlert.show();
                 }
-                if (intent.getStringExtra("timer_title") != null) {
-                    String message = intent.getStringExtra("timer_title");
-
-                    workoutColors = message.equals(getResources().getString(R.string.workout_headline_workout));
-                    setGuiColors(workoutColors);
-                    workoutTitle.setText(message);
-                }
                 if (intent.getLongExtra("new_timer", 0) != 0) {
                     long timerDuration = intent.getLongExtra("new_timer", 0);
                     int seconds = (int) Math.ceil(timerDuration / 1000.0);
@@ -208,6 +238,13 @@ public class WorkoutActivity extends AppCompatActivity {
             }
         }
 
+        /**
+         * Check if the progressbar should be blinking
+         *
+         * @param millis The current milliseconds
+         * @param context Context
+         * @return Boolean if the progressbar should be blinking
+         */
         private boolean isProgressBarBlinking(long millis, Context context){
             if (millis <= workoutBlinkingTime && workoutColors && isBlinkingProgressBarEnabled(context) && oldTimeStamp - pBarBlinkInterval >= millis) {
                 oldTimeStamp = millis;
@@ -220,7 +257,13 @@ public class WorkoutActivity extends AppCompatActivity {
         }
     }
 
-    private void setGuiColors(boolean guiFlip) {
+    /**
+     * Switches between colors for rest timer and workout timer
+     * according to the boolean flag provided/
+     *
+     * @param guiFlip True for workokut phase colors, false for rest phase colors
+     */
+    private void setWorkoutGuiColors(boolean guiFlip) {
         int textColor = guiFlip ? R.color.white : R.color.black;
         int backgroundColor = guiFlip ? R.color.lightblue : R.color.white;
         int progressBackgroundColor = guiFlip ? R.color.white : R.color.lightblue;
@@ -245,15 +288,19 @@ public class WorkoutActivity extends AppCompatActivity {
         //progressBar.setProgressBackgroundTintList(ColorStateList.valueOf(getResources().getColor(progressBackgroundColor)));
     }
 
-    /*
+    /**
      * Changes the color of the progress bar, so that it blinks during the final seconds
+     *
+     * @param workoutGUI boolean flag to check if the color palate is from workout or rest phase
+     * @param colorFlip boolean flag used to flip between colors so the progressBar blinks
+     * @return boolean flag of last color
      */
-    private boolean progressBarColorFlip(boolean currentGUI, boolean colorFlip) {
+    private boolean progressBarColorFlip(boolean workoutGUI, boolean colorFlip) {
         if(isBlinkingProgressBarEnabled(this)){
             LayerDrawable progressBarDrawable = (LayerDrawable) progressBar.getProgressDrawable();
             Drawable progressDrawable = progressBarDrawable.getDrawable(1);
 
-            if(this.progressBar != null && currentGUI){
+            if(this.progressBar != null && workoutGUI){
                 int barColor = colorFlip ? R.color.white : R.color.colorPrimary;
                 progressDrawable.setColorFilter(ContextCompat.getColor(this, barColor), PorterDuff.Mode.SRC_IN);
 
@@ -269,6 +316,12 @@ public class WorkoutActivity extends AppCompatActivity {
         return !colorFlip;
     }
 
+    /**
+     * Click functions to go to previous or next timer and to finish the current workout.
+     * On workout finish an alert is build followed by a navigation to the main view.
+     *
+     * @param view View
+     */
     public void onClick(View view) {
         switch(view.getId()) {
             case R.id.workout_previous:
@@ -294,24 +347,31 @@ public class WorkoutActivity extends AppCompatActivity {
         }
     }
 
-    /* Update the GUI by getting the current timer values from the TimerService */
+
+    /**
+     * Update all GUI elements by getting the current timer values from the TimerService
+     */
     private void updateGUI(){
         if(timerService != null){
-            int sets = timerService.getSets();
-            int currentSet = timerService.getCurrentSet();
-            long savedTime = timerService.getSavedTime();
             int caloriesBurned = timerService.getCaloriesBurnt();
+            boolean isPaused = timerService.getIsPaused();
+            int currentSet = timerService.getCurrentSet();
             String title = timerService.getCurrentTitle();
+            long savedTime = timerService.getSavedTime();
+            int sets = timerService.getSets();
             long timerDuration = 0;
 
             if(title.equals(getResources().getString(R.string.workout_headline_workout))){
                 timerDuration = timerService.getWorkoutTime();
+                setWorkoutGuiColors(true);
             }
             else if(title.equals(getResources().getString(R.string.workout_headline_start_timer))){
                 timerDuration = timerService.getStartTime();
+                setWorkoutGuiColors(false);
             }
             else if(title.equals(getResources().getString(R.string.workout_headline_rest))){
                 timerDuration = timerService.getRestTime();
+                setWorkoutGuiColors(false);
             }
 
             String time = Long.toString((int) Math.ceil(savedTime / 1000.0));
@@ -320,6 +380,17 @@ public class WorkoutActivity extends AppCompatActivity {
             workoutTitle.setText(title);
             workoutTimer.setText(time);
             progressBar.setMax((int) timerDuration);
+            progressBar.setProgress((int) savedTime);
+
+
+            if (isPaused){
+                fab.setImageResource(R.drawable.ic_play_24dp);
+                fab.setSelected(true);
+            }
+            else {
+                fab.setImageResource(R.drawable.ic_pause_24dp);
+                fab.setSelected(false);
+            }
 
             if(title.equals(getResources().getString(R.string.workout_headline_done))){
                 AlertDialog finishedAlert = buildAlert(caloriesBurned);
@@ -329,7 +400,12 @@ public class WorkoutActivity extends AppCompatActivity {
     }
 
 
-    /*Build an AlertDialog for when the workout is finished*/
+    /**
+     * Build an AlertDialog for when the workout is finished
+     *
+     * @param caloriesBurned Amount of calories burned during the workout
+     * @return The AlertDialog
+     */
     private AlertDialog buildAlert(int caloriesBurned){
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
         String caloriesMessage = isCaloriesEnabled(this) ? "\n" + getResources().getString(R.string.workout_finished_calories_info)+ " " +
@@ -355,10 +431,6 @@ public class WorkoutActivity extends AppCompatActivity {
         return alertBuilder.create();
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-    }
 
     @Override
     protected void onStop() {
@@ -371,6 +443,9 @@ public class WorkoutActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Stop the notification and update the GUI with current values
+     */
     @Override
     public void onResume() {
         super.onResume();
@@ -379,10 +454,12 @@ public class WorkoutActivity extends AppCompatActivity {
             timerService.startNotifying(false);
         }
         updateGUI();
-
         registerReceiver(timeReceiver, new IntentFilter(TimerService.COUNTDOWN_BROADCAST));
     }
 
+    /**
+     * Start the notification when activity goes into the background
+     */
     @Override
     public void onPause() {
         super.onPause();
@@ -390,13 +467,7 @@ public class WorkoutActivity extends AppCompatActivity {
         if(timerService != null){
             timerService.startNotifying(true);
         }
-
         unregisterReceiver(timeReceiver);
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
     }
 
 
@@ -409,26 +480,21 @@ public class WorkoutActivity extends AppCompatActivity {
         super.onBackPressed();
     }
 
-/*
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            // Respond to the action bar's Up/Home button
-            case android.R.id.home:
-                stopTimerInService();
-                finish();
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
- */
 
+    /**
+     * Calls the service to stop an clear all timer
+     */
     private void stopTimerInService(){
         if(timerService != null) {
             timerService.cleanTimerStop();
         }
     }
 
+    /**
+     * Mutes or unmutes all sound output
+     *
+     * @param mute Flag to mute or unmute all sounds
+     */
     private void muteAllSounds(boolean mute){
         if(this.settings != null) {
             SharedPreferences.Editor editor = settings.edit();

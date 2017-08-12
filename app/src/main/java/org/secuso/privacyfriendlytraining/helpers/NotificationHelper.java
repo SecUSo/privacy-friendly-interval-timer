@@ -22,6 +22,7 @@ import static org.secuso.privacyfriendlytraining.activities.MotivationAlertTexts
  * @author Tobias Neidig
  * @author Alexander Karakuz
  * @version 20170603
+ * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
 public class NotificationHelper {
 

@@ -12,11 +12,13 @@ import java.util.ArrayList;
 
 /**
  * @author Karola Marky
+ * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  * @version 20161225
  *          Structure based on http://tech.sarathdr.com/android-app/convert-database-cursor-result-to-json-array-android-app-development/
  *          accessed at 25th December 2016
  *          <p>
  *          This class turns a database into a JSON string
+ *
  */
 
 public class DatabaseExporter {

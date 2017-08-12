@@ -29,6 +29,7 @@ import org.secuso.privacyfriendlytraining.helpers.NotificationHelper;
  * Android Design: Settings</a> for design guidelines and the <a
  * href="http://developer.android.com/guide/topics/ui/settings.html">Settings
  * API Guide</a> for more information on developing a Settings UI.
+ * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
 public class SettingsActivity extends BaseActivity {
     /**
@@ -181,8 +182,11 @@ public class SettingsActivity extends BaseActivity {
             // updated to reflect the new value, per the Android Design
             // guidelines.
             //bindPreferenceSummaryToValue(findPreference("example_text"));
-            //bindPreferenceSummaryToValue(findPreference("example_list"));
 
+            bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_weight)));
+            bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_height)));
+            bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_age)));
+            bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_gender)));
 
 
             //Activate and deactivate motivation notification depending on the switch setting

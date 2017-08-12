@@ -12,6 +12,7 @@ import org.secuso.privacyfriendlytraining.R;
 
 /**
  * Created by yonjuni on 15.06.16.
+ * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
 public class AboutActivity extends AppCompatActivity {
 

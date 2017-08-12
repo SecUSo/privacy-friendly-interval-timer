@@ -12,37 +12,57 @@ import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
 import org.secuso.privacyfriendlytraining.R;
+import org.secuso.privacyfriendlytraining.helpers.NotificationHelper;
 import org.secuso.privacyfriendlytraining.services.TimerService;
 
 import java.util.ArrayList;
 
-
+/**
+ * Main view that lets the user choose the timer intervals and has a button to start the workout
+ *
+ * @author Alexander Karakuz
+ * @version 20170809
+ * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
+ */
 public class MainActivity extends BaseActivity {
 
     // General
     private SharedPreferences settings = null;
     private Intent intent = null;
 
-    // Timer values
+    // Block periodization values
     private final long blockPeriodizationTimeMax = 300; // 5:00 min
-    private final long startTime = 10;
+    private boolean isBlockPeriodization = false;
     private long blockPeriodizationTime = 0;
+    private int blockPeriodizationSets = 0;
+
+    // Timer values
+    private final long startTime = 10; // Starttimer 10 sec
     private long workoutTime = 0;
     private long restTime = 0;
-    private int blockPeriodizationSets = 0;
     private int sets = 0;
-    private boolean isBlockPeriodization = false;
+
+    // Timer max and min values
+    // http://www.dtb-online.de/portal/verband/service-fuer-mitglieder/ratgeber-gesundheit/funktionelles-zirkeltraining.html
+    // Tripled possible values for user convenience and doubled sets
+    private int workoutMaxTime = 120;
+    private int workoutMinTime = 10;
+    private int restMaxTime = 120;
+    private int restMinTime = 10;
+    private int maxSets = 16;
+    private int minSets = 1;
 
     // GUI text
     private TextView workoutIntervalText = null;
     private TextView restIntervalText = null;
     private TextView setsText = null;
 
-    //Service variables
+    //Timer service variables
     private TimerService timerService = null;
     private boolean serviceBound = false;
 
@@ -54,25 +74,32 @@ public class MainActivity extends BaseActivity {
 
         //Init preferences
         PreferenceManager.setDefaultValues(this, R.xml.pref_general, false);
-
         this.settings = PreferenceManager.getDefaultSharedPreferences(this);
 
-        //Set default values for  the workout configuration
-        getDefaultTimerValues();
+        //Set default values for the timer configurations
+        setDefaultTimerValues();
 
+        //Set the GUI text
         this.workoutIntervalText = (TextView) this.findViewById(R.id.main_workout_interval_time);
         this.restIntervalText = (TextView) this.findViewById(R.id.main_rest_interval_time);
         this.setsText = (TextView) this.findViewById(R.id.main_sets_amount);
-
         this.workoutIntervalText.setText(formatTime(workoutTime));
         this.restIntervalText.setText(formatTime(restTime));
         this.setsText.setText(Integer.toString(sets));
 
+        //Start timer service
+        overridePendingTransition(0, 0);
+        startService(new Intent(this, TimerService.class));
 
-       overridePendingTransition(0, 0);
-       startService(new Intent(this, TimerService.class));
+        //Secure against Screenshot
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE,
+                WindowManager.LayoutParams.FLAG_SECURE);
+
+        //Schedule the next motivation notification (necessary if permission was not granted)
+        if(NotificationHelper.isMotivationAlertEnabled(this)){
+            NotificationHelper.setMotivationAlert(this);
+        }
     }
-
 
 
     /**
@@ -85,35 +112,33 @@ public class MainActivity extends BaseActivity {
     }
 
 
-    //Intervals
-    //http://www.dtb-online.de/portal/verband/service-fuer-mitglieder/ratgeber-gesundheit/funktionelles-zirkeltraining.html
-    //http://www.sportunterricht.de/lksport/circuitkraft.html
-    //Added additional 15 seconds to rest and 30 seconds to exercise for user convenience
-    //Usual maximum of sets is 12 but I added additional 4 just in case
+    /**
+     * Click functions for timer values, block periodization AlertDialog and workout start button
+     */
     public void onClick(View view) {
         switch(view.getId()) {
             case R.id.main_workout_interval_minus:
-                this.workoutTime = (workoutTime <= 10) ? 120 : this.workoutTime - 10;
-                this.workoutIntervalText.setText(formatTime(workoutTime));
+                workoutTime = (workoutTime <= workoutMinTime) ? workoutMaxTime : workoutTime - 10;
+                workoutIntervalText.setText(formatTime(workoutTime));
                 break;
             case R.id.main_workout_interval_plus:
-                this.workoutTime = (workoutTime >= 120) ? 10 : this.workoutTime + 10;
+                this.workoutTime = (workoutTime >= workoutMaxTime) ? workoutMinTime : this.workoutTime + 10;
                 this.workoutIntervalText.setText(formatTime(workoutTime));
                 break;
             case R.id.main_rest_interval_minus:
-                this.restTime = (restTime <= 0) ? 60 : this.restTime - 10;
+                this.restTime = (restTime <= restMinTime) ? restMaxTime : this.restTime - 10;
                 this.restIntervalText.setText(formatTime(restTime));
                 break;
             case R.id.main_rest_interval_plus:
-                this.restTime = (restTime >= 60) ? 0 : this.restTime + 10;
+                this.restTime = (restTime >= restMaxTime) ? restMinTime : this.restTime + 10;
                 this.restIntervalText.setText(formatTime(restTime));
                 break;
             case R.id.main_sets_minus:
-                this.sets = (sets <= 1) ? 15 : this.sets - 1;
+                this.sets = (sets <= minSets) ? maxSets : this.sets - 1;
                 this.setsText.setText(Integer.toString(sets));
                 break;
             case R.id.main_sets_plus:
-                this.sets = (sets >= 15) ? 1 : this.sets + 1;
+                this.sets = (sets >= maxSets) ? minSets : this.sets + 1;
                 this.setsText.setText(Integer.toString(sets));
                 break;
             case R.id.main_block_periodization:
@@ -139,7 +164,9 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-    /** Defines callbacks for service binding, passed to bindService()*/
+    /**
+     * Defines callbacks for service binding, passed to bindService()
+     **/
     private ServiceConnection serviceConnection = new ServiceConnection() {
 
         @Override
@@ -157,7 +184,9 @@ public class MainActivity extends BaseActivity {
 
 
 
-    /*Build an AlertDialog for the block periodization*/
+   /**
+    * Build an AlertDialog for the block periodization configurations
+    */
     private AlertDialog buildBlockAlert(){
         LayoutInflater inflater = getLayoutInflater();
         View dialogLayout = inflater.inflate(R.layout.block_periodization, null);
@@ -233,6 +262,42 @@ public class MainActivity extends BaseActivity {
     }
 
 
+    /**
+     * Initializes the timer values for the GUI. Previously chosen setup is retrieved if one exists.
+     */
+    private void setDefaultTimerValues(){
+        if(settings != null ) {
+            this.workoutTime = settings.getInt(this.getString(R.string.pref_timer_workout), 10);
+            this.restTime = settings.getInt(this.getString(R.string.pref_timer_rest), 20);
+            this.sets = settings.getInt(this.getString(R.string.pref_timer_set), 5);
+            this.blockPeriodizationTime = settings.getInt(this.getString(R.string.pref_timer_periodization_time), 150);
+            this.blockPeriodizationSets = settings.getInt(this.getString(R.string.pref_timer_periodization_set), 1);
+        }
+        else {
+            this.workoutTime = 10;
+            this.restTime = 20;
+            this.sets = 5;
+            this.blockPeriodizationTime = 150;
+            this.blockPeriodizationSets = 1;
+        }
+    }
+
+    /**
+     * Stores the chosen timer values for next GUI initialization
+     */
+    private void storeDefaultTimerValues(){
+        if(settings != null ) {
+            SharedPreferences.Editor editor = this.settings.edit();
+            editor.putInt(this.getString(R.string.pref_timer_workout),(int) this.workoutTime);
+            editor.putInt(this.getString(R.string.pref_timer_rest),(int) this.restTime);
+            editor.putInt(this.getString(R.string.pref_timer_set), this.sets);
+            editor.putInt(this.getString(R.string.pref_timer_periodization_time), (int) this.blockPeriodizationTime);
+            editor.putInt(this.getString(R.string.pref_timer_periodization_set), this.blockPeriodizationSets);
+            editor.commit();
+        }
+    }
+
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -258,7 +323,17 @@ public class MainActivity extends BaseActivity {
         super.onDestroy();
     }
 
-    //Helper methods
+
+    /**
+     * Helper methods and preference checks
+     */
+    public boolean isStartTimerEnabled(Context context) {
+        if (this.settings != null) {
+            return settings.getBoolean(context.getString(R.string.pref_start_timer_switch_enabled), false);
+        }
+        return false;
+    }
+
     private String formatTime(long seconds){
         long min = seconds/60;
         long sec = seconds%60;
@@ -266,51 +341,5 @@ public class MainActivity extends BaseActivity {
         String time = String.format("%02d : %02d", min,sec);
 
         return time;
-    }
-
-    /*
-     * Initializes the timer values for the GUI. Previously chosen setup is retrieved if one exists.
-     */
-    private void getDefaultTimerValues(){
-        if(settings != null ) {
-            this.workoutTime = settings.getInt("WORKOUT_TIME", 10);
-            this.restTime = settings.getInt("REST_TIME", 20);
-            this.sets = settings.getInt("SETS", 5);
-            this.blockPeriodizationTime = settings.getInt("PERIODIZATION_TIME", 150);
-            this.blockPeriodizationSets = settings.getInt("PERIODIZATION_SETS", 1);
-        }
-        else {
-            this.workoutTime = 10;
-            this.restTime = 20;
-            this.sets = 5;
-            this.blockPeriodizationTime = 150;
-            this.blockPeriodizationSets = 1;
-        }
-    }
-
-    /*
-     * Stores the chosen timer values for next GUI initialization
-     */
-    private void storeDefaultTimerValues(){
-        if(settings != null ) {
-            SharedPreferences.Editor editor = this.settings.edit();
-            editor.putInt("WORKOUT_TIME",(int) this.workoutTime);
-            editor.putInt("REST_TIME",(int) this.restTime);
-            editor.putInt("SETS", (int) this.sets);
-            editor.putInt("PERIODIZATION_TIME", (int) this.blockPeriodizationTime);
-            editor.putInt("PERIODIZATION_SETS", this.blockPeriodizationSets);
-            editor.commit();
-        }
-    }
-
-
-    /*
-     * Check if the setting for a start timer (before the workout beginns) is enabled
-     */
-    public boolean isStartTimerEnabled(Context context) {
-        if (this.settings != null) {
-            return settings.getBoolean(context.getString(R.string.pref_start_timer_switch_enabled), false);
-        }
-        return false;
     }
 }

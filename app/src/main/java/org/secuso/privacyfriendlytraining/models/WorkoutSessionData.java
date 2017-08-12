@@ -4,11 +4,11 @@ package org.secuso.privacyfriendlytraining.models;
  *
  * @author Karola Marky, Alexander Karakuz
  * @version 20170701
+ * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  *
  * This class holds the "data type" of a single workout session.
  * A workout session consists of the time it to took to work out
  * and the calories burnt. The ID of each workout is the data eg. 20170708
- *
  */
 public class WorkoutSessionData {
 
@@ -17,7 +17,6 @@ public class WorkoutSessionData {
     private int CALORIES;
 
     public WorkoutSessionData() {    }
-
 
     /**
      * Always use this constructor to generate data with values.

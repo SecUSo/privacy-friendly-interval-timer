@@ -25,7 +25,16 @@ import org.secuso.privacyfriendlytraining.models.WorkoutSessionData;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-//TO DO: Button on Notification
+/**
+ * Workout timer as a service.
+ * Has two different timers for workout and rest functionality.
+ * Can play sounds depending ot the current settings.
+ * Can pause, resume, skip and go back to the pervious timer.
+ *
+ * @author Alexander Karakuz
+ * @version 20170809
+ * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
+ */
 public class TimerService extends Service {
 
     //General
@@ -46,8 +55,6 @@ public class TimerService extends Service {
     MediaPlayer mediaPlayer = null;
 
     //Values for workout and rest time and sets to perform
-    private String currentTitle = "";
-    private boolean isBlockPeriodization = false;
     private long blockPeriodizationTime = 0;
     private int blockPeriodizationSets = 0;
     private long startTime = 0;
@@ -60,18 +67,20 @@ public class TimerService extends Service {
     private int currentSet = 1;
 
     //Timer Flags
+    private boolean isBlockPeriodization = false;
     private boolean isStarttimer = false;
     private boolean isWorkout = false;
     private boolean isPaused = false;
     private boolean isRunning = false;
 
+    //Broadcast string messages
+    private String currentTitle = "";
 
     //Notification variables
     private static final int NOTIFICATION_ID = 1;
     private NotificationCompat.Builder notiBuilder = null;
     private NotificationManager notiManager = null;
     private boolean appInBackground = false;
-
 
     //Database for the statistics
     private PFASQLiteHelper database = null;
@@ -133,18 +142,33 @@ public class TimerService extends Service {
         return super.onStartCommand(intent, flags, startId);
     }
 
-    //Maybe Strategy Pattern for the onFinish() if another Timer would be introduced
-    //Tick has to be 10ms for the progress bar to animate fluently
+    /**
+     * Creates the workout timer.
+     * Broadcasts the current millis on every tick.
+     * Broadcasts the seconds left on every second.
+     * Starts the rest timer if there are sets left to perform.
+     *
+     * Maybe Strategy Pattern for the onFinish() if another Timer would be introduce.
+     * Tick has to be 10ms for the progress bar to animate fluently.
+     *
+     * @param duration Duration of the workout timer
+     * @return CountDownTimer
+     */
     private CountDownTimer createWorkoutTimer(final long duration) {
 
         return new CountDownTimer(duration, 10) {
             int lastBroadcastedSecond = (int) Math.ceil(duration / 1000.0);
 
+
+            /**
+             * Broadcasts the current milis on every tick and the current seconds every second
+             *
+             * @param millisUntilFinished
+             */
             @Override
             public void onTick(long millisUntilFinished) {
 
                 int secondsUntilFinished = (int) Math.ceil(millisUntilFinished / 1000.0);
-
                 savedTime = millisUntilFinished;
 
                 Intent broadcast = new Intent(COUNTDOWN_BROADCAST)
@@ -164,6 +188,12 @@ public class TimerService extends Service {
                 sendBroadcast(broadcast);
             }
 
+
+            /**
+             * Calculates the calories burned during the workout and adds them to global variable.
+             * Starts the rest timer if there are sets left to perform. Othterwise boradcasts
+             * that the workout tis over and how much calories were burned overall.
+             */
             @Override
             public void onFinish() {
                 Intent broadcast = new Intent(COUNTDOWN_BROADCAST);
@@ -204,11 +234,26 @@ public class TimerService extends Service {
         };
     }
 
+
+    /**
+     * Creates the rest timer.
+     * Broadcasts the current millis on every tick.
+     * Broadcasts the seconds left on every second.
+     * Starts the workout timer when finished.
+     *
+     * @param duration Duration of the rest timer.
+     * @return CountDown Timer
+     */
     private CountDownTimer createRestTimer(final long duration) {
 
         return new CountDownTimer(duration, 10) {
             int lastBroadcastedSecond = (int) Math.ceil(duration / 1000.0);
 
+            /**
+             * Broadcasts the current milis on every tick and the current seconds every second
+             *
+             * @param millisUntilFinished
+             */
             @Override
             public void onTick(long millisUntilFinished) {
                 int secondsUntilFinished = (int) Math.ceil(millisUntilFinished / 1000.0);
@@ -225,13 +270,16 @@ public class TimerService extends Service {
 
                     lastBroadcastedSecond = secondsUntilFinished;
 
-                    playSound(secondsUntilFinished, true);
+                    playSound(secondsUntilFinished, false);
                     updateNotification(secondsUntilFinished);
                     workoutDuration += 1;
                 }
                 sendBroadcast(broadcast);
             }
 
+            /**
+             * Starts the next workout timer and broadcasts it.
+             */
             @Override
             public void onFinish() {
                 Intent broadcast = new Intent(COUNTDOWN_BROADCAST);
@@ -245,10 +293,10 @@ public class TimerService extends Service {
                 currentTitle = getResources().getString(R.string.workout_headline_workout);
 
                 broadcast.putExtra("timer_title", currentTitle)
-                        .putExtra("current_set", currentSet)
-                        .putExtra("sets", sets)
-                        .putExtra("countdown_seconds", (int) workoutTime/1000)
-                        .putExtra("new_timer", workoutTime);
+                         .putExtra("current_set", currentSet)
+                         .putExtra("sets", sets)
+                         .putExtra("countdown_seconds", (int) workoutTime/1000)
+                         .putExtra("new_timer", workoutTime);
 
                 sendBroadcast(broadcast);
                 isWorkout = true;
@@ -260,7 +308,18 @@ public class TimerService extends Service {
         };
     }
 
-    /** Initialize all timer and set values and start the workout routine */
+
+    /**
+     * Initialize all timer and set values and start the workout routine.
+     *
+     * @param workoutTime Duration of each workout timer
+     * @param restTime Duration of each rest timer
+     * @param startTime Duration of the start timer
+     * @param sets Amount of sets to be performed
+     * @param isBlockPeriodization Flag if block periodization feature was enabled
+     * @param blockPeriodizationTime Duration of the block periodization rest phase
+     * @param blockPeriodizationSets Interval determining after how many sets a block rest occurs
+     */
     public void startWorkout(long workoutTime, long restTime, long startTime, int sets,
                              boolean isBlockPeriodization, long blockPeriodizationTime, int blockPeriodizationSets) {
         this.blockPeriodizationTime = blockPeriodizationTime*1000;
@@ -297,7 +356,10 @@ public class TimerService extends Service {
         }
     }
 
-    /*Pause the currently working timer*/
+
+    /**
+     * Pause the currently working timer
+     */
     public void pauseTimer() {
         if(isWorkout && workoutTimer != null) {
             this.workoutTimer.cancel();
@@ -309,7 +371,10 @@ public class TimerService extends Service {
         updateNotification((int) Math.ceil(savedTime / 1000.0));
     }
 
-    /*Resume the currently working timer*/
+
+    /**
+     * Resume the currently working timer
+     */
     public void resumeTimer() {
         if(isWorkout){
             this.workoutTimer = createWorkoutTimer(savedTime);
@@ -329,13 +394,16 @@ public class TimerService extends Service {
     }
 
 
-    /*Switch to the next timer */
+    /**
+     * Switch to the next timer
+     */
     public void nextTimer() {
         //If user is not in the final workout switch to rest phase
         if(isWorkout && currentSet < sets) {
             this.workoutTimer.cancel();
             isWorkout = false;
 
+            //Check if the next rest phase is normal or a block rest
             long time = (isBlockPeriodization && currentSet % blockPeriodizationSets == 0) ? this.blockPeriodizationTime : this.restTime;
             this.currentTitle = (isBlockPeriodization && currentSet % blockPeriodizationSets == 0) ?
                     getResources().getString(R.string.workout_block_periodization_headline) : getResources().getString(R.string.workout_headline_rest);
@@ -383,7 +451,9 @@ public class TimerService extends Service {
     }
 
 
-    /*Switch to the previous timer */
+    /**
+     * Switch to the previous timer
+     */
     public void prevTimer() {
 
         //If user is not in the first workout phase go back to the rest phase
@@ -392,11 +462,9 @@ public class TimerService extends Service {
             isWorkout = false;
             this.currentSet -= 1;
 
-
             long time = (isBlockPeriodization && currentSet % blockPeriodizationSets == 0) ? this.blockPeriodizationTime : this.restTime;
             this.currentTitle = (isBlockPeriodization && currentSet % blockPeriodizationSets == 0) ?
                     getResources().getString(R.string.workout_block_periodization_headline) : getResources().getString(R.string.workout_headline_rest);
-
 
             Intent broadcast = new Intent(COUNTDOWN_BROADCAST)
                     .putExtra("timer_title", currentTitle)
@@ -436,7 +504,6 @@ public class TimerService extends Service {
             isWorkout = true;
             this.currentTitle = getResources().getString(R.string.workout_headline_workout);
 
-
             Intent broadcast = new Intent(COUNTDOWN_BROADCAST)
                     .putExtra("timer_title", currentTitle)
                     .putExtra("current_set", currentSet)
@@ -454,31 +521,36 @@ public class TimerService extends Service {
         }
     }
 
-    /*
-    * Plays a sound for the countdown timer. MediaPlayer is checked for a necessary release beforehand.
-    */
-    private void playSound(int seconds, boolean workout){
+
+    /**
+     * Plays a sound for the countdown timer.
+     * MediaPlayer is checked for a necessary release beforehand.
+     *
+     * @param seconds Current seconds to check which sound should be played.
+     * @param isWorkout Flag determining if current phase is workout or rest
+     */
+    private void playSound(int seconds, boolean isWorkout){
 
         int soundId = 0;
         boolean isHalfTime = seconds == (int)workoutTime/2000;
 
+        //Determine which sound should be played
         if(!isSoundsMuted(this)){
-            if(seconds <= 10 && workout && isVoiceCountdownWorkoutEnabled(this)){
+            if(seconds <= 10 && isWorkout && isVoiceCountdownWorkoutEnabled(this)){
                 soundId = getResources().getIdentifier("num_"+seconds, "raw", getPackageName());
             }
-            else if(seconds <= 5 && !workout && isVoiceCountdownRestEnabled(this)){
+            else if(seconds <= 5 && !isWorkout && isVoiceCountdownRestEnabled(this)){
                 soundId = getResources().getIdentifier("num_"+seconds, "raw", getPackageName());
             }
-            else if(isVoiceHalfTimeEnabled(this) && workout && isHalfTime){
+            else if(isVoiceHalfTimeEnabled(this) && isWorkout && isHalfTime){
                 soundId = getResources().getIdentifier("half_time", "raw", getPackageName());
             }
-            else if(isWorkoutRythmEnabled(this) && workout && seconds != 0){
+            else if(isWorkoutRythmEnabled(this) && isWorkout && seconds != 0){
                 soundId = seconds != 1 ? getResources().getIdentifier("beep", "raw", getPackageName()) : getResources().getIdentifier("beep_long", "raw", getPackageName());
             }
         }
 
         if(soundId != 0){
-
             if (mediaPlayer != null){
                 if (mediaPlayer.isPlaying()) {
                     mediaPlayer.stop();
@@ -492,7 +564,15 @@ public class TimerService extends Service {
         }
     }
 
-    //https://www.fitness-gesundheit.uni-wuppertal.de/fileadmin/fitness-gesundheit/pdf-Dokumente/Publikationen/2015/Prof.Stemper_F_G_4-15.pdf
+
+    /**
+     * Calculates the calories burned based on the settings the duration provided.
+     * Caluclation is based on MET
+     * https://www.fitness-gesundheit.uni-wuppertal.de/fileadmin/fitness-gesundheit/pdf-Dokumente/Publikationen/2015/Prof.Stemper_F_G_4-15.pdf
+     *
+     * @param workoutDurationSeconds Duration of workout to calculate calories burned.
+     * @return Amount of calories burned.
+     */
     private int calculateUserCalories(float workoutDurationSeconds){
         int age = 0;
         int height = 0;
@@ -501,7 +581,7 @@ public class TimerService extends Service {
 
         if(this.settings != null) {
             age = Integer.parseInt(settings.getString(this.getString(R.string.pref_age), "0"));
-            height = Integer.parseInt(settings.getString(this.getString(R.string.pref_heigh), "0"));
+            height = Integer.parseInt(settings.getString(this.getString(R.string.pref_height), "0"));
             weight = (int)Double.parseDouble(settings.getString(this.getString(R.string.pref_weight), "0"));
         }
 
@@ -511,11 +591,16 @@ public class TimerService extends Service {
     }
 
 
-    /*Build a notification showing the current progress of the workout*/
+    /**
+     * Build a notification showing the current progress of the workout.
+     * This notification is shown whenever the app goes into the background.
+     *
+     * @param time The current timer value
+     * @return Notification
+     */
     public Notification buildNotification(int time) {
         notiBuilder = new NotificationCompat.Builder(this);
         notiManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-
 
         Intent intent = new Intent(this, WorkoutActivity.class);
         intent.setAction(Intent.ACTION_MAIN);
@@ -525,9 +610,7 @@ public class TimerService extends Service {
 
         Intent buttonIntent = new Intent(NOTIFICATION_BROADCAST);
         PendingIntent buttonPendingIntent = PendingIntent.getBroadcast(this, 4, buttonIntent, PendingIntent.FLAG_CANCEL_CURRENT);
-
         notiBuilder.setContentIntent(pendingIntent);
-
 
         int buttonID = isPaused ? R.drawable.ic_play_24dp : R.drawable.ic_pause_24dp;
 
@@ -556,7 +639,11 @@ public class TimerService extends Service {
     }
 
 
-    /*Update the notification with current title and timer values*/
+    /**
+     * Update the notification with current title and timer values.
+     *
+     * @param time The current timer value
+     */
     private void updateNotification(int time) {
         if(appInBackground) {
             Notification notification = buildNotification(time);
@@ -567,6 +654,12 @@ public class TimerService extends Service {
         }
     }
 
+    /**
+     * Check if the app is in the background.
+     * If so, start a notification showing the current timer.
+     *
+     * @param isInBackground Sets global flag to determine whether the app is in the background
+     */
     public void startNotifying(boolean isInBackground){
        this.appInBackground = isInBackground && isRunning;
 
@@ -576,6 +669,11 @@ public class TimerService extends Service {
        }
     }
 
+    /**
+     * Clean timer stop.
+     * Stops all timers, cancels the notification, resets the variables and saves
+     * statistics
+     */
     public void cleanTimerStop() {
         if (workoutTimer != null) {
             this.workoutTimer.cancel();
@@ -593,6 +691,10 @@ public class TimerService extends Service {
         this.isRunning = false;
     }
 
+    /**
+     * Returns todays date as int in the form of yyyyMMdd
+     * @return Today as in id
+     */
     private int getTodayAsID() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
         String concatDate = dateFormat.format(new Date());
@@ -600,6 +702,10 @@ public class TimerService extends Service {
         return Integer.parseInt(concatDate);
     }
 
+    /**
+     * Updates the database with calculate global values.
+     * Saved values are the workout duration and calories burned.
+     */
     private void saveStatistics(){
         database = new PFASQLiteHelper(getBaseContext());
         int id = getTodayAsID();
@@ -618,9 +724,9 @@ public class TimerService extends Service {
         this.caloriesBurnt = 0;
     }
 
-    /*
-    * Multiple checks for what was enabled inside the settings
-    */
+    /**
+     * Multiple checks for what was enabled inside the settings
+     */
     public boolean isVoiceCountdownWorkoutEnabled(Context context){
         if(this.settings != null){
             return settings.getBoolean(context.getString(R.string.pref_voice_countdown_workout), false);
@@ -664,9 +770,9 @@ public class TimerService extends Service {
     }
 
 
-
-
-    /*Getter and Setter*/
+    /**
+    * Getter and Setter
+    */
     public long getWorkoutTime(){
         return  this.workoutTime;
     }

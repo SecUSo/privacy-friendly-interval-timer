@@ -49,6 +49,7 @@ import java.util.Map;
  *
  * @author Tobias Neidig, Alexander Karakuz
  * @version 20170708
+ * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
 public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.ViewHolder> {
     private static final int TYPE_SUMMARY = 0;

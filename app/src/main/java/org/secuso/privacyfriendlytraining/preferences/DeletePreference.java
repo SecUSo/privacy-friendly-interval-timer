@@ -11,11 +11,12 @@ import org.secuso.privacyfriendlytraining.R;
 import org.secuso.privacyfriendlytraining.database.PFASQLiteHelper;
 
 /**
- * Pref dialog to ask the user if he wants to delete all saved workokut statistics.
+ * Pref dialog to ask the user if he wants to delete all saved workout statistics.
  * If confirmed the data is deleted.
  *
  * @author Alexander Karakuz
  * @version 20170702
+ * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
 public class DeletePreference extends DialogPreference {
 

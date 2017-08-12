@@ -39,6 +39,7 @@ import java.util.Map;
  *
  * @author Tobias Neidig, Alexander Karakuz
  * @version 20170708
+ * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
 public class MonthlyReportFragment extends Fragment implements ReportAdapter.OnItemClickListener {
     public static String LOG_TAG = org.secuso.privacyfriendlytraining.fragments.WeeklyReportFragment.class.getName();

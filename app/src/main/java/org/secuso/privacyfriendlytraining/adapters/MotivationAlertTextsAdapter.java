@@ -20,6 +20,7 @@ import java.util.List;
  *
  * @author Tobias Neidig
  * @version 20160722
+ * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
 public class MotivationAlertTextsAdapter extends RecyclerView.Adapter<MotivationAlertTextsAdapter.ViewHolder> {
     private List<String> mItems;
