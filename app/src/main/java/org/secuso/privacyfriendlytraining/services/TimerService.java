@@ -15,7 +15,7 @@ import android.os.CountDownTimer;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.content.ContextCompat;
+import android.widget.RemoteViews;
 
 import org.secuso.privacyfriendlytraining.R;
 import org.secuso.privacyfriendlytraining.activities.WorkoutActivity;
@@ -24,6 +24,7 @@ import org.secuso.privacyfriendlytraining.models.WorkoutSessionData;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 
 /**
  * Workout timer as a service.
@@ -222,6 +223,7 @@ public class TimerService extends Service {
                 }
                 else {
                     currentTitle = getResources().getString(R.string.workout_headline_done);
+                    updateNotification(0);
                     broadcast = new Intent(COUNTDOWN_BROADCAST)
                         .putExtra("timer_title", currentTitle)
                         .putExtra("workout_finished", true)
@@ -612,32 +614,42 @@ public class TimerService extends Service {
         PendingIntent buttonPendingIntent = PendingIntent.getBroadcast(this, 4, buttonIntent, PendingIntent.FLAG_CANCEL_CURRENT);
         notiBuilder.setContentIntent(pendingIntent);
 
-        int buttonID = isPaused ? R.drawable.ic_play_24dp : R.drawable.ic_pause_24dp;
-
         String message = "";
 
-        if(isStarttimer) {message = "START IN";}
-        else { message = isWorkout ? this.getResources().getString(R.string.workout_headline_workout) : this.getResources().getString(R.string.workout_headline_rest);}
+        if(isStarttimer) {
+            message = this.getResources().getString(R.string.workout_headline_start_timer);
+        }
+        else if (currentTitle.equals(this.getResources().getString(R.string.workout_headline_done))) {
+            message = this.getResources().getString(R.string.workout_headline_done);
+        }
+        else {
+            message = isWorkout ? this.getResources().getString(R.string.workout_headline_workout) : this.getResources().getString(R.string.workout_headline_rest);
+        }
         message += " | "+ this.getResources().getString(R.string.workout_notification_time)+ ": " + time;
         message += " | "+ this.getResources().getString(R.string.workout_info)+ ": " + currentSet + "/" + sets;
 
-        String buttonText = isPaused ? this.getResources().getString(R.string.workout_notification_resume) : this.getResources().getString(R.string.workout_notification_pause);
 
-        NotificationCompat.Action action = new NotificationCompat.Action.Builder(buttonID, buttonText, buttonPendingIntent).build();
+        RemoteViews notificationView = new RemoteViews(getPackageName(), R.layout.workout_notification);
+
+        int buttonID = isPaused ? R.drawable.ic_notification_play_24dp : R.drawable.ic_notification_pause_24dp;
+        notificationView.setImageViewResource(R.id.notification_button, buttonID);
+        notificationView.setImageViewResource(R.id.notification_icon,R.drawable.ic_menu_info_grey);
+
+        notificationView.setTextViewText(R.id.notification_title,this.getResources().getString(R.string.app_name));
+        notificationView.setTextViewText(R.id.notification_icon_title,this.getResources().getString(R.string.app_name));
+        notificationView.setTextViewText(R.id.notification_info, message);
+
+        notificationView.setOnClickPendingIntent(R.id.notification_button, buttonPendingIntent);
 
 
-        notiBuilder.setContentTitle(this.getResources().getString(R.string.app_name))
-                .setContentText(message)
-                .addAction(action)
-                .setAutoCancel(true)
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.drawable.ic_menu_info)
-                .setLights(ContextCompat.getColor(this, R.color.colorPrimary), 1000, 1000)
-                .setStyle(new NotificationCompat.BigTextStyle()
-                );
+                .setAutoCancel(true)
+                .setContent(notificationView)
+                .setContentIntent(pendingIntent);
 
-        return notiBuilder.build();
+        return builder.build();
     }
-
 
     /**
      * Update the notification with current title and timer values.
