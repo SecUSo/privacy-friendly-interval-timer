@@ -373,6 +373,10 @@ public class WorkoutActivity extends AppCompatActivity {
                 timerDuration = timerService.getRestTime();
                 setWorkoutGuiColors(false);
             }
+            else if(title.equals(getResources().getString(R.string.workout_block_periodization_headline))){
+                timerDuration = timerService.getBlockRestTime();
+                setWorkoutGuiColors(false);
+            }
 
             String time = Long.toString((int) Math.ceil(savedTime / 1000.0));
 

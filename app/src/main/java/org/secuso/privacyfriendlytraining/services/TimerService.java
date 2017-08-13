@@ -102,13 +102,15 @@ public class TimerService extends Service {
     private final BroadcastReceiver myReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if(isPaused){
-                resumeTimer();
-                int secondsUntilFinished = (int) Math.ceil(savedTime / 1000.0);
-                updateNotification(secondsUntilFinished);
-            }
-            else {
-                pauseTimer();
+            if(!currentTitle.equals(getString(R.string.workout_headline_done))){
+                if(isPaused){
+                    resumeTimer();
+                    int secondsUntilFinished = (int) Math.ceil(savedTime / 1000.0);
+                    updateNotification(secondsUntilFinished);
+                }
+                else {
+                    pauseTimer();
+                }
             }
         }
     };
@@ -615,23 +617,17 @@ public class TimerService extends Service {
         notiBuilder.setContentIntent(pendingIntent);
 
         String message = "";
-
-        if(isStarttimer) {
-            message = this.getResources().getString(R.string.workout_headline_start_timer);
-        }
-        else if (currentTitle.equals(this.getResources().getString(R.string.workout_headline_done))) {
-            message = this.getResources().getString(R.string.workout_headline_done);
-        }
-        else {
-            message = isWorkout ? this.getResources().getString(R.string.workout_headline_workout) : this.getResources().getString(R.string.workout_headline_rest);
-        }
+        message = currentTitle;
         message += " | "+ this.getResources().getString(R.string.workout_notification_time)+ ": " + time;
         message += " | "+ this.getResources().getString(R.string.workout_info)+ ": " + currentSet + "/" + sets;
 
-
         RemoteViews notificationView = new RemoteViews(getPackageName(), R.layout.workout_notification);
 
-        int buttonID = isPaused ? R.drawable.ic_notification_play_24dp : R.drawable.ic_notification_pause_24dp;
+
+        int buttonID = (isPaused && !currentTitle.equals(getResources().getString(R.string.workout_headline_done)))
+                ? R.drawable.ic_notification_play_24dp : R.drawable.ic_notification_pause_24dp;
+
+
         notificationView.setImageViewResource(R.id.notification_button, buttonID);
         notificationView.setImageViewResource(R.id.notification_icon,R.drawable.ic_menu_info_grey);
 
@@ -677,7 +673,8 @@ public class TimerService extends Service {
 
        //Update just once in case of a pause
        if(isRunning){
-           updateNotification((int) Math.ceil(savedTime / 1000.0));
+           int time = currentTitle.equals(getString(R.string.workout_headline_done)) ? 0 : (int) Math.ceil(savedTime / 1000.0);
+           updateNotification(time);
        }
     }
 
@@ -799,6 +796,10 @@ public class TimerService extends Service {
 
     public long getRestTime(){
         return  this.restTime;
+    }
+
+    public long getBlockRestTime(){
+        return  this.blockPeriodizationTime;
     }
 
     public int getSets(){
