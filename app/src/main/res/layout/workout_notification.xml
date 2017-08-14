@@ -18,6 +18,7 @@
         android:layout_toRightOf="@+id/notification_icon"
         android:paddingLeft="5dp"
         android:paddingTop="14dp"
+        android:textColor="#878787"
         android:textSize="12sp" />
 
     <TextView
@@ -38,6 +39,8 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/notification_title"
         android:paddingBottom="15dp"
+        android:textColor="#878787"
+        android:textSize="14sp"
         android:paddingLeft="15dp" />
 
     <ImageView

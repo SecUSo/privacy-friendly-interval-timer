@@ -20,7 +20,7 @@ public class WorkoutSessionData {
 
     /**
      * Always use this constructor to generate data with values.
-     * @param ID The primary key for the database
+     * @param ID The primary key for the database, its composed of the year, month and day as id in format yyyyMMdd
      * @param WORKOUT_TIME The length of the workout in seconds
      * @param CALORIES The calories burnt during the workout
      */

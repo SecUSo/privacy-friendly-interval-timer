@@ -641,7 +641,7 @@ public class TimerService extends Service {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.drawable.ic_menu_info)
                 .setAutoCancel(true)
-                .setContent(notificationView)
+                .setCustomBigContentView(notificationView)
                 .setContentIntent(pendingIntent);
 
         return builder.build();
