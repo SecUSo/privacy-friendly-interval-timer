@@ -114,9 +114,10 @@
     <string name="pref_voice_output">Sprachausgabe</string>
     <string name="pref_voice_output_summary">Eine Stimme zählt die letzten Sekunden jeder Trainingseinheit und Pause herunter.</string>
     <string name="pref_title_motivation_alert_switch">Motivationsbenachrichtigung</string>
+    <string name="pref_statistics_title">Statistiken</string>
+    <string name="pref_title_notification_motivation_alert_time">Zeitpunkt der Motivationsbenachrichtigung</string>
     <string name="pref_title_notification_delete_statistics_alert">Statistiken löschen</string>
     <string name="pref_notification_motivation_alert_texts">Motivationstexte</string>
-    <string name="pref_statistics_title">Statistiken</string>
     <string name="pref_delete_statistics_dialog_title">Statistiken löschen</string>
     <string name="pref_delete_statistics_dialog_info">Wollen Sie alle gespeicherten Statistiken löschen?</string>
     <string name="pref_delete_statistics_dialog_toast">Die Statistiken wurden zurückgesetzt!</string>
