@@ -93,13 +93,15 @@ public class TimerService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+
         this.restTimer = createRestTimer(this.startTime);
         this.workoutTimer = createWorkoutTimer(this.workoutTime);
+        this.settings = PreferenceManager.getDefaultSharedPreferences(this);
 
-        settings = PreferenceManager.getDefaultSharedPreferences(this);
+        registerReceiver(notificationReceiver, new IntentFilter(NOTIFICATION_BROADCAST));
     }
 
-    private final BroadcastReceiver myReceiver = new BroadcastReceiver() {
+    private final BroadcastReceiver notificationReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             if(!currentTitle.equals(getString(R.string.workout_headline_done))){
@@ -136,14 +138,15 @@ public class TimerService extends Service {
             restTimer.cancel();
         }
         saveStatistics();
+        unregisterReceiver(notificationReceiver);
         super.onDestroy();
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        registerReceiver(myReceiver, new IntentFilter(NOTIFICATION_BROADCAST));
         return super.onStartCommand(intent, flags, startId);
     }
+
 
     /**
      * Creates the workout timer.
@@ -570,8 +573,8 @@ public class TimerService extends Service {
 
 
     /**
-     * Calculates the calories burned based on the settings the duration provided.
-     * Caluclation is based on MET
+     * Calculates the calories burned based on the settings and the duration provided.
+     * Calculation is based on MET
      * https://www.fitness-gesundheit.uni-wuppertal.de/fileadmin/fitness-gesundheit/pdf-Dokumente/Publikationen/2015/Prof.Stemper_F_G_4-15.pdf
      *
      * @param workoutDurationSeconds Duration of workout to calculate calories burned.
@@ -641,6 +644,7 @@ public class TimerService extends Service {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.drawable.ic_menu_info)
                 .setAutoCancel(true)
+                .setCustomContentView(notificationView)
                 .setCustomBigContentView(notificationView)
                 .setContentIntent(pendingIntent);
 
@@ -712,7 +716,7 @@ public class TimerService extends Service {
     }
 
     /**
-     * Updates the database with calculate global values.
+     * Updates the database with calculated global values.
      * Saved values are the workout duration and calories burned.
      */
     private void saveStatistics(){
@@ -732,6 +736,7 @@ public class TimerService extends Service {
         this.workoutDuration = 0;
         this.caloriesBurnt = 0;
     }
+
 
     /**
      * Multiple checks for what was enabled inside the settings

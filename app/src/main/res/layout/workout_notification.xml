@@ -1,15 +1,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:paddingBottom="5dp"
+    android:paddingLeft="25dp">
 
     <ImageView
         android:id="@+id/notification_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:paddingLeft="15dp"
-        android:paddingTop="13dp" />
+        android:paddingTop="10dp" />
 
     <TextView
         android:id="@+id/notification_icon_title"
@@ -17,7 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/notification_icon"
         android:paddingLeft="5dp"
-        android:paddingTop="14dp"
+        android:paddingTop="12dp"
         android:textColor="#878787"
         android:textSize="12sp" />
 
@@ -27,7 +28,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/notification_icon"
-        android:paddingLeft="15dp"
         android:paddingTop="5dp"
         android:textColor="@color/black"
         android:textSize="16sp" />
@@ -38,10 +38,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/notification_title"
-        android:paddingBottom="15dp"
         android:textColor="#878787"
-        android:textSize="14sp"
-        android:paddingLeft="15dp" />
+        android:textSize="14sp" />
 
     <ImageView
         android:id="@+id/notification_button"

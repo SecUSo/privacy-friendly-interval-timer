@@ -54,7 +54,7 @@
 
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="Statistics">
+    <PreferenceCategory android:title="@string/pref_statistics_title">
 
         <SwitchPreference
             android:id="@+id/pref_calories_counter"

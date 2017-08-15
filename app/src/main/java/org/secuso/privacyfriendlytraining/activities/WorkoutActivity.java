@@ -75,7 +75,7 @@ public class WorkoutActivity extends AppCompatActivity {
         Intent intent = new Intent(this, TimerService.class);
         bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
 
-        // Initialize all variables
+        // Initialize all GUI variables
         this.currentSetsInfo = (TextView) this.findViewById(R.id.current_sets_info);
         this.prevTimer = (ImageView) this.findViewById(R.id.workout_previous);
         this.progressBar = (ProgressBar) this.findViewById(R.id.progressBar);
@@ -131,7 +131,7 @@ public class WorkoutActivity extends AppCompatActivity {
             }
         });
 
-        // Secure against Screenshot
+        // Secure against Screenshots
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE,
                 WindowManager.LayoutParams.FLAG_SECURE);
 
