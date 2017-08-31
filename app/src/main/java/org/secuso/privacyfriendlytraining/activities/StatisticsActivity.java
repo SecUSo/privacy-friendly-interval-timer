@@ -2,7 +2,6 @@ package org.secuso.privacyfriendlytraining.activities;
 
 
 import android.os.Bundle;
-import android.view.WindowManager;
 
 import org.secuso.privacyfriendlytraining.R;
 import org.secuso.privacyfriendlytraining.fragments.DailyReportFragment;
@@ -30,10 +29,6 @@ public class StatisticsActivity extends BaseActivity implements DailyReportFragm
         final android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.content_frame, new StatisticsFragment(), "StatisticsFragment");
         fragmentTransaction.commit();
-
-        //secure against Screenshot
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE,
-            WindowManager.LayoutParams.FLAG_SECURE);
     }
 
     @Override

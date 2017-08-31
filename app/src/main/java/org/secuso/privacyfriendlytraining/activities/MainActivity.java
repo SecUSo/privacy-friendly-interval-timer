@@ -12,7 +12,6 @@ import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
@@ -91,10 +90,6 @@ public class MainActivity extends BaseActivity {
         //Start timer service
         overridePendingTransition(0, 0);
         startService(new Intent(this, TimerService.class));
-
-        //Secure against Screenshot
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE,
-                WindowManager.LayoutParams.FLAG_SECURE);
 
         //Schedule the next motivation notification (necessary if permission was not granted)
         if(NotificationHelper.isMotivationAlertEnabled(this)){
