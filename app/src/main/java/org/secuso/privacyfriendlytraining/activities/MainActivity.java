@@ -14,13 +14,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import org.secuso.privacyfriendlytraining.R;
 import org.secuso.privacyfriendlytraining.helpers.NotificationHelper;
 import org.secuso.privacyfriendlytraining.services.TimerService;
-
-import java.util.ArrayList;
 
 /**
  * Main view that lets the user choose the timer intervals and has a button to start the workout
@@ -35,11 +35,12 @@ public class MainActivity extends BaseActivity {
     private SharedPreferences settings = null;
     private Intent intent = null;
 
-    // Block periodization values
+    // Block periodization values and Button
     private final long blockPeriodizationTimeMax = 300; // 5:00 min
     private boolean isBlockPeriodization = false;
     private long blockPeriodizationTime = 0;
     private int blockPeriodizationSets = 0;
+    private Switch blockPeriodizationSwitchButton;
 
     // Timer values
     private final long startTime = 10; // Starttimer 10 sec
@@ -99,6 +100,14 @@ public class MainActivity extends BaseActivity {
         if(NotificationHelper.isMotivationAlertEnabled(this)){
             NotificationHelper.setMotivationAlert(this);
         }
+
+        //Set the change listener for the switch button to turn block periodization on and off
+        blockPeriodizationSwitchButton = (Switch) findViewById(R.id.main_block_periodization_switch);
+        blockPeriodizationSwitchButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                isBlockPeriodization = isChecked;
+            }
+        });
     }
 
 
@@ -235,22 +244,7 @@ public class MainActivity extends BaseActivity {
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
         alertBuilder.setView(dialogLayout);
 
-        final CharSequence[] item = { getResources().getString(R.string.main_block_periodization) };
-        final boolean[] selection = { isBlockPeriodization };
-        final ArrayList selectedItem = new ArrayList();
-
-        alertBuilder.setTitle(getResources().getString(R.string.main_block_periodization_headline))
-                .setMultiChoiceItems(item, selection, new DialogInterface.OnMultiChoiceClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int indexSelected, boolean isChecked) {
-                        isBlockPeriodization = isChecked;
-                        if (isChecked) {
-                            selectedItem.add(indexSelected);
-                        } else if (selectedItem.contains(indexSelected)) {
-                            selectedItem.remove(Integer.valueOf(indexSelected));
-                        }
-                    }
-                }).setPositiveButton(
+        alertBuilder.setTitle(getResources().getString(R.string.main_block_periodization_headline)).setPositiveButton(
                     "Ok",
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
