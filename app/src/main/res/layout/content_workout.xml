@@ -11,6 +11,7 @@
     tools:context="org.secuso.privacyfriendlytraining.activities.WorkoutActivity"
     tools:showIn="@layout/activity_workout">
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"

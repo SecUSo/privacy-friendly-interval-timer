@@ -30,6 +30,15 @@ import org.secuso.privacyfriendlytraining.services.TimerService;
  */
 public class MainActivity extends BaseActivity {
 
+    // CONFIGURE TIMER VARIABLES HERE
+    // Max and min values for the workout and rest timer as well as the sets
+    private int workoutMaxTime = 300; // 5 min
+    private int workoutMinTime = 10; // 10 sec
+    private int restMaxTime = 300; // 5 min
+    private int restMinTime = 10; // 10 sec
+    private int maxSets = 16;
+    private int minSets = 1;
+
     // General
     private SharedPreferences settings = null;
     private Intent intent = null;
@@ -46,16 +55,6 @@ public class MainActivity extends BaseActivity {
     private long workoutTime = 0;
     private long restTime = 0;
     private int sets = 0;
-
-    // Timer max and min values
-    // http://www.dtb-online.de/portal/verband/service-fuer-mitglieder/ratgeber-gesundheit/funktionelles-zirkeltraining.html
-    // Tripled possible values for user convenience and doubled sets
-    private int workoutMaxTime = 120;
-    private int workoutMinTime = 10;
-    private int restMaxTime = 120;
-    private int restMinTime = 10;
-    private int maxSets = 16;
-    private int minSets = 1;
 
     // GUI text
     private TextView workoutIntervalText = null;

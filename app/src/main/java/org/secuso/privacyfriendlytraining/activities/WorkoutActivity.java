@@ -18,7 +18,9 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -27,6 +29,8 @@ import android.widget.TextView;
 
 import org.secuso.privacyfriendlytraining.R;
 import org.secuso.privacyfriendlytraining.services.TimerService;
+
+import java.util.ArrayList;
 
 /**
  * Workout view with a workout and rest timer.
@@ -46,6 +50,7 @@ public class WorkoutActivity extends AppCompatActivity {
     private TextView currentSetsInfo = null;
     private TextView workoutTimer = null;
     private TextView workoutTitle = null;
+    private TextView caloriesNumber = null;
 
     // GUI Buttons
     private FloatingActionButton fab = null;
@@ -55,6 +60,7 @@ public class WorkoutActivity extends AppCompatActivity {
 
     //GUI Elements
     private ProgressBar progressBar = null;
+    private View finishedView = null;
 
     // Service variables
     private final BroadcastReceiver timeReceiver = new BroadcastReceiver();
@@ -76,14 +82,17 @@ public class WorkoutActivity extends AppCompatActivity {
         bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
 
         // Initialize all GUI variables
+        this.caloriesNumber = (TextView) this.findViewById(R.id.workout_finished_calories_number);
         this.currentSetsInfo = (TextView) this.findViewById(R.id.current_sets_info);
+        this.volumeButton = (ImageButton) this.findViewById(R.id.volume_button);
         this.prevTimer = (ImageView) this.findViewById(R.id.workout_previous);
         this.progressBar = (ProgressBar) this.findViewById(R.id.progressBar);
         this.workoutTimer = (TextView) this.findViewById(R.id.workout_timer);
         this.workoutTitle = (TextView) this.findViewById(R.id.workout_title);
         this.settings = PreferenceManager.getDefaultSharedPreferences(this);
         this.nextTimer = (ImageView) this.findViewById(R.id.workout_next);
-        this.volumeButton = (ImageButton) findViewById(R.id.volume_button);
+        this.finishedView = findViewById(R.id.finishedView);
+        this.finishedView.setVisibility(View.GONE);
 
         // Set the workout screen to remain on if so enabled in the settings
         if(isKeepScreenOnEnabled(this)) {
@@ -219,9 +228,10 @@ public class WorkoutActivity extends AppCompatActivity {
                     currentSetsInfo.setText(getResources().getString(R.string.workout_info) + ": " + Integer.toString(currentSet) + "/" + Integer.toString(sets));
                 }
                 if (intent.getBooleanExtra("workout_finished", false) != false) {
-                    int caloriesBurned = intent.getIntExtra("calories_burned", 0);
-                    AlertDialog finishedAlert = buildAlert(caloriesBurned);
-                    finishedAlert.show();
+                    showFinishedView();
+
+                    //AlertDialog finishedAlert = buildFinishAlert(caloriesBurned);
+                    //finishedAlert.show();
                 }
                 if (intent.getLongExtra("new_timer", 0) != 0) {
                     long timerDuration = intent.getLongExtra("new_timer", 0);
@@ -295,16 +305,21 @@ public class WorkoutActivity extends AppCompatActivity {
         if(isBlinkingProgressBarEnabled(this)){
             LayerDrawable progressBarDrawable = (LayerDrawable) progressBar.getProgressDrawable();
             Drawable progressDrawable = progressBarDrawable.getDrawable(1);
+            Drawable backgroundDrawable = progressBarDrawable.getDrawable(0);
 
             if(this.progressBar != null && workoutGUI){
-                int barColor = colorFlip ? R.color.white : R.color.colorPrimary;
+                int barColor = colorFlip ? R.color.colorPrimaryTransparent : R.color.colorPrimary;
+                int backgroundColor = colorFlip ? R.color.whiteTransparent : R.color.white;
                 progressDrawable.setColorFilter(ContextCompat.getColor(this, barColor), PorterDuff.Mode.SRC_IN);
+                backgroundDrawable.setColorFilter(ContextCompat.getColor(this, backgroundColor), PorterDuff.Mode.SRC_IN);
 
                 //progressBar.setProgressTintList(ColorStateList.valueOf(barColor));
             }
             else if(this.progressBar != null){
-                int barColor = colorFlip ? R.color.lightblue : R.color.colorPrimary;
+                int barColor = colorFlip ? R.color.colorPrimaryTransparent : R.color.colorPrimary;
+                int backgroundColor = colorFlip ? R.color.lightblueTransparent : R.color.lightblue;
                 progressDrawable.setColorFilter(ContextCompat.getColor(this, barColor), PorterDuff.Mode.SRC_IN);
+                backgroundDrawable.setColorFilter(ContextCompat.getColor(this, backgroundColor), PorterDuff.Mode.SRC_IN);
 
                 //progressBar.setProgressTintList(ColorStateList.valueOf(barColor));
             }
@@ -326,18 +341,17 @@ public class WorkoutActivity extends AppCompatActivity {
             case R.id.workout_next:
                 timerService.nextTimer();
                 break;
+            case R.id.workout_finished_ok:
+                finish();
+                break;
             case R.id.finish_workout:
-                AlertDialog finishedAlert;
-                if(timerService != null) {
-                    int caloriesBurned = timerService.getCaloriesBurnt();
-                    finishedAlert = buildAlert(caloriesBurned);
-                    finishedAlert.show();
+                if(isCancelDialogEnabled(this)){
+                    showCancelAlert(true);
                 }
                 else {
-                    finishedAlert = buildAlert(0);
-                    finishedAlert.show();
+                    showFinishedView();
+                    stopTimerInService();
                 }
-                stopTimerInService();
                 break;
             default:
         }
@@ -349,7 +363,6 @@ public class WorkoutActivity extends AppCompatActivity {
      */
     private void updateGUI(){
         if(timerService != null){
-            int caloriesBurned = timerService.getCaloriesBurnt();
             boolean isPaused = timerService.getIsPaused();
             int currentSet = timerService.getCurrentSet();
             String title = timerService.getCurrentTitle();
@@ -393,44 +406,103 @@ public class WorkoutActivity extends AppCompatActivity {
             }
 
             if(title.equals(getResources().getString(R.string.workout_headline_done))){
-                AlertDialog finishedAlert = buildAlert(caloriesBurned);
-                finishedAlert.show();
+                showFinishedView();
             }
         }
     }
 
 
     /**
-     * Build an AlertDialog for when the workout is finished
+     * Build and show an AlertDialog for when the workout is canceled
      *
-     * @param caloriesBurned Amount of calories burned during the workout
      * @return The AlertDialog
      */
-    private AlertDialog buildAlert(int caloriesBurned){
+    private void showCancelAlert(final boolean showFinish){
+        if(timerService != null){
+            timerService.pauseTimer();
+            timerService.setCancelAlert(true);
+        }
+
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
-        String caloriesMessage = isCaloriesEnabled(this) ? "\n" + getResources().getString(R.string.workout_finished_calories_info)+ " " +
-                String.valueOf(caloriesBurned) + " kcal." : "";
 
-        alertBuilder.setMessage(getResources().getString(R.string.workout_finished_info)+ caloriesMessage);
-        alertBuilder.setCancelable(true);
+        final CharSequence[] item = {getResources().getString(R.string.workout_canceled_check)};
+        final boolean[] selection = {false};
+        final ArrayList selectedItem = new ArrayList();
 
-        alertBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
-
-        alertBuilder.setOnDismissListener(new DialogInterface.OnDismissListener() {
+        alertBuilder.setMultiChoiceItems(item, selection, new DialogInterface.OnMultiChoiceClickListener() {
             @Override
-            public void onDismiss(DialogInterface dialog) {
-                stopTimerInService();
-                finish();
+            public void onClick(DialogInterface dialog, int indexSelected, boolean isChecked) {
+                if (isChecked) {
+                    selectedItem.add(indexSelected);
+                    settings.edit().putBoolean(getString(R.string.pref_cancel_workout_check), false).commit();
+                } else if (selectedItem.contains(indexSelected)) {
+                    selectedItem.remove(Integer.valueOf(indexSelected));
+                    settings.edit().putBoolean(getString(R.string.pref_cancel_workout_check), true).commit();
+                }
             }
         });
 
-        return alertBuilder.create();
+        alertBuilder.setTitle(R.string.workout_canceled_info);
+
+        alertBuilder.setNegativeButton(getString(R.string.alert_confirm_dialog_negative), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                if(timerService != null){
+                    timerService.resumeTimer();
+                    timerService.setCancelAlert(false);
+                }
+                updateGUI();
+                dialog.dismiss();
+            }
+        });
+
+
+        alertBuilder.setPositiveButton(getString(R.string.alert_confirm_dialog_positive), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                if(showFinish){
+                    showFinishedView();
+                }
+                else {
+                    stopTimerInService();
+                    finish();
+                }
+            }
+        });
+
+        alertBuilder.create().show();
     }
 
+    /**
+     * Shows a transparent overlay over the workout screen.
+     * Overlay displays that the workout is over and optionally how many calories were burned.
+     */
+    private void showFinishedView(){
+        this.workoutTitle.setText(getResources().getString(R.string.workout_headline_done));
+        this.workoutTimer.setText("0");
+        this.fab.hide();
+        this.finishedView.setVisibility(View.VISIBLE);
+
+        finishedView.setOnTouchListener(new OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return true;
+            }
+        });
+
+        if(isCaloriesEnabled(this)){
+            TextView txt = (TextView)findViewById(R.id.workout_finished_calories_text);
+            TextView nmbr = (TextView)findViewById(R.id.workout_finished_calories_number);
+            TextView unit = (TextView)findViewById(R.id.workout_finished_calories_unit);
+
+            txt.setVisibility(View.VISIBLE);
+            nmbr.setVisibility(View.VISIBLE);
+            unit.setVisibility(View.VISIBLE);
+
+            if(timerService != null){
+                String caloriesBurned = Integer.toString(timerService.getCaloriesBurnt());
+                this.caloriesNumber.setText(caloriesBurned);
+            }
+        }
+    }
 
     @Override
     protected void onStop() {
@@ -476,8 +548,14 @@ public class WorkoutActivity extends AppCompatActivity {
      */
     @Override
     public void onBackPressed() {
-        stopTimerInService();
-        super.onBackPressed();
+        if(isCancelDialogEnabled(this)){
+            showCancelAlert(false);
+        }
+        else{
+            stopTimerInService();
+            finish();
+        }
+        //super.onBackPressed();
     }
 
 
@@ -502,7 +580,6 @@ public class WorkoutActivity extends AppCompatActivity {
             editor.apply();
         }
     }
-
 
     /*
     * Multiple checks for what was enabled inside the settings
@@ -538,6 +615,13 @@ public class WorkoutActivity extends AppCompatActivity {
     public boolean isSoundsMuted(Context context) {
         if (this.settings != null) {
             return settings.getBoolean(context.getString(R.string.pref_sounds_muted), true);
+        }
+        return true;
+    }
+
+    public boolean isCancelDialogEnabled(Context context) {
+        if (this.settings != null) {
+            return settings.getBoolean(context.getString(R.string.pref_cancel_workout_check), true);
         }
         return true;
     }

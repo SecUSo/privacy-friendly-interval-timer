@@ -22,7 +22,7 @@
             android:key="@string/pref_blinking_progress_bar"
             android:title="@string/pref_blinking_progress_bar"
             android:summary="@string/pref_blinking_progress_bar_summary"
-            android:defaultValue="true"/>
+            android:defaultValue="false"/>
 
         <SwitchPreference
             android:id="@+id/pref_voice_countdown_workout"
@@ -51,6 +51,13 @@
             android:title="@string/pref_voice_halftime_title"
             android:summary="@string/pref_voice_halftime_summary"
             android:defaultValue="true"/>
+
+        <SwitchPreference
+            android:id="@+id/pref_cancel_workout_check"
+            android:key="@string/pref_cancel_workout_check"
+            android:title="@string/pref_cancel_workout_check_title"
+            android:summary="@string/pref_cancel_workout_check_summary"
+            android:defaultValue="false"/>
 
     </PreferenceCategory>
 

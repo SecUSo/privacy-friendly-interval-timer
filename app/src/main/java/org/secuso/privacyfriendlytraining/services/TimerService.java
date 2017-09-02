@@ -72,7 +72,7 @@ public class TimerService extends Service {
     private boolean isStarttimer = false;
     private boolean isWorkout = false;
     private boolean isPaused = false;
-    private boolean isRunning = false;
+    private boolean isCancelAlert = false;
 
     //Broadcast string messages
     private String currentTitle = "";
@@ -105,7 +105,7 @@ public class TimerService extends Service {
         @Override
         public void onReceive(Context context, Intent intent) {
             if(!currentTitle.equals(getString(R.string.workout_headline_done))){
-                if(isPaused){
+                if(isPaused && !isCancelAlert){
                     resumeTimer();
                     int secondsUntilFinished = (int) Math.ceil(savedTime / 1000.0);
                     updateNotification(secondsUntilFinished);
@@ -332,7 +332,6 @@ public class TimerService extends Service {
         this.blockPeriodizationTime = blockPeriodizationTime*1000;
         this.blockPeriodizationSets = blockPeriodizationSets;
         this.isBlockPeriodization = isBlockPeriodization;
-        this.isRunning = true;
         this.workoutTime = workoutTime * 1000;
         this.startTime = startTime * 1000;
         this.restTime = restTime * 1000;
@@ -632,7 +631,7 @@ public class TimerService extends Service {
 
 
         notificationView.setImageViewResource(R.id.notification_button, buttonID);
-        notificationView.setImageViewResource(R.id.notification_icon,R.drawable.ic_menu_info_grey);
+        notificationView.setImageViewResource(R.id.notification_icon,R.drawable.ic_circletraining_logo_24dp);
 
         notificationView.setTextViewText(R.id.notification_title,this.getResources().getString(R.string.app_name));
         notificationView.setTextViewText(R.id.notification_icon_title,this.getResources().getString(R.string.app_name));
@@ -642,7 +641,7 @@ public class TimerService extends Service {
 
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.drawable.ic_menu_info)
+                .setSmallIcon(R.drawable.ic_circletraining_logo_white_24dp)
                 .setAutoCancel(true)
                 .setCustomContentView(notificationView)
                 .setCustomBigContentView(notificationView)
@@ -673,13 +672,9 @@ public class TimerService extends Service {
      * @param isInBackground Sets global flag to determine whether the app is in the background
      */
     public void startNotifying(boolean isInBackground){
-       this.appInBackground = isInBackground && isRunning;
-
-       //Update just once in case of a pause
-       if(isRunning){
-           int time = currentTitle.equals(getString(R.string.workout_headline_done)) ? 0 : (int) Math.ceil(savedTime / 1000.0);
-           updateNotification(time);
-       }
+        this.appInBackground = isInBackground;
+        int time = currentTitle.equals(getString(R.string.workout_headline_done)) ? 0 : (int) Math.ceil(savedTime / 1000.0);
+        updateNotification(time);
     }
 
     /**
@@ -701,7 +696,7 @@ public class TimerService extends Service {
         saveStatistics();
         this.savedTime = 0;
         this.isPaused = false;
-        this.isRunning = false;
+        this.currentTitle = getString(R.string.workout_headline_done);
     }
 
     /**
@@ -829,5 +824,9 @@ public class TimerService extends Service {
 
     public boolean getIsPaused(){
         return this.isPaused;
+    }
+
+    public void setCancelAlert(boolean isCancelAlert){
+        this.isCancelAlert = isCancelAlert;
     }
 }

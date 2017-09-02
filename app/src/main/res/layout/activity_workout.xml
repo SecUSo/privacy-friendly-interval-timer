@@ -8,6 +8,7 @@
     android:fitsSystemWindows="true"
     tools:context="org.secuso.privacyfriendlytraining.activities.WorkoutActivity">
 
+
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
@@ -54,7 +55,7 @@
 
         <include layout="@layout/content_workout" />
 
-        <android.support.design.widget.FloatingActionButton
+    <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab_pause_resume"
             android:layout_width="69dp"
             android:layout_height="68dp"
@@ -63,5 +64,84 @@
             android:onClick="onClick"
             android:src="@drawable/ic_pause_24dp"
             app:backgroundTint="@color/colorPrimary" />
+
+    <LinearLayout
+        android:id="@+id/finishedView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#F2024265"
+        android:orientation="vertical"
+        android:weightSum="1">
+
+        <TextView
+            android:id="@+id/workout_finish_text"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.35"
+            android:gravity="bottom|center"
+            android:paddingBottom="10dp"
+            android:text="@string/workout_finished_text"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/white"
+            android:textSize="50sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/workout_finished_calories_text"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_alignBottom="@+id/workout_finish_text"
+            android:layout_weight="0.16"
+            android:gravity="top|center"
+            android:text="@string/workout_finished_calories_text"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/white"
+            android:visibility="invisible"
+            android:textSize="35sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/workout_finished_calories_number"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_alignBottom="@+id/workout_finish_text"
+            android:layout_weight="0.06"
+            android:gravity="top|center"
+            android:text="0"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/white"
+            android:visibility="invisible"
+            android:textSize="35sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/workout_finished_calories_unit"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.33"
+            android:gravity="top|center"
+            android:text="@string/workout_finished_calories_unit"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/white"
+            android:visibility="invisible"
+            android:textSize="35sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/workout_finished_ok"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_alignBottom="@+id/workout_finish_text"
+            android:layout_weight="0.1"
+            android:gravity="top|right"
+            android:paddingRight="20dp"
+            android:text="@string/okay"
+            android:clickable="true"
+            android:onClick="onClick"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+    </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

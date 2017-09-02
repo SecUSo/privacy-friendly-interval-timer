@@ -49,6 +49,8 @@
     <string name="workout_info">Satz</string>
     <string name="workout_finished_info">Du hast es geschafft!</string>
     <string name="workout_finished_calories_info">Anzahl verbrannter Kalorien:</string>
+    <string name="workout_canceled_info">Möchtest du das Training wirklich abbrechen?</string>
+    <string name="workout_canceled_check">Diese Nachricht nicht wieder anzeigen</string>
     <string name="workout_block_periodization_headline">Block Pause</string>
     <string name="workout_finish_button">BEENDEN</string>
 
@@ -123,6 +125,8 @@
     <string name="pref_delete_statistics_dialog_toast">Die Statistiken wurden zurückgesetzt!</string>
     <string name="pref_calories_counter_title">Kalorienzähler</string>
     <string name="pref_calories_counter_summary">Zähle während des Trainings verbrannte Kalorien.</string>
+    <string name="pref_cancel_workout_check_title">Warnmeldung bei Abbruch</string>
+    <string name="pref_cancel_workout_check_summary">Zeige eine Warnmeldung beim vorzeitigen Verlassen des Trainings.</string>
 
     <string name="pref_group_title_personal_settings">Personalisierung</string>
     <string name="pref_title_weight">Gewicht (kg)</string>

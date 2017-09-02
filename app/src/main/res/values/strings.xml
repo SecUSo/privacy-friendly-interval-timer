@@ -47,8 +47,9 @@
     <string name="workout_headline_done">DONE</string>
     <string name="workout_headline_rest">REST</string>
     <string name="workout_info">Set</string>
-    <string name="workout_finished_info">You did it!</string>
-    <string name="workout_finished_calories_info">Amount of calories burned:</string>
+    <string name="workout_finished_text">You did it!</string>
+    <string name="workout_finished_calories_text">Amount of calories burned:</string>
+    <string name="workout_finished_calories_unit">kcal</string>
     <string name="workout_block_periodization_headline">Block Break</string>
     <string name="workout_finish_button">FINISH</string>
 
@@ -119,6 +120,8 @@
     <string name="pref_statistics_title">Statistics</string>
     <string name="pref_delete_statistics_dialog_title">Delete statistics</string>
     <string name="pref_delete_statistics_dialog_info">Do you want to delete all saved statistics?</string>
+    <string name="pref_cancel_workout_check_title">Alert dialog on workout abort</string>
+    <string name="pref_cancel_workout_check_summary">Show an alert whenever you try to abort the workout.</string>
     <string name="pref_delete_statistics_dialog_toast">Statistics have been reset!</string>
     <string name="pref_calories_counter_title">Calories counter</string>
     <string name="pref_calories_counter_summary">Count the calories burnt during workout.</string>
@@ -133,6 +136,7 @@
     </string-array>
 
     <!-- ###PREFERENCE NOT TRANSLATEABLES### -->
+    <string name="pref_cancel_workout_dialog" translatable="false">org.secuso.privacyfriendlytraining.pref_cancel_workout_dialog</string>
     <string name="pref_keep_screen_on_switch_enabled" translatable="false">org.secuso.privacyfriendlytraining.pref_keep_screen_on_switch_enabled</string>
     <string name="pref_start_timer_switch_enabled" translatable="false">org.secuso.privacyfriendlytraining.pref_start_timer_switch_enabled</string>
     <string name="pref_notification_motivation_alert_enabled" translatable="false">org.secuso.privacyfriendlytraining.pref.motivation_alert_enabled</string>
@@ -149,6 +153,7 @@
     <string name="pref_voice_countdown_rest" translatable="false">org.secuso.privacyfriendlytraining.pref.voicecountdownrest</string>
     <string name="pref_sound_rythm" translatable="false">org.secuso.privacyfriendlytraining.pref.soundrythm</string>
     <string name="pref_voice_halftime" translatable="false">org.secuso.privacyfriendlytraining.pref.voicehalftime</string>
+    <string name="pref_cancel_workout_check" translatable="false">org.secuso.privacyfriendlytraining.pref.cancel_workout_check</string>
     <string name="pref_sounds_muted" translatable="false">org.secuso.privacyfriendlytraining.pref.sounds_muted</string>
     <string name="pref_timer_workout" translatable="false">org.secuso.privacyfriendlytraining.pref.timer_workout</string>
     <string name="pref_timer_rest" translatable="false">org.secuso.privacyfriendlytraining.pref.timer_rest</string>
@@ -164,7 +169,7 @@
     </string-array>
 
 
-    <!-- Alert -->
+    <!-- Alerts -->
     <string name="motivation_alert_input_title">Motivation alert text</string>
     <string name="motivation_alert_empty">Set custom alert messages to be displayed when you are reminded about workout sessions.\n\nThere will be no alert if no message exists.</string>
     <string name="motivation_alert_input_msg">Set your own custom motivation alert. The app notifies you with one of your texts randomly.</string>
@@ -174,6 +179,8 @@
     </string-array>
     <string name="alert_confirm_dialog_positive">Yes</string>
     <string name="alert_confirm_dialog_negative">No</string>
+    <string name="workout_canceled_info">Do you want to abort the workout?</string>
+    <string name="workout_canceled_check">Don\'t show this message again</string>
 
     <!-- ReportFragment -->
     <string name="month">Month</string>

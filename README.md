@@ -9,7 +9,7 @@ This app belongs to the group of Privacy Friendly Apps developed by the Technisc
 
 The motivation of this project is to provide users with an application which supports their training sessions without advertisement or the demand of unnecessary permissions. Privacy Friendly Apps are a group of Android applications which are optimized regarding privacy. Further information can be found on secuso.org/pfa
 
-## Download and more Information
+## Information
 
 The calories calculation is based on the Metabolic Equivalent of Task (MET) formula. The MET
 value was taken from:
@@ -18,12 +18,12 @@ https://www.fitness-gesundheit.uni-wuppertal.de/fileadmin/fitness-gesundheit/pdf
 ### API Reference
 
 Mininum SDK: 21
-Target SDK: 24 
+Target SDK: 25 
 
 ## License
 
 Privacy Friendly Training is licensed under the GPLv3.
-Copyright (C) 2017  Alexander Karakuz, Karola Marky
+Copyright (C) 2017  Alexander Karakuz
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
