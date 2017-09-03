@@ -49,8 +49,6 @@
     <string name="workout_info">Satz</string>
     <string name="workout_finished_info">Du hast es geschafft!</string>
     <string name="workout_finished_calories_info">Anzahl verbrannter Kalorien:</string>
-    <string name="workout_canceled_info">Möchtest du das Training wirklich abbrechen?</string>
-    <string name="workout_canceled_check">Diese Nachricht nicht wieder anzeigen</string>
     <string name="workout_block_periodization_headline">Block Pause</string>
     <string name="workout_finish_button">BEENDEN</string>
 
@@ -105,6 +103,8 @@
     <string name="pref_voice_halftime_summary">Eine Stimme sagt die Halbzeit des Trainings an.</string>
 
     <string name="pref_header_notification">Benachrichtigungen</string>
+    <string name="pref_header_statistics">Statistiken</string>
+    <string name="pref_header_personalization">Personalisierung</string>
     <string name="pref_notification_motivation_alert_time">Benachrichtigungszeitpunkt</string>
     <string name="pref_example_switch_summary">Beispiel Switch Summary</string>
     <string name="pref_keep_screen_on_switch">Bildschirm bleibt an</string>
@@ -138,7 +138,7 @@
         <item>männlich</item>
     </string-array>
 
-    <!-- Alert -->
+    <!-- Alerts -->
     <string name="motivation_alert_input_title">Motivationstext</string>
     <string name="title_activity_motivation_alert_texts">Motivationsbenachrichtigungen</string>
     <string name="motivation_alert_empty">Erstellen Sie persönliche Motivationsbenachrichtigungen, die erscheinen, wenn Sie an Trainingseinheiten erinnert werden.\n\nEs erscheint keine Benachrichtigung, wenn keine Texte angelegt sind.</string>
@@ -149,6 +149,10 @@
     </string-array>
     <string name="alert_confirm_dialog_positive">Ja</string>
     <string name="alert_confirm_dialog_negative">Nein</string>
+    <string name="workout_canceled_info">Möchtest du das Training wirklich abbrechen?</string>
+    <string name="workout_canceled_check">Diese Nachricht nicht wieder anzeigen</string>
+    <string name="alert_personalization_title">Wollen Sie ihre App personalisieren?</string>
+    <string name="alert_personalization_message">Dies wird die Kalorienberechnung verbessern.</string>
 
     <!-- ReportFragment -->
     <string name="month">Monat</string>

@@ -183,6 +183,9 @@
     <string name="alert_confirm_dialog_negative">No</string>
     <string name="workout_canceled_info">Do you want to abort the workout?</string>
     <string name="workout_canceled_check">Don\'t show this message again</string>
+    <string name="alert_personalization_title">Do you want to personalize your app now?</string>
+    <string name="alert_personalization_message">This will improve the calories calculation.</string>
+
 
     <!-- ReportFragment -->
     <string name="month">Month</string>

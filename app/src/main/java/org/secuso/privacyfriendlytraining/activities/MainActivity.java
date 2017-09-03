@@ -9,6 +9,7 @@ import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 import org.secuso.privacyfriendlytraining.R;
 import org.secuso.privacyfriendlytraining.helpers.NotificationHelper;
 import org.secuso.privacyfriendlytraining.services.TimerService;
+import org.secuso.privacyfriendlytraining.tutorial.PrefManager;
 
 /**
  * Main view that lets the user choose the timer intervals and has a button to start the workout
@@ -41,6 +43,7 @@ public class MainActivity extends BaseActivity {
 
     // General
     private SharedPreferences settings = null;
+    private PrefManager prefManager = null;
     private Intent intent = null;
 
     // Block periodization values and Button
@@ -106,6 +109,12 @@ public class MainActivity extends BaseActivity {
                 isBlockPeriodization = isChecked;
             }
         });
+
+        //Suggest the user to enter his body data
+        prefManager = new PrefManager(this);
+        if(prefManager.isFirstTimeLaunch()){
+            showPersonalizationAlert();
+        }
     }
 
 
@@ -251,6 +260,31 @@ public class MainActivity extends BaseActivity {
                 });
 
         return alertBuilder.create();
+    }
+
+    private void showPersonalizationAlert(){
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
+
+        alertBuilder.setTitle(R.string.alert_personalization_title);
+        alertBuilder.setMessage(R.string.alert_personalization_message);
+
+        alertBuilder.setNegativeButton(getString(R.string.alert_confirm_dialog_negative), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+            }
+        });
+
+
+        alertBuilder.setPositiveButton(getString(R.string.alert_confirm_dialog_positive), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                Intent i = new Intent( MainActivity.this, SettingsActivity.class );
+                i.putExtra( PreferenceActivity.EXTRA_SHOW_FRAGMENT, SettingsActivity.PersonalizationPreferenceFragment.class.getName() );
+                i.putExtra( PreferenceActivity.EXTRA_NO_HEADERS, true );
+                startActivity(i);
+            }
+        });
+
+        alertBuilder.create().show();
     }
 
 
