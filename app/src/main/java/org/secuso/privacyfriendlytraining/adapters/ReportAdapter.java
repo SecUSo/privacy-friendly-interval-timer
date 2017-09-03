@@ -14,9 +14,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.CombinedChart;
-import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
-import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
@@ -33,14 +31,12 @@ import com.github.mikephil.charting.utils.ViewPortHandler;
 
 import org.secuso.privacyfriendlytraining.R;
 import org.secuso.privacyfriendlytraining.models.ActivityChart;
-import org.secuso.privacyfriendlytraining.models.ActivityChartDataSet;
 import org.secuso.privacyfriendlytraining.models.ActivityDayChart;
 import org.secuso.privacyfriendlytraining.models.ActivitySummary;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -53,7 +49,6 @@ import java.util.Map;
  */
 public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.ViewHolder> {
     private static final int TYPE_SUMMARY = 0;
-    private static final int TYPE_DAY_CHART = 1;
     private static final int TYPE_CHART = 2;
     private List<Object> mItems;
     private OnItemClickListener mItemClickListener;
@@ -70,8 +65,7 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.ViewHolder
 
     // Create new views (invoked by the layout manager)
     @Override
-    public ReportAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
-                                                       int viewType) {
+    public ReportAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v;
         ViewHolder vh;
         switch (viewType) {
@@ -79,11 +73,6 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.ViewHolder
                 v = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.card_activity_bar_chart, parent, false);
                 vh = new CombinedChartViewHolder(v);
-                break;
-            case TYPE_DAY_CHART:
-                v = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.card_activity_chart, parent, false);
-                vh = new ChartViewHolder(v);
                 break;
             case TYPE_SUMMARY:
             default:
@@ -125,27 +114,18 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.ViewHolder
                     }
                 }
                 List<BarEntry> dataEntries = new ArrayList<>();
-                List<BarEntry> dataEntriesReachedDailyGoal = new ArrayList<>();
                 for (Map.Entry<String, Double> dataEntry : barChartDataMap.entrySet()) {
                     barChartXValues.add(barChartI, dataEntry.getKey());
                     if (dataEntry.getValue() != null) {
                         float val = dataEntry.getValue().floatValue();
-
-                        if (barChartData.getDisplayedDataType() == ActivityDayChart.DataType.TIME) {
-                            dataEntriesReachedDailyGoal.add(new BarEntry(barChartI, val));
-                        } else {
-                            dataEntries.add(new BarEntry(barChartI, val));
-                        }
+                        dataEntries.add(new BarEntry(barChartI, val));
                     }
                     barChartI++;
                 }
                 BarDataSet barDataSet = new BarDataSet(dataEntries, barChartLabel);
-                BarDataSet barDataSetReachedDailyGoal = new BarDataSet(dataEntriesReachedDailyGoal, barChartLabel);
+                String formatPattern = "###,###,##0.0";
+                barDataSet.setValueFormatter(new DoubleValueFormatter(formatPattern));
 
-                if(barChartData.getDisplayedDataType() == ActivityDayChart.DataType.TIME && barChartXValues.size() > 15){
-                    barDataSet.setDrawValues(false);
-                    barDataSetReachedDailyGoal.setDrawValues(false);
-                }
                 ArrayList<ILineDataSet> lineDataSets = new ArrayList<>();
                 if(barChartData.getDisplayedDataType() != ActivityDayChart.DataType.TIME){
                     // make sure, that the first and last entry are fully displayed
@@ -160,70 +140,15 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.ViewHolder
                 }
 
                 CombinedData combinedData = new CombinedData();
-                BarData barData = new BarData(barDataSet, barDataSetReachedDailyGoal);
+                BarData barData = new BarData(barDataSet);
                 barData.setBarWidth(0.5f);
                 combinedData.setData(barData);
                 combinedData.setData(new LineData(lineDataSets));
                 barDataSet.setColor(ContextCompat.getColor(barChartViewHolder.context, R.color.colorPrimary));
-                barDataSetReachedDailyGoal.setColor(ContextCompat.getColor(barChartViewHolder.context, R.color.green));
                 barChartViewHolder.mChart.setData(combinedData);
                 barChartViewHolder.mChart.getXAxis().setValueFormatter(new ArrayListAxisValueFormatter(barChartXValues));
                 barChartViewHolder.mChart.invalidate();
                 break;
-            case TYPE_DAY_CHART:
-                ActivityDayChart chartData = (ActivityDayChart) mItems.get(position);
-                ChartViewHolder chartViewHolder = (ChartViewHolder) holder;
-                chartViewHolder.mTitleTextView.setText(chartData.getTitle());
-
-                final ArrayList<String> chartXValues = new ArrayList<>();
-                int i = 1;
-                Map<String, ActivityChartDataSet> dataMap;
-                Map<Integer, String> legendValues = new LinkedHashMap<>();
-                String label;
-                if (chartData.getDisplayedDataType() == null) {
-                    dataMap = chartData.getTime();
-                    label = chartViewHolder.context.getString(R.string.report_workout_time);
-                } else {
-                    switch (chartData.getDisplayedDataType()) {
-                        case CALORIES:
-                            dataMap = chartData.getCalories();
-                            label = chartViewHolder.context.getString(R.string.report_calories);
-                            break;
-                        case TIME:
-                        default:
-                            dataMap = chartData.getTime();
-                            label = chartViewHolder.context.getString(R.string.report_workout_time);
-                            break;
-                    }
-                }
-                legendValues.put(ContextCompat.getColor(chartViewHolder.itemView.getContext(), R.color.colorPrimary), label);
-                ArrayList<ILineDataSet> dataSets = new ArrayList<>();
-                float maxValue = 0;
-
-                // Workaround since scaling does not work correctly in MPAndroidChart v3.0.0.0-beta1
-            {
-                Entry start = new Entry(0, 0);
-                Entry end = new Entry(chartXValues.size() - 1, maxValue * 1.03f);
-                LineDataSet chartLineDataSet = new LineDataSet(Arrays.asList(start, end), "");
-                chartLineDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
-                chartLineDataSet.setDrawCircles(false);
-                chartLineDataSet.setColor(ContextCompat.getColor(chartViewHolder.context, R.color.transparent), 0);
-                chartLineDataSet.setDrawValues(false);
-                dataSets.add(chartLineDataSet);
-            }
-            LineData data = new LineData(dataSets);
-            chartViewHolder.mChart.setData(data);
-            chartViewHolder.mChart.getXAxis().setValueFormatter(new ArrayListAxisValueFormatter(chartXValues));
-            // add legend
-            Legend legend = chartViewHolder.mChart.getLegend();
-            legend.setComputedColors(new ArrayList<Integer>());
-            legend.setComputedLabels(new ArrayList<String>());
-            legend.setCustom(new ArrayList<>(legendValues.keySet()), new ArrayList<>(legendValues.values()));
-            // invalidate
-            chartViewHolder.mChart.getData().notifyDataChanged();
-            chartViewHolder.mChart.notifyDataSetChanged();
-            chartViewHolder.mChart.invalidate();
-            break;
             case TYPE_SUMMARY:
                 ActivitySummary summaryData = (ActivitySummary) mItems.get(position);
                 SummaryViewHolder summaryViewHolder = (SummaryViewHolder) holder;
@@ -244,9 +169,7 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.ViewHolder
     @Override
     public int getItemViewType(int position) {
         Object item = mItems.get(position);
-        if (item instanceof ActivityDayChart) {
-            return TYPE_DAY_CHART;
-        } else if (item instanceof ActivitySummary) {
+        if (item instanceof ActivitySummary) {
             return TYPE_SUMMARY;
         } else if (item instanceof ActivityChart) {
             return TYPE_CHART;
@@ -375,21 +298,6 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.ViewHolder
             } else {
                 return false;
             }
-        }
-    }
-
-    public class ChartViewHolder extends AbstractChartViewHolder {
-        public LineChart mChart;
-
-        public ChartViewHolder(View itemView) {
-            super(itemView);
-            mChart = (LineChart) itemView.findViewById(R.id.chart);
-            mChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-            mChart.getAxisRight().setEnabled(false);
-            mChart.setTouchEnabled(false);
-            mChart.setDoubleTapToZoomEnabled(false);
-            mChart.setPinchZoom(false);
-            mChart.setDescription("");
         }
     }
 

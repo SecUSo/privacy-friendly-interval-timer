@@ -54,6 +54,6 @@ public class ActivityDayChart {
     }
 
     public enum DataType {
-        TIME, DISTANCE, CALORIES
+        TIME, CALORIES
     }
 }

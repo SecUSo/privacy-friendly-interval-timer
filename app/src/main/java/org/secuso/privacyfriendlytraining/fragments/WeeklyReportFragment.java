@@ -212,6 +212,7 @@ public class WeeklyReportFragment extends Fragment implements ReportAdapter.OnIt
                     reports.add(activityChart);
                 } else {
                     activityChart.setTime(timeData);
+                    activityChart.setCalories(caloriesData);
                     activityChart.setTitle(title);
                 }
                 // notify ui
