@@ -1,10 +1,22 @@
 <preference-headers xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <!-- These settings headers are only used on tablets. -->
-
-    <header
+<!--    <header
         android:fragment="org.secuso.privacyfriendlytraining.activities.SettingsActivity$GeneralPreferenceFragment"
         android:icon="@drawable/ic_info_black_24dp"
-        android:title="@string/pref_header_general" />
-
+        android:title="@string/pref_header_general" /> -->
+    <header
+        android:fragment="org.secuso.privacyfriendlytraining.activities.SettingsActivity$WorkoutPreferenceFragment"
+        android:icon="@drawable/ic_workout_24dp"
+        android:title="@string/pref_header_workout" />
+    <header
+        android:fragment="org.secuso.privacyfriendlytraining.activities.SettingsActivity$StatisticsPreferenceFragment"
+        android:icon="@drawable/ic_statistics_24dp"
+        android:title="@string/pref_header_statistics" />
+    <header
+        android:fragment="org.secuso.privacyfriendlytraining.activities.SettingsActivity$PersonalizationPreferenceFragment"
+        android:icon="@drawable/ic_personalization_24dp"
+        android:title="@string/pref_header_personalization" />
+    <header
+        android:fragment="org.secuso.privacyfriendlytraining.activities.SettingsActivity$NotificationPreferenceFragment"
+        android:icon="@drawable/ic_bell_plus_24dp"
+        android:title="@string/pref_header_notification" />
 </preference-headers>

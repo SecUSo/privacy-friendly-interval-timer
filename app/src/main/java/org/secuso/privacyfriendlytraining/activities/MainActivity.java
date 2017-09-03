@@ -72,7 +72,11 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
 
         //Init preferences
-        PreferenceManager.setDefaultValues(this, R.xml.pref_general, false);
+        PreferenceManager.setDefaultValues(this, R.xml.pref_notification, false);
+        PreferenceManager.setDefaultValues(this, R.xml.pref_personalization, false);
+        PreferenceManager.setDefaultValues(this, R.xml.pref_statistics, false);
+        PreferenceManager.setDefaultValues(this, R.xml.pref_workout, false);
+
         this.settings = PreferenceManager.getDefaultSharedPreferences(this);
 
         //Set default values for the timer configurations

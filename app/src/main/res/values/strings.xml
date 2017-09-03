@@ -103,6 +103,8 @@
     <string name="pref_voice_halftime_title">Voice Halftime</string>
     <string name="pref_voice_halftime_summary">A voice says when half the time of the workout passed.</string>
     <string name="pref_header_notification">Notifications</string>
+    <string name="pref_header_statistics">Statistics</string>
+    <string name="pref_header_personalization">Personalization</string>
     <string name="pref_title_notification_motivation_alert_time">Motivation alert time</string>
     <string name="pref_title_notification_delete_statistics_alert">Delete Statistics</string>
     <string name="pref_example_switch_summary">Example Switch Summary</string>

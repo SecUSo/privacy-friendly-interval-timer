@@ -14,10 +14,13 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.SwitchPreference;
+import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 
 import org.secuso.privacyfriendlytraining.R;
 import org.secuso.privacyfriendlytraining.helpers.NotificationHelper;
+
+import java.util.List;
 
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On
@@ -31,7 +34,7 @@ import org.secuso.privacyfriendlytraining.helpers.NotificationHelper;
  * API Guide</a> for more information on developing a Settings UI.
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
-public class SettingsActivity extends BaseActivity {
+public class SettingsActivity extends AppCompatPreferenceActivity {
     /**
      * A preference value change listener that updates the preference's summary
      * to reflect its new value.
@@ -94,48 +97,37 @@ public class SettingsActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.activity_settings);
-
-        //setupActionBar();
-
-        overridePendingTransition(0, 0);
+        setupActionBar();
+        //setContentView(R.layout.activity_settings);
+        //overridePendingTransition(0, 0);
     }
-
-    @Override
+/*
+    //@Override
     protected int getNavigationDrawerID() {
         return R.id.nav_settings;
     }
-
+*/
     /**
      * Set up the {@link android.app.ActionBar}, if the API is available.
      */
-    /*private void setupActionBar() {
+    private void setupActionBar() {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             // Show the Up button in the action bar.
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
-    }*/
+    }
 
-    /*@Override
-    public boolean onMenuItemSelected(int featureId, MenuItem item) {
-        int id = item.getItemId();
-        if (id == android.R.id.home) {
-            //finish();
-            Intent intent = new Intent(this, MainActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-            finish();
-            return true;
-
-            // (!super.onMenuItemSelected(featureId, item)) {
-            //    NavUtils.navigateUpFromSameTask(this);
-            //}
-            //return true;
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                this.finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return super.onMenuItemSelected(featureId, item);
-    }*/
+    }
 
     /**
      * {@inheritDoc}
@@ -148,11 +140,11 @@ public class SettingsActivity extends BaseActivity {
     /**
      * {@inheritDoc}
      */
-    /*@Override
+    @Override
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public void onBuildHeaders(List<Header> target) {
         loadHeadersFromResource(R.xml.pref_headers, target);
-    }*/
+    }
 
     /**
      * This method stops fragment injection in malicious applications.
@@ -160,7 +152,11 @@ public class SettingsActivity extends BaseActivity {
      */
     protected boolean isValidFragment(String fragmentName) {
         return PreferenceFragment.class.getName().equals(fragmentName)
-                || GeneralPreferenceFragment.class.getName().equals(fragmentName);
+//                || GeneralPreferenceFragment.class.getName().equals(fragmentName)
+                || NotificationPreferenceFragment.class.getName().equals(fragmentName)
+                || PersonalizationPreferenceFragment.class.getName().equals(fragmentName)
+                || StatisticsPreferenceFragment.class.getName().equals(fragmentName)
+                || WorkoutPreferenceFragment.class.getName().equals(fragmentName);
     }
 
     /**
@@ -169,25 +165,45 @@ public class SettingsActivity extends BaseActivity {
      * The commented method bindPrefenceSummaryToValue should be added for all preferences
      * with a summary that is depended from the current value of the preference
      */
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+ /*   @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public static class GeneralPreferenceFragment extends PreferenceFragment {
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.pref_general);
-            //setHasOptionsMenu(true);
+            setHasOptionsMenu(true);
 
             // Bind the summaries of EditText/List/Dialog/Ringtone preferences
             // to their values. When their values change, their summaries are
             // updated to reflect the new value, per the Android Design
             // guidelines.
             //bindPreferenceSummaryToValue(findPreference("example_text"));
+        }
 
-            bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_weight)));
-            bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_height)));
-            bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_age)));
-            bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_gender)));
+        @Override
+        public boolean onOptionsItemSelected(MenuItem item) {
+            int id = item.getItemId();
+            if (id == android.R.id.home) {
+                this.getActivity().onBackPressed();
+                return true;
+            }
+            return super.onOptionsItemSelected(item);
+        }
+    }
+*/
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public static class NotificationPreferenceFragment extends PreferenceFragment {
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            addPreferencesFromResource(R.xml.pref_notification);
+            setHasOptionsMenu(true);
 
+            // Bind the summaries of EditText/List/Dialog/Ringtone preferences
+            // to their values. When their values change, their summaries are
+            // updated to reflect the new value, per the Android Design
+            // guidelines.
+            //bindPreferenceSummaryToValue(findPreference("example_text"));
 
             //Activate and deactivate motivation notification depending on the switch setting
             final SwitchPreference motivationNotificationSwitch = (SwitchPreference) findPreference(getString(R.string.pref_notification_motivation_alert_enabled));
@@ -225,13 +241,94 @@ public class SettingsActivity extends BaseActivity {
         public boolean onOptionsItemSelected(MenuItem item) {
             int id = item.getItemId();
             if (id == android.R.id.home) {
-                //getActivity().finish();
-                startActivity(new Intent(getActivity(), SettingsActivity.class));
+                this.getActivity().onBackPressed();
                 return true;
             }
             return super.onOptionsItemSelected(item);
         }
     }
 
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public static class PersonalizationPreferenceFragment extends PreferenceFragment {
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            addPreferencesFromResource(R.xml.pref_personalization);
+            setHasOptionsMenu(true);
+
+            // Bind the summaries of EditText/List/Dialog/Ringtone preferences
+            // to their values. When their values change, their summaries are
+            // updated to reflect the new value, per the Android Design
+            // guidelines.
+            //bindPreferenceSummaryToValue(findPreference("example_text"));
+
+            bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_weight)));
+            bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_height)));
+            bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_age)));
+            bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_gender)));
+        }
+
+        @Override
+        public boolean onOptionsItemSelected(MenuItem item) {
+            int id = item.getItemId();
+            if (id == android.R.id.home) {
+                this.getActivity().onBackPressed();
+                return true;
+            }
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public static class StatisticsPreferenceFragment extends PreferenceFragment {
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            addPreferencesFromResource(R.xml.pref_statistics);
+            setHasOptionsMenu(true);
+
+            // Bind the summaries of EditText/List/Dialog/Ringtone preferences
+            // to their values. When their values change, their summaries are
+            // updated to reflect the new value, per the Android Design
+            // guidelines.
+            //bindPreferenceSummaryToValue(findPreference("example_text"));
+        }
+
+        @Override
+        public boolean onOptionsItemSelected(MenuItem item) {
+            int id = item.getItemId();
+            if (id == android.R.id.home) {
+                this.getActivity().onBackPressed();
+                return true;
+            }
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public static class WorkoutPreferenceFragment extends PreferenceFragment {
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            addPreferencesFromResource(R.xml.pref_workout);
+            setHasOptionsMenu(true);
+
+            // Bind the summaries of EditText/List/Dialog/Ringtone preferences
+            // to their values. When their values change, their summaries are
+            // updated to reflect the new value, per the Android Design
+            // guidelines.
+            //bindPreferenceSummaryToValue(findPreference("example_text"));
+        }
+
+        @Override
+        public boolean onOptionsItemSelected(MenuItem item) {
+            int id = item.getItemId();
+            if (id == android.R.id.home) {
+                this.getActivity().onBackPressed();
+                return true;
+            }
+            return super.onOptionsItemSelected(item);
+        }
+    }
 
 }

@@ -1,0 +1,61 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="@string/pref_header_workout">
+        <SwitchPreference
+            android:id="@+id/pref_keep_screen_on_switch"
+            android:key="@string/pref_keep_screen_on_switch_enabled"
+            android:title="@string/pref_keep_screen_on_switch"
+            android:summary="@string/pref_keep_screen_on_switch_summary"
+            android:defaultValue="true"/>
+
+        <SwitchPreference
+            android:id="@+id/pref_start_timer_switch"
+            android:key="@string/pref_start_timer_switch_enabled"
+            android:title="@string/pref_start_timer_switch"
+            android:summary="@string/pref_start_timer_switch_summary"
+            android:defaultValue="true"/>
+
+        <SwitchPreference
+            android:id="@+id/pref_blinking_progress_bar"
+            android:key="@string/pref_blinking_progress_bar"
+            android:title="@string/pref_blinking_progress_bar"
+            android:summary="@string/pref_blinking_progress_bar_summary"
+            android:defaultValue="false"/>
+
+        <SwitchPreference
+            android:id="@+id/pref_voice_countdown_workout"
+            android:key="@string/pref_voice_countdown_workout"
+            android:title="@string/pref_voice_countdown_workout_title"
+            android:summary="@string/pref_voice_countdown_workout_summary"
+            android:defaultValue="true"/>
+
+        <SwitchPreference
+            android:id="@+id/pref_voice_countdown_rest"
+            android:key="@string/pref_voice_countdown_rest"
+            android:title="@string/pref_voice_countdown_rest_title"
+            android:summary="@string/pref_voice_countdown_rest_summary"
+            android:defaultValue="true"/>
+
+        <SwitchPreference
+            android:id="@+id/pref_sound_rythm"
+            android:key="@string/pref_sound_rythm"
+            android:title="@string/pref_sound_rythm_title"
+            android:summary="@string/pref_sound_rythm_summary"
+            android:defaultValue="true"/>
+
+        <SwitchPreference
+            android:id="@+id/pref_voice_halftime"
+            android:key="@string/pref_voice_halftime"
+            android:title="@string/pref_voice_halftime_title"
+            android:summary="@string/pref_voice_halftime_summary"
+            android:defaultValue="true"/>
+
+        <SwitchPreference
+            android:id="@+id/pref_cancel_workout_check"
+            android:key="@string/pref_cancel_workout_check"
+            android:title="@string/pref_cancel_workout_check_title"
+            android:summary="@string/pref_cancel_workout_check_summary"
+            android:defaultValue="false"/>
+
+    </PreferenceCategory>
+</PreferenceScreen>
