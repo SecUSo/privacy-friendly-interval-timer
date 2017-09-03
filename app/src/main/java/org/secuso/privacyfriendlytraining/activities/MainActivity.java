@@ -113,6 +113,7 @@ public class MainActivity extends BaseActivity {
         //Suggest the user to enter his body data
         prefManager = new PrefManager(this);
         if(prefManager.isFirstTimeLaunch()){
+            prefManager.setFirstTimeLaunch(false);
             showPersonalizationAlert();
         }
     }

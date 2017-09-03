@@ -127,7 +127,6 @@ public class TutorialActivity extends AppCompatActivity {
     }
 
     private void launchHomeScreen() {
-        prefManager.setFirstTimeLaunch(false);
         startActivity(new Intent(TutorialActivity.this, MainActivity.class));
         finish();
     }
