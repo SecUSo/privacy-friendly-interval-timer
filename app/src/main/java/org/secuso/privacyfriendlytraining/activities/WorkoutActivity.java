@@ -175,16 +175,12 @@ public class WorkoutActivity extends AppCompatActivity {
         // Threshold when progressbar starts blinking in milliseconds and the blinking speed
         final int workoutBlinkingTime = 10000; //10 sec
         final int restBlinkingTime = 5000; // 5 sec
-        int pBarBlinkInterval = 500; // every 0.5 seconds
 
         // Timestamp to calculate when next progressBar color change should occur
-        long oldTimeStamp = workoutBlinkingTime + pBarBlinkInterval;
+        long oldTimeStamp = workoutBlinkingTime + 100;
 
         // Flags for the color switches of the GUI
-        boolean progressBarFlip = false;
         boolean workoutColors = false;
-
-
 
         /**
          * Updates the GUI depending on the message recived
@@ -205,9 +201,7 @@ public class WorkoutActivity extends AppCompatActivity {
                     progressBar.setProgress((int)millis);
 
                     if (isProgressBarBlinking(millis, context)) {
-                        progressBarFlip = progressBarColorFlip(workoutColors, progressBarFlip);
-                    } else if (isProgressBarBlinking(millis, context)) {
-                        progressBarFlip = progressBarColorFlip(workoutColors, progressBarFlip);
+                        progressBarBlink();
                     }
                 }
                 if (intent.getStringExtra("timer_title") != null) {
@@ -229,9 +223,6 @@ public class WorkoutActivity extends AppCompatActivity {
                 }
                 if (intent.getBooleanExtra("workout_finished", false) != false) {
                     showFinishedView();
-
-                    //AlertDialog finishedAlert = buildFinishAlert(caloriesBurned);
-                    //finishedAlert.show();
                 }
                 if (intent.getLongExtra("new_timer", 0) != 0) {
                     long timerDuration = intent.getLongExtra("new_timer", 0);
@@ -240,6 +231,9 @@ public class WorkoutActivity extends AppCompatActivity {
                     progressBar.setMax((int) timerDuration);
                     progressBar.setProgress((int) timerDuration);
                     this.oldTimeStamp = workoutBlinkingTime + workoutBlinkingTime;
+
+                    progressBar.animate().cancel();
+                    progressBar.setAlpha(1.0f);
                 }
             }
         }
@@ -252,10 +246,12 @@ public class WorkoutActivity extends AppCompatActivity {
          * @return Boolean if the progressbar should be blinking
          */
         private boolean isProgressBarBlinking(long millis, Context context){
-            if (millis <= workoutBlinkingTime && workoutColors && isBlinkingProgressBarEnabled(context) && oldTimeStamp - pBarBlinkInterval >= millis) {
+            int buffer = 100; //Makes sure the animation has time to begin
+
+            if (millis <= workoutBlinkingTime && workoutColors && isBlinkingProgressBarEnabled(context) && oldTimeStamp - buffer >= millis) {
                 oldTimeStamp = millis;
                 return true;
-            } else if (millis <= restBlinkingTime && isBlinkingProgressBarEnabled(context) && oldTimeStamp - pBarBlinkInterval >= millis) {
+            } else if (millis <= restBlinkingTime && isBlinkingProgressBarEnabled(context) && oldTimeStamp - buffer >= millis) {
                 oldTimeStamp = millis;
                 return true;
             }
@@ -267,7 +263,7 @@ public class WorkoutActivity extends AppCompatActivity {
      * Switches between colors for rest timer and workout timer
      * according to the boolean flag provided/
      *
-     * @param guiFlip True for workokut phase colors, false for rest phase colors
+     * @param guiFlip True for workout phase colors, false for rest phase colors
      */
     private void setWorkoutGuiColors(boolean guiFlip) {
         int textColor = guiFlip ? R.color.white : R.color.black;
@@ -295,36 +291,13 @@ public class WorkoutActivity extends AppCompatActivity {
     }
 
     /**
-     * Changes the color of the progress bar, so that it blinks during the final seconds
-     *
-     * @param workoutGUI boolean flag to check if the color palate is from workout or rest phase
-     * @param colorFlip boolean flag used to flip between colors so the progressBar blinks
-     * @return boolean flag of last color
+     * Lets the progressbar blink by changing the alpha value
      */
-    private boolean progressBarColorFlip(boolean workoutGUI, boolean colorFlip) {
-        if(isBlinkingProgressBarEnabled(this)){
-            LayerDrawable progressBarDrawable = (LayerDrawable) progressBar.getProgressDrawable();
-            Drawable progressDrawable = progressBarDrawable.getDrawable(1);
-            Drawable backgroundDrawable = progressBarDrawable.getDrawable(0);
-
-            if(this.progressBar != null && workoutGUI){
-                int barColor = colorFlip ? R.color.colorPrimaryTransparent : R.color.colorPrimary;
-                int backgroundColor = colorFlip ? R.color.whiteTransparent : R.color.white;
-                progressDrawable.setColorFilter(ContextCompat.getColor(this, barColor), PorterDuff.Mode.SRC_IN);
-                backgroundDrawable.setColorFilter(ContextCompat.getColor(this, backgroundColor), PorterDuff.Mode.SRC_IN);
-
-                //progressBar.setProgressTintList(ColorStateList.valueOf(barColor));
-            }
-            else if(this.progressBar != null){
-                int barColor = colorFlip ? R.color.colorPrimaryTransparent : R.color.colorPrimary;
-                int backgroundColor = colorFlip ? R.color.lightblueTransparent : R.color.lightblue;
-                progressDrawable.setColorFilter(ContextCompat.getColor(this, barColor), PorterDuff.Mode.SRC_IN);
-                backgroundDrawable.setColorFilter(ContextCompat.getColor(this, backgroundColor), PorterDuff.Mode.SRC_IN);
-
-                //progressBar.setProgressTintList(ColorStateList.valueOf(barColor));
-            }
-        }
-        return !colorFlip;
+    private void progressBarBlink() {
+        if (progressBar.getAlpha() == 1.0f)
+            progressBar.animate().alpha(0.1f).setDuration(600).start();
+        else if(progressBar.getAlpha() <= 0.15f)
+            progressBar.animate().alpha(1.0f).setDuration(600).start();
     }
 
     /**
