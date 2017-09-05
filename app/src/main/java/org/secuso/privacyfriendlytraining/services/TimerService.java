@@ -99,6 +99,9 @@ public class TimerService extends Service {
         this.settings = PreferenceManager.getDefaultSharedPreferences(this);
 
         registerReceiver(notificationReceiver, new IntentFilter(NOTIFICATION_BROADCAST));
+
+        notiBuilder = new NotificationCompat.Builder(this);
+        notiManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
     }
 
     private final BroadcastReceiver notificationReceiver = new BroadcastReceiver() {
@@ -605,9 +608,6 @@ public class TimerService extends Service {
      * @return Notification
      */
     public Notification buildNotification(int time) {
-        notiBuilder = new NotificationCompat.Builder(this);
-        notiManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-
         Intent intent = new Intent(this, WorkoutActivity.class);
         intent.setAction(Intent.ACTION_MAIN);
         intent.addCategory(Intent.CATEGORY_LAUNCHER);

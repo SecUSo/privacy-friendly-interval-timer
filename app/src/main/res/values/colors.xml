@@ -14,11 +14,6 @@
     <color name="red">#B71C1C</color>
     <color name="green">#388E3C</color>
 
-    <color name="colorPrimaryTransparent">#00024265</color>
-    <color name="lightblueTransparent">#000274B2</color>
-    <color name="whiteTransparent">    #00ffffff</color>
-
-
     <!-- dots inactive colors -->
     <color name="dot_dark_screen">#026499</color>
 

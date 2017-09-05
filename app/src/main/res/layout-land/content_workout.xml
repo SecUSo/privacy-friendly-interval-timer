@@ -84,7 +84,6 @@
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/workout_title"
                 android:layout_centerHorizontal="true"
                 android:max="1000"
                 android:progress="0"

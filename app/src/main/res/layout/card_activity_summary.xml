@@ -92,8 +92,6 @@
                             android:layout_centerHorizontal="true"
                             android:layout_marginLeft="60dp"
                             android:layout_marginStart="60dp"
-                            android:layout_toEndOf="@+id/timeCount"
-                            android:layout_toRightOf="@+id/timeCount"
                             android:layout_weight="1"
                             android:src="@drawable/ic_clock_24dp" />
                     </RelativeLayout>
@@ -155,8 +153,6 @@
                             android:layout_centerVertical="true"
                             android:layout_marginLeft="8dp"
                             android:layout_marginStart="8dp"
-                            android:layout_toEndOf="@+id/calorieIcon"
-                            android:layout_toRightOf="@+id/calorieIcon"
                             android:textColor="@color/black"
                             android:textSize="24sp" />
 
@@ -187,17 +183,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1">
-
-                        <TextView
-                            android:id="@+id/calorieCount"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginLeft="8dp"
-                            android:layout_marginStart="8dp"
-                            android:layout_toEndOf="@+id/calorieIcon"
-                            android:layout_toRightOf="@+id/calorieIcon"
-                            android:textColor="@color/black" />
 
                         <TextView
                             android:id="@+id/calorieTitle"
