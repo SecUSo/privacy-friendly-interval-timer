@@ -55,7 +55,7 @@
             android:key="@string/pref_cancel_workout_check"
             android:title="@string/pref_cancel_workout_check_title"
             android:summary="@string/pref_cancel_workout_check_summary"
-            android:defaultValue="false"/>
+            android:defaultValue="true"/>
 
     </PreferenceCategory>
 </PreferenceScreen>

@@ -16,7 +16,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:fitsSystemWindows="true"
-        tools:context="org.secuso.privacyfriendlynetmonitor.Activities.MainActivity">
+        tools:context="org.secuso.privacyfriendlytraining.Activities.MainActivity">
 
         <include layout="@layout/toolbar"/>
         <include layout="@layout/content_statistics" />

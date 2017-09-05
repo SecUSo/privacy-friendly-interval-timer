@@ -89,6 +89,7 @@
     <string name="more_info">More information can be found on:</string>
     <string name="github" translatable="false"><a href="https://github.com/SecUSo/privacy-friendly-app-example">Github-Repo</a></string>
     <string name="url" translatable="false"><a href="https://www.secuso.org/pfa">SECUSO-Website</a></string>
+    <string name="about_third_party_libs">The app uses <a href="https://github.com/PhilJay/MPAndroidChart">MPAndroidChart</a> from Philipp Jahoda (Apache 2 License).</string>
 
     <!-- ###SETTINGS### -->
     <string name="title_activity_settings">Settings</string>

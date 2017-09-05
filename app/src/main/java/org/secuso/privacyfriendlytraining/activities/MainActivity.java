@@ -75,10 +75,10 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
 
         //Init preferences
-        PreferenceManager.setDefaultValues(this, R.xml.pref_notification, false);
-        PreferenceManager.setDefaultValues(this, R.xml.pref_personalization, false);
-        PreferenceManager.setDefaultValues(this, R.xml.pref_statistics, false);
-        PreferenceManager.setDefaultValues(this, R.xml.pref_workout, false);
+        PreferenceManager.setDefaultValues(this, R.xml.pref_notification, true);
+        PreferenceManager.setDefaultValues(this, R.xml.pref_personalization, true);
+        PreferenceManager.setDefaultValues(this, R.xml.pref_statistics, true);
+        PreferenceManager.setDefaultValues(this, R.xml.pref_workout, true);
 
         this.settings = PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -356,7 +356,7 @@ public class MainActivity extends BaseActivity {
      */
     public boolean isStartTimerEnabled(Context context) {
         if (this.settings != null) {
-            return settings.getBoolean(context.getString(R.string.pref_start_timer_switch_enabled), false);
+            return settings.getBoolean(context.getString(R.string.pref_start_timer_switch_enabled), true);
         }
         return false;
     }

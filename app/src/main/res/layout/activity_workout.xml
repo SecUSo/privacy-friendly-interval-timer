@@ -105,27 +105,27 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_alignBottom="@+id/workout_finish_text"
-            android:layout_weight="0.06"
+            android:layout_weight="0.08"
             android:gravity="top|center"
             android:text="0"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textColor="@color/white"
-            android:visibility="invisible"
             android:textSize="35sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:visibility="invisible" />
 
         <TextView
             android:id="@+id/workout_finished_calories_unit"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.33"
+            android:layout_weight="0.31"
             android:gravity="top|center"
             android:text="@string/workout_finished_calories_unit"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textColor="@color/white"
-            android:visibility="invisible"
             android:textSize="35sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:visibility="invisible" />
 
         <TextView
             android:id="@+id/workout_finished_ok"

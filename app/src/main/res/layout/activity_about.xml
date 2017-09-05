@@ -124,10 +124,20 @@
             android:text="@string/privacy_friendly" />
 
         <TextView
+            android:id="@+id/textViewLib"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="5dp"
+            android:gravity="center_horizontal"
+            android:text="@string/about_third_party_libs" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
             android:gravity="center"
             android:text="@string/more_info" />
 

@@ -141,6 +141,7 @@ public class WorkoutActivity extends AppCompatActivity {
         });
 
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
     }
 
 
@@ -559,7 +560,7 @@ public class WorkoutActivity extends AppCompatActivity {
     */
     public boolean isKeepScreenOnEnabled(Context context){
         if(this.settings != null){
-            return settings.getBoolean(context.getString(R.string.pref_keep_screen_on_switch_enabled), false);
+            return settings.getBoolean(context.getString(R.string.pref_keep_screen_on_switch_enabled), true);
         }
         return false;
     }
@@ -580,7 +581,7 @@ public class WorkoutActivity extends AppCompatActivity {
 
     public boolean isCaloriesEnabled(Context context) {
         if (this.settings != null) {
-            return settings.getBoolean(context.getString(R.string.pref_calories_counter), false);
+            return settings.getBoolean(context.getString(R.string.pref_calories_counter), true);
         }
         return false;
     }
