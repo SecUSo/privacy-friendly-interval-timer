@@ -41,6 +41,13 @@ public class MainActivity extends BaseActivity {
     private int maxSets = 16;
     private int minSets = 1;
 
+    // Default values for the timers
+    private final int workoutTimeDefault = 60;
+    private final int restTimeDefault = 30;
+    private final int setsDefault = 6;
+    private final int blockPeriodizationTimeDefault = 90;
+    private final int blockPeriodizationSetsDefault = 3;
+
     // General
     private SharedPreferences settings = null;
     private PrefManager prefManager = null;
@@ -162,6 +169,9 @@ public class MainActivity extends BaseActivity {
                 AlertDialog finishedAlert = buildBlockAlert();
                 finishedAlert.show();
                 break;
+            case R.id.main_block_periodization_text:
+                this.blockPeriodizationSwitchButton.setChecked(!this.blockPeriodizationSwitchButton.isChecked());
+                break;
             case R.id.start_workout:
                 intent = new Intent(this, WorkoutActivity.class);
                 storeDefaultTimerValues();
@@ -221,7 +231,7 @@ public class MainActivity extends BaseActivity {
 
         setButtonPlus.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if(blockPeriodizationSets <= sets){ blockPeriodizationSets += 1; }
+                if(blockPeriodizationSets < sets-1){ blockPeriodizationSets += 1; }
                 setsText.setText(Integer.toString(blockPeriodizationSets));
             }
         });
@@ -294,18 +304,18 @@ public class MainActivity extends BaseActivity {
      */
     private void setDefaultTimerValues(){
         if(settings != null ) {
-            this.workoutTime = settings.getInt(this.getString(R.string.pref_timer_workout), 10);
-            this.restTime = settings.getInt(this.getString(R.string.pref_timer_rest), 20);
-            this.sets = settings.getInt(this.getString(R.string.pref_timer_set), 5);
-            this.blockPeriodizationTime = settings.getInt(this.getString(R.string.pref_timer_periodization_time), 150);
-            this.blockPeriodizationSets = settings.getInt(this.getString(R.string.pref_timer_periodization_set), 1);
+            this.workoutTime = settings.getInt(this.getString(R.string.pref_timer_workout), workoutTimeDefault);
+            this.restTime = settings.getInt(this.getString(R.string.pref_timer_rest), restTimeDefault);
+            this.sets = settings.getInt(this.getString(R.string.pref_timer_set), setsDefault);
+            this.blockPeriodizationTime = settings.getInt(this.getString(R.string.pref_timer_periodization_time), blockPeriodizationTimeDefault);
+            this.blockPeriodizationSets = settings.getInt(this.getString(R.string.pref_timer_periodization_set), blockPeriodizationSetsDefault);
         }
         else {
-            this.workoutTime = 10;
-            this.restTime = 20;
-            this.sets = 5;
-            this.blockPeriodizationTime = 150;
-            this.blockPeriodizationSets = 1;
+            this.workoutTime = workoutTimeDefault;
+            this.restTime = restTimeDefault;
+            this.sets = setsDefault;
+            this.blockPeriodizationTime = blockPeriodizationTimeDefault;
+            this.blockPeriodizationSets = blockPeriodizationSetsDefault;
         }
     }
 
@@ -345,7 +355,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void onDestroy() {
-        timerService.startNotifying(false);
+        timerService.setIsAppInBackground(false);
         stopService(new Intent(this, TimerService.class));
         super.onDestroy();
     }

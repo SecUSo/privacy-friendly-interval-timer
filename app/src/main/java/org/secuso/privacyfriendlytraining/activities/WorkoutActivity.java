@@ -141,7 +141,6 @@ public class WorkoutActivity extends AppCompatActivity {
         });
 
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
     }
 
 
@@ -157,7 +156,7 @@ public class WorkoutActivity extends AppCompatActivity {
             timerService = binder.getService();
             serviceBound = true;
 
-            timerService.startNotifying(false);
+            timerService.setIsAppInBackground(false);
             updateGUI();
         }
 
@@ -368,7 +367,7 @@ public class WorkoutActivity extends AppCompatActivity {
             workoutTimer.setText(time);
             progressBar.setMax((int) timerDuration);
             progressBar.setProgress((int) savedTime);
-
+            progressBar.setAlpha(1.0f);
 
             if (isPaused){
                 fab.setImageResource(R.drawable.ic_play_24dp);
@@ -497,7 +496,7 @@ public class WorkoutActivity extends AppCompatActivity {
         super.onResume();
 
         if(timerService != null){
-            timerService.startNotifying(false);
+            timerService.setIsAppInBackground(false);
         }
         updateGUI();
         registerReceiver(timeReceiver, new IntentFilter(TimerService.COUNTDOWN_BROADCAST));
@@ -511,11 +510,19 @@ public class WorkoutActivity extends AppCompatActivity {
         super.onPause();
 
         if(timerService != null){
-            timerService.startNotifying(true);
+            timerService.setIsAppInBackground(true);
         }
         unregisterReceiver(timeReceiver);
     }
 
+    /**
+     * Stop the notification when activity is destroyed
+     */
+    @Override
+    public void onDestroy() {
+        stopTimerInService();
+        super.onDestroy();
+    }
 
     /*
      * Stop all timers and remove notification when navigating back to the main activity
@@ -538,7 +545,7 @@ public class WorkoutActivity extends AppCompatActivity {
      */
     private void stopTimerInService(){
         if(timerService != null) {
-            timerService.cleanTimerStop();
+            timerService.cleanTimerFinish();
         }
     }
 

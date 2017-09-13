@@ -12,6 +12,7 @@ import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Binder;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
@@ -81,7 +82,7 @@ public class TimerService extends Service {
     private static final int NOTIFICATION_ID = 1;
     private NotificationCompat.Builder notiBuilder = null;
     private NotificationManager notiManager = null;
-    private boolean appInBackground = false;
+    private boolean isAppInBackground = false;
 
     //Database for the statistics
     private PFASQLiteHelper database = null;
@@ -107,8 +108,8 @@ public class TimerService extends Service {
     private final BroadcastReceiver notificationReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if(!currentTitle.equals(getString(R.string.workout_headline_done))){
-                if(isPaused && !isCancelAlert){
+            if(!currentTitle.equals(getString(R.string.workout_headline_done)) && !isCancelAlert){
+                if(isPaused){
                     resumeTimer();
                     int secondsUntilFinished = (int) Math.ceil(savedTime / 1000.0);
                     updateNotification(secondsUntilFinished);
@@ -408,7 +409,7 @@ public class TimerService extends Service {
      */
     public void nextTimer() {
         //If user is not in the final workout switch to rest phase
-        if(isWorkout && currentSet < sets) {
+        if(isWorkout && currentSet < sets && restTime != 0) {
             this.workoutTimer.cancel();
             isWorkout = false;
 
@@ -431,9 +432,10 @@ public class TimerService extends Service {
             sendBroadcast(broadcast);
         }
 
-        //If user is in the rest phase switch to the workout phase
+        //If user is in the rest phase or the rest phase is 0 switch to the workout phase
         else if (currentSet < sets){
             this.restTimer.cancel();
+            this.workoutTimer.cancel();
             isWorkout = true;
 
             this.currentTitle = getResources().getString(R.string.workout_headline_workout);
@@ -466,7 +468,7 @@ public class TimerService extends Service {
     public void prevTimer() {
 
         //If user is not in the first workout phase go back to the rest phase
-        if (isWorkout && currentSet >= 2) {
+        if (isWorkout && currentSet >= 2 && restTime != 0) {
             this.workoutTimer.cancel();
             isWorkout = false;
             this.currentSet -= 1;
@@ -492,7 +494,7 @@ public class TimerService extends Service {
         }
 
         //If user is in the first workout phase, just reset the timer
-        else if(isWorkout) {
+        else if(isWorkout && currentSet == 1) {
             Intent broadcast = new Intent(COUNTDOWN_BROADCAST)
                 .putExtra("new_timer", workoutTime);
 
@@ -507,11 +509,13 @@ public class TimerService extends Service {
             sendBroadcast(broadcast);
         }
 
-        //If user is in the rest phase go back to the workout phase
+        //If user is in the rest phase or rest phase is 0 go back to the previous workout phase
         else if (!isStarttimer) {
             this.restTimer.cancel();
+            this.workoutTimer.cancel();
             isWorkout = true;
             this.currentTitle = getResources().getString(R.string.workout_headline_workout);
+            this.currentSet = (restTime == 0) ? currentSet - 1 : currentSet;
 
             Intent broadcast = new Intent(COUNTDOWN_BROADCAST)
                     .putExtra("timer_title", currentTitle)
@@ -656,7 +660,7 @@ public class TimerService extends Service {
      * @param time The current timer value
      */
     private void updateNotification(int time) {
-        if(appInBackground) {
+        if(isAppInBackground) {
             Notification notification = buildNotification(time);
             notiManager.notify(NOTIFICATION_ID, notification);
         }
@@ -671,10 +675,18 @@ public class TimerService extends Service {
      *
      * @param isInBackground Sets global flag to determine whether the app is in the background
      */
-    public void startNotifying(boolean isInBackground){
-        this.appInBackground = isInBackground;
-        int time = currentTitle.equals(getString(R.string.workout_headline_done)) ? 0 : (int) Math.ceil(savedTime / 1000.0);
-        updateNotification(time);
+    public void setIsAppInBackground(boolean isInBackground){
+        this.isAppInBackground = isInBackground;
+
+        //Execute after short delay to prevent short notification popup if workoutActivity is closed
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                int time = currentTitle.equals(getString(R.string.workout_headline_done)) ? 0 : (int) Math.ceil(savedTime / 1000.0);
+                updateNotification(time);
+            }
+        }, 700);
     }
 
     /**
@@ -682,7 +694,8 @@ public class TimerService extends Service {
      * Stops all timers, cancels the notification, resets the variables and saves
      * statistics
      */
-    public void cleanTimerStop() {
+    public void cleanTimerFinish() {
+        setIsAppInBackground(false);
         if (workoutTimer != null) {
             this.workoutTimer.cancel();
         }
@@ -694,9 +707,15 @@ public class TimerService extends Service {
         }
 
         saveStatistics();
-        this.savedTime = 0;
-        this.isPaused = false;
-        this.currentTitle = getString(R.string.workout_headline_done);
+        savedTime = 0;
+        isPaused = false;
+        isCancelAlert = false;
+        isBlockPeriodization = false;
+        isStarttimer = false;
+        isWorkout = false;
+        isPaused = false;
+        isCancelAlert = false;
+        currentTitle = getString(R.string.workout_headline_done);
     }
 
     /**
@@ -717,6 +736,7 @@ public class TimerService extends Service {
     private void saveStatistics(){
         database = new PFASQLiteHelper(getBaseContext());
         int id = getTodayAsID();
+
         statistics = database.getWorkoutData(id);
 
         if(statistics.getID() == 0){

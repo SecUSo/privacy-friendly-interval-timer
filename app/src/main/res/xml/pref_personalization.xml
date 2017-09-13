@@ -28,7 +28,7 @@
             android:title="@string/pref_title_weight"
             android:maxLength="6"/>
         <ListPreference
-            android:defaultValue="@string/pref_gender"
+            android:defaultValue="1"
             android:entries="@array/pref_keys_gender"
             android:entryValues="@array/pref_values_gender"
             android:key="@string/pref_gender"

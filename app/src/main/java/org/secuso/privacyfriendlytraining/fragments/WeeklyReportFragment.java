@@ -158,7 +158,7 @@ public class WeeklyReportFragment extends Fragment implements ReportAdapter.OnIt
         AsyncTask.execute(new Runnable() {
             @Override
             public void run() {
-                // Get all workokut data for this day.
+                // Get all workout data for this day.
                 day.set(Calendar.DAY_OF_WEEK, day.getFirstDayOfWeek());
                 Calendar start = (Calendar) day.clone();
 

@@ -127,17 +127,16 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.ViewHolder
                 barDataSet.setValueFormatter(new DoubleValueFormatter(formatPattern));
 
                 ArrayList<ILineDataSet> lineDataSets = new ArrayList<>();
-                if(barChartData.getDisplayedDataType() != ActivityDayChart.DataType.TIME){
-                    // make sure, that the first and last entry are fully displayed
-                    Entry start = new Entry(0, 0);
-                    Entry end = new Entry(barChartI - 1, 0);
-                    LineDataSet chartLineDataSet = new LineDataSet(Arrays.asList(start, end), "");
-                    chartLineDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
-                    chartLineDataSet.setDrawCircles(false);
-                    chartLineDataSet.setColor(ContextCompat.getColor(barChartViewHolder.context, R.color.transparent), 0);
-                    chartLineDataSet.setDrawValues(false);
-                    lineDataSets.add(chartLineDataSet);
-                }
+
+                // make sure, that the first and last entry are fully displayed
+                Entry start = new Entry(0, 0);
+                Entry end = new Entry(barChartI - 1, 0);
+                LineDataSet chartLineDataSet = new LineDataSet(Arrays.asList(start, end), "");
+                chartLineDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
+                chartLineDataSet.setDrawCircles(false);
+                chartLineDataSet.setColor(ContextCompat.getColor(barChartViewHolder.context, R.color.transparent), 0);
+                chartLineDataSet.setDrawValues(false);
+                lineDataSets.add(chartLineDataSet);
 
                 CombinedData combinedData = new CombinedData();
                 BarData barData = new BarData(barDataSet);
