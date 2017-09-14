@@ -309,10 +309,14 @@ public class WorkoutActivity extends AppCompatActivity {
     public void onClick(View view) {
         switch(view.getId()) {
             case R.id.workout_previous:
-                timerService.prevTimer();
+                if(timerService != null){
+                    timerService.prevTimer();
+                }
                 break;
             case R.id.workout_next:
-                timerService.nextTimer();
+                if(timerService != null){
+                    timerService.nextTimer();
+                }
                 break;
             case R.id.workout_finished_ok:
                 finish();
@@ -322,8 +326,8 @@ public class WorkoutActivity extends AppCompatActivity {
                     showCancelAlert(true);
                 }
                 else {
-                    showFinishedView();
                     stopTimerInService();
+                    showFinishedView();
                 }
                 break;
             default:
@@ -449,6 +453,9 @@ public class WorkoutActivity extends AppCompatActivity {
      * Overlay displays that the workout is over and optionally how many calories were burned.
      */
     private void showFinishedView(){
+        if(timerService != null){
+            timerService.setCurrentTitle(getString(R.string.workout_headline_done));
+        }
         this.workoutTitle.setText(getResources().getString(R.string.workout_headline_done));
         this.workoutTimer.setText("0");
         this.fab.hide();
@@ -520,7 +527,9 @@ public class WorkoutActivity extends AppCompatActivity {
      */
     @Override
     public void onDestroy() {
-        stopTimerInService();
+        if(timerService != null){
+            timerService.setIsAppInBackground(false);
+        }
         super.onDestroy();
     }
 

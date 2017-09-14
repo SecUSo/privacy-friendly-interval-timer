@@ -46,7 +46,7 @@ public class MainActivity extends BaseActivity {
     private final int restTimeDefault = 30;
     private final int setsDefault = 6;
     private final int blockPeriodizationTimeDefault = 90;
-    private final int blockPeriodizationSetsDefault = 3;
+    private final int blockPeriodizationSetsDefault = 1;
 
     // General
     private SharedPreferences settings = null;
@@ -140,41 +140,55 @@ public class MainActivity extends BaseActivity {
      * Click functions for timer values, block periodization AlertDialog and workout start button
      */
     public void onClick(View view) {
+        SharedPreferences.Editor editor = this.settings.edit();
+
+
         switch(view.getId()) {
             case R.id.main_workout_interval_minus:
                 workoutTime = (workoutTime <= workoutMinTime) ? workoutMaxTime : workoutTime - 10;
                 workoutIntervalText.setText(formatTime(workoutTime));
+                editor.putInt(this.getString(R.string.pref_timer_workout),(int) this.workoutTime);
+                editor.commit();
                 break;
             case R.id.main_workout_interval_plus:
                 this.workoutTime = (workoutTime >= workoutMaxTime) ? workoutMinTime : this.workoutTime + 10;
                 this.workoutIntervalText.setText(formatTime(workoutTime));
+                editor.putInt(this.getString(R.string.pref_timer_workout),(int) this.workoutTime);
+                editor.commit();
                 break;
             case R.id.main_rest_interval_minus:
                 this.restTime = (restTime <= restMinTime) ? restMaxTime : this.restTime - 10;
                 this.restIntervalText.setText(formatTime(restTime));
+                editor.putInt(this.getString(R.string.pref_timer_rest),(int) this.restTime);
+                editor.commit();
                 break;
             case R.id.main_rest_interval_plus:
                 this.restTime = (restTime >= restMaxTime) ? restMinTime : this.restTime + 10;
                 this.restIntervalText.setText(formatTime(restTime));
+                editor.putInt(this.getString(R.string.pref_timer_rest),(int) this.restTime);
+                editor.commit();
                 break;
             case R.id.main_sets_minus:
                 this.sets = (sets <= minSets) ? maxSets : this.sets - 1;
                 this.setsText.setText(Integer.toString(sets));
+                editor.putInt(this.getString(R.string.pref_timer_set), this.sets);
+                editor.commit();
                 break;
             case R.id.main_sets_plus:
                 this.sets = (sets >= maxSets) ? minSets : this.sets + 1;
                 this.setsText.setText(Integer.toString(sets));
+                editor.putInt(this.getString(R.string.pref_timer_set), this.sets);
+                editor.commit();
                 break;
             case R.id.main_block_periodization:
-                AlertDialog finishedAlert = buildBlockAlert();
-                finishedAlert.show();
+                AlertDialog blockAlert = buildBlockAlert();
+                blockAlert.show();
                 break;
             case R.id.main_block_periodization_text:
                 this.blockPeriodizationSwitchButton.setChecked(!this.blockPeriodizationSwitchButton.isChecked());
                 break;
             case R.id.start_workout:
                 intent = new Intent(this, WorkoutActivity.class);
-                storeDefaultTimerValues();
 
                 if (isStartTimerEnabled(this)) {
                     timerService.startWorkout(workoutTime, restTime, startTime, sets,
@@ -225,36 +239,55 @@ public class MainActivity extends BaseActivity {
 
         final TextView setsText = (TextView)dialogLayout.findViewById(R.id.main_block_periodization_sets_amount);
         final TextView timeText = (TextView)dialogLayout.findViewById(R.id.main_block_periodization_time);
+        blockPeriodizationSets = (blockPeriodizationSets >= sets) ? sets-1 : blockPeriodizationSets;
+        blockPeriodizationSets = (blockPeriodizationSets <= 0) ? 1 : blockPeriodizationSets;
 
         setsText.setText(Integer.toString(blockPeriodizationSets));
         timeText.setText(formatTime(blockPeriodizationTime));
 
         setButtonPlus.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                SharedPreferences.Editor editor = settings.edit();
+
                 if(blockPeriodizationSets < sets-1){ blockPeriodizationSets += 1; }
                 setsText.setText(Integer.toString(blockPeriodizationSets));
+                editor.putInt(getString(R.string.pref_timer_periodization_set), blockPeriodizationSets);
+                editor.commit();
             }
         });
 
         setButtonMinus.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                SharedPreferences.Editor editor = settings.edit();
+
                 if(blockPeriodizationSets > 1){ blockPeriodizationSets -= 1; }
                 setsText.setText(Integer.toString(blockPeriodizationSets));
+                editor.putInt(getString(R.string.pref_timer_periodization_set), blockPeriodizationSets);
+                editor.commit();
             }
         });
 
 
         timeButtonPlus.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                SharedPreferences.Editor editor = settings.edit();
+
                 if(blockPeriodizationTime < blockPeriodizationTimeMax){ blockPeriodizationTime += 10; }
                 timeText.setText(formatTime(blockPeriodizationTime));
+                editor.putInt(getString(R.string.pref_timer_periodization_time), (int) blockPeriodizationTime);
+                editor.commit();
+
             }
         });
 
         timeButtonMinus.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                SharedPreferences.Editor editor = settings.edit();
+
                 if(blockPeriodizationTime > 10){ blockPeriodizationTime -= 10; }
                 timeText.setText(formatTime(blockPeriodizationTime));
+                editor.putInt(getString(R.string.pref_timer_periodization_time), (int) blockPeriodizationTime);
+                editor.commit();
             }
         });
 
@@ -316,21 +349,6 @@ public class MainActivity extends BaseActivity {
             this.sets = setsDefault;
             this.blockPeriodizationTime = blockPeriodizationTimeDefault;
             this.blockPeriodizationSets = blockPeriodizationSetsDefault;
-        }
-    }
-
-    /**
-     * Stores the chosen timer values for next GUI initialization
-     */
-    private void storeDefaultTimerValues(){
-        if(settings != null ) {
-            SharedPreferences.Editor editor = this.settings.edit();
-            editor.putInt(this.getString(R.string.pref_timer_workout),(int) this.workoutTime);
-            editor.putInt(this.getString(R.string.pref_timer_rest),(int) this.restTime);
-            editor.putInt(this.getString(R.string.pref_timer_set), this.sets);
-            editor.putInt(this.getString(R.string.pref_timer_periodization_time), (int) this.blockPeriodizationTime);
-            editor.putInt(this.getString(R.string.pref_timer_periodization_set), this.blockPeriodizationSets);
-            editor.commit();
         }
     }
 

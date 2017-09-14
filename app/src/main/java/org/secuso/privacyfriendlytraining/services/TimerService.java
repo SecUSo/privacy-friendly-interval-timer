@@ -177,7 +177,6 @@ public class TimerService extends Service {
              */
             @Override
             public void onTick(long millisUntilFinished) {
-
                 int secondsUntilFinished = (int) Math.ceil(millisUntilFinished / 1000.0);
                 savedTime = millisUntilFinished;
 
@@ -848,5 +847,9 @@ public class TimerService extends Service {
 
     public void setCancelAlert(boolean isCancelAlert){
         this.isCancelAlert = isCancelAlert;
+    }
+
+    public void setCurrentTitle(String title){
+        this.currentTitle = title;
     }
 }

@@ -117,12 +117,12 @@
                     android:layout_weight="0.1" />
 
                 <TextView
-                    android:id="@+id/main_text_rest_interval"
+                    android:id="@+id/main_text_work_interval"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.3"
                     android:gravity="center"
-                    android:text="@string/main_text_rest_interval"
+                    android:text="@string/main_text_work_interval"
                     android:textColor="@color/black"
                     android:textSize="18sp" />
 
@@ -132,12 +132,12 @@
                     android:layout_weight="0.13" />
 
                 <TextView
-                    android:id="@+id/main_text_work_interval"
+                    android:id="@+id/main_text_rest_interval"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.3"
                     android:gravity="center"
-                    android:text="@string/main_text_work_interval"
+                    android:text="@string/main_text_rest_interval"
                     android:textColor="@color/black"
                     android:textSize="18sp" />
 
@@ -164,62 +164,6 @@
 
                 <Space
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.1" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.3"
-                    android:gravity="fill_vertical"
-                    android:orientation="horizontal">
-
-                    <Button
-                        android:id="@+id/main_rest_interval_minus"
-                        android:layout_width="25dp"
-                        android:layout_height="35dp"
-                        android:layout_alignEnd="@+id/textView1"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginEnd="0dp"
-                        android:background="@drawable/button_normal"
-                        android:onClick="onClick"
-                        android:text="-"
-                        android:textColor="@color/white"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/main_rest_interval_time"
-                        android:layout_width="wrap_content"
-                        android:layout_height="35dp"
-                        android:layout_alignBaseline="@+id/main_workout_interval_minus"
-                        android:layout_alignBottom="@+id/main_workout_interval_minus"
-                        android:layout_toStartOf="@+id/main_workout_interval_plus"
-                        android:layout_weight="0.11"
-                        android:gravity="center"
-                        android:text="00 : 00"
-                        android:textColor="@color/black"
-                        android:textSize="24sp"
-                        android:textStyle="bold" />
-
-                    <Button
-                        android:id="@+id/main_rest_interval_plus"
-                        android:layout_width="25dp"
-                        android:layout_height="35dp"
-                        android:layout_alignEnd="@+id/main_text_work_interval"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginEnd="0dp"
-                        android:background="@drawable/button_normal"
-                        android:onClick="onClick"
-                        android:text="+"
-                        android:textColor="@color/white"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-
-                <Space
-                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.1" />
 
@@ -266,6 +210,62 @@
                         android:layout_alignEnd="@+id/main_text_work_interval"
                         android:layout_alignParentBottom="true"
                         android:layout_gravity="center"
+                        android:layout_marginEnd="0dp"
+                        android:background="@drawable/button_normal"
+                        android:onClick="onClick"
+                        android:text="+"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.1" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:gravity="fill_vertical"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/main_rest_interval_minus"
+                        android:layout_width="25dp"
+                        android:layout_height="35dp"
+                        android:layout_alignEnd="@+id/textView1"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginEnd="0dp"
+                        android:background="@drawable/button_normal"
+                        android:onClick="onClick"
+                        android:text="-"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/main_rest_interval_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="35dp"
+                        android:layout_alignBaseline="@+id/main_workout_interval_minus"
+                        android:layout_alignBottom="@+id/main_workout_interval_minus"
+                        android:layout_toStartOf="@+id/main_workout_interval_plus"
+                        android:layout_weight="0.11"
+                        android:gravity="center"
+                        android:text="00 : 00"
+                        android:textColor="@color/black"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+
+                    <Button
+                        android:id="@+id/main_rest_interval_plus"
+                        android:layout_width="25dp"
+                        android:layout_height="35dp"
+                        android:layout_alignEnd="@+id/main_text_work_interval"
+                        android:layout_alignParentBottom="true"
                         android:layout_marginEnd="0dp"
                         android:background="@drawable/button_normal"
                         android:onClick="onClick"
