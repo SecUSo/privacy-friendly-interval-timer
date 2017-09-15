@@ -87,8 +87,8 @@ public class TimerService extends Service {
     //Database for the statistics
     private PFASQLiteHelper database = null;
     private WorkoutSessionData statistics = null;
-    private int workoutDuration = 0;
-    private int caloriesBurnt = 0;
+    private int timeSpentWorkingOut = 0;
+    private int caloriesBurned = 0;
     private int caloriesPerExercise = 0;
 
     @Override
@@ -192,7 +192,7 @@ public class TimerService extends Service {
 
                     playSound(secondsUntilFinished, true);
                     updateNotification(secondsUntilFinished);
-                    workoutDuration += 1;
+                    timeSpentWorkingOut += 1;
                 }
                 sendBroadcast(broadcast);
             }
@@ -207,7 +207,7 @@ public class TimerService extends Service {
             public void onFinish() {
                 Intent broadcast = new Intent(COUNTDOWN_BROADCAST);
 
-                caloriesBurnt += caloriesPerExercise;
+                caloriesBurned += caloriesPerExercise;
 
                 if(currentSet < sets) {
                     if (isBlockPeriodization && currentSet % blockPeriodizationSets == 0) {
@@ -227,6 +227,8 @@ public class TimerService extends Service {
                         restTimer = createRestTimer(restTime);
                     }
                     sendBroadcast(broadcast);
+                    isWorkout = false;
+                    timeSpentWorkingOut += 1;
                     restTimer.start();
                 }
                 else {
@@ -234,12 +236,10 @@ public class TimerService extends Service {
                     updateNotification(0);
                     broadcast = new Intent(COUNTDOWN_BROADCAST)
                         .putExtra("timer_title", currentTitle)
-                        .putExtra("workout_finished", true)
-                        .putExtra("calories_burned", caloriesBurnt);
+                        .putExtra("workout_finished", true);
                     sendBroadcast(broadcast);
+                    timeSpentWorkingOut += 1;
                 }
-                isWorkout = false;
-                workoutDuration += 1;
             }
         };
     }
@@ -282,7 +282,7 @@ public class TimerService extends Service {
 
                     playSound(secondsUntilFinished, false);
                     updateNotification(secondsUntilFinished);
-                    workoutDuration += 1;
+                    timeSpentWorkingOut += 1;
                 }
                 sendBroadcast(broadcast);
             }
@@ -313,7 +313,7 @@ public class TimerService extends Service {
 
                 workoutTimer = createWorkoutTimer(workoutTime);
                 workoutTimer.start();
-                workoutDuration += 1;
+                timeSpentWorkingOut += 1;
             }
         };
     }
@@ -340,8 +340,8 @@ public class TimerService extends Service {
         this.restTime = restTime * 1000;
         this.currentSet = 1;
         this.sets = sets;
-        this.workoutDuration = 0;
-        this.caloriesBurnt = 0;
+        this.timeSpentWorkingOut = 0;
+        this.caloriesBurned = 0;
         this.caloriesPerExercise = calculateUserCalories((float) workoutTime);
 
         this.workoutTimer = createWorkoutTimer(this.workoutTime);
@@ -689,20 +689,25 @@ public class TimerService extends Service {
     }
 
     /**
+     * Cancel the notification when workout activity is destroyed
+     */
+    public void workoutClosed(){
+        this.isAppInBackground = false;
+        notiManager.cancel(NOTIFICATION_ID);
+    }
+
+    /**
      * Clean timer stop.
      * Stops all timers, cancels the notification, resets the variables and saves
      * statistics
      */
     public void cleanTimerFinish() {
-        setIsAppInBackground(false);
+        this.isAppInBackground = false;
         if (workoutTimer != null) {
             this.workoutTimer.cancel();
         }
         if (restTimer != null) {
             this.restTimer.cancel();
-        }
-        if (notiManager != null){
-            notiManager.cancel(NOTIFICATION_ID);
         }
 
         saveStatistics();
@@ -743,12 +748,12 @@ public class TimerService extends Service {
             statistics = database.getWorkoutData(id);
         }
 
-        int totalTimeSpentTraining = statistics.getWORKOUTTIME() + this.workoutDuration;
-        int totalCaloriesBurnt = isCaloriesEnabled(this) ? statistics.getCALORIES() + this.caloriesBurnt : statistics.getCALORIES();
+        int totalTimeSpentTraining = statistics.getWORKOUTTIME() + this.timeSpentWorkingOut;
+        int totalCaloriesBurnt = isCaloriesEnabled(this) ? statistics.getCALORIES() + this.caloriesBurned : statistics.getCALORIES();
 
         database.updateWorkoutData(new WorkoutSessionData(id, totalTimeSpentTraining, totalCaloriesBurnt));
-        this.workoutDuration = 0;
-        this.caloriesBurnt = 0;
+        this.timeSpentWorkingOut = 0;
+        this.caloriesBurned = 0;
     }
 
 
@@ -825,8 +830,8 @@ public class TimerService extends Service {
         return this.sets;
     }
 
-    public int getCaloriesBurnt(){
-        return this.caloriesBurnt;
+    public int getCaloriesBurned(){
+        return this.caloriesBurned;
     }
 
     public int getCurrentSet(){

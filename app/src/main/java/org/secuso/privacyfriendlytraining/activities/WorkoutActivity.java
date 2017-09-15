@@ -326,7 +326,6 @@ public class WorkoutActivity extends AppCompatActivity {
                     showCancelAlert(true);
                 }
                 else {
-                    stopTimerInService();
                     showFinishedView();
                 }
                 break;
@@ -439,7 +438,7 @@ public class WorkoutActivity extends AppCompatActivity {
                     showFinishedView();
                 }
                 else {
-                    stopTimerInService();
+                    cleanTimerServiceFinish();
                     finish();
                 }
             }
@@ -478,10 +477,11 @@ public class WorkoutActivity extends AppCompatActivity {
             unit.setVisibility(View.VISIBLE);
 
             if(timerService != null){
-                String caloriesBurned = Integer.toString(timerService.getCaloriesBurnt());
+                String caloriesBurned = Integer.toString(timerService.getCaloriesBurned());
                 this.caloriesNumber.setText(caloriesBurned);
             }
         }
+        cleanTimerServiceFinish();
     }
 
     @Override
@@ -528,7 +528,7 @@ public class WorkoutActivity extends AppCompatActivity {
     @Override
     public void onDestroy() {
         if(timerService != null){
-            timerService.setIsAppInBackground(false);
+            timerService.workoutClosed();
         }
         super.onDestroy();
     }
@@ -542,7 +542,7 @@ public class WorkoutActivity extends AppCompatActivity {
             showCancelAlert(false);
         }
         else{
-            stopTimerInService();
+            cleanTimerServiceFinish();
             finish();
         }
         //super.onBackPressed();
@@ -552,7 +552,7 @@ public class WorkoutActivity extends AppCompatActivity {
     /**
      * Calls the service to stop an clear all timer
      */
-    private void stopTimerInService(){
+    private void cleanTimerServiceFinish(){
         if(timerService != null) {
             timerService.cleanTimerFinish();
         }
