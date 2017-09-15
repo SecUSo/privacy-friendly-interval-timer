@@ -26,6 +26,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.content.DialogInterface.OnCancelListener;
 
 import org.secuso.privacyfriendlytraining.R;
 import org.secuso.privacyfriendlytraining.services.TimerService;
@@ -442,6 +443,18 @@ public class WorkoutActivity extends AppCompatActivity {
                     cleanTimerServiceFinish();
                     finish();
                 }
+            }
+        });
+
+        alertBuilder.setOnCancelListener(new OnCancelListener() {
+
+            public void onCancel(DialogInterface dialog) {
+                if(timerService != null){
+                    timerService.resumeTimer();
+                    timerService.setCancelAlert(false);
+                }
+                updateGUI();
+                dialog.dismiss();
             }
         });
 
