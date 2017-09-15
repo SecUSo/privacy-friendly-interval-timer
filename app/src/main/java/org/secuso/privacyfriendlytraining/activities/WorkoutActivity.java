@@ -319,6 +319,7 @@ public class WorkoutActivity extends AppCompatActivity {
                 }
                 break;
             case R.id.workout_finished_ok:
+                cleanTimerServiceFinish();
                 finish();
                 break;
             case R.id.finish_workout:
@@ -452,6 +453,9 @@ public class WorkoutActivity extends AppCompatActivity {
      * Overlay displays that the workout is over and optionally how many calories were burned.
      */
     private void showFinishedView(){
+        TextView finishButton = (TextView) this.findViewById(R.id.finish_workout);
+        finishButton.setEnabled(false);
+
         if(timerService != null){
             timerService.setCurrentTitle(getString(R.string.workout_headline_done));
         }
@@ -481,7 +485,6 @@ public class WorkoutActivity extends AppCompatActivity {
                 this.caloriesNumber.setText(caloriesBurned);
             }
         }
-        cleanTimerServiceFinish();
     }
 
     @Override

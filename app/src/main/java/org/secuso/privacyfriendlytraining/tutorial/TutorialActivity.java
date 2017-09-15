@@ -103,6 +103,16 @@ public class TutorialActivity extends AppCompatActivity {
         });
     }
 
+    /*
+     * Prevents the the view from going blank
+     */
+    @Override
+    public void onBackPressed() {
+        Intent i = new Intent(this, MainActivity.class);
+        finish();
+        startActivity(i);
+    }
+
     private void addBottomDots(int currentPage) {
         dots = new TextView[layouts.length];
 
