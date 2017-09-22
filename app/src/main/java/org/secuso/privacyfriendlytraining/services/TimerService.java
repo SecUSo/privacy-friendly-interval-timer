@@ -592,9 +592,9 @@ public class TimerService extends Service {
         int circleTrainingMET = 8;
 
         if(this.settings != null) {
-            age = Integer.parseInt(settings.getString(this.getString(R.string.pref_age), "0"));
-            height = Integer.parseInt(settings.getString(this.getString(R.string.pref_height), "0"));
-            weight = (int)Double.parseDouble(settings.getString(this.getString(R.string.pref_weight), "0"));
+            age = Integer.parseInt(settings.getString(this.getString(R.string.pref_age), "25"));
+            height = Integer.parseInt(settings.getString(this.getString(R.string.pref_height), "170"));
+            weight = (int)Double.parseDouble(settings.getString(this.getString(R.string.pref_weight), "70"));
         }
 
         float caloriesPerExercise = circleTrainingMET * (weight * workoutDurationSeconds/3600);

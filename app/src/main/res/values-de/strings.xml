@@ -180,7 +180,7 @@
     <string name="slide1_text2">Außerdem können Statistiken über erfolgte Trainingseinheiten gesammelt werden.</string>
 
     <string name="slide2_heading">Personalisierung</string>
-    <string name="slide2_text">Um die Berechnung der verbrannten Kalorien zu verbessern, können Sie unter Einstellungen Ihre persönlichen Werte eingeben.</string>
+    <string name="slide2_text">Um die Berechnung der verbrannten Kalorien zu verbessern, können Sie unter Einstellungen Ihre persönlichen Werte eingeben. Kalorien werden nur für abgeschlossene Trainingseinheiten angerechnet.</string>
 
     <string name="slide3_heading">Benachrichtigungen</string>
     <string name="slide3_text">Die App kann Sie über anstehende Trainingseinheiten benachrichtigen.  Der Zeitpunkt der Benachrichtigung und der Motivationstext können im Einstellungsmenü konfiguriert werden.</string>
@@ -194,6 +194,5 @@
     <string name="title_activity_workout">Training</string>
     <string name="title_activity_statistics">Statistiken</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-
 
 </resources>

@@ -471,6 +471,7 @@ public class WorkoutActivity extends AppCompatActivity {
 
         if(timerService != null){
             timerService.setCurrentTitle(getString(R.string.workout_headline_done));
+            timerService.pauseTimer();
         }
         this.workoutTitle.setText(getResources().getString(R.string.workout_headline_done));
         this.workoutTimer.setText("0");
@@ -545,6 +546,7 @@ public class WorkoutActivity extends AppCompatActivity {
     public void onDestroy() {
         if(timerService != null){
             timerService.workoutClosed();
+            timerService.setCancelAlert(false);
         }
         super.onDestroy();
     }

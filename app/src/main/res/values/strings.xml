@@ -207,7 +207,7 @@
     <string name="slide1_text2">Also, statistics of completed training sessions can be accessed.</string>
 
     <string name="slide2_heading">Personalization</string>
-    <string name="slide2_text">In order to improve the calculation of the calories you have burned please customize your personal settings.</string>
+    <string name="slide2_text">In order to improve the calculation of the calories you have burned please customize your personal settings. Calories are counted for completed workout phases only.</string>
 
     <string name="slide3_heading">Notifications</string>
     <string name="slide3_text">The app can remind you about upcoming workout sessions. This can be configured inside the settings.</string>
