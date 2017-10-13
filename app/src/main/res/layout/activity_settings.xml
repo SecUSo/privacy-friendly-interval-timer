@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        tools:context="org.secuso.privacyfriendlytraining.activities.SettingsActivity">
+        tools:context="org.secuso.privacyfriendlyintervaltimer.activities.SettingsActivity">
 
         <include layout="@layout/toolbar" />
 
@@ -28,7 +28,7 @@
 
             <fragment
                 android:id="@+id/settings_fragment"
-                android:name="org.secuso.privacyfriendlytraining.activities.SettingsActivity$GeneralPreferenceFragment"
+                android:name="org.secuso.privacyfriendlyintervaltimer.activities.SettingsActivity$GeneralPreferenceFragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 

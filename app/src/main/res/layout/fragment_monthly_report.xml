@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="org.secuso.privacyfriendlytraining.fragments.MonthlyReportFragment">
+    tools:context="org.secuso.privacyfriendlyintervaltimer.fragments.MonthlyReportFragment">
 
     <TextView
         android:layout_width="match_parent"
