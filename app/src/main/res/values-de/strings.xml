@@ -63,7 +63,7 @@
 
 
     <!--###HELP###-->
-    <string name="help">Help</string>
+    <string name="help">Hilfe</string>
 
     <string name="help_whatis">Was ist Privacy Friendly Interval Timer?</string>
     <string name="help_whatis_answer">Privacy Friendly Interval Timer unterstützt Sie während Trainingseinheiten. Die App bietet Ihnen hierfür sowohl konfigurierbare Uhren für Ihre Übungen und Pausen als auch zahlreiche andere Funktionen.</string>
