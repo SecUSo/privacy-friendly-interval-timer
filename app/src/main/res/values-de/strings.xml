@@ -16,8 +16,8 @@
     <string name="action_settings">Einstellungen</string>
     <string name="action_main">Hauptmenü</string>
     <string name="action_statistics">Statistiken</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="navigation_drawer_open">Öffnen</string>
+    <string name="navigation_drawer_close">Schließen</string>
 
     <!-- ###MAIN### -->
     <string name="main_button_text">Button volle Breite</string>
