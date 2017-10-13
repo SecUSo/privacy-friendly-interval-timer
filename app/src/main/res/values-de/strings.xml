@@ -101,7 +101,7 @@
     <string name="pref_voice_countdown_rest_title">Ansage Countdown Pause</string>
     <string name="pref_voice_countdown_rest_summary">Eine Stimme zählt die letzten Sekunden der Pause herunter.</string>
     <string name="pref_sound_rythm_title">Rythmussignal</string>
-    <string name="pref_sound_rythm_summary">Ein sekündlicher Signalton während des Trainings.</string>
+    <string name="pref_sound_rythm_summary">Sekündlicher Ton während des Trainings.</string>
     <string name="pref_voice_halftime_title">Ansage Halbzeit</string>
     <string name="pref_voice_halftime_summary">Eine Stimme sagt die Halbzeit des Trainings an.</string>
 
@@ -111,9 +111,9 @@
     <string name="pref_example_switch_summary">Beispiel Switch Summary</string>
     <string name="pref_keep_screen_on_switch">Bildschirm bleibt an</string>
     <string name="pref_keep_screen_on_switch_summary">Der Bildschrim bleibt während des Trainings an.</string>
-    <string name="pref_start_timer_switch">Starttimer</string>
+    <string name="pref_start_timer_switch">Starttimer vor Training</string>
     <string name="pref_start_timer_switch_summary">Vor dem Beginn des Trainings wird ein Starttimer angezeigt.</string>
-    <string name="pref_blinking_progress_bar">Blinkender Fortschrittsbalken</string>
+    <string name="pref_blinking_progress_bar">Fortschrittsbalken blinkt</string>
     <string name="pref_blinking_progress_bar_summary">Der Fortschrittsbalken der Zeitanzeige im Training blinkt während den letzten Sekunden.</string>
     <string name="pref_voice_output">Sprachausgabe</string>
     <string name="pref_voice_output_summary">Eine Stimme zählt die letzten Sekunden jeder Trainingseinheit und Pause herunter.</string>
@@ -126,7 +126,7 @@
     <string name="pref_delete_statistics_dialog_info">Wollen Sie alle gespeicherten Statistiken löschen?</string>
     <string name="pref_delete_statistics_dialog_toast">Die Statistiken wurden zurückgesetzt!</string>
     <string name="pref_calories_counter_title">Kalorienzähler</string>
-    <string name="pref_calories_counter_summary">Zähle während des Trainings verbrannte Kalorien.</string>
+    <string name="pref_calories_counter_summary">Zählen verbrannter Kalorien.</string>
     <string name="pref_cancel_workout_check_title">Warnmeldung bei Abbruch</string>
     <string name="pref_cancel_workout_check_summary">Zeige eine Warnmeldung beim vorzeitigen Verlassen des Trainings.</string>
 
@@ -147,7 +147,7 @@
     <string name="motivation_alert_input_msg">Speichern Sie eine persönliche Motivationsbenachrichtigung. Die Auswahl der Nachricht erfolgt zufällig.</string>
     <string name="motivation_alert_input_empty">Bitte geben Sie eine Motivationsbenachrichtigung ein.</string>
     <string-array name="pref_default_notification_motivation_alert_messages">
-        <item>Mach dich bereit\'s! Es ist an der Zeit zu trainieren!</item>
+        <item>Mach dich bereit! Zeit zum Trainieren!</item>
     </string-array>
     <string name="alert_confirm_dialog_positive">Ja</string>
     <string name="alert_confirm_dialog_negative">Nein</string>

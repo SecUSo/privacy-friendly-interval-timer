@@ -5,21 +5,18 @@
             android:id="@+id/pref_keep_screen_on_switch"
             android:key="@string/pref_keep_screen_on_switch_enabled"
             android:title="@string/pref_keep_screen_on_switch"
-            android:summary="@string/pref_keep_screen_on_switch_summary"
             android:defaultValue="true"/>
 
         <SwitchPreference
             android:id="@+id/pref_start_timer_switch"
             android:key="@string/pref_start_timer_switch_enabled"
             android:title="@string/pref_start_timer_switch"
-            android:summary="@string/pref_start_timer_switch_summary"
             android:defaultValue="true"/>
 
         <SwitchPreference
             android:id="@+id/pref_blinking_progress_bar"
             android:key="@string/pref_blinking_progress_bar"
             android:title="@string/pref_blinking_progress_bar"
-            android:summary="@string/pref_blinking_progress_bar_summary"
             android:defaultValue="false"/>
 
         <SwitchPreference
