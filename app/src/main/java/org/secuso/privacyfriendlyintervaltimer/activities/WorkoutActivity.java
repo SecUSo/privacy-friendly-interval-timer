@@ -18,6 +18,7 @@ import android.app.AlertDialog;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
@@ -40,7 +41,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.content.DialogInterface.OnCancelListener;
 
 import org.secuso.privacyfriendlyintervaltimer.R;
 import org.secuso.privacyfriendlyintervaltimer.services.TimerService;

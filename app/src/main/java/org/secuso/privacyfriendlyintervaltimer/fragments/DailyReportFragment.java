@@ -30,9 +30,9 @@ import android.widget.DatePicker;
 import org.secuso.privacyfriendlyintervaltimer.R;
 import org.secuso.privacyfriendlyintervaltimer.adapters.ReportAdapter;
 import org.secuso.privacyfriendlyintervaltimer.database.PFASQLiteHelper;
-import org.secuso.privacyfriendlyintervaltimer.models.WorkoutSessionData;
 import org.secuso.privacyfriendlyintervaltimer.models.ActivityDayChart;
 import org.secuso.privacyfriendlyintervaltimer.models.ActivitySummary;
+import org.secuso.privacyfriendlyintervaltimer.models.WorkoutSessionData;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
