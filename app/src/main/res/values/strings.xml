@@ -63,20 +63,20 @@
 
     <!--###HELP###-->
     <string name="help">Help</string>
-    <string name="help_whatis">What is Privacy Friendly Training?</string>
-    <string name="help_whatis_answer">Privacy Friendly Training supports the user during his/her circuit training session. It provides a configurable set of timers for the exercises and the rest phases as well as multiple other features.</string>
-    <string name="help_feature_workout_timer">Feature: Workokut timer</string>
+    <string name="help_whatis">What is Privacy Friendly Interval Timer?</string>
+    <string name="help_whatis_answer">Privacy Friendly Interval Timer supports the user during his/her circuit training session. It provides a configurable set of timers for the exercises and the rest phases as well as multiple other features.</string>
+    <string name="help_feature_workout_timer">How does the workout timer work?</string>
     <string name="help_feature_workout_timer_answer">After configuring the set of timers in the main menu you can start the workout routine by pressing the start button. The workout view has animations and sound output features which can be turned on and off inside the settings menu.</string>
-    <string name="help_feature_motivation_alert">Feature: Motivation alert</string>
+    <string name="help_feature_motivation_alert">What are motivation alerts?</string>
     <string name="help_feature_motivation_alert_answer">The app can show you motivation alerts to remind you of planned workout sessions. You can define the time of day and the notification texts inside the settings menu.</string>
-    <string name="help_feature_block_periodization">Feature: Block Periodization</string>
+    <string name="help_feature_block_periodization">What is "Block Periodization"?</string>
     <string name="help_feature_block_periodization_answer">When scheduling the timers you may also choose the block periodization feature. This feature allows you to configure longer, separate breaks in between the exercises. This way the workout can be split into multiple high intensity workout cycles.</string>
-    <string name="help_feature_workout_history">Feature: Workout history</string>
-    <string name="help_feature_workout_history_answer">The app can collect statistics about your performed workout sessions. The collected data comprises of the time spend working out and the calories burnt while exercising. The accuracy of the calories calculation can be improved by configuring the necessary user data in the settings menu. The collection of this data can be deleted as well as turned on and off inside the settings menu.</string>
+    <string name="help_feature_workout_history">What is stored in the workout history?</string>
+    <string name="help_feature_workout_history_answer">Privacy Friendly Interval Timer can collect statistics about your performed workout sessions. The collected data comprises of the time spend working out and the calories burnt while exercising. The accuracy of the calories calculation can be improved by configuring the necessary user data in the settings menu. The collection of this data can be deleted as well as turned on and off inside the settings menu.</string>
     <string name="help_privacy">What makes the app privacy-friendly?</string>
-    <string name="help_privacy_answer">This app does not include any tracking mechanisms or advertisement. It further does not share any user information which may be collected during the usage of this app.</string>
+    <string name="help_privacy_answer">Privacy Friendly Interval Timer does not include any tracking mechanisms or advertisement. It further does not share any user information which may be collected during the usage of this app.</string>
     <string name="help_permission">Which permissions are required by the app?</string>
-    <string name="help_permission_answer">Privacy Friendly Training requires the permission "Receive Boot Completed". It is used to reschedule the motivation alert after a reboot. If the permission is not granted, the app has to be launched first to reschedule the daily reminder notification.</string>
+    <string name="help_permission_answer">Privacy Friendly Interval Timer requires the permission "Receive Boot Completed". It is used to reschedule the motivation alert after a reboot. If the permission is not granted, the app has to be launched first to reschedule the daily reminder notification.</string>
 
     <!--###ABOUT###-->
     <string name="about">About</string>
