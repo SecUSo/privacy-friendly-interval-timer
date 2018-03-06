@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">Interval Timer</string>
-    <string name="app_name_long">Privacy Friendly Interval Timer</string>
+    <string name="app_name">Intervalltimer</string>
+    <string name="app_name_long">Privacy Friendly Intervalltimer</string>
 
     <!-- ###GENERAL###-->
     <string name="save">Speichern</string>
@@ -22,8 +22,8 @@
     <!-- ###MAIN### -->
     <string name="main_button_text">Button volle Breite</string>
     <string name="main_button_disabled_text">Inaktiver Button</string>
-    <string name="main_text_work_interval">Training Intervall</string>
-    <string name="main_text_rest_interval">Pause Intervall</string>
+    <string name="main_text_work_interval">Trainingsintervall</string>
+    <string name="main_text_rest_interval">Pausenintervall</string>
     <string name="main_text_sets">Sätze</string>
     <string name="main_text_start">START  ></string>
     <string name="main_text_title">Bitte wählen:</string>
@@ -65,20 +65,20 @@
     <!--###HELP###-->
     <string name="help">Help</string>
 
-    <string name="help_whatis">Was ist Privacy Friendly Training?</string>
-    <string name="help_whatis_answer">Privacy Friendly Training unterstützt Sie während Ihres Zirkeltrainings. Die App bietet Ihnen hierfür sowohl konfigurierbare Stoppuhren für Ihre Übungen und Pausen als auch zahlreiche andere Funktionen.</string>
-    <string name="help_feature_workout_timer">Feature: Training Timer</string>
+    <string name="help_whatis">Was ist Privacy Friendly Intervalltimer?</string>
+    <string name="help_whatis_answer">Privacy Friendly Intervalltimer unterstützt Sie während Ihres Zirkeltrainings. Die App bietet Ihnen hierfür sowohl konfigurierbare Stoppuhren für Ihre Übungen und Pausen als auch zahlreiche andere Funktionen.</string>
+    <string name="help_feature_workout_timer">Was ist der Trainingsbildschirm?</string>
     <string name="help_feature_workout_timer_answer">Nach der Konfiguration der Timer im Hauptmenü kann das Training mit dem Startbutton begonnen werden. Der Trainingsbildschirm beinhaltet verschiedene Animationen und Tonausgaben, die im Einstellungsmenü an- und ausgeschaltet werden können.</string>
-    <string name="help_feature_motivation_alert">Feature: Benachrichtigungen</string>
+    <string name="help_feature_motivation_alert">Was sind Benachrichtigungen?</string>
     <string name="help_feature_motivation_alert_answer">Die App kann Sie über anstehende Trainingseinheiten benachrichtigen. Der Zeitpunkt der Benachrichtigung und der Motivationstext können im Einstellungsmenü konfiguriert werden.</string>
-    <string name="help_feature_block_periodization">Feature: Blocktraining</string>
+    <string name="help_feature_block_periodization">Was ist Blocktraining?</string>
     <string name="help_feature_block_periodization_answer">Neben den Trainings- und Pausezeiten kann auch ein Blocktraining konfiguriert werden. Mit diesem Feature können Sie separate, längere Pausen zwischen den Übungen festlegen. Dadurch lässt sich das Training in mehrere feste Zyklen intensiven Trainings unterteilen.</string>
-    <string name="help_feature_workout_history">Feature: Statistiken</string>
+    <string name="help_feature_workout_history">Welche Statistiken werden angefertigt?</string>
     <string name="help_feature_workout_history_answer">Die App kann Statistiken zu den durchgeführten Trainingseinheiten sammeln. Diese Daten bestehen aus der trainierten Zeit und den dabei verbrannten Kalorien. Die Genauigkeit der Kalorienberechnung kann verbessert werden, indem Daten des Nutzers wie Körpergröße und Gewicht in den Einstellungen eingetragen werden. Ferner können sämtliche Daten in den Einstellungen gelöscht und die weitere Sammlung dieser an- bzw. ausgeschaltet werden.</string>
     <string name="help_privacy">Was macht die App privatsphäre-freundlich?</string>
-    <string name="help_privacy_answer">Diese App beinhaltet keinerlei Werbung oder Tracking-Mechanismen. Außerdem werden keine Nutzerinformationen, die in der App konfiguriert oder gesammelt wurden, weitergegeben.</string>
+    <string name="help_privacy_answer">Privacy Friendly Intervalltimer beinhaltet keinerlei Werbung oder Tracking-Mechanismen. Außerdem werden keine Nutzerinformationen, die in der App konfiguriert oder gesammelt wurden, weitergegeben.</string>
     <string name="help_permission">Welche Berechtigungen braucht die App?</string>
-    <string name="help_permission_answer">Privacy Friendly Training benötigt die Berechtigung "Startvorgang abgeschlossen". Diese wird verwendet um die täglichen Motivationsbenachrichtigungen, nach einem Neustart, wieder einzuplannen. Wird die Berechtigung nicht gewährt so muss die App, nach einem Neustart, erst wieder einmal gestartet werden. </string>
+    <string name="help_permission_answer">Privacy Friendly Intervalltimer benötigt die Berechtigung "Startvorgang abgeschlossen". Diese wird verwendet um die täglichen Motivationsbenachrichtigungen, nach einem Neustart, wieder einzuplannen. Wird die Berechtigung nicht gewährt so muss die App, nach einem Neustart, erst wieder einmal gestartet werden. </string>
 
 
     <!--###ABOUT###-->
