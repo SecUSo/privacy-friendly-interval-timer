@@ -19,7 +19,7 @@ https://www.fitness-gesundheit.uni-wuppertal.de/fileadmin/fitness-gesundheit/pdf
 ### API Reference
 
 Mininum SDK: 21
-Target SDK: 25 
+Target SDK: 24 
 
 ## License
 
