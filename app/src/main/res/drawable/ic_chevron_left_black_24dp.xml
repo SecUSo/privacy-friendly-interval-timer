@@ -9,6 +9,6 @@
         android:fillColor="#000000"
         android:pathData="M15.41 16.09l-4.58-4.59 4.58-4.59L14 5.5l-6 6 6 6z" />
     <path
-        android:pathData="M0-.5h24v24H0z" />
+        android:pathData="M0-0.5h24v24H0z" />
 </vector>
     <!--Quelle: https://material.io/icons/ -->
