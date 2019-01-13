@@ -51,6 +51,16 @@ alexkarakuz <br />
 Yonjuni (Karola Marky)<br />
 Kamuno
 
-## Build Information
+## Dev notes
 
-$ gradle wrapper build
+To build:
+
+    $ gradle wrapper build
+
+To make keystore:
+
+    $ keytool -genkey -v -keystore release-key.jks -validity 10000 -alias privacy-friendly-interval-timer
+
+To sign:
+
+    $ $ANDROID_HOME/build-tools/26.0.2/apksigner sign -ks release-key.jks --out app/build/outputs/apk/release/app-release-signed.apk app/build/outputs/apk/release/app-release-unsigned.apk
