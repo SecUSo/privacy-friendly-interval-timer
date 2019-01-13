@@ -51,3 +51,6 @@ alexkarakuz <br />
 Yonjuni (Karola Marky)<br />
 Kamuno
 
+## Build Information
+
+$ gradle wrapper build
