@@ -47,9 +47,9 @@ public class MainActivity extends BaseActivity {
 
     // CONFIGURE TIMER VARIABLES HERE
     // Max and min values for the workout and rest timer as well as the sets
-    private int workoutMaxTime = 300; // 5 min
+    private int workoutMaxTime = 3000; // 50 min
     private int workoutMinTime = 10; // 10 sec
-    private int restMaxTime = 300; // 5 min
+    private int restMaxTime = 3000; // 50 min
     private int restMinTime = 10; // 10 sec
     private int maxSets = 16;
     private int minSets = 1;
