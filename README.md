@@ -1,10 +1,17 @@
-﻿# Privacy Friendly Interval Timer
+# Privacy Friendly Interval Timer
 
 This Android application manages the time during interval based training sessions, eg circuit training.
 It provides a configurable set of timers for the exercises and the rest phases.
 The app can remind the user about planned training sessions and offers statistics such as the time spend training or calories burnt.
 
 Privacy Friendly Interval Timer belongs to the group of Privacy Friendly Apps developed by the research group SECUSO at Technische Universität Darmstadt.
+
+[<img src="https://f-droid.org/badge/get-it-on.png"
+      alt="Get it on F-Droid"
+      height="80">](https://f-droid.org/packages/org.secuso.privacyfriendlyintervaltimer/)
+[<img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png"
+      alt="Get it on Google Play"
+      height="80">](https://play.google.com/store/apps/details?id=org.secuso.privacyfriendlyintervaltimer)
 
 ## Motivation
 
