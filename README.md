@@ -4,7 +4,7 @@ This Android application manages the time during interval based training session
 It provides a configurable set of timers for the exercises and the rest phases.
 The app can remind the user about planned training sessions and offers statistics such as the time spend training or calories burnt.
 
-Privacy Friendly Interval Timer belongs to the group of Privacy Friendly Apps developed by the research group SECUSO at Technische Universität Darmstadt.
+Privacy Friendly Interval Timer belongs to the group of Privacy Friendly Apps developed by the research group SECUSO at Karlsruhe Institute of Technology.
 
 [<img src="https://f-droid.org/badge/get-it-on.png"
       alt="Get it on F-Droid"
@@ -46,7 +46,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-The icons used in the nagivation drawer are licensed under the [CC BY 2.5](http://creativecommons.org/licenses/by/2.5/). In addition to them the app uses icons from [Google Design Material Icons](https://design.google.com/icons/index.html) licensed under Apache License Version 2.0. All other images (the logo of Privacy Friendly Apps, the SECUSO logo, the app icons and the splash icon) copyright [Technische Universtität Darmstadt](www.tu-darmstadt.de) (2017-2018).
+The icons used in the nagivation drawer are licensed under the [CC BY 2.5](http://creativecommons.org/licenses/by/2.5/). In addition to them the app uses icons from [Google Design Material Icons](https://design.google.com/icons/index.html) licensed under Apache License Version 2.0. All other images (the logo of Privacy Friendly Apps, the SECUSO logo, the app icons and the splash icon) copyright [Karlsruher Institut für Technologie](www.kit.edu) (2017-2020).
 
 ## Contributors
 
