@@ -167,114 +167,34 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.1" />
 
-                <LinearLayout
+                <EditText
+                    android:id="@+id/main_workout_interval_time"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.3"
-                    android:elevation="1dp"
-                    android:orientation="horizontal">
+                    android:layout_weight="0.35"
+                    android:gravity="center"
+                    android:inputType="time"
+                    android:text="01 : 00"
+                    android:textColor="@color/black"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
 
-                    <Button
-                        android:id="@+id/main_workout_interval_minus"
-                        android:layout_width="25dp"
-                        android:layout_height="35dp"
-                        android:layout_alignEnd="@+id/textView1"
-                        android:layout_alignParentBottom="true"
-                        android:layout_gravity="center"
-                        android:layout_marginEnd="0dp"
-                        android:background="@drawable/button_normal"
-                        android:onClick="onClick"
-                        android:text="-"
-                        android:textColor="@color/white"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/main_workout_interval_time"
-                        android:layout_width="wrap_content"
-                        android:layout_height="35dp"
-                        android:layout_alignBaseline="@+id/main_workout_interval_minus"
-                        android:layout_alignBottom="@+id/main_workout_interval_minus"
-                        android:layout_toStartOf="@+id/main_workout_interval_plus"
-                        android:layout_weight="2.06"
-                        android:gravity="center"
-                        android:text="00 : 00"
-                        android:textColor="@color/black"
-                        android:textSize="24sp"
-                        android:textStyle="bold" />
-
-                    <Button
-                        android:id="@+id/main_workout_interval_plus"
-                        android:layout_width="25dp"
-                        android:layout_height="35dp"
-                        android:layout_alignEnd="@+id/main_text_work_interval"
-                        android:layout_alignParentBottom="true"
-                        android:layout_gravity="center"
-                        android:layout_marginEnd="0dp"
-                        android:background="@drawable/button_normal"
-                        android:onClick="onClick"
-                        android:text="+"
-                        android:textColor="@color/white"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
+                <EditText
+                    android:id="@+id/main_rest_interval_time"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.35"
+                    android:gravity="center"
+                    android:inputType="time"
+                    android:text="00 : 30"
+                    android:textColor="@color/black"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
 
                 <Space
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.1" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.3"
-                    android:gravity="fill_vertical"
-                    android:orientation="horizontal">
-
-                    <Button
-                        android:id="@+id/main_rest_interval_minus"
-                        android:layout_width="25dp"
-                        android:layout_height="35dp"
-                        android:layout_alignEnd="@+id/textView1"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginEnd="0dp"
-                        android:background="@drawable/button_normal"
-                        android:onClick="onClick"
-                        android:text="-"
-                        android:textColor="@color/white"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/main_rest_interval_time"
-                        android:layout_width="wrap_content"
-                        android:layout_height="35dp"
-                        android:layout_alignBaseline="@+id/main_workout_interval_minus"
-                        android:layout_alignBottom="@+id/main_workout_interval_minus"
-                        android:layout_toStartOf="@+id/main_workout_interval_plus"
-                        android:layout_weight="0.11"
-                        android:gravity="center"
-                        android:text="00 : 00"
-                        android:textColor="@color/black"
-                        android:textSize="24sp"
-                        android:textStyle="bold" />
-
-                    <Button
-                        android:id="@+id/main_rest_interval_plus"
-                        android:layout_width="25dp"
-                        android:layout_height="35dp"
-                        android:layout_alignEnd="@+id/main_text_work_interval"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginEnd="0dp"
-                        android:background="@drawable/button_normal"
-                        android:onClick="onClick"
-                        android:text="+"
-                        android:textColor="@color/white"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
+                    android:layout_weight="0.2" />
 
                 <Space
                     android:layout_width="wrap_content"
@@ -306,10 +226,9 @@
             android:gravity="top">
 
             <LinearLayout
-                android:layout_width="190dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="top|center"
-                android:layout_weight="0.9"
+                android:layout_weight="1"
                 android:gravity="fill_vertical"
                 android:orientation="horizontal">
 
@@ -318,46 +237,16 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.3" />
 
-                <Button
-                    android:id="@+id/main_sets_minus"
-                    android:layout_width="25dp"
-                    android:layout_height="35dp"
-                    android:layout_alignEnd="@+id/textView1"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginEnd="0dp"
-                    android:background="@drawable/button_normal"
-                    android:onClick="onClick"
-                    android:text="-"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-                <TextView
+                <EditText
                     android:id="@+id/main_sets_amount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="35dp"
-                    android:layout_alignBaseline="@+id/main_workout_interval_minus"
-                    android:layout_alignBottom="@+id/main_workout_interval_minus"
-                    android:layout_toStartOf="@+id/main_workout_interval_plus"
-                    android:layout_weight="0.4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.2"
                     android:gravity="center"
-                    android:text="0"
+                    android:inputType="number"
+                    android:text="6"
                     android:textColor="@color/black"
                     android:textSize="24sp"
-                    android:textStyle="bold" />
-
-                <Button
-                    android:id="@+id/main_sets_plus"
-                    android:layout_width="25dp"
-                    android:layout_height="35dp"
-                    android:layout_alignEnd="@+id/main_text_work_interval"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginEnd="0dp"
-                    android:background="@drawable/button_normal"
-                    android:onClick="onClick"
-                    android:text="+"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
                     android:textStyle="bold" />
 
                 <Space
