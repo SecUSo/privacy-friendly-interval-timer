@@ -26,12 +26,12 @@ https://www.fitness-gesundheit.uni-wuppertal.de/fileadmin/fitness-gesundheit/pdf
 ### API Reference
 
 Mininum SDK: 21
-Target SDK: 24 
+Target SDK: 29 
 
 ## License
 
 Privacy Friendly Interval Timer is licensed under the GPLv3.
-Copyright (C) 2017-2018  Alexander Karakuz
+Copyright (C) 2017-2020  Alexander Karakuz, Christopher Beckmann
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -46,7 +46,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-The icons used in the nagivation drawer are licensed under the [CC BY 2.5](http://creativecommons.org/licenses/by/2.5/). In addition to them the app uses icons from [Google Design Material Icons](https://design.google.com/icons/index.html) licensed under Apache License Version 2.0. All other images (the logo of Privacy Friendly Apps, the SECUSO logo, the app icons and the splash icon) copyright [Karlsruher Institut für Technologie](www.kit.edu) (2017-2020).
+The icons used in the nagivation drawer are licensed under the [CC BY 2.5](http://creativecommons.org/licenses/by/2.5/). In addition to them the app uses icons from [Google Design Material Icons](https://design.google.com/icons/index.html) licensed under Apache License Version 2.0. All other images (the logo of Privacy Friendly Apps, the SECUSO logo, the app icons and the splash icon) copyright [Karlsruher Institut für Technologie](www.kit.edu) (2020).
 
 ## Contributors
 
@@ -56,7 +56,8 @@ Markus Hau<br />
 Github-Users: <br />
 alexkarakuz <br />
 Yonjuni (Karola Marky)<br />
-Kamuno
+Kamuno<br />
+sleep-yearning
 
 ## Dev notes
 
