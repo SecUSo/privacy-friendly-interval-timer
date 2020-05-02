@@ -27,7 +27,8 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.SwitchPreference;
-import android.support.v7.app.ActionBar;
+
+import androidx.appcompat.app.ActionBar;
 import android.view.MenuItem;
 
 import org.secuso.privacyfriendlyintervaltimer.R;

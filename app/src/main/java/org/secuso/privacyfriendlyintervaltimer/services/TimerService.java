@@ -15,7 +15,8 @@ import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
-import android.support.v4.app.NotificationCompat;
+
+import androidx.core.app.NotificationCompat;
 import android.widget.RemoteViews;
 
 import org.secuso.privacyfriendlyintervaltimer.R;
