@@ -128,10 +128,10 @@ public class WorkoutActivity extends AppCompatActivity {
             public void onClick(View view) {
                 fab.setSelected(!fab.isSelected());
                 if (fab.isSelected() && timerService != null){
-                    fab.setImageResource(R.drawable.ic_play_24dp);
+                    fab.setImageResource(R.drawable.ic_play_48dp);
                     timerService.pauseTimer();
                 } else if (timerService != null) {
-                    fab.setImageResource(R.drawable.ic_pause_24dp);
+                    fab.setImageResource(R.drawable.ic_pause_48dp);
                     timerService.resumeTimer();
                 }
             }
@@ -391,11 +391,11 @@ public class WorkoutActivity extends AppCompatActivity {
             progressBar.setAlpha(1.0f);
 
             if (isPaused){
-                fab.setImageResource(R.drawable.ic_play_24dp);
+                fab.setImageResource(R.drawable.ic_play_48dp);
                 fab.setSelected(true);
             }
             else {
-                fab.setImageResource(R.drawable.ic_pause_24dp);
+                fab.setImageResource(R.drawable.ic_pause_48dp);
                 fab.setSelected(false);
             }
 
@@ -409,7 +409,6 @@ public class WorkoutActivity extends AppCompatActivity {
     /**
      * Build and show an AlertDialog for when the workout is canceled
      *
-     * @return The AlertDialog
      */
     private void showCancelAlert(final boolean showFinish){
         if(timerService != null){

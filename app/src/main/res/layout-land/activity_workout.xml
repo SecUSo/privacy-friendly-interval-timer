@@ -34,6 +34,7 @@
                 android:background="@null"
                 android:clickable="true"
                 android:src="@drawable/ic_volume_loud_24dp"
+                android:focusable="true"
                 android:tint="@color/white" />
 
             <TextView
@@ -47,6 +48,7 @@
                 android:paddingRight="15dp"
                 android:text="@string/workout_finish_button"
                 android:textColor="@color/white"
+                android:focusable="true"
                 android:textSize="18sp" />
         </LinearLayout>
 
@@ -56,13 +58,14 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_pause_resume"
-        android:layout_width="69dp"
-        android:layout_height="68dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         android:background="@drawable/button_fullwidth"
         android:onClick="onClick"
-        android:src="@drawable/ic_pause_24dp"
+        android:src="@drawable/ic_pause_48dp"
+        app:maxImageSize="48dp"
         app:backgroundTint="@color/colorPrimary" />
 
     <LinearLayout

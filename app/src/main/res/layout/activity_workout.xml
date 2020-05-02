@@ -9,62 +9,6 @@
     tools:context="org.secuso.privacyfriendlyintervaltimer.activities.WorkoutActivity">
 
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:gravity="right"
-        android:theme="@style/AppTheme.AppBarOverlay">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.8" />
-
-            <ImageButton
-                android:id="@+id/volume_button"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
-                android:layout_weight="0.1"
-                android:background="@null"
-                android:clickable="true"
-                android:src="@drawable/ic_volume_loud_24dp"
-                android:tint="@color/white" />
-
-            <TextView
-                android:id="@+id/finish_workout"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="0.1"
-                android:clickable="true"
-                android:gravity="center"
-                android:onClick="onClick"
-                android:paddingRight="15dp"
-                android:text="@string/workout_finish_button"
-                android:textColor="@color/white"
-                android:textSize="18sp" />
-        </LinearLayout>
-
-    </com.google.android.material.appbar.AppBarLayout>
-
-        <include layout="@layout/content_workout" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_pause_resume"
-            android:layout_width="69dp"
-            android:layout_height="68dp"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="@dimen/fab_margin"
-            android:onClick="onClick"
-            android:src="@drawable/ic_pause_24dp"
-            app:backgroundTint="@color/colorPrimary" />
-
     <LinearLayout
         android:id="@+id/finishedView"
         android:layout_width="match_parent"
@@ -141,7 +85,67 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textColor="@color/white"
             android:textSize="25sp"
+            android:focusable="true"
             android:textStyle="bold" />
     </LinearLayout>
+
+    <include layout="@layout/content_workout" />
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:gravity="right"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.8" />
+
+            <ImageButton
+                android:id="@+id/volume_button"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_weight="0.1"
+                android:background="@null"
+                android:clickable="true"
+                android:src="@drawable/ic_volume_loud_24dp"
+                android:focusable="true"
+                android:tint="@color/white" />
+
+            <TextView
+                android:id="@+id/finish_workout"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.1"
+                android:clickable="true"
+                android:gravity="center"
+                android:onClick="onClick"
+                android:paddingRight="15dp"
+                android:text="@string/workout_finish_button"
+                android:textColor="@color/white"
+                android:focusable="true"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_pause_resume"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:onClick="onClick"
+        android:src="@drawable/ic_pause_48dp"
+        app:maxImageSize="48dp"
+        app:backgroundTint="@color/colorPrimary" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
