@@ -34,5 +34,5 @@
         <item>@color/dot_dark_screen</item>
     </array>
 	
-	    <color name="ic_launcher_background">#3680BB</color>
+    <color name="ic_launcher_background">#3680BB</color>
 </resources>

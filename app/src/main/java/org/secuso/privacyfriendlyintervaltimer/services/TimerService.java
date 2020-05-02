@@ -17,8 +17,11 @@ import android.os.IBinder;
 import android.preference.PreferenceManager;
 
 import androidx.core.app.NotificationCompat;
+import androidx.core.content.ContextCompat;
+
 import android.widget.RemoteViews;
 
+import org.secuso.privacyfriendlyintervaltimer.IntervalTimerApp;
 import org.secuso.privacyfriendlyintervaltimer.R;
 import org.secuso.privacyfriendlyintervaltimer.activities.WorkoutActivity;
 import org.secuso.privacyfriendlyintervaltimer.database.PFASQLiteHelper;
@@ -627,28 +630,33 @@ public class TimerService extends Service {
         message += " | "+ this.getResources().getString(R.string.workout_notification_time)+ ": " + time;
         message += " | "+ this.getResources().getString(R.string.workout_info)+ ": " + currentSet + "/" + sets;
 
-        RemoteViews notificationView = new RemoteViews(getPackageName(), R.layout.workout_notification);
+//        RemoteViews notificationView = new RemoteViews(getPackageName(), R.layout.workout_notification);
+
+        boolean paused = (isPaused && !currentTitle.equals(getString(R.string.workout_headline_done)));
+        int buttonID = paused ? R.drawable.ic_notification_play_24dp : R.drawable.ic_notification_pause_24dp;
+
+//        notificationView.setImageViewResource(R.id.notification_button, buttonID);
+//        notificationView.setImageViewResource(R.id.notification_icon,R.drawable.ic_notification);
+//
+//        notificationView.setTextViewText(R.id.notification_title,this.getResources().getString(R.string.app_name));
+//        notificationView.setTextViewText(R.id.notification_icon_title,this.getResources().getString(R.string.app_name));
+//        notificationView.setTextViewText(R.id.notification_info, message);
+//
+//        notificationView.setOnClickPendingIntent(R.id.notification_button, buttonPendingIntent);
 
 
-        int buttonID = (isPaused && !currentTitle.equals(getResources().getString(R.string.workout_headline_done)))
-                ? R.drawable.ic_notification_play_24dp : R.drawable.ic_notification_pause_24dp;
-
-
-        notificationView.setImageViewResource(R.id.notification_button, buttonID);
-        notificationView.setImageViewResource(R.id.notification_icon,R.drawable.ic_circletraining_logo_24dp);
-
-        notificationView.setTextViewText(R.id.notification_title,this.getResources().getString(R.string.app_name));
-        notificationView.setTextViewText(R.id.notification_icon_title,this.getResources().getString(R.string.app_name));
-        notificationView.setTextViewText(R.id.notification_info, message);
-
-        notificationView.setOnClickPendingIntent(R.id.notification_button, buttonPendingIntent);
-
-
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.drawable.ic_circletraining_logo_white_24dp)
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, IntervalTimerApp.CHANNEL_ID)
+                .setColor(ContextCompat.getColor(this, R.color.colorAccent))
+                .setSmallIcon(R.drawable.ic_notification)
+                .setContentTitle(getString(R.string.app_name))
+                .setColorized(true)
                 .setAutoCancel(true)
-                .setCustomContentView(notificationView)
-                .setCustomBigContentView(notificationView)
+                .addAction(buttonID, paused ? getString(R.string.workout_notification_resume): getString(R.string.workout_notification_pause),buttonPendingIntent)
+                .setContentText(message)
+                .setContentInfo(message)
+                .setSubText(message)
+                //.setCustomContentView(notificationView)
+                //.setCustomBigContentView(notificationView)
                 .setContentIntent(pendingIntent);
 
         return builder.build();

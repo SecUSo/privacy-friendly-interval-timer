@@ -79,7 +79,8 @@ public class MotivationAlertReceiver extends WakefulBroadcastReceiver {
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
 
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context.getApplicationContext())
-                .setSmallIcon(R.drawable.ic_circletraining_logo_white_24dp)
+                .setSmallIcon(R.drawable.ic_notification)
+                .setColor(ContextCompat.getColor(context, R.color.colorAccent))
                 .setContentTitle(context.getString(R.string.reminder_notification_title))
                 .setContentText(motivationText)
                 .setContentIntent(pendingIntent)
