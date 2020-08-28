@@ -21,6 +21,10 @@
         android:name="org.secuso.privacyfriendlyintervaltimer.IntervalTimerApp"
         android:theme="@style/AppTheme">
 
+        <meta-data
+            android:name="com.google.android.actions"
+            android:resource="@xml/actions" />
+
         <!-- SPLASH -->
         <activity
             android:name="org.secuso.privacyfriendlyintervaltimer.activities.SplashActivity"

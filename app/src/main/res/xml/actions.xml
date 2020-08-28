@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<actions>
+    <action intentName="actions.intent.START_EXERCISE">
+        <fulfillment urlTemplate="https://actions.google.intervaltimer.com/start"/>
+    </action>
 
-</PreferenceScreen>
+    <action intentName="actions.intent.STOP_EXERCISE">
+        <fulfillment urlTemplate="https://actions.google.intervaltimer.com/stop" />
+    </action>
+</actions>
