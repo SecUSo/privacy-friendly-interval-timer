@@ -20,6 +20,10 @@
         android:name="com.intervaltimer.google.IntervalTimerApp"
         android:theme="@style/AppTheme">
 
+        <meta-data
+            android:name="com.google.android.actions"
+            android:resource="@xml/actions" />
+
         <!-- SPLASH -->
         <activity
             android:name="com.intervaltimer.google.activities.SplashActivity"
