@@ -12,7 +12,6 @@
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -20,6 +19,8 @@
         android:supportsRtl="true"
         android:name="com.intervaltimer.google.IntervalTimerApp"
         android:theme="@style/AppTheme">
+
+        <!-- SPLASH -->
         <activity
             android:name="com.intervaltimer.google.activities.SplashActivity"
             android:theme="@style/SplashTheme">
@@ -29,13 +30,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
+        <!-- TUTORIAL -->
         <activity
             android:name="com.intervaltimer.google.tutorial.TutorialActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+
+
+        <!-- MAIN -->
         <activity
             android:name="com.intervaltimer.google.activities.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <!-- ABOUT -->
         <activity
             android:name="com.intervaltimer.google.activities.AboutActivity"
             android:label="@string/about"
@@ -45,6 +54,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.intervaltimer.google.activities.MainActivity" />
         </activity>
+
+        <!-- HELP -->
         <activity
             android:name="com.intervaltimer.google.activities.HelpActivity"
             android:label="@string/help"
@@ -54,6 +65,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.intervaltimer.google.activities.MainActivity" />
         </activity>
+
+        <!-- SETTINGS -->
         <activity
             android:name="com.intervaltimer.google.activities.SettingsActivity"
             android:label="@string/title_activity_settings"
@@ -62,6 +75,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.intervaltimer.google.activities.MainActivity" />
         </activity>
+
+        <!-- WORKOUT -->
         <activity
             android:name="com.intervaltimer.google.activities.WorkoutActivity"
             android:label="@string/title_activity_workout"
@@ -72,6 +87,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.intervaltimer.google.activities.MainActivity" />
         </activity>
+
+        <!-- MOTIVATION -->
         <activity
             android:name="com.intervaltimer.google.activities.MotivationAlertTextsActivity"
             android:label="@string/title_activity_motivation_alert_texts"
@@ -79,6 +96,17 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.intervaltimer.google.activities.SettingsActivity" />
+        </activity>
+
+        <!-- STATISTICS -->
+        <activity
+            android:name="com.intervaltimer.google.activities.StatisticsActivity"
+            android:label="@string/title_activity_statistics"
+            android:parentActivityName="com.intervaltimer.google.activities.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.intervaltimer.google.activities.MainActivity" />
         </activity>
 
         <service
@@ -93,16 +121,6 @@
         </receiver>
 
         <receiver android:name="com.intervaltimer.google.receivers.MotivationAlertReceiver" />
-
-        <activity
-            android:name="com.intervaltimer.google.activities.StatisticsActivity"
-            android:label="@string/title_activity_statistics"
-            android:parentActivityName="com.intervaltimer.google.activities.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.intervaltimer.google.activities.MainActivity" />
-        </activity>
     </application>
 
 </manifest>
