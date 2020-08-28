@@ -20,6 +20,8 @@
         android:supportsRtl="true"
         android:name="org.secuso.privacyfriendlyintervaltimer.IntervalTimerApp"
         android:theme="@style/AppTheme">
+
+        <!-- SPLASH -->
         <activity
             android:name="org.secuso.privacyfriendlyintervaltimer.activities.SplashActivity"
             android:theme="@style/SplashTheme">
@@ -29,13 +31,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
+        <!-- TUTORIAL -->
         <activity
             android:name="org.secuso.privacyfriendlyintervaltimer.tutorial.TutorialActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+
+
+        <!-- MAIN -->
         <activity
             android:name="org.secuso.privacyfriendlyintervaltimer.activities.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <!-- ABOUT -->
         <activity
             android:name="org.secuso.privacyfriendlyintervaltimer.activities.AboutActivity"
             android:label="@string/about"
@@ -45,6 +55,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.secuso.privacyfriendlyintervaltimer.activities.MainActivity" />
         </activity>
+
+        <!-- HELP -->
         <activity
             android:name="org.secuso.privacyfriendlyintervaltimer.activities.HelpActivity"
             android:label="@string/help"
@@ -54,6 +66,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.secuso.privacyfriendlyintervaltimer.activities.MainActivity" />
         </activity>
+
+        <!-- SETTINGS -->
         <activity
             android:name="org.secuso.privacyfriendlyintervaltimer.activities.SettingsActivity"
             android:label="@string/title_activity_settings"
@@ -62,6 +76,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.secuso.privacyfriendlyintervaltimer.activities.MainActivity" />
         </activity>
+
+        <!-- WORKOUT -->
         <activity
             android:name="org.secuso.privacyfriendlyintervaltimer.activities.WorkoutActivity"
             android:label="@string/title_activity_workout"
@@ -72,6 +88,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.secuso.privacyfriendlyintervaltimer.activities.MainActivity" />
         </activity>
+
+        <!-- MOTIVATION -->
         <activity
             android:name="org.secuso.privacyfriendlyintervaltimer.activities.MotivationAlertTextsActivity"
             android:label="@string/title_activity_motivation_alert_texts"
@@ -92,8 +110,9 @@
             </intent-filter>
         </receiver>
 
-        <receiver android:name="org.secuso.privacyfriendlyintervaltimer.receivers.MotivationAlertReceiver" />
+	 <receiver android:name="org.secuso.privacyfriendlyintervaltimer.receivers.MotivationAlertReceiver" />
 
+	<!-- STATISTICS -->
         <activity
             android:name="org.secuso.privacyfriendlyintervaltimer.activities.StatisticsActivity"
             android:label="@string/title_activity_statistics"
@@ -103,6 +122,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.secuso.privacyfriendlyintervaltimer.activities.MainActivity" />
         </activity>
+
     </application>
 
 </manifest>
