@@ -16,7 +16,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:fitsSystemWindows="true"
-        tools:context="org.secuso.privacyfriendlyintervaltimer.Activities.MainActivity">
+        tools:context="com.intervaltimer.google.Activities.MainActivity">
 
         <include layout="@layout/toolbar"/>
         <include layout="@layout/content_statistics" />

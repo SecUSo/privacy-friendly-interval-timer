@@ -4,19 +4,19 @@
         android:icon="@drawable/ic_info_black_24dp"
         android:title="@string/pref_header_general" /> -->
     <header
-        android:fragment="org.secuso.privacyfriendlyintervaltimer.activities.SettingsActivity$WorkoutPreferenceFragment"
+        android:fragment="com.intervaltimer.google.activities.SettingsActivity$WorkoutPreferenceFragment"
         android:icon="@drawable/ic_workout_24dp"
         android:title="@string/pref_header_workout" />
     <header
-        android:fragment="org.secuso.privacyfriendlyintervaltimer.activities.SettingsActivity$StatisticsPreferenceFragment"
+        android:fragment="com.intervaltimer.google.activities.SettingsActivity$StatisticsPreferenceFragment"
         android:icon="@drawable/ic_statistics_24dp"
         android:title="@string/pref_header_statistics" />
     <header
-        android:fragment="org.secuso.privacyfriendlyintervaltimer.activities.SettingsActivity$PersonalizationPreferenceFragment"
+        android:fragment="com.intervaltimer.google.activities.SettingsActivity$PersonalizationPreferenceFragment"
         android:icon="@drawable/ic_personalization_24dp"
         android:title="@string/pref_header_personalization" />
     <header
-        android:fragment="org.secuso.privacyfriendlyintervaltimer.activities.SettingsActivity$NotificationPreferenceFragment"
+        android:fragment="com.intervaltimer.google.activities.SettingsActivity$NotificationPreferenceFragment"
         android:icon="@drawable/ic_bell_plus_24dp"
         android:title="@string/pref_header_notification" />
 </preference-headers>

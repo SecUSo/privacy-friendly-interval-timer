@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="org.secuso.privacyfriendlyintervaltimer.activities.MotivationAlertTextsActivity"
+    tools:context="com.intervaltimer.google.com.intervaltimer.google.activities.MotivationAlertTextsActivity"
     tools:showIn="@layout/activity_motivation_alert_texts">
 
 </androidx.constraintlayout.widget.ConstraintLayout>

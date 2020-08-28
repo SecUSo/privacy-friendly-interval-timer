@@ -6,7 +6,7 @@
             android:defaultValue="false"/>
 
         <!-- default is 18:00 -->
-        <org.secuso.privacyfriendlyintervaltimer.preferences.TimePreference
+        <com.intervaltimer.google.preferences.TimePreference
             android:defaultValue="64800000"
             android:key="@string/pref_notification_motivation_alert_time"
             android:title="@string/pref_title_notification_motivation_alert_time" />

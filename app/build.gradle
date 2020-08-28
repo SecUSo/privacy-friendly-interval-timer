@@ -4,7 +4,7 @@ android {
     compileSdkVersion 29
 
     defaultConfig {
-        applicationId "org.secuso.privacyfriendlyintervaltimer"
+        applicationId "com.intervaltimer.google"
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 4

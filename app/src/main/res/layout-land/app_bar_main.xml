@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="org.secuso.privacyfriendlyintervaltimer.activities.MainActivity">
+    tools:context="com.intervaltimer.google.com.intervaltimer.google.activities.MainActivity">
 
     <include layout="@layout/toolbar"/>
 

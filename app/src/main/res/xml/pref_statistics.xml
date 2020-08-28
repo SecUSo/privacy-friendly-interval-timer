@@ -8,7 +8,7 @@
             android:summary="@string/pref_calories_counter_summary"
             android:defaultValue="true"/>
 
-        <org.secuso.privacyfriendlyintervaltimer.preferences.DeletePreference
+        <com.intervaltimer.google.preferences.DeletePreference
             android:key="@string/pref_delete_statistics_dialog"
             android:title="@string/pref_delete_statistics_dialog_title"/>
 
