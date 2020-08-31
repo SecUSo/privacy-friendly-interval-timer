@@ -43,6 +43,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.intervaltimer.google.R;
 import com.intervaltimer.google.services.TimerService;
@@ -93,6 +94,17 @@ public class WorkoutActivity extends AppCompatActivity {
         setContentView(R.layout.activity_workout);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        Intent receivedIntent = getIntent();
+        Toast show;
+        if (receivedIntent != null) {
+            show = Toast.makeText(getApplicationContext(),
+                    "Intent: " + receivedIntent.toString(), Toast.LENGTH_LONG);
+        } else {
+            show = Toast.makeText(getApplicationContext(),
+                    "No intent", Toast.LENGTH_LONG);
+        }
+        show.show();
 
         // Bind to LocalService
         Intent intent = new Intent(this, TimerService.class);
