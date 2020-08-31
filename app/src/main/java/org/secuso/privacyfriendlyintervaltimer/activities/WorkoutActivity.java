@@ -95,17 +95,6 @@ public class WorkoutActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Intent receivedIntent = getIntent();
-        Toast show;
-        if (receivedIntent != null) {
-            show = Toast.makeText(getApplicationContext(),
-                    "Intent: " + receivedIntent.toString(), Toast.LENGTH_LONG);
-        } else {
-            show = Toast.makeText(getApplicationContext(),
-                    "No intent", Toast.LENGTH_LONG);
-        }
-        show.show();
-
         // Bind to LocalService
         Intent intent = new Intent(this, TimerService.class);
         bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
