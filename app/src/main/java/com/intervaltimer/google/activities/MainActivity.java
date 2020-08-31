@@ -32,6 +32,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.intervaltimer.google.R;
 import com.intervaltimer.google.helpers.NotificationHelper;
@@ -40,6 +41,7 @@ import com.intervaltimer.google.tutorial.PrefManager;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Objects;
 
 /**
  * Main view that lets the user choose the timer intervals and has a button to start the workout
@@ -55,11 +57,11 @@ public class MainActivity extends BaseActivity {
 
 
     // Default values for the timers
-    private final int workoutTimeDefault = 60;
-    private final int restTimeDefault = 30;
-    private final int setsDefault = 6;
-    private final int blockPeriodizationTimeDefault = 90;
-    private final int blockPeriodizationSetsDefault = 1;
+    static private final int workoutTimeDefault = 60;
+    static private final int restTimeDefault = 30;
+    static private final int setsDefault = 6;
+    static private final int blockPeriodizationTimeDefault = 90;
+    static private final int blockPeriodizationSetsDefault = 1;
 
     // General
     private SharedPreferences settings = null;
@@ -136,6 +138,25 @@ public class MainActivity extends BaseActivity {
             prefManager.setFirstTimeLaunch(false);
             showPersonalizationAlert();
         }
+
+        Intent receivedIntent = getIntent();
+        Toast show;
+        if (receivedIntent != null) {
+            show = Toast.makeText(getApplicationContext(),
+                    "Intent: " + receivedIntent.toString(), Toast.LENGTH_LONG);
+            if (Objects.equals(receivedIntent.getAction(), Intent.ACTION_VIEW)) {
+                getWindow().getDecorView().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        startWorkout();
+                    }
+                });
+            }
+        } else {
+            show = Toast.makeText(getApplicationContext(),
+                    "No intent", Toast.LENGTH_LONG);
+        }
+        show.show();
     }
 
 
@@ -147,7 +168,6 @@ public class MainActivity extends BaseActivity {
     protected int getNavigationDrawerID() {
         return R.id.nav_main;
     }
-
 
     /**
      * Click functions for timer values, block periodization AlertDialog and workout start button
@@ -165,71 +185,74 @@ public class MainActivity extends BaseActivity {
                 this.blockPeriodizationSwitchButton.setChecked(!this.blockPeriodizationSwitchButton.isChecked());
                 break;
             case R.id.start_workout:
-                intent = new Intent(this, WorkoutActivity.class);
-
-                boolean parseFail = false;
-
-                // Get and parse the workout interval
-                EditText workoutText = (EditText)findViewById(R.id.main_workout_interval_time);
-                String workoutValue = workoutText.getText().toString();
-                if (!(workoutValue.matches(timeVerificationPattern))) {
-                    workoutText.setError("Enter a time in the format mm:ss");
-                    parseFail = true;
-                }
-
-                try {
-                    this.workoutTime = parseTime(workoutValue);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    workoutText.setError(e.getMessage());
-                    parseFail = true;
-                }
-
-                // Get and parse the rest interval
-                EditText restText = (EditText)findViewById(R.id.main_rest_interval_time);
-                String restValue = restText.getText().toString();
-                if (!(restValue.matches(timeVerificationPattern))) {
-                    restText.setError("Enter a time in the format mm:ss");
-                    parseFail = true;
-                }
-
-                try {
-                    this.restTime = parseTime(restValue);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    restText.setError(e.getMessage());
-                    parseFail = true;
-                }
-
-                // Get and parse the number of sets
-                EditText setsText = (EditText)findViewById(R.id.main_sets_amount);
-                String setsValue = setsText.getText().toString();
-                if (!(setsValue.matches(setsVerificationPattern))) {
-                    setsText.setError("Enter an integer");
-                    parseFail = true;
-                }
-
-                try {
-                    this.sets = Integer.parseInt(setsValue);
-                } catch (Exception e){
-                    e.printStackTrace();
-                }
-
-                // Start the workout if there were no problems
-                if (!parseFail) {
-                    if (isStartTimerEnabled(this)) {
-                        timerService.startWorkout(workoutTime, restTime, startTime, sets,
-                                isBlockPeriodization, blockPeriodizationTime, blockPeriodizationSets);
-                    } else {
-                        timerService.startWorkout(workoutTime, restTime, 0, sets,
-                                isBlockPeriodization, blockPeriodizationTime, blockPeriodizationSets);
-                    }
-
-                    this.startActivity(intent);
-                }
-
+                startWorkout();
                 break;
             default:
+        }
+    }
+
+    private void startWorkout() {
+        intent = new Intent(this, WorkoutActivity.class);
+
+        boolean parseFail = false;
+
+        // Get and parse the workout interval
+        EditText workoutText = (EditText)findViewById(R.id.main_workout_interval_time);
+        String workoutValue = workoutText.getText().toString();
+        if (!(workoutValue.matches(timeVerificationPattern))) {
+            workoutText.setError("Enter a time in the format mm:ss");
+            parseFail = true;
+        }
+
+        try {
+            this.workoutTime = parseTime(workoutValue);
+        } catch (Exception e) {
+            e.printStackTrace();
+            workoutText.setError(e.getMessage());
+            parseFail = true;
+        }
+
+        // Get and parse the rest interval
+        EditText restText = (EditText)findViewById(R.id.main_rest_interval_time);
+        String restValue = restText.getText().toString();
+        if (!(restValue.matches(timeVerificationPattern))) {
+            restText.setError("Enter a time in the format mm:ss");
+            parseFail = true;
+        }
+
+        try {
+            this.restTime = parseTime(restValue);
+        } catch (Exception e) {
+            e.printStackTrace();
+            restText.setError(e.getMessage());
+            parseFail = true;
+        }
+
+        // Get and parse the number of sets
+        EditText setsText = (EditText)findViewById(R.id.main_sets_amount);
+        String setsValue = setsText.getText().toString();
+        if (!(setsValue.matches(setsVerificationPattern))) {
+            setsText.setError("Enter an integer");
+            parseFail = true;
+        }
+
+        try {
+            this.sets = Integer.parseInt(setsValue);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+        // Start the workout if there were no problems
+        if (!parseFail) {
+            if (isStartTimerEnabled(this)) {
+                timerService.startWorkout(workoutTime, restTime, startTime, sets,
+                        isBlockPeriodization, blockPeriodizationTime, blockPeriodizationSets);
+            } else {
+                timerService.startWorkout(workoutTime, restTime, 0, sets,
+                        isBlockPeriodization, blockPeriodizationTime, blockPeriodizationSets);
+            }
+
+            this.startActivity(intent);
         }
     }
 
