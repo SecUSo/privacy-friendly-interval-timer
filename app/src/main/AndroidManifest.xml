@@ -91,6 +91,14 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.secuso.privacyfriendlyintervaltimer.activities.MainActivity" />
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data
+                    android:host="actions.google.intervaltimer.com"
+                    android:scheme="https" />
+            </intent-filter>
         </activity>
 
         <!-- MOTIVATION -->
