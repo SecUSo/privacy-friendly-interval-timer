@@ -25,6 +25,7 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -54,6 +55,7 @@ public class MainActivity extends BaseActivity {
     // Constants for input
     private final String timeVerificationPattern = "[0-9]{1,2} ?: ?[0-9]{1,2}";
     private final String setsVerificationPattern = "[0-9]*";
+    private final String LONG_INTENT_TAG = "INTENT";
 
 
     // Default values for the timers
@@ -140,15 +142,42 @@ public class MainActivity extends BaseActivity {
         }
 
         Intent receivedIntent = getIntent();
+        Log.i(LONG_INTENT_TAG, "Intent in onCreate() triggered");
+        handleIntent(receivedIntent);
+    }
+
+    @Override
+    protected void onNewIntent(final Intent intent) {
+        super.onNewIntent(intent);
+        Log.i(LONG_INTENT_TAG, "Intent triggered");
+        handleIntent(intent);
+    }
+
+    public void handleIntent(final Intent receivedIntent) {
         Toast show;
         if (receivedIntent != null) {
             show = Toast.makeText(getApplicationContext(),
                     "Intent: " + receivedIntent.toString(), Toast.LENGTH_LONG);
             if (Objects.equals(receivedIntent.getAction(), Intent.ACTION_VIEW)) {
+                Log.i(LONG_INTENT_TAG, Objects.requireNonNull(receivedIntent.getData()).toString());
                 getWindow().getDecorView().post(new Runnable() {
                     @Override
                     public void run() {
-                        startWorkout();
+                        boolean isWorkout = timerService.getIsWorkout();
+                        Log.i(LONG_INTENT_TAG, "Workout status " + isWorkout);
+                        Log.i(LONG_INTENT_TAG, "Current title: " + timerService.getCurrentTitle());
+                        Log.i(LONG_INTENT_TAG, "Is paused?: " + timerService.getIsPaused());
+                        Log.i(LONG_INTENT_TAG, "Current set: " + timerService.getCurrentSet());
+                        String title = timerService.getCurrentTitle();
+                        if (!Objects.equals(title, getString(R.string.workout_headline_start_timer)) &&
+                                !Objects.equals(title, getString(R.string.workout_headline_workout))) {
+                            startWorkout();
+                        } else{
+                            Toast.makeText(getApplicationContext(),
+                                    "Workout is already in progress",
+                                    Toast.LENGTH_LONG).show();
+                            switchToActiveWorkout();
+                        }
                     }
                 });
             }
@@ -158,7 +187,6 @@ public class MainActivity extends BaseActivity {
         }
         show.show();
     }
-
 
     /**
      * This method connects the Activity to the menu item
@@ -254,6 +282,10 @@ public class MainActivity extends BaseActivity {
 
             this.startActivity(intent);
         }
+    }
+
+    private void switchToActiveWorkout() {
+        this.startActivity(intent);
     }
 
     /**
