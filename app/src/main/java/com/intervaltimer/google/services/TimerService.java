@@ -75,7 +75,7 @@ public class TimerService extends Service {
     //Timer Flags
     private boolean isBlockPeriodization = false;
     private boolean isStarttimer = false;
-    private boolean isWorkout = false;
+    private boolean isWorkout = false; // If there is workout in progress (as opposed to rest)
     private boolean isPaused = false;
     private boolean isCancelAlert = false;
 
