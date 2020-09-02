@@ -49,6 +49,7 @@ import com.intervaltimer.google.R;
 import com.intervaltimer.google.services.TimerService;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * Workout view with a workout and rest timer.
@@ -159,6 +160,21 @@ public class WorkoutActivity extends AppCompatActivity {
         });
 
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    protected void onNewIntent(Intent receivedIntent) {
+        // EXERCISE_STOP
+        super.onNewIntent(receivedIntent);
+        Toast show;
+        if (receivedIntent != null) {
+            show = Toast.makeText(getApplicationContext(),
+                    "Intent: " + receivedIntent.toString(), Toast.LENGTH_LONG);
+            show.show();
+            if (Objects.equals(receivedIntent.getAction(), Intent.ACTION_VIEW)) {
+                finishWorkout(false);
+            }
+        }
     }
 
 
@@ -341,17 +357,20 @@ public class WorkoutActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.finish_workout:
-                if(isCancelDialogEnabled(this)){
-                    showCancelAlert(true);
-                }
-                else {
-                    showFinishedView();
-                }
+                finishWorkout(true);
                 break;
             default:
         }
     }
 
+    void finishWorkout(boolean askForCancellation) {
+        if(isCancelDialogEnabled(this) && askForCancellation){
+            showCancelAlert(true);
+        }
+        else {
+            showFinishedView();
+        }
+    }
 
     /**
      * Update all GUI elements by getting the current timer values from the TimerService
