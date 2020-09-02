@@ -170,8 +170,7 @@ public class MainActivity extends BaseActivity {
                         Log.i(LONG_INTENT_TAG, "Is paused?: " + timerService.getIsPaused());
                         Log.i(LONG_INTENT_TAG, "Current set: " + timerService.getCurrentSet());
                         String title = timerService.getCurrentTitle();
-                        if (!Objects.equals(title, getString(R.string.workout_headline_start_timer)) &&
-                                !Objects.equals(title, getString(R.string.workout_headline_workout))) {
+                        if (title.isEmpty() || Objects.equals(title, getString(R.string.workout_headline_done))) {
                             startWorkout();
                         } else{
                             Toast.makeText(getApplicationContext(),
