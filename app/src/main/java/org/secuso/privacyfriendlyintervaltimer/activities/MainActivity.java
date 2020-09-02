@@ -154,10 +154,11 @@ public class MainActivity extends BaseActivity {
     }
 
     public void handleIntent(final Intent receivedIntent) {
+        // EXERCISE_START
         Toast show;
         if (receivedIntent != null) {
-            show = Toast.makeText(getApplicationContext(),
-                    "Intent: " + receivedIntent.toString(), Toast.LENGTH_LONG);
+//            show = Toast.makeText(getApplicationContext(),
+//                    "Intent: " + receivedIntent.toString(), Toast.LENGTH_LONG);
             if (Objects.equals(receivedIntent.getAction(), Intent.ACTION_VIEW)) {
                 Log.i(LONG_INTENT_TAG, Objects.requireNonNull(receivedIntent.getData()).toString());
                 getWindow().getDecorView().post(new Runnable() {
@@ -181,11 +182,12 @@ public class MainActivity extends BaseActivity {
                     }
                 });
             }
-        } else {
-            show = Toast.makeText(getApplicationContext(),
-                    "No intent", Toast.LENGTH_LONG);
         }
-        show.show();
+//        else {
+//            show = Toast.makeText(getApplicationContext(),
+//                    "No intent", Toast.LENGTH_LONG);
+//        }
+//        show.show();
     }
 
     /**
@@ -285,6 +287,8 @@ public class MainActivity extends BaseActivity {
     }
 
     private void switchToActiveWorkout() {
+        timerService.cleanTimerFinish();
+        startWorkout();
         this.startActivity(intent);
     }
 
