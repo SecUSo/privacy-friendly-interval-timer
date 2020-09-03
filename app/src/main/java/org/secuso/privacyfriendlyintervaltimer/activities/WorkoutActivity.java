@@ -366,8 +366,7 @@ public class WorkoutActivity extends AppCompatActivity {
     void finishWorkout(boolean askForCancellation) {
         if(isCancelDialogEnabled(this) && askForCancellation){
             showCancelAlert(true);
-        }
-        else {
+        } else {
             showFinishedView();
         }
     }

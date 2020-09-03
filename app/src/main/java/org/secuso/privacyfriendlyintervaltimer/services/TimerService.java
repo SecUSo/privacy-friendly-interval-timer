@@ -19,6 +19,7 @@ import android.preference.PreferenceManager;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 
+import android.util.Log;
 import android.widget.RemoteViews;
 
 import org.secuso.privacyfriendlyintervaltimer.IntervalTimerApp;
@@ -763,6 +764,13 @@ public class TimerService extends Service {
         database.updateWorkoutData(new WorkoutSessionData(id, totalTimeSpentTraining, totalCaloriesBurnt));
         this.timeSpentWorkingOut = 0;
         this.caloriesBurned = 0;
+    }
+
+    public void logWorkoutInfo(String tag) {
+        Log.i(tag, "Workout status " + isWorkout);
+        Log.i(tag, "Current title: " + currentTitle);
+        Log.i(tag, "Is paused?: " + isPaused);
+        Log.i(tag, "Current set: " + currentSet);
     }
 
 

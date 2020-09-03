@@ -40,8 +40,6 @@ import org.secuso.privacyfriendlyintervaltimer.helpers.NotificationHelper;
 import org.secuso.privacyfriendlyintervaltimer.services.TimerService;
 import org.secuso.privacyfriendlyintervaltimer.tutorial.PrefManager;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Objects;
 
 /**
@@ -55,15 +53,15 @@ public class MainActivity extends BaseActivity {
     // Constants for input
     private final String timeVerificationPattern = "[0-9]{1,2} ?: ?[0-9]{1,2}";
     private final String setsVerificationPattern = "[0-9]*";
-    private final String LONG_INTENT_TAG = "INTENT";
+    private final String LOG_INTENT_TAG = "INTENT";
 
 
     // Default values for the timers
-    static private final int workoutTimeDefault = 60;
-    static private final int restTimeDefault = 30;
-    static private final int setsDefault = 6;
-    static private final int blockPeriodizationTimeDefault = 90;
-    static private final int blockPeriodizationSetsDefault = 1;
+    private final int workoutTimeDefault = 60;
+    private final int restTimeDefault = 30;
+    private final int setsDefault = 6;
+    private final int blockPeriodizationTimeDefault = 90;
+    private final int blockPeriodizationSetsDefault = 1;
 
     // General
     private SharedPreferences settings = null;
@@ -142,33 +140,26 @@ public class MainActivity extends BaseActivity {
         }
 
         Intent receivedIntent = getIntent();
-        Log.i(LONG_INTENT_TAG, "Intent in onCreate() triggered");
+        Log.i(LOG_INTENT_TAG, "Intent in onCreate() triggered");
         handleIntent(receivedIntent);
     }
 
     @Override
     protected void onNewIntent(final Intent intent) {
         super.onNewIntent(intent);
-        Log.i(LONG_INTENT_TAG, "Intent triggered");
+        Log.i(LOG_INTENT_TAG, "Intent triggered");
         handleIntent(intent);
     }
 
     public void handleIntent(final Intent receivedIntent) {
         // EXERCISE_START
-        Toast show;
         if (receivedIntent != null) {
-//            show = Toast.makeText(getApplicationContext(),
-//                    "Intent: " + receivedIntent.toString(), Toast.LENGTH_LONG);
             if (Objects.equals(receivedIntent.getAction(), Intent.ACTION_VIEW)) {
-                Log.i(LONG_INTENT_TAG, Objects.requireNonNull(receivedIntent.getData()).toString());
+                Log.i(LOG_INTENT_TAG, Objects.requireNonNull(receivedIntent.getData()).toString());
                 getWindow().getDecorView().post(new Runnable() {
                     @Override
                     public void run() {
-                        boolean isWorkout = timerService.getIsWorkout();
-                        Log.i(LONG_INTENT_TAG, "Workout status " + isWorkout);
-                        Log.i(LONG_INTENT_TAG, "Current title: " + timerService.getCurrentTitle());
-                        Log.i(LONG_INTENT_TAG, "Is paused?: " + timerService.getIsPaused());
-                        Log.i(LONG_INTENT_TAG, "Current set: " + timerService.getCurrentSet());
+                        timerService.logWorkoutInfo(LOG_INTENT_TAG);
                         String title = timerService.getCurrentTitle();
                         if (title.isEmpty() || Objects.equals(title, getString(R.string.workout_headline_done))) {
                             startWorkout();
@@ -182,11 +173,6 @@ public class MainActivity extends BaseActivity {
                 });
             }
         }
-//        else {
-//            show = Toast.makeText(getApplicationContext(),
-//                    "No intent", Toast.LENGTH_LONG);
-//        }
-//        show.show();
     }
 
     /**
