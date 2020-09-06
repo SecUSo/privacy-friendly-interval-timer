@@ -118,8 +118,10 @@
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data
                     android:host="actions.google.intervaltimer.com"
-		    android:pathPrefix="/stop"
                     android:scheme="https" />
+                <data android:pathPrefix="/stop" />
+                <data android:pathPrefix="/pause" />
+                <data android:pathPrefix="/resume" />
             </intent-filter>
         </activity>
 

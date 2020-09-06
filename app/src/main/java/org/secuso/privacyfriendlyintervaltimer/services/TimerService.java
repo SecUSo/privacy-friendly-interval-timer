@@ -375,6 +375,8 @@ public class TimerService extends Service {
      * Pause the currently working timer
      */
     public void pauseTimer() {
+        if (isPaused) return;
+
         if(isWorkout && workoutTimer != null) {
             this.workoutTimer.cancel();
         }
@@ -390,6 +392,8 @@ public class TimerService extends Service {
      * Resume the currently working timer
      */
     public void resumeTimer() {
+        if (!isPaused) return;
+
         if(isWorkout){
             this.workoutTimer = createWorkoutTimer(savedTime);
             this.workoutTimer.start();

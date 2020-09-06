@@ -35,6 +35,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import androidx.core.content.ContextCompat;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -86,6 +88,8 @@ public class WorkoutActivity extends AppCompatActivity {
     private TimerService timerService = null;
     private boolean serviceBound = false;
 
+    private final String WORKOUT_INTENT_TAG = "INTENT";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,13 +132,10 @@ public class WorkoutActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fab.setSelected(!fab.isSelected());
-                if (fab.isSelected() && timerService != null){
-                    fab.setImageResource(R.drawable.ic_play_48dp);
-                    timerService.pauseTimer();
-                } else if (timerService != null) {
-                    fab.setImageResource(R.drawable.ic_pause_48dp);
-                    timerService.resumeTimer();
+                if (!fab.isSelected()){
+                    pauseTimer();
+                } else {
+                    resumeTimer();
                 }
             }
         });
@@ -162,17 +163,49 @@ public class WorkoutActivity extends AppCompatActivity {
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
+    private void resumeTimer() {
+        invertFabSelection();
+        if (timerService!= null) {
+            fab.setImageResource(R.drawable.ic_pause_48dp);
+            timerService.resumeTimer();
+            Log.i(WORKOUT_INTENT_TAG, "timer paused: " + timerService.getIsPaused());
+        }
+    }
+
+    private void pauseTimer() {
+        invertFabSelection();
+        if (timerService != null) {
+            fab.setImageResource(R.drawable.ic_play_48dp);
+            timerService.pauseTimer();
+            Log.i(WORKOUT_INTENT_TAG, "timer paused: " + timerService.getIsPaused());
+        }
+    }
+
+    private void invertFabSelection() {
+        fab.setSelected(!fab.isSelected());
+    }
+
     @Override
     protected void onNewIntent(Intent receivedIntent) {
-        // EXERCISE_STOP
+        // EXERCISE_STOP, PAUSE, RESUME
         super.onNewIntent(receivedIntent);
-        Toast show;
+
         if (receivedIntent != null) {
-            show = Toast.makeText(getApplicationContext(),
-                    "Intent: " + receivedIntent.toString(), Toast.LENGTH_LONG);
-            show.show();
+            String action = Objects.requireNonNull(receivedIntent.getData()).getPath();
+            assert action != null;
+            Log.i(WORKOUT_INTENT_TAG, "intent:" + action);
             if (Objects.equals(receivedIntent.getAction(), Intent.ACTION_VIEW)) {
-                finishWorkout(false);
+                switch (action) {
+                    case "/stop":
+                        finishWorkout(false);
+                        break;
+                    case "/pause":
+                        pauseTimer();
+                        break;
+                    case "/resume":
+                        resumeTimer();
+                        break;
+                }
             }
         }
     }
