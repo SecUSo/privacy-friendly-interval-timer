@@ -100,6 +100,13 @@ public class WorkoutActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        Intent receivedIntent = getIntent();
+        if (receivedIntent != null && receivedIntent.getData() != null) {
+            Log.i(WORKOUT_INTENT_TAG, "Intent called, but no active workout");
+            Intent intent = new Intent(this, MainActivity.class);
+            this.startActivity(intent);
+        }
+
         // Bind to LocalService
         Intent intent = new Intent(this, TimerService.class);
         bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
