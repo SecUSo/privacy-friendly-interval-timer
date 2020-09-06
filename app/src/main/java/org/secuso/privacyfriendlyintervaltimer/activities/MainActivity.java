@@ -21,6 +21,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.preference.PreferenceActivity;
@@ -153,19 +154,26 @@ public class MainActivity extends BaseActivity {
 
     public void handleIntent(final Intent receivedIntent) {
         // EXERCISE_START
+
         if (receivedIntent != null) {
-            if (Objects.equals(receivedIntent.getAction(), Intent.ACTION_VIEW)) {
-                Log.i(LOG_INTENT_TAG, Objects.requireNonNull(receivedIntent.getData()).toString());
+            Uri data = receivedIntent.getData();
+            if (data != null && Objects.equals(receivedIntent.getAction(), Intent.ACTION_VIEW) &&
+                    Objects.equals(data.getPath(), "/start")) {
+
+                Log.i(LOG_INTENT_TAG, data.toString());
+
                 getWindow().getDecorView().post(new Runnable() {
                     @Override
                     public void run() {
                         timerService.logWorkoutInfo(LOG_INTENT_TAG);
                         String title = timerService.getCurrentTitle();
                         if (title.isEmpty() || Objects.equals(title, getString(R.string.workout_headline_done))) {
+                            Log.i(LOG_INTENT_TAG, "New workout");
                             startWorkout();
                         } else{
+                            Log.i(LOG_INTENT_TAG, "Restart workout");
                             Toast.makeText(getApplicationContext(),
-                                    "Workout is already in progress",
+                                    "Workout is already in progress; restarting",
                                     Toast.LENGTH_LONG).show();
                             switchToActiveWorkout();
                         }
@@ -274,7 +282,6 @@ public class MainActivity extends BaseActivity {
     private void switchToActiveWorkout() {
         timerService.cleanTimerFinish();
         startWorkout();
-        this.startActivity(intent);
     }
 
     /**
