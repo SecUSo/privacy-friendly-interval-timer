@@ -88,7 +88,7 @@ public class WorkoutActivity extends AppCompatActivity {
     private TimerService timerService = null;
     private boolean serviceBound = false;
 
-    private final String WORKOUT_INTENT_TAG = "INTENT";
+    private final String LOG_TAG = WorkoutActivity.class.getName();
 
 
     @Override
@@ -103,7 +103,7 @@ public class WorkoutActivity extends AppCompatActivity {
         Intent receivedIntent = getIntent();
         if (receivedIntent != null && receivedIntent.getData() != null) {
             String message = "Intent called, but no active workout";
-            Log.i(WORKOUT_INTENT_TAG, message);
+            Log.i(LOG_TAG, message);
             Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
             Intent intent = new Intent(this, MainActivity.class);
             this.startActivity(intent);
@@ -177,7 +177,7 @@ public class WorkoutActivity extends AppCompatActivity {
         if (timerService != null) {
             fab.setImageResource(R.drawable.ic_pause_48dp);
             timerService.resumeTimer();
-            Log.i(WORKOUT_INTENT_TAG, "timer paused: " + timerService.getIsPaused());
+            Log.i(LOG_TAG, "timer paused: " + timerService.getIsPaused());
         }
     }
 
@@ -186,7 +186,7 @@ public class WorkoutActivity extends AppCompatActivity {
         if (timerService != null) {
             fab.setImageResource(R.drawable.ic_play_48dp);
             timerService.pauseTimer();
-            Log.i(WORKOUT_INTENT_TAG, "timer paused: " + timerService.getIsPaused());
+            Log.i(LOG_TAG, "timer paused: " + timerService.getIsPaused());
         }
     }
 
@@ -202,7 +202,7 @@ public class WorkoutActivity extends AppCompatActivity {
         if (receivedIntent != null && receivedIntent.getData() != null) {
             String action = receivedIntent.getData().getPath();
             assert action != null;
-            Log.i(WORKOUT_INTENT_TAG, "intent:" + action);
+            Log.i(LOG_TAG, "intent:" + action);
             if (Objects.equals(receivedIntent.getAction(), Intent.ACTION_VIEW)) {
                 switch (action) {
                     case "/stop":

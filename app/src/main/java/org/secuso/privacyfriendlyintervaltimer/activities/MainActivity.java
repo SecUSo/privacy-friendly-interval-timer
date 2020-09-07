@@ -54,7 +54,7 @@ public class MainActivity extends BaseActivity {
     // Constants for input
     private final String timeVerificationPattern = "[0-9]{1,2} ?: ?[0-9]{1,2}";
     private final String setsVerificationPattern = "[0-9]*";
-    private final String LOG_INTENT_TAG = "INTENT";
+    private final String LOG_TAG = MainActivity.class.getName();
 
 
     // Default values for the timers
@@ -141,46 +141,51 @@ public class MainActivity extends BaseActivity {
         }
 
         Intent receivedIntent = getIntent();
-        Log.i(LOG_INTENT_TAG, "Intent in onCreate() triggered");
+        Log.i(LOG_TAG, "Intent in onCreate() triggered");
         handleIntent(receivedIntent);
     }
 
     @Override
     protected void onNewIntent(final Intent intent) {
         super.onNewIntent(intent);
-        Log.i(LOG_INTENT_TAG, "Intent triggered");
+        Log.i(LOG_TAG, "Intent triggered");
         handleIntent(intent);
     }
 
     public void handleIntent(final Intent receivedIntent) {
         // EXERCISE_START
 
-        if (receivedIntent != null) {
-            Uri data = receivedIntent.getData();
-            if (data != null && Objects.equals(receivedIntent.getAction(), Intent.ACTION_VIEW) &&
-                    Objects.equals(data.getPath(), "/start")) {
-
-                Log.i(LOG_INTENT_TAG, data.toString());
-
-                getWindow().getDecorView().post(new Runnable() {
-                    @Override
-                    public void run() {
-                        timerService.logWorkoutInfo(LOG_INTENT_TAG);
-                        String title = timerService.getCurrentTitle();
-                        if (title.isEmpty() || Objects.equals(title, getString(R.string.workout_headline_done))) {
-                            Log.i(LOG_INTENT_TAG, "New workout");
-                            startWorkout();
-                        } else{
-                            Log.i(LOG_INTENT_TAG, "Restart workout");
-                            Toast.makeText(getApplicationContext(),
-                                    "Workout is already in progress; restarting",
-                                    Toast.LENGTH_LONG).show();
-                            switchToActiveWorkout();
-                        }
-                    }
-                });
-            }
+        if (receivedIntent == null) {
+            return;
         }
+
+        Uri data = receivedIntent.getData();
+
+        if (data == null ||
+                !Objects.equals(receivedIntent.getAction(), Intent.ACTION_VIEW) ||
+                !Objects.equals(data.getPath(), "/start")) {
+            return;
+        }
+
+        Log.i(LOG_TAG, "Intent data: " + data.toString());
+
+        getWindow().getDecorView().post(new Runnable() {
+            @Override
+            public void run() {
+                timerService.logWorkoutInfo(LOG_TAG);
+                String title = timerService.getCurrentTitle();
+                if (title.isEmpty() || Objects.equals(title, getString(R.string.workout_headline_done))) {
+                    Log.i(LOG_TAG, "New workout");
+                    startWorkout();
+                } else {
+                    Log.i(LOG_TAG, "Restart workout");
+                    Toast.makeText(getApplicationContext(),
+                            "Workout is already in progress; restarting",
+                            Toast.LENGTH_LONG).show();
+                    switchToActiveWorkout();
+                }
+            }
+        });
     }
 
     /**
