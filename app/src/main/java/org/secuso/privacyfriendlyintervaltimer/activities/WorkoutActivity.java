@@ -102,7 +102,9 @@ public class WorkoutActivity extends AppCompatActivity {
 
         Intent receivedIntent = getIntent();
         if (receivedIntent != null && receivedIntent.getData() != null) {
-            Log.i(WORKOUT_INTENT_TAG, "Intent called, but no active workout");
+            String message = "Intent called, but no active workout";
+            Log.i(WORKOUT_INTENT_TAG, message);
+            Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
             Intent intent = new Intent(this, MainActivity.class);
             this.startActivity(intent);
         }
@@ -172,7 +174,7 @@ public class WorkoutActivity extends AppCompatActivity {
 
     private void resumeTimer() {
         invertFabSelection();
-        if (timerService!= null) {
+        if (timerService != null) {
             fab.setImageResource(R.drawable.ic_pause_48dp);
             timerService.resumeTimer();
             Log.i(WORKOUT_INTENT_TAG, "timer paused: " + timerService.getIsPaused());
@@ -197,8 +199,8 @@ public class WorkoutActivity extends AppCompatActivity {
         // EXERCISE_STOP, PAUSE, RESUME
         super.onNewIntent(receivedIntent);
 
-        if (receivedIntent != null) {
-            String action = Objects.requireNonNull(receivedIntent.getData()).getPath();
+        if (receivedIntent != null && receivedIntent.getData() != null) {
+            String action = receivedIntent.getData().getPath();
             assert action != null;
             Log.i(WORKOUT_INTENT_TAG, "intent:" + action);
             if (Objects.equals(receivedIntent.getAction(), Intent.ACTION_VIEW)) {

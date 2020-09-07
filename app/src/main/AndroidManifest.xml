@@ -57,6 +57,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
+            <!-- Start commands are handled in MainActivity to launch the workout from there
+            with all the info needed for the workout. Rest of the commands can be handled
+            directly in WorkoutActivity instead. -->
             <intent-filter android:autoVerify="true"
                 tools:targetApi="m">
                 <action android:name="android.intent.action.VIEW" />
@@ -111,6 +114,9 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.secuso.privacyfriendlyintervaltimer.activities.MainActivity" />
+
+            <!-- Start commands are handled in MainActivity; rest of the commands - stopping,
+             pausing and resuming - can be handled here, directly in WorkoutActivity, instead. -->
             <intent-filter android:autoVerify="true"
                 tools:targetApi="m">
                 <action android:name="android.intent.action.VIEW" />

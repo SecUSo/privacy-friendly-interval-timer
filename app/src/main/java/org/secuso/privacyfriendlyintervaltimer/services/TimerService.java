@@ -20,7 +20,6 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 
 import android.util.Log;
-import android.widget.RemoteViews;
 
 import org.secuso.privacyfriendlyintervaltimer.IntervalTimerApp;
 import org.secuso.privacyfriendlyintervaltimer.R;
@@ -76,7 +75,8 @@ public class TimerService extends Service {
     //Timer Flags
     private boolean isBlockPeriodization = false;
     private boolean isStarttimer = false;
-    private boolean isWorkout = false; // If there is workout in progress (as opposed to rest)
+    private boolean isWorkoutStage = false; // If there is an active workout
+                                            // in progress (as opposed to "rest" state)
     private boolean isPaused = false;
     private boolean isCancelAlert = false;
 
@@ -232,7 +232,7 @@ public class TimerService extends Service {
                         restTimer = createRestTimer(restTime);
                     }
                     sendBroadcast(broadcast);
-                    isWorkout = false;
+                    isWorkoutStage = false;
                     timeSpentWorkingOut += 1;
                     restTimer.start();
                 }
@@ -314,7 +314,7 @@ public class TimerService extends Service {
                          .putExtra("new_timer", workoutTime);
 
                 sendBroadcast(broadcast);
-                isWorkout = true;
+                isWorkoutStage = true;
 
                 workoutTimer = createWorkoutTimer(workoutTime);
                 workoutTimer.start();
@@ -357,14 +357,14 @@ public class TimerService extends Service {
         if(startTime != 0){
             this.savedTime = this.restTime;
             this.currentTitle = getResources().getString(R.string.workout_headline_start_timer);
-            isWorkout = false;
+            isWorkoutStage = false;
             isStarttimer = true;
 
             restTimer.start();
         } else {
             this.savedTime = this.workoutTime;
             this.currentTitle = getResources().getString(R.string.workout_headline_workout);
-            isWorkout = true;
+            isWorkoutStage = true;
 
             this.workoutTimer.start();
         }
@@ -375,9 +375,9 @@ public class TimerService extends Service {
      * Pause the currently working timer
      */
     public void pauseTimer() {
-        if (isPaused) return;
+        if (isPaused) { return; }
 
-        if(isWorkout && workoutTimer != null) {
+        if(isWorkoutStage && workoutTimer != null) {
             this.workoutTimer.cancel();
         }
         else if (restTimer !=null) {
@@ -392,9 +392,9 @@ public class TimerService extends Service {
      * Resume the currently working timer
      */
     public void resumeTimer() {
-        if (!isPaused) return;
+        if (!isPaused) { return; }
 
-        if(isWorkout){
+        if(isWorkoutStage){
             this.workoutTimer = createWorkoutTimer(savedTime);
             this.workoutTimer.start();
         }
@@ -417,9 +417,9 @@ public class TimerService extends Service {
      */
     public void nextTimer() {
         //If user is not in the final workout switch to rest phase
-        if(isWorkout && currentSet < sets && restTime != 0) {
+        if(isWorkoutStage && currentSet < sets && restTime != 0) {
             this.workoutTimer.cancel();
-            isWorkout = false;
+            isWorkoutStage = false;
 
             //Check if the next rest phase is normal or a block rest
             long time = (isBlockPeriodization && currentSet % blockPeriodizationSets == 0) ? this.blockPeriodizationTime : this.restTime;
@@ -444,7 +444,7 @@ public class TimerService extends Service {
         else if (currentSet < sets){
             this.restTimer.cancel();
             this.workoutTimer.cancel();
-            isWorkout = true;
+            isWorkoutStage = true;
 
             this.currentTitle = getResources().getString(R.string.workout_headline_workout);
 
@@ -476,9 +476,9 @@ public class TimerService extends Service {
     public void prevTimer() {
 
         //If user is not in the first workout phase go back to the rest phase
-        if (isWorkout && currentSet >= 2 && restTime != 0) {
+        if (isWorkoutStage && currentSet >= 2 && restTime != 0) {
             this.workoutTimer.cancel();
-            isWorkout = false;
+            isWorkoutStage = false;
             this.currentSet -= 1;
 
             long time = (isBlockPeriodization && currentSet % blockPeriodizationSets == 0) ? this.blockPeriodizationTime : this.restTime;
@@ -502,7 +502,7 @@ public class TimerService extends Service {
         }
 
         //If user is in the first workout phase, just reset the timer
-        else if(isWorkout && currentSet == 1) {
+        else if(isWorkoutStage && currentSet == 1) {
             Intent broadcast = new Intent(COUNTDOWN_BROADCAST)
                 .putExtra("new_timer", workoutTime);
 
@@ -521,7 +521,7 @@ public class TimerService extends Service {
         else if (!isStarttimer) {
             this.restTimer.cancel();
             this.workoutTimer.cancel();
-            isWorkout = true;
+            isWorkoutStage = true;
             this.currentTitle = getResources().getString(R.string.workout_headline_workout);
             this.currentSet = (restTime == 0) ? currentSet - 1 : currentSet;
 
@@ -730,7 +730,7 @@ public class TimerService extends Service {
         isCancelAlert = false;
         isBlockPeriodization = false;
         isStarttimer = false;
-        isWorkout = false;
+        isWorkoutStage = false;
         isPaused = false;
         isCancelAlert = false;
         currentTitle = getString(R.string.workout_headline_done);
@@ -771,7 +771,7 @@ public class TimerService extends Service {
     }
 
     public void logWorkoutInfo(String tag) {
-        Log.i(tag, "Workout status " + isWorkout);
+        Log.i(tag, "Workout status: " + isWorkoutStage);
         Log.i(tag, "Current title: " + currentTitle);
         Log.i(tag, "Is paused?: " + isPaused);
         Log.i(tag, "Current set: " + currentSet);
@@ -832,7 +832,7 @@ public class TimerService extends Service {
     }
 
     public boolean getIsWorkout(){
-        return  this.isWorkout;
+        return  this.isWorkoutStage;
     }
 
     public long getStartTime(){
