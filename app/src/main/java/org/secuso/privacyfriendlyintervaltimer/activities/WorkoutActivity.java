@@ -86,7 +86,7 @@ public class WorkoutActivity extends AppCompatActivity {
     // Service variables
     private final BroadcastReceiver timeReceiver = new BroadcastReceiver();
     private TimerService timerService = null;
-    private boolean serviceBound = false;
+    private boolean serviceConnected = false;
 
     private final String LOG_TAG = WorkoutActivity.class.getName();
 
@@ -95,6 +95,7 @@ public class WorkoutActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        Log.i(LOG_TAG, "onCreate()");
 
         setContentView(R.layout.activity_workout);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -102,16 +103,12 @@ public class WorkoutActivity extends AppCompatActivity {
 
         Intent receivedIntent = getIntent();
         if (receivedIntent != null && receivedIntent.getData() != null) {
-            String message = "Intent called, but no active workout";
-            Log.i(LOG_TAG, message);
-            Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(this, MainActivity.class);
-            this.startActivity(intent);
+            getBackToMainActivity();
+        } else {
+            // Bind to LocalService
+            Intent intent = new Intent(this, TimerService.class);
+            bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
         }
-
-        // Bind to LocalService
-        Intent intent = new Intent(this, TimerService.class);
-        bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
 
         // Initialize all GUI variables
         this.caloriesNumber = (TextView) this.findViewById(R.id.workout_finished_calories_number);
@@ -172,28 +169,6 @@ public class WorkoutActivity extends AppCompatActivity {
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    private void resumeTimer() {
-        invertFabSelection();
-        if (timerService != null) {
-            fab.setImageResource(R.drawable.ic_pause_48dp);
-            timerService.resumeTimer();
-            Log.i(LOG_TAG, "timer paused: " + timerService.getIsPaused());
-        }
-    }
-
-    private void pauseTimer() {
-        invertFabSelection();
-        if (timerService != null) {
-            fab.setImageResource(R.drawable.ic_play_48dp);
-            timerService.pauseTimer();
-            Log.i(LOG_TAG, "timer paused: " + timerService.getIsPaused());
-        }
-    }
-
-    private void invertFabSelection() {
-        fab.setSelected(!fab.isSelected());
-    }
-
     @Override
     protected void onNewIntent(Intent receivedIntent) {
         // EXERCISE_STOP, PAUSE, RESUME
@@ -219,6 +194,39 @@ public class WorkoutActivity extends AppCompatActivity {
         }
     }
 
+    private void resumeTimer() {
+        if (timerService == null) { return; }
+        invertFabSelection();
+        fab.setImageResource(R.drawable.ic_pause_48dp);
+        timerService.resumeTimer();
+        Log.i(LOG_TAG, "timer paused: " + timerService.getIsPaused());
+    }
+
+    private void pauseTimer() {
+        if (timerService == null) { return; }
+        invertFabSelection();
+        fab.setImageResource(R.drawable.ic_play_48dp);
+        timerService.pauseTimer();
+        Log.i(LOG_TAG, "timer paused: " + timerService.getIsPaused());
+    }
+
+    private void invertFabSelection() {
+        fab.setSelected(!fab.isSelected());
+    }
+
+    private void getBackToMainActivity() {
+        String message = "Intent called, but no active workout";
+        Log.i(LOG_TAG, message);
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(this, MainActivity.class);
+        this.startActivity(intent);
+
+        if (timerService != null) {
+            cleanTimerServiceFinish();
+        }
+        finish();
+    }
+
 
     /**
      * Defines callbacks for service binding, passed to bindService()
@@ -230,7 +238,7 @@ public class WorkoutActivity extends AppCompatActivity {
         public void onServiceConnected(ComponentName className, IBinder service) {
             TimerService.LocalBinder binder = (TimerService.LocalBinder) service;
             timerService = binder.getService();
-            serviceBound = true;
+            serviceConnected = true;
 
             timerService.setIsAppInBackground(false);
             updateGUI();
@@ -238,7 +246,7 @@ public class WorkoutActivity extends AppCompatActivity {
 
         @Override
         public void onServiceDisconnected(ComponentName arg0) {
-            serviceBound = false;
+            serviceConnected = false;
         }
     };
 
@@ -580,11 +588,11 @@ public class WorkoutActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
+        Log.i(LOG_TAG, "onStop()");
 
-        // Unbind from the service
-        if (serviceBound) {
+        if (serviceConnected) {
             unbindService(serviceConnection);
-            serviceBound = false;
+            serviceConnected = false;
         }
     }
 
@@ -594,6 +602,7 @@ public class WorkoutActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
+        Log.i(LOG_TAG, "onResume()");
 
         if(timerService != null){
             timerService.setIsAppInBackground(false);
@@ -608,6 +617,7 @@ public class WorkoutActivity extends AppCompatActivity {
     @Override
     public void onPause() {
         super.onPause();
+        Log.i(LOG_TAG, "onPause()");
 
         if(timerService != null){
             timerService.setIsAppInBackground(true);
@@ -620,6 +630,7 @@ public class WorkoutActivity extends AppCompatActivity {
      */
     @Override
     public void onDestroy() {
+        Log.i(LOG_TAG, "onDestroy()");
         if(timerService != null){
             timerService.workoutClosed();
             timerService.setCancelAlert(false);
