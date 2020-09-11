@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<actions>
+    <action intentName="actions.intent.START_EXERCISE">
+        <fulfillment urlTemplate="https://actions.google.intervaltimer.com/start"/>
+    </action>
+
+    <action intentName="actions.intent.STOP_EXERCISE">
+        <fulfillment urlTemplate="https://actions.google.intervaltimer.com/stop" />
+    </action>
+
+    <action intentName="actions.intent.PAUSE_EXERCISE">
+        <fulfillment urlTemplate="https://actions.google.intervaltimer.com/pause" />
+    </action>
+
+    <action intentName="actions.intent.RESUME_EXERCISE">
+        <fulfillment urlTemplate="https://actions.google.intervaltimer.com/resume" />
+    </action>
+</actions>
