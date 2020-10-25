@@ -24,6 +24,10 @@
     <string name="main_button_disabled_text">Inaktiver Button</string>
     <string name="main_text_work_interval">Trainingsintervall</string>
     <string name="main_text_rest_interval">Pausenintervall</string>
+    <string name="main_text_interval_exception_null">Null ist kein erlaubter Wert</string>
+    <string name="main_text_interval_exception_empty">Der Wert darf nicht leer sein</string>
+    <string name="main_text_interval_exception_sections">Der Wert hat zu viele Abschnitte</string>
+    <string name="main_text_interval_exception_range">Die Werte für Minuten und Sekunden müssen zwischen 0 und 60 liegen</string>
     <string name="main_text_sets">Sätze</string>
     <string name="main_text_start">START  ></string>
     <string name="main_text_title">Bitte wählen:</string>
