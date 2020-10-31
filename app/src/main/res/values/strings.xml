@@ -23,6 +23,10 @@
     <string name="main_button_disabled_text">Inactive Button</string>
     <string name="main_text_work_interval">Workout Interval</string>
     <string name="main_text_rest_interval">Rest Interval</string>
+    <string name="main_text_interval_exception_null">Null values are not allowed</string>
+    <string name="main_text_interval_exception_empty">Empty values are not allowed</string>
+    <string name="main_text_interval_exception_sections">The value has too many sections</string>
+    <string name="main_text_interval_exception_range">The values for minutes and seconds must be between 0 and 60</string>
     <string name="main_text_sets">Sets</string>
     <string name="main_text_start">START  ></string>
     <string name="main_text_title">Please choose:</string>

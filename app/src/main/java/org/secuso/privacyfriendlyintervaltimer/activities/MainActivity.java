@@ -436,9 +436,9 @@ public class MainActivity extends BaseActivity {
      */
     private int parseTime(String stringTime) throws NumberFormatException {
         if (stringTime == null)
-            throw new NumberFormatException("parseTimeString null str");
+            throw new NumberFormatException(getString(R.string.main_text_interval_exception_null));
         if (stringTime.isEmpty())
-            throw new NumberFormatException("parseTimeString empty str");
+            throw new NumberFormatException(getString(R.string.main_text_interval_exception_empty));
 
         int minutes, seconds;
 
@@ -447,7 +447,7 @@ public class MainActivity extends BaseActivity {
 
         // Throw an exception if the string the wrong length
         if (units.length != 2)
-            throw new NumberFormatException("parseTimeString too many sections");
+            throw new NumberFormatException(getString(R.string.main_text_interval_exception_sections));
 
         // Get the sections from the string
         minutes = Integer.parseInt(units[0].trim());
@@ -455,7 +455,7 @@ public class MainActivity extends BaseActivity {
 
         // Check that the sections are within the correct range
         if ((minutes < 0) || (minutes > 60) || (seconds < 0) || (seconds > 60))
-            throw new NumberFormatException("parseTimeString range error. The values for minutes and seconds must be within [0,60]");
+            throw new NumberFormatException(getString(R.string.main_text_interval_exception_range));
 
         // Return the result
         return (minutes * 60) + seconds;
