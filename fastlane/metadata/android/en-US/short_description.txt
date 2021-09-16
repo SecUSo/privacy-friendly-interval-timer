@@ -1,1 +1,1 @@
-Supports during circuit training sessions and helps achieve training goals.
+(SECUSO) Supports circuit training sessions and helps achieve training goals.
