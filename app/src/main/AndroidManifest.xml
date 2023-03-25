@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="org.secuso.privacyfriendlyintervaltimer">
 
     <supports-screens
@@ -20,6 +21,12 @@
         android:supportsRtl="true"
         android:name="org.secuso.privacyfriendlyintervaltimer.IntervalTimerApp"
         android:theme="@style/AppTheme">
+
+        <meta-data
+            android:name="com.google.android.actions"
+            android:resource="@xml/actions" />
+
+        <!-- SPLASH -->
         <activity
             android:name="org.secuso.privacyfriendlyintervaltimer.activities.SplashActivity"
             android:theme="@style/SplashTheme">
@@ -29,13 +36,43 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
+        <!-- TUTORIAL -->
         <activity
             android:name="org.secuso.privacyfriendlyintervaltimer.tutorial.TutorialActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+
+
+        <!-- MAIN -->
         <activity
             android:name="org.secuso.privacyfriendlyintervaltimer.activities.MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:exported="true"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:launchMode="singleTask">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <!-- Start commands are handled in MainActivity to launch the workout from there
+            with all the info needed for the workout. Rest of the commands can be handled
+            directly in WorkoutActivity instead. -->
+            <intent-filter android:autoVerify="true"
+                tools:targetApi="m">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data
+                    android:host="actions.google.intervaltimer.com"
+                    android:pathPrefix="/start"
+                    android:scheme="https" />
+            </intent-filter>
+        </activity>
+
+        <!-- ABOUT -->
         <activity
             android:name="org.secuso.privacyfriendlyintervaltimer.activities.AboutActivity"
             android:label="@string/about"
@@ -45,6 +82,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.secuso.privacyfriendlyintervaltimer.activities.MainActivity" />
         </activity>
+
+        <!-- HELP -->
         <activity
             android:name="org.secuso.privacyfriendlyintervaltimer.activities.HelpActivity"
             android:label="@string/help"
@@ -54,6 +93,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.secuso.privacyfriendlyintervaltimer.activities.MainActivity" />
         </activity>
+
+        <!-- SETTINGS -->
         <activity
             android:name="org.secuso.privacyfriendlyintervaltimer.activities.SettingsActivity"
             android:label="@string/title_activity_settings"
@@ -62,6 +103,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.secuso.privacyfriendlyintervaltimer.activities.MainActivity" />
         </activity>
+
+        <!-- WORKOUT -->
         <activity
             android:name="org.secuso.privacyfriendlyintervaltimer.activities.WorkoutActivity"
             android:label="@string/title_activity_workout"
@@ -71,7 +114,24 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.secuso.privacyfriendlyintervaltimer.activities.MainActivity" />
+
+            <!-- Start commands are handled in MainActivity; rest of the commands - stopping,
+             pausing and resuming - can be handled here, directly in WorkoutActivity, instead. -->
+            <intent-filter android:autoVerify="true"
+                tools:targetApi="m">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data
+                    android:host="actions.google.intervaltimer.com"
+                    android:scheme="https" />
+                <data android:pathPrefix="/stop" />
+                <data android:pathPrefix="/pause" />
+                <data android:pathPrefix="/resume" />
+            </intent-filter>
         </activity>
+
+        <!-- MOTIVATION -->
         <activity
             android:name="org.secuso.privacyfriendlyintervaltimer.activities.MotivationAlertTextsActivity"
             android:label="@string/title_activity_motivation_alert_texts"
@@ -92,8 +152,9 @@
             </intent-filter>
         </receiver>
 
-        <receiver android:name="org.secuso.privacyfriendlyintervaltimer.receivers.MotivationAlertReceiver" />
+	 <receiver android:name="org.secuso.privacyfriendlyintervaltimer.receivers.MotivationAlertReceiver" />
 
+	<!-- STATISTICS -->
         <activity
             android:name="org.secuso.privacyfriendlyintervaltimer.activities.StatisticsActivity"
             android:label="@string/title_activity_statistics"
@@ -103,6 +164,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.secuso.privacyfriendlyintervaltimer.activities.MainActivity" />
         </activity>
+
     </application>
 
 </manifest>
