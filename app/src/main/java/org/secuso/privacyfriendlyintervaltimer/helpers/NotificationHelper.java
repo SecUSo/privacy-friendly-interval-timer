@@ -14,11 +14,14 @@
 
 package org.secuso.privacyfriendlyintervaltimer.helpers;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -29,6 +32,9 @@ import org.secuso.privacyfriendlyintervaltimer.receivers.MotivationAlertReceiver
 import java.util.Calendar;
 
 import static org.secuso.privacyfriendlyintervaltimer.activities.MotivationAlertTextsActivity.LOG_CLASS;
+
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 /**
  * Sets the motivation alert event to notify the user about a workout.
@@ -47,7 +53,7 @@ public class NotificationHelper {
         Log.i(LOG_CLASS, "Setting motivation alert alarm");
 
         Intent motivationAlertIntent = new Intent(context, MotivationAlertReceiver.class);
-        PendingIntent motivationAlertPendingIntent = PendingIntent.getBroadcast(context, 1, motivationAlertIntent, 0);
+        PendingIntent motivationAlertPendingIntent = PendingIntent.getBroadcast(context, 1, motivationAlertIntent, PendingIntent.FLAG_IMMUTABLE);
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
@@ -97,7 +103,7 @@ public class NotificationHelper {
     public static void cancelMotivationAlert(Context context){
         Log.i(LOG_CLASS, "Canceling motivation alert alarm");
         Intent motivationAlertIntent = new Intent(context, MotivationAlertReceiver.class);
-        PendingIntent motivationAlertPendingIntent = PendingIntent.getBroadcast(context, 1, motivationAlertIntent, 0);
+        PendingIntent motivationAlertPendingIntent = PendingIntent.getBroadcast(context, 1, motivationAlertIntent, PendingIntent.FLAG_IMMUTABLE);
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         am.cancel(motivationAlertPendingIntent);
     }
