@@ -42,6 +42,10 @@ https://www.fitness-gesundheit.uni-wuppertal.de/fileadmin/fitness-gesundheit/pdf
 Mininum SDK: 21
 Target SDK: 33
 
+## Data Backup
+
+You can use the [Privacy Friendly Backup app](https://github.com/SecUSo/privacy-friendly-backup) to backup and restore this application's data. This can also be used to migrate your data to a new phone.
+
 ## License
 
 Privacy Friendly Interval Timer is licensed under the GPLv3.
