@@ -1,13 +1,6 @@
-Die Privacy Friendly Intervalltimer assistiert dem Nutzer bei seinem Zirkeltraining und unterstützt ihn dabei, seine gesteckten Ziele zu erreichen. Um den Nutzer bei seinem Training gezielt zu unterstützen, verfügt die App über Stoppuhren, welche entsprechend dereigenen Trainings- und Ruhephasen konfiguriert werden können. Ferner erinnert die Appden Nutzer an vorher festgelegte Trainingseinheiten mit Erinnerungsfunktion. Um die Erreichung der gesteckten Ziele überprüfen zu können und Trainingsfortschritte zu erkennen, bietet die App die Möglichkeit, Statistiken über die Trainingszeiten und verbrannte Kalorien in einer täglichen, wöchentlichen oder monatlichen Übersicht abzurufen.
 
-Was unterscheidet Privacy Friendly Intervalltimer von anderen, ähnlichen Apps?
 
-1) Minimale Berechtigungen
-Privacy Friendly Internvalltimer benötigt die Berechtigung "Beim Start ausführen", um die Erinnerungen an bevorstehende Trainingseinheiten nach einem Neustart des Telefons wieder zu aktivieren.
-
-Zum Vergleich: Die Top Ten ähnlicher Apps, die im Google Play Store erhältlich sind, benötigen durchschnittlich 9,1 Berechtigungen (Stand: September 2017). Hierzu zählen unter anderem der Zugriff auf den Telefonspeicher, USB-Speicherinhalte, Konten auf dem Gerät, Netzwerk und das Internet.
-
-2) Keine störende Werbung
-Viele andere kostenlose Apps im Google Play Store blenden störende Werbung ein, die unter anderem auch die Akkulaufzeit verkürzt und Datenvolumen verbrauchen kann.
-
-Die App gehört zur Gruppe der Privacy Friendly Apps, die von der Forschungsgruppe SECUSO des Karlsruher Institut für Technologie entwickelt werden. Mehr Informationen unter: https://secuso.org/pfa
+Kontaktieren Sie uns gerne   ber:
+Twitter - @SECUSOResearch https://twitter.com/secusoresearc)
+Mastodon - @SECUSO_Research@baw  .social https://xn--baw-joa.social/@SECUSO_Research/
+Offene Stellen - https://secuso.aifb.kit.edu/83_1557.php
