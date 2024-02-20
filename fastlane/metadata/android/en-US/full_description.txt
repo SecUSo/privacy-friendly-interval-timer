@@ -1,5 +1,20 @@
 
 
+This app is part of the Privacy Friendly Apps group
+developed by the research group SECUSO at Karlsruhe Institute of Technology.
+
+How does Privacy Friendly Interval Timer differ from other similar apps?
+
+1) Minimal permissions
+Privacy Friendly Internval Timer requires the persmission "Run at startup" to automatically restart the motivation notifications when the phone reboots.
+
+For comparison: The Top Ten similar apps from the Google Play Store, require an average of 9,1 permissions (September 2017). These are for instance the permission to access accounts, permissions to access, modify or delete storage and access to networks or the internet.
+
+2) No advertisement
+Moreover, Privacy Friendly Ludo distinguishes from many other applications in the way that it completely relinquishes advertisements. Advertisement might track a user's actions. It could also shorten battery life or use mobile data.
+
+
+Feel free to contact us via:
 Twitter - @SECUSOResearch https://twitter.com/secusoresearch
-Mastodon - @SECUSO_Research@baw  .social https://xn--baw-joa.social/@SECUSO_Research/
+Mastodon - @SECUSO_Research@bawü.social https://xn--baw-joa.social/@SECUSO_Research/
 Job opening - https://secuso.aifb.kit.edu/english/Job_Offers_1557.php
