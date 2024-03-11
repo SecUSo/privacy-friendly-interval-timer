@@ -1,4 +1,6 @@
+Die Privacy Friendly Intervalltimer assistiert dem Nutzer bei seinem Zirkeltraining und unterstützt ihn dabei, seine gesteckten Ziele zu erreichen. Um den Nutzer bei seinem Training gezielt zu unterstützen, verfügt die App über Stoppuhren, welche entsprechend dereigenen Trainings- und Ruhephasen konfiguriert werden können. Ferner erinnert die Appden Nutzer an vorher festgelegte Trainingseinheiten mit Erinnerungsfunktion. Um die Erreichung der gesteckten Ziele überprüfen zu können und Trainingsfortschritte zu erkennen, bietet die App die Möglichkeit, Statistiken über die Trainingszeiten und verbrannte Kalorien in einer täglichen, wöchentlichen oder monatlichen Übersicht abzurufen.
 
+Was unterscheidet Privacy Friendly Intervalltimer von anderen, ähnlichen Apps?
 
 1) Minimale Berechtigungen
 Privacy Friendly Internvalltimer benötigt die Berechtigung "Beim Start ausführen", um die Erinnerungen an bevorstehende Trainingseinheiten nach einem Neustart des Telefons wieder zu aktivieren.
