@@ -24,9 +24,6 @@ Privacy Friendly Interval Timer belongs to the group of Privacy Friendly Apps de
 [<img src="https://f-droid.org/badge/get-it-on.png"
       alt="Get it on F-Droid"
       height="80">](https://f-droid.org/packages/org.secuso.privacyfriendlyintervaltimer/)
-[<img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png"
-      alt="Get it on Google Play"
-      height="80">](https://play.google.com/store/apps/details?id=org.secuso.privacyfriendlyintervaltimer)
 
 ## Motivation
 
