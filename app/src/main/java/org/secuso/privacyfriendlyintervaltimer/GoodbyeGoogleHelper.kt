@@ -1,4 +1,4 @@
-package org.secuso.privacyfriendlyboardgameclock
+package org.secuso.privacyfriendlyintervaltimer;
 
 import android.content.Context
 import android.graphics.text.LineBreaker
