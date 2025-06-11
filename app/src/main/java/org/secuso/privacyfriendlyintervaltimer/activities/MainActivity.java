@@ -33,6 +33,7 @@ import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import org.secuso.privacyfriendlyintervaltimer.GoodbyeGoogleHelperKt;
 import org.secuso.privacyfriendlyintervaltimer.R;
 import org.secuso.privacyfriendlyintervaltimer.helpers.NotificationHelper;
 import org.secuso.privacyfriendlyintervaltimer.services.TimerService;
@@ -136,6 +137,7 @@ public class MainActivity extends BaseActivity {
             prefManager.setFirstTimeLaunch(false);
             showPersonalizationAlert();
         }
+        GoodbyeGoogleHelperKt.checkGoodbyeGoogle(this, getLayoutInflater());
     }
 
 

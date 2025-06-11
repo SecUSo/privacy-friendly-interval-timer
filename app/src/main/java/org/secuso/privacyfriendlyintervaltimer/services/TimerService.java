@@ -103,7 +103,7 @@ public class TimerService extends Service {
         this.workoutTimer = createWorkoutTimer(this.workoutTime);
         this.settings = PreferenceManager.getDefaultSharedPreferences(this);
 
-        registerReceiver(notificationReceiver, new IntentFilter(NOTIFICATION_BROADCAST));
+        ContextCompat.registerReceiver(this, notificationReceiver, new IntentFilter(NOTIFICATION_BROADCAST), ContextCompat.RECEIVER_EXPORTED);
 
         notiBuilder = new NotificationCompat.Builder(this);
         notiManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
