@@ -35,7 +35,7 @@
                 android:clickable="true"
                 android:src="@drawable/ic_volume_loud_24dp"
                 android:focusable="true"
-                android:tint="@color/white" />
+                app:tint="@color/white" />
 
             <TextView
                 android:id="@+id/finish_workout"

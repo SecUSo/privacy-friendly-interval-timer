@@ -34,6 +34,7 @@ import java.util.Calendar;
 import static org.secuso.privacyfriendlyintervaltimer.activities.MotivationAlertTextsActivity.LOG_CLASS;
 
 import androidx.core.app.ActivityCompat;
+import androidx.core.app.AlarmManagerCompat;
 import androidx.core.content.ContextCompat;
 
 /**
@@ -74,9 +75,7 @@ public class NotificationHelper {
 
         // Set alarm
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            am.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), motivationAlertPendingIntent);
-        }else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            am.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), motivationAlertPendingIntent);
+            AlarmManagerCompat.setExactAndAllowWhileIdle(am, AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), motivationAlertPendingIntent);
         }else{
             am.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), motivationAlertPendingIntent);
         }

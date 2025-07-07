@@ -1,5 +1,6 @@
 package org.secuso.privacyfriendlyintervaltimer.services;
 
+import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -11,12 +12,14 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Binder;
+import android.os.Build;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 
 import androidx.core.app.NotificationCompat;
+import androidx.core.app.ServiceCompat;
 import androidx.core.content.ContextCompat;
 
 import android.widget.RemoteViews;
@@ -103,7 +106,7 @@ public class TimerService extends Service {
         this.workoutTimer = createWorkoutTimer(this.workoutTime);
         this.settings = PreferenceManager.getDefaultSharedPreferences(this);
 
-        registerReceiver(notificationReceiver, new IntentFilter(NOTIFICATION_BROADCAST));
+        ContextCompat.registerReceiver(this, notificationReceiver, new IntentFilter(NOTIFICATION_BROADCAST), ContextCompat.RECEIVER_EXPORTED);
 
         notiBuilder = new NotificationCompat.Builder(this);
         notiManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
