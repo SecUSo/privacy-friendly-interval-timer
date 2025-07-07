@@ -251,7 +251,7 @@
                         android:clickable="true"
                         android:onClick="onClick"
                         android:src="@drawable/ic_config_24dp"
-                        android:tint="@color/middlegrey" />
+                        app:tint="@color/middlegrey" />
                 </LinearLayout>
 
                 <Space
