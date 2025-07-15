@@ -9,8 +9,8 @@ android {
         applicationId "org.secuso.privacyfriendlyintervaltimer"
         minSdkVersion 21
         targetSdkVersion 34
-        versionCode 8
-        versionName "1.3.2"
+        versionCode 100
+        versionName "1.3.3"
     }
     buildTypes {
         release {
