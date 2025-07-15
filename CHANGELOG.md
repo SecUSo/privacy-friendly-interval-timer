@@ -1,5 +1,18 @@
 # Changelog
 
+<a id="v1.3.3"></a>
+## [Interval Timer (Privacy Friendly) v1.3.3](https://github.com/SecUSo/privacy-friendly-interval-timer/releases/tag/v1.3.3) - 2025-07-15
+
+## What's Changed
+* Updates changelog and adds ci workflow by [@coderPaddyS](https://github.com/coderPaddyS) in [#59](https://github.com/SecUSo/privacy-friendly-interval-timer/pull/59)
+* Change versionCode to differentiate from last Google Play version by [@coderPaddyS](https://github.com/coderPaddyS) in [#60](https://github.com/SecUSo/privacy-friendly-interval-timer/pull/60)
+
+
+**Full Changelog**: https://github.com/SecUSo/privacy-friendly-interval-timer/compare/v1.3.2...v1.3.3
+
+[Changes][v1.3.3]
+
+
 <a id="v1.3"></a>
 ## [Interval Timer (Privacy Friendly) v1.3](https://github.com/SecUSo/privacy-friendly-interval-timer/releases/tag/v1.3) - 2023-09-26
 
@@ -46,6 +59,7 @@ developed by the research group SECUSO at Technische Universität Darmstadt.
 [Changes][v1.0.1]
 
 
+[v1.3.3]: https://github.com/SecUSo/privacy-friendly-interval-timer/compare/v1.3...v1.3.3
 [v1.3]: https://github.com/SecUSo/privacy-friendly-interval-timer/compare/v1.2...v1.3
 [v1.2]: https://github.com/SecUSo/privacy-friendly-interval-timer/compare/v1.0.2...v1.2
 [v1.0.2]: https://github.com/SecUSo/privacy-friendly-interval-timer/compare/v1.0.1...v1.0.2
