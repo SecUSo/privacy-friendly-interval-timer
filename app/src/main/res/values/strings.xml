@@ -1,15 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Interval Timer</string>
-    <string name="app_name_long">Privacy Friendly Interval Timer</string>
+    <string name="app_name_long">Minuterie d\'intervalle respectueuse de la vie privée</string>
     <string name="app_prefix" translatable="false">Privacy Friendly</string>
-
     <!-- ###GENERAL###-->
     <string name="save">Save</string>
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
     <string name="set">Set</string>
-
-
     <!-- ###DRAWER###-->
     <string name="action_help">Help</string>
     <string name="action_about">About</string>
@@ -24,14 +22,13 @@
     <string name="main_text_work_interval">Workout Interval</string>
     <string name="main_text_rest_interval">Rest Interval</string>
     <string name="main_text_sets">Sets</string>
-    <string name="main_text_start">START  ></string>
+    <string name="main_text_start">START  &gt;</string>
     <string name="main_text_title">Please choose:</string>
     <string name="main_block_periodization_headline">Configuration:</string>
     <string name="main_block_periodization">Block Periodization</string>
     <string name="main_block_periodization_info">Block Periodization</string>
     <string name="main_block_periodization_sets">Set interval before break starts:</string>
     <string name="main_block_periodization_duration">Duration of break:</string>
-
     <!-- ###WORKOUT###-->
     <string name="workout_headline_start_timer">START IN</string>
     <string name="workout_headline_workout">WORKOUT</string>
@@ -43,15 +40,11 @@
     <string name="workout_finished_calories_unit">kcal</string>
     <string name="workout_block_periodization_headline">Block Break</string>
     <string name="workout_finish_button">FINISH</string>
-
-
     <!-- ###NOTIFICATIONS###-->
     <string name="workout_notification_time">Time</string>
     <string name="workout_notification_pause">Pause</string>
     <string name="workout_notification_resume">Resume</string>
     <string name="reminder_notification_title">Circuit Training</string>
-
-
     <!--###HELP###-->
     <string name="help">Help</string>
     <string name="help_whatis">What is Privacy Friendly Interval Timer?</string>
@@ -68,7 +61,6 @@
     <string name="help_privacy_answer">Privacy Friendly Interval Timer does not include any tracking mechanisms or advertisement. It further does not share any user information which may be collected during the usage of this app.</string>
     <string name="help_permission">Which permissions are required by the app?</string>
     <string name="help_permission_answer">Privacy Friendly Interval Timer requires the permission "Receive Boot Completed". It is used to reschedule the motivation alert after a reboot. If the permission is not granted, the app has to be launched first to reschedule the daily reminder notification.</string>
-
     <!--###ABOUT###-->
     <string name="about">About</string>
     <string name="version_number">Version</string>
@@ -81,7 +73,6 @@
     <string name="github" translatable="false"><a href="https://github.com/SecUSo/privacy-friendly-interval-timer">Github-Repo</a></string>
     <string name="url" translatable="false"><a href="https://www.secuso.org/pfa">SECUSO-Website</a></string>
     <string name="about_third_party_libs">The app uses <a href="https://github.com/PhilJay/MPAndroidChart">MPAndroidChart</a> from Philipp Jahoda (Apache 2 License).</string>
-
     <!-- ###SETTINGS### -->
     <string name="title_activity_settings">Settings</string>
     <string name="pref_header_general">General</string>
@@ -128,7 +119,6 @@
         <item>female</item>
         <item>male</item>
     </string-array>
-
     <!-- ###PREFERENCE NOT TRANSLATEABLES### -->
     <string name="pref_cancel_workout_dialog" translatable="false">org.secuso.privacyfriendlytraining.pref_cancel_workout_dialog</string>
     <string name="pref_keep_screen_on_switch_enabled" translatable="false">org.secuso.privacyfriendlytraining.pref_keep_screen_on_switch_enabled</string>
@@ -161,8 +151,6 @@
         <item>0</item>
         <item>1</item>
     </string-array>
-
-
     <!-- Alerts -->
     <string name="motivation_alert_input_title">Motivation alert text</string>
     <string name="motivation_alert_empty">Set custom alert messages to be displayed when you are reminded about workout sessions.\n\nThere will be no alert if no message exists.</string>
@@ -171,18 +159,16 @@
     <string-array name="pref_default_notification_motivation_alert_messages">
         <item>Let\'s do it, it\'s time to work out!</item>
     </string-array>
-    <string name="alert_confirm_dialog_positive">Yes</string>
-    <string name="alert_confirm_dialog_negative">No</string>
+    <string name="alert_confirm_dialog_positive">Oui</string>
+    <string name="alert_confirm_dialog_negative">Non</string>
     <string name="workout_canceled_info">Do you want to abort the workout?</string>
     <string name="workout_canceled_check">Don\'t show this message again</string>
     <string name="alert_personalization_title">Do you want to personalize your app now?</string>
     <string name="alert_personalization_message">This will improve the calories calculation.</string>
-
-
     <!-- ReportFragment -->
-    <string name="month">Month</string>
-    <string name="week">Week</string>
-    <string name="day">Day</string>
+    <string name="month">Mois</string>
+    <string name="week">Semaine</string>
+    <string name="day">Jour</string>
     <string name="report_workout_time">Workout time in minutes</string>
     <string name="report_calories">Calories</string>
     <string name="activity_summary_subtitle">Summary of activities</string>
@@ -190,31 +176,23 @@
     <string name="summary_card_calories">kcal</string>
     <string name="action_calories">Calories</string>
     <string name="action_time">Workout time</string>
-
-
     <!-- ### TUTORIAL DIALOG ### -->
-    <string name="slide1_heading">Welcome!</string>
-    <string name="slide1_text1">This app supports you during your circuit training session. It provides you with a configurable set of timers for the exercises and the rest phases.</string>
-    <string name="slide1_text2">Also, statistics of completed training sessions can be accessed.</string>
-
-    <string name="slide2_heading">Personalization</string>
-    <string name="slide2_text">In order to improve the calculation of the calories you have burned please customize your personal settings. Calories are counted for completed workout phases only.</string>
-
+    <string name="slide1_heading">Bienvenue!</string>
+    <string name="slide1_text1">Cette application vous assiste pendant votre circuit d\'entraînement.. Elle vous fournit un ensemble configurable de minuteries pour les exercices et les phases de repos.</string>
+    <string name="slide1_text2">Il est également possible d\'accéder aux statistiques des sessions de formation achevées.</string>
+    <string name="slide2_heading">Personnalisation</string>
+    <string name="slide2_text">Afin d\'améliorer le calcul des calories que vous avez brûlées, veuillez personnaliser vos données personnelles. Les calories sont comptabilisées uniquement pour les phases d\'entraînement terminées.</string>
     <string name="slide3_heading">Notifications</string>
-    <string name="slide3_text">The app can remind you about upcoming workout sessions. This can be configured inside the settings.</string>
-
-    <string name="slide4_heading">Block Periodization</string>
-    <string name="slide4_text_1">When scheduling the timers you may also choose the block periodization feature.</string>
-    <string name="slide4_text_2">This feature allows you to configure longer, separate breaks in between the exercises. This way the workout can be split into multiple high intensity workout cycles.</string>
-
-    <string name="okay">Okay</string>
-    <string name="viewhelp">View Help</string>
+    <string name="slide3_text">L\'application peut vous rappeler les séances d\'entraînement à venir. Cette fonction peut être configurée dans les paramètres.</string>
+    <string name="slide4_heading">Periodisation par block</string>
+    <string name="slide4_text_1">Lors de la configuration des minuteries, vous pouvez également choisir la fonction de périodisation par blocs.</string>
+    <string name="slide4_text_2">Cette fonction vous permet de configurer des pauses plus longues et séparées entre les exercices. La séance d\'entraînement peut ainsi être divisée en plusieurs cycles d\'entraînement à haute intensité.</string>
+    <string name="okay">Ok</string>
+    <string name="viewhelp">Voir l\'aide</string>
     <string name="main_button_welcomedialog">Show Welcome</string>
-    <string name="next">Next</string>
-    <string name="skip">Skip</string>
-    <string name="title_activity_workout">Workout</string>
+    <string name="next">Suivant</string>
+    <string name="skip">Passer</string>
+    <string name="title_activity_workout">Exercices</string>
     <string name="title_activity_statistics">Statistics</string>
-
     <string name="hello_blank_fragment">Hello blank fragment</string>
-
 </resources>
