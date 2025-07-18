@@ -1,14 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Intervalltimer</string>
     <string name="app_name_long">Privacy Friendly Intervalltimer</string>
-
     <!-- ###GENERAL###-->
     <string name="save">Speichern</string>
     <string name="delete">Löschen</string>
     <string name="edit">Bearbeiten</string>
     <string name="set">Übernehmen</string>
-
-
     <!-- ###DRAWER###-->
     <string name="action_help">Hilfe</string>
     <string name="action_about">Über</string>
@@ -16,23 +14,21 @@
     <string name="action_settings">Einstellungen</string>
     <string name="action_main">Hauptmenü</string>
     <string name="action_statistics">Statistiken</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-
+    <string name="navigation_drawer_open">Navigationsmenü öffnen</string>
+    <string name="navigation_drawer_close">Navigationsmenü schließen</string>
     <!-- ###MAIN### -->
     <string name="main_button_text">Button volle Breite</string>
     <string name="main_button_disabled_text">Inaktiver Button</string>
     <string name="main_text_work_interval">Trainingsintervall</string>
     <string name="main_text_rest_interval">Pausenintervall</string>
     <string name="main_text_sets">Sätze</string>
-    <string name="main_text_start">START  ></string>
+    <string name="main_text_start">START  &gt;</string>
     <string name="main_text_title">Bitte wählen:</string>
     <string name="main_block_periodization_headline">Konfiguration:</string>
     <string name="main_block_periodization">Blocktraining</string>
     <string name="main_block_periodization_info">Blocktraining</string>
     <string name="main_block_periodization_sets">Sätzeintervall nach denen die Pause startet:</string>
     <string name="main_block_periodization_duration">Dauer der Pause:</string>
-
     <!-- ###WORKOUT###-->
     <string name="workout_headline_start_timer">START IN</string>
     <string name="workout_headline_workout">ÜBUNG</string>
@@ -44,23 +40,18 @@
     <string name="workout_finished_calories_unit">kcal</string>
     <string name="workout_block_periodization_headline">Block Pause</string>
     <string name="workout_finish_button">BEENDEN</string>
-
-
     <!-- ###NOTIFICATION###-->
     <string name="workout_notification_time">Zeit</string>
     <string name="workout_notification_pause">Pausieren</string>
     <string name="workout_notification_resume">Fortsetzen</string>
     <string name="reminder_notification_title">Zirkeltraining</string>
-
-
     <!--###HELP###-->
     <string name="help">Help</string>
-
     <string name="help_whatis">Was ist Privacy Friendly Intervalltimer?</string>
     <string name="help_whatis_answer">Privacy Friendly Intervalltimer unterstützt Sie während Ihres Zirkeltrainings. Die App bietet Ihnen hierfür sowohl konfigurierbare Stoppuhren für Ihre Übungen und Pausen als auch zahlreiche andere Funktionen.</string>
     <string name="help_feature_workout_timer">Was ist der Trainingsbildschirm?</string>
     <string name="help_feature_workout_timer_answer">Nach der Konfiguration der Timer im Hauptmenü kann das Training mit dem Startbutton begonnen werden. Der Trainingsbildschirm beinhaltet verschiedene Animationen und Tonausgaben, die im Einstellungsmenü an- und ausgeschaltet werden können.</string>
-    <string name="help_feature_motivation_alert">Was sind Benachrichtigungen?</string>
+    <string name="help_feature_motivation_alert">Was sind Motivationsbenachrichtigungen?</string>
     <string name="help_feature_motivation_alert_answer">Die App kann Sie über anstehende Trainingseinheiten benachrichtigen. Der Zeitpunkt der Benachrichtigung und der Motivationstext können im Einstellungsmenü konfiguriert werden.</string>
     <string name="help_feature_block_periodization">Was ist Blocktraining?</string>
     <string name="help_feature_block_periodization_answer">Neben den Trainings- und Pausezeiten kann auch ein Blocktraining konfiguriert werden. Mit diesem Feature können Sie separate, längere Pausen zwischen den Übungen festlegen. Dadurch lässt sich das Training in mehrere feste Zyklen intensiven Trainings unterteilen.</string>
@@ -69,9 +60,7 @@
     <string name="help_privacy">Was macht die App privatsphäre-freundlich?</string>
     <string name="help_privacy_answer">Privacy Friendly Intervalltimer beinhaltet keinerlei Werbung oder Tracking-Mechanismen. Außerdem werden keine Nutzerinformationen, die in der App konfiguriert oder gesammelt wurden, weitergegeben.</string>
     <string name="help_permission">Welche Berechtigungen braucht die App?</string>
-    <string name="help_permission_answer">Privacy Friendly Intervalltimer benötigt die Berechtigung "Startvorgang abgeschlossen". Diese wird verwendet um die täglichen Motivationsbenachrichtigungen, nach einem Neustart, wieder einzuplannen. Wird die Berechtigung nicht gewährt so muss die App, nach einem Neustart, erst wieder einmal gestartet werden. </string>
-
-
+    <string name="help_permission_answer">Privacy Friendly Intervalltimer benötigt die Berechtigung Startvorgang abgeschlossen. Diese wird verwendet um die täglichen Motivationsbenachrichtigungen nach einem Neustart wieder einzuplanen. Wird die Erlaubnis nicht erteilt, muss die App zuerst gestartet werden, um die tägliche Erinnerungsbenachrichtigung neu zu planen.</string>
     <!--###ABOUT###-->
     <string name="about">Über</string>
     <string name="version_number">Version</string>
@@ -81,12 +70,10 @@
     <string name="privacy_friendly">Diese App gehört zur Gruppe der Privacy Friendly Apps entwickelt von der Forschungsgruppe SECUSO am Karlsruher Institut für Technologie. Quelltext lizenziert unter GPLv3. Bilder copyright SECUSO/KIT und Google Inc.</string>
     <string name="more_info">Weitere Infos unter:</string>
     <string name="about_third_party_libs">Die App verwendet <a href="https://github.com/PhilJay/MPAndroidChart">MPAndroidChart</a> von Philipp Jahoda (Apache 2 License).</string>
-
     <!-- ###SETTINGS### -->
     <string name="title_activity_settings">Einstellungen</string>
     <string name="pref_header_general">Allgemein</string>
     <string name="pref_header_workout">Training</string>
-
     <string name="pref_voice_countdown_workout_title">Ansage Countdown Training</string>
     <string name="pref_voice_countdown_workout_summary">Eine Stimme zählt die letzten Sekunden des Trainings herunter.</string>
     <string name="pref_voice_countdown_rest_title">Ansage Countdown Pause</string>
@@ -95,7 +82,6 @@
     <string name="pref_sound_rythm_summary">Sekündlicher Ton während des Trainings.</string>
     <string name="pref_voice_halftime_title">Ansage Halbzeit</string>
     <string name="pref_voice_halftime_summary">Eine Stimme sagt die Halbzeit des Trainings an.</string>
-
     <string name="pref_header_notification">Benachrichtigungen</string>
     <string name="pref_header_statistics">Statistiken</string>
     <string name="pref_header_personalization">Personalisierung</string>
@@ -120,7 +106,6 @@
     <string name="pref_calories_counter_summary">Zählen verbrannter Kalorien.</string>
     <string name="pref_cancel_workout_check_title">Warnmeldung bei Abbruch</string>
     <string name="pref_cancel_workout_check_summary">Zeige eine Warnmeldung beim vorzeitigen Verlassen des Trainings.</string>
-
     <string name="pref_group_title_personal_settings">Personalisierung</string>
     <string name="pref_title_weight">Gewicht (kg)</string>
     <string name="pref_title_age">Alter</string>
@@ -130,10 +115,9 @@
         <item>weiblich</item>
         <item>männlich</item>
     </string-array>
-
     <!-- Alerts -->
-    <string name="motivation_alert_input_title">Motivationstext</string>
-    <string name="title_activity_motivation_alert_texts">Motivationsbenachrichtigungen</string>
+    <string name="motivation_alert_input_title">Motivationsbenachrichtigungstext</string>
+    <string name="title_activity_motivation_alert_texts">Motivationsbenachrichtigungstexte</string>
     <string name="motivation_alert_empty">Erstellen Sie persönliche Motivationsbenachrichtigungen, die erscheinen, wenn Sie an Trainingseinheiten erinnert werden.\n\nEs erscheint keine Benachrichtigung, wenn keine Texte angelegt sind.</string>
     <string name="motivation_alert_input_msg">Speichern Sie eine persönliche Motivationsbenachrichtigung. Die Auswahl der Nachricht erfolgt zufällig.</string>
     <string name="motivation_alert_input_empty">Bitte geben Sie eine Motivationsbenachrichtigung ein.</string>
@@ -146,7 +130,6 @@
     <string name="workout_canceled_check">Diese Nachricht nicht wieder anzeigen</string>
     <string name="alert_personalization_title">Wollen Sie ihre App personalisieren?</string>
     <string name="alert_personalization_message">Dies wird die Kalorienberechnung verbessern.</string>
-
     <!-- ReportFragment -->
     <string name="month">Monat</string>
     <string name="week">Woche</string>
@@ -158,32 +141,24 @@
     <string name="summary_card_calories">kcal</string>
     <string name="action_calories">Kalorien</string>
     <string name="action_time">Trainingszeit</string>
-
-
     <!-- ### WELCOME DIALOG ### -->
     <string name="okay">Okay</string>
-    <string name="viewhelp">Hilfe</string>
+    <string name="viewhelp">Hilfe anzeigen</string>
     <string name="main_button_welcomedialog">Willkommen</string>
-
     <!-- ### TUTORIAL DIALOG ### -->
     <string name="slide1_heading">Willkommen!</string>
     <string name="slide1_text1">Diese App unterstützt Sie während Ihres Zirkeltrainings. Sie bietet Ihnen hierfür konfigurierbare Stoppuhren für Ihre Übungen und Pausen.</string>
     <string name="slide1_text2">Außerdem können Statistiken über erfolgte Trainingseinheiten gesammelt werden.</string>
-
     <string name="slide2_heading">Personalisierung</string>
     <string name="slide2_text">Um die Berechnung der verbrannten Kalorien zu verbessern, können Sie unter Einstellungen Ihre persönlichen Werte eingeben. Kalorien werden nur für abgeschlossene Trainingseinheiten angerechnet.</string>
-
     <string name="slide3_heading">Benachrichtigungen</string>
-    <string name="slide3_text">Die App kann Sie über anstehende Trainingseinheiten benachrichtigen.  Der Zeitpunkt der Benachrichtigung und der Motivationstext können im Einstellungsmenü konfiguriert werden.</string>
-
+    <string name="slide3_text">Die App kann Sie über anstehende Trainingseinheiten benachrichtigen. Der Zeitpunkt der Benachrichtigung und der Motivationstext können im Einstellungsmenü konfiguriert werden.</string>
     <string name="slide4_heading">Blocktraining</string>
     <string name="slide4_text_1">Neben den Trainings- und Pausezeiten kann auch ein Blocktraining konfiguriert werden.</string>
     <string name="slide4_text_2">Mit diesem Feature können Sie separate, längere Pausen zwischen den Übungen festlegen. Dadurch lässt sich das Training in mehrere feste Zyklen intensiven Trainings unterteilen.</string>
-
     <string name="next">Weiter</string>
-    <string name="skip">Skip</string>
+    <string name="skip">Überspringen</string>
     <string name="title_activity_workout">Training</string>
     <string name="title_activity_statistics">Statistiken</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
+    <string name="hello_blank_fragment">Hallo leeres Fragment</string>
 </resources>
