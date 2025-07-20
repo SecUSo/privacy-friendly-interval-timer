@@ -1,0 +1,23 @@
+Интервальный таймер поддерживает вас во время круговой тренировки и помогает вам достичь целей тренировок. Чтобы поддержать вас во время его тренировок, приложение предоставляет секундомеры, которые можно настроить в соответствии с собственными фазами тренировки и отдыха пользователя. Кроме того, приложение напоминает пользователю о ранее определенных сеансах тренировок с помощью уведомления.
+
+Для проверки целей пользователя и отслеживания прогресса тренировок приложение предлагает возможность получать статистику о времени тренировок и сожжённых калориях в ежедневном, еженедельном или ежемесячном обзоре.
+
+
+This app is part of the Privacy Friendly Apps group
+developed by the research group SECUSO at Karlsruhe Institute of Technology.
+
+How does Privacy Friendly Interval Timer differ from other similar apps?
+
+1) Minimal permissions
+Privacy Friendly Internval Timer requires the persmission "Run at startup" to automatically restart the motivation notifications when the phone reboots.
+
+For comparison: The Top Ten similar apps from the Google Play Store, require an average of 9,1 permissions (September 2017). These are for instance the permission to access accounts, permissions to access, modify or delete storage and access to networks or the internet.
+
+2) No advertisement
+Moreover, Privacy Friendly Ludo distinguishes from many other applications in the way that it completely relinquishes advertisements. Advertisement might track a user's actions. It could also shorten battery life or use mobile data.
+
+
+Feel free to contact us via:
+Bluesky - @secusoresearch.bsky.social https://bsky.app/profile/secusoresearch.bsky.social
+Mastodon - @SECUSO_Research@bawü.social https://xn--baw-joa.social/@SECUSO_Research/
+Job opening - https://secuso.aifb.kit.edu/english/Job_Offers.php
