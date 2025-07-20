@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Interval Timer</string>
-    <string name="app_name_long">Minuterie d\'intervalle respectueuse de la vie privée</string>
+    <string name="app_name_long">Privacy Friendly Interval Timer</string>
     <string name="app_prefix" translatable="false">Privacy Friendly</string>
     <!-- ###GENERAL###-->
     <string name="save">Save</string>
@@ -159,8 +159,8 @@
     <string-array name="pref_default_notification_motivation_alert_messages">
         <item>Let\'s do it, it\'s time to work out!</item>
     </string-array>
-    <string name="alert_confirm_dialog_positive">Oui</string>
-    <string name="alert_confirm_dialog_negative">Non</string>
+    <string name="alert_confirm_dialog_positive">Yes</string>
+    <string name="alert_confirm_dialog_negative">No</string>
     <string name="workout_canceled_info">Do you want to abort the workout?</string>
     <string name="workout_canceled_check">Don\'t show this message again</string>
     <string name="alert_personalization_title">Do you want to personalize your app now?</string>
@@ -177,22 +177,22 @@
     <string name="action_calories">Calories</string>
     <string name="action_time">Workout time</string>
     <!-- ### TUTORIAL DIALOG ### -->
-    <string name="slide1_heading">Bienvenue!</string>
-    <string name="slide1_text1">Cette application vous assiste pendant votre circuit d\'entraînement.. Elle vous fournit un ensemble configurable de minuteries pour les exercices et les phases de repos.</string>
-    <string name="slide1_text2">Il est également possible d\'accéder aux statistiques des sessions de formation achevées.</string>
-    <string name="slide2_heading">Personnalisation</string>
-    <string name="slide2_text">Afin d\'améliorer le calcul des calories que vous avez brûlées, veuillez personnaliser vos données personnelles. Les calories sont comptabilisées uniquement pour les phases d\'entraînement terminées.</string>
+    <string name="slide1_heading">Welcome!</string>
+    <string name="slide1_text1">This app supports you during your circuit training session. It provides you with a configurable set of timers for the exercises and the rest phases.</string>
+    <string name="slide1_text2">Also, statistics of completed training sessions can be accessed.</string>
+    <string name="slide2_heading">Personalization</string>
+    <string name="slide2_text">To improve the calculation of the calories you have burned, please personalize your data. Calories are only counted for completed training phases.</string>
     <string name="slide3_heading">Notifications</string>
-    <string name="slide3_text">L\'application peut vous rappeler les séances d\'entraînement à venir. Cette fonction peut être configurée dans les paramètres.</string>
-    <string name="slide4_heading">Periodisation par block</string>
-    <string name="slide4_text_1">Lors de la configuration des minuteries, vous pouvez également choisir la fonction de périodisation par blocs.</string>
-    <string name="slide4_text_2">Cette fonction vous permet de configurer des pauses plus longues et séparées entre les exercices. La séance d\'entraînement peut ainsi être divisée en plusieurs cycles d\'entraînement à haute intensité.</string>
-    <string name="okay">Ok</string>
-    <string name="viewhelp">Voir l\'aide</string>
+    <string name="slide3_text">The app can remind you about upcoming workout sessions. This can be configured inside the settings.</string>
+    <string name="slide4_heading">Block Periodization</string>
+    <string name="slide4_text_1">When scheduling the timers you may also choose the block periodization feature.</string>
+    <string name="slide4_text_2">This feature allows you to configure longer, separate breaks in between the exercises. This way the workout can be split into multiple high intensity workout cycles.</string>
+    <string name="okay">Okay</string>
+    <string name="viewhelp">View Help</string>
     <string name="main_button_welcomedialog">Show Welcome</string>
-    <string name="next">Suivant</string>
-    <string name="skip">Passer</string>
-    <string name="title_activity_workout">Exercices</string>
+    <string name="next">Next</string>
+    <string name="skip">Skip</string>
+    <string name="title_activity_workout">Workout</string>
     <string name="title_activity_statistics">Statistics</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
