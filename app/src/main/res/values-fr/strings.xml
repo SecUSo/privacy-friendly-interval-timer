@@ -1,3 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="action_help">Aide</string>
+    <string name="action_about">À propos</string>
+    <string name="action_settings">Paramètres</string>
+    <string name="action_main">Menu principal</string>
+    <string name="navigation_drawer_open">Ouvrir le menu de navigation</string>
+    <string name="navigation_drawer_close">Fermer le menu de navigation</string>
+    <string name="help">Aide</string>
+    <string name="help_privacy">Qu\'est-ce qui rend cette application respectueuse de la vie privée ?</string>
+    <string name="about">À propos</string>
+    <string name="version_number">Version</string>
+    <string name="about_author">Auteur(e)s :</string>
+    <string name="about_author_contributors">et contributeurs/-trices.</string>
+    <string name="about_affiliation">Affilié à</string>
+    <string name="more_info">Plus d\'informations peuvent être consultées depuis :</string>
+    <string name="title_activity_settings">Paramètres</string>
+    <string name="pref_header_general">Général</string>
+    <string name="slide1_heading">Bienvenu.e !</string>
 </resources>
