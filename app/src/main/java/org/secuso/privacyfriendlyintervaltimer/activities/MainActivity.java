@@ -25,6 +25,8 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -51,7 +53,7 @@ public class MainActivity extends BaseActivity {
 
     // Constants for input
     private final String timeVerificationPattern = "[0-9]{1,2} ?: ?[0-9]{1,2}";
-    private final String setsVerificationPattern = "[0-9]*";
+    private final String setsVerificationPattern = "^[1-9]\\d*$";
 
 
     // Default values for the timers
@@ -130,6 +132,108 @@ public class MainActivity extends BaseActivity {
             }
         });
 
+        //change listener for workoutIntervalText, restIntervalText, setsText
+        workoutIntervalText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                /* nothing */
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                /* nothing */
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                String workoutValue = workoutIntervalText.getText().toString();
+
+                // Get and parse the workout interval
+                if (!(workoutValue.matches(timeVerificationPattern))) {
+                    workoutIntervalText.setError("Expected time format is mm:ss");
+                    return;
+                }
+
+                try {
+                    workoutTime = parseTime(workoutValue);
+                    SharedPreferences.Editor editor = settings.edit();
+                    editor.putInt(getString(R.string.pref_timer_workout),(int) workoutTime);
+                    editor.commit();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    workoutIntervalText.setError(e.getMessage());
+                }
+            }
+        });
+
+
+        restIntervalText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                /* nothing */
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                /* nothing */
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                // Get and parse the rest interval
+                String restValue = restIntervalText.getText().toString();
+                if (!(restValue.matches(timeVerificationPattern))) {
+                    restIntervalText.setError("Expected time format is mm:ss");
+                    return;
+                }
+
+                try {
+                    restTime = parseTime(restValue);
+                    SharedPreferences.Editor editor = settings.edit();
+                    editor.putInt(getString(R.string.pref_timer_rest),(int) restTime);
+                    editor.commit();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    restIntervalText.setError(e.getMessage());
+                }
+
+            }
+        });
+
+        this.setsText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                /* nothing */
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                /* nothing */
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                // Get and parse the number of sets
+                EditText setsText = (EditText)findViewById(R.id.main_sets_amount);
+                String setsValue = setsText.getText().toString();
+                if (setsValue.isEmpty() || !(setsValue.matches(setsVerificationPattern))) {
+                    setsText.setError("Expected an integer greater than zero");
+                    return;
+                }
+
+                try {
+                    sets = Integer.parseInt(setsValue);
+                    SharedPreferences.Editor editor = settings.edit();
+                    editor.putInt(getString(R.string.pref_timer_set), sets);
+                    editor.commit();
+                } catch (Exception e){
+                    e.printStackTrace();
+                    setsText.setError(e.getMessage());
+                }
+            }
+        });
+
+
         //Suggest the user to enter his body data
         prefManager = new PrefManager(this);
         if(prefManager.isFirstTimeLaunch()){
@@ -166,57 +270,8 @@ public class MainActivity extends BaseActivity {
                 break;
             case R.id.start_workout:
                 intent = new Intent(this, WorkoutActivity.class);
-
-                boolean parseFail = false;
-
-                // Get and parse the workout interval
-                EditText workoutText = (EditText)findViewById(R.id.main_workout_interval_time);
-                String workoutValue = workoutText.getText().toString();
-                if (!(workoutValue.matches(timeVerificationPattern))) {
-                    workoutText.setError("Enter a time in the format mm:ss");
-                    parseFail = true;
-                }
-
-                try {
-                    this.workoutTime = parseTime(workoutValue);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    workoutText.setError(e.getMessage());
-                    parseFail = true;
-                }
-
-                // Get and parse the rest interval
-                EditText restText = (EditText)findViewById(R.id.main_rest_interval_time);
-                String restValue = restText.getText().toString();
-                if (!(restValue.matches(timeVerificationPattern))) {
-                    restText.setError("Enter a time in the format mm:ss");
-                    parseFail = true;
-                }
-
-                try {
-                    this.restTime = parseTime(restValue);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    restText.setError(e.getMessage());
-                    parseFail = true;
-                }
-
-                // Get and parse the number of sets
-                EditText setsText = (EditText)findViewById(R.id.main_sets_amount);
-                String setsValue = setsText.getText().toString();
-                if (!(setsValue.matches(setsVerificationPattern))) {
-                    setsText.setError("Enter an integer");
-                    parseFail = true;
-                }
-
-                try {
-                    this.sets = Integer.parseInt(setsValue);
-                } catch (Exception e){
-                    e.printStackTrace();
-                }
-
                 // Start the workout if there were no problems
-                if (!parseFail) {
+                if (workoutIntervalText.getError() == null && restIntervalText.getError() == null &&  setsText.getError() == null) {
                     if (isStartTimerEnabled(this)) {
                         timerService.startWorkout(workoutTime, restTime, startTime, sets,
                                 isBlockPeriodization, blockPeriodizationTime, blockPeriodizationSets);
@@ -436,9 +491,9 @@ public class MainActivity extends BaseActivity {
      */
     private int parseTime(String stringTime) throws NumberFormatException {
         if (stringTime == null)
-            throw new NumberFormatException("parseTimeString null str");
+            throw new NumberFormatException("String is null");
         if (stringTime.isEmpty())
-            throw new NumberFormatException("parseTimeString empty str");
+            throw new NumberFormatException("String is empty");
 
         int minutes, seconds;
 
@@ -447,7 +502,7 @@ public class MainActivity extends BaseActivity {
 
         // Throw an exception if the string the wrong length
         if (units.length != 2)
-            throw new NumberFormatException("parseTimeString too many sections");
+            throw new NumberFormatException("Expected time format is mm:ss");
 
         // Get the sections from the string
         minutes = Integer.parseInt(units[0].trim());
@@ -455,7 +510,7 @@ public class MainActivity extends BaseActivity {
 
         // Check that the sections are within the correct range
         if ((minutes < 0) || (minutes > 60) || (seconds < 0) || (seconds > 60))
-            throw new NumberFormatException("parseTimeString range error. The values for minutes and seconds must be within [0,60]");
+            throw new NumberFormatException("Range error. The values for minutes and seconds must be within [0,60]");
 
         // Return the result
         return (minutes * 60) + seconds;
