@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_tutorial">Öğretici</string>
+    <string name="workout_info">Ayarla</string>
+    <string name="help">Yardım</string>
+    <string name="main_block_periodization_headline">Yapılandırma:</string>
+    <string name="save">Kaydet</string>
+    <string name="edit">Düzenle</string>
+    <string name="delete">Sil</string>
+    <string name="set">Ayarla</string>
+    <string name="action_help">Yardım</string>
+    <string name="action_about">Hakkında</string>
+    <string name="action_settings">Ayarlar</string>
+    <string name="action_main">Başlıca</string>
+    <string name="action_statistics">Sayımlama</string>
+    <string name="navigation_drawer_open">Gezinti çekmecesini aç</string>
+    <string name="navigation_drawer_close">Gezinti çekmecesini kapat</string>
+    <string name="main_button_text">Tam Genişlik Düğmesi</string>
+    <string name="main_text_start">BAŞLA &gt;</string>
+    <string name="workout_notification_pause">Duraklat</string>
+    <string name="workout_notification_resume">Sürdür</string>
+    <string name="workout_headline_done">BİTTİ</string>
+    <string name="workout_notification_time">Süre</string>
+    <string name="about">Hakkında</string>
+    <string name="version_number">Sürüm</string>
+    <string name="about_author">Yazarlar:</string>
+    <string name="about_affiliation">ile bağlantılı olarak</string>
+    <string name="about_author_contributors">ve katkıda bulunanlar.</string>
+    <string name="title_activity_settings">Ayarlar</string>
+    <string name="pref_header_general">Genel</string>
+    <string name="pref_header_notification">Bildirimler</string>
+    <string name="pref_header_statistics">Sayımlama</string>
+    <string name="pref_title_notification_delete_statistics_alert">Sayımlamayı Sil</string>
+    <string name="pref_header_personalization">Kişiselleştirme</string>
+    <string name="pref_statistics_title">Sayımlama</string>
+    <string name="pref_delete_statistics_dialog_title">Sayımlamayı sil</string>
+    <string name="pref_delete_statistics_dialog_info">Kayıtlı tüm sayımlamayı silmek istiyor musunuz?</string>
+    <string name="pref_group_title_personal_settings">Kişiselleştirme</string>
+    <string name="pref_title_weight">Ağırlık (kg)</string>
+    <string name="slide1_heading">Hoş geldiniz!</string>
+    <string name="slide3_heading">Bildirimler</string>
+    <string name="okay">Tmm</string>
+    <string name="title_activity_statistics">Sayımlama</string>
+</resources>
